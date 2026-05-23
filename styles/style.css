@@ -16,11 +16,20 @@
 body {
     font-weight: 400;
     font-size: 1.2rem;
-    
+
 }
 
-h1, h2, h3, h4, p {
+h1,
+h2,
+h3,
+h4,
+p {
     overflow-wrap: break-word;
+}
+
+button,
+li {
+    cursor: pointer;
 }
 
 .container {
@@ -34,9 +43,11 @@ img {
     max-width: 100%;
     height: auto;
 }
+
 .nav {
     background-color: var(--bg);
     border-bottom: 2px solid var(--accent);
+    position: relative;
 }
 
 
@@ -59,13 +70,14 @@ img {
     font-weight: 600;
     padding: 0.5rem 1rem;
     transition: background-color 0.2s ease-in,
-                color 0.2s ease-in;
+        color 0.2s ease-in;
     position: relative;
 }
 
 .nav--link:hover {
     background-color: hsl(from var(--accent) h s l / 0.2);
 }
+
 .nav--link::after {
     content: "";
     position: absolute;
@@ -85,15 +97,182 @@ img {
     width: 100%;
 }
 
-.nav__toggle {
+.nav__phone {
     display: none;
 }
 
-@media(max-width: 600px) {
-    .nav__toggle {
-        display: block;
+
+/** Drop down menu**** */
+.dropdown {
+    position: relative;
+}
+
+.dropdown--menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    list-style: none;
+
+    background-color: var(--bg);
+    border: 2px solid hsl(from var(--accent) h s l / 0.2);
+
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+}
+
+@media (min-width: 600px) {
+    .dropdown:hover .dropdown--menu {
+        max-height: 500px;
+        opacity: 1;
+        position: absolute;
+        top: 100%;
+        left: 0;
+
+        padding: 1rem;
+        z-index: 1;
     }
-    .nav--list {
-        display: none;
+
+    /* rotate when active */
+    .dropdown:hover .dropdown--toggle svg {
+        transform: rotate(180deg);
     }
 }
+
+
+.dropdown--menu a {
+    text-decoration: none;
+    color: var(--secondary);
+    padding: 0.5rem;
+    margin-block: 2rem;
+    border-radius: 0.3rem;
+}
+
+.dropdown--menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+}
+
+.dropdown--toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+
+@media(max-width: 600px) {
+    .logo {
+        flex-basis: 180px;
+    }
+
+
+    .nav__phone {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav__toggle {
+        width: 3rem;
+        aspect-ratio: 1/1;
+        padding: 0;
+        margin: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav--list .logo {
+        display: none;
+    }
+
+    .nav--list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: stretch;
+        background: var(--bg);
+        border-block: 2px solid var(--accent);
+
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+
+        transition: max-height 0.5s ease, opacity 0.3s ease;
+    }
+
+    .nav--list.active {
+        min-height: 60vh;
+        opacity: 1;
+    }
+
+    .nav--list li {
+        border-bottom: 2px solid hsl(from var(--accent) h s l / 0.2);
+        text-align: center;
+        padding-block: 0.5rem;
+    }
+
+    .nav__phone--close {
+        display: none;
+    }
+
+    /* SVG scales to button */
+    .nav__toggle svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .dropdown.active .dropdown--menu {
+        max-height: 500px;
+        opacity: 1;
+
+        padding: 1rem;
+        z-index: 1;
+        border: none;
+    }
+
+    /* rotate when active */
+    .dropdown.active .dropdown--toggle svg {
+        transform: rotate(180deg);
+    }
+
+    .dropdown--menu a {
+        padding-block: 1rem;
+    }
+
+}
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+
+    padding: 0.75rem 1rem;
+
+    background: black;
+    color: white;
+
+    text-decoration: none;
+    border-radius: 0.4rem;
+
+    z-index: 9999;
+
+    transition: top 0.3s ease;
+}
+
+/* shows when keyboard users tab */
+.skip-link:focus {
+    top: 1rem;
+}
+
+/* ********Header ends********* */
+/* ********Header ends********* */
