@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 :root {
     --primary: #111827;
     --secondary: #2563EB;
-    --accent: #F59E08;
+    --accent: #FF6609;
     --bg: #F9FAF8;
 }
 
@@ -16,7 +19,7 @@
 body {
     font-weight: 400;
     font-size: 1.2rem;
-    font-family: inter;
+    font-family: 'Inter', -apple-system, sans-serif;
 }
 
 h1,
@@ -38,6 +41,22 @@ h2::before {
     content: "";
     border-top: 0.1em double var(--primary);
     align-self: center;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 2rem;
+}
+p {
+    font-family: 'lato', sans-serif;
+    font-size: 1rem;
+    font-weight: noraml;
+    line-height: 1.4rem;
+    opacity: 0.8;
+}
+
+h3 {
+    font-size: 1.2rem;
 }
 
 button,
@@ -159,11 +178,76 @@ img {
 }
 
 
+@media(max-width: 600px) {
+    .hero--wrapper {
+        grid-template-columns: 1fr;
+        
+    }
+    .hero--reviews {
+        order: 1;
+    }
+    .hero--content {
+        order: -1;
+    }
+}
 /* **********Product Section****** */
 
 .products {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 1rem;
-    margin-block: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 24px;
+  padding: 20px;
+}
+
+.product-card {
+  background: var(--bg);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px hsl(from var(--primary) h s l /0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 35px hsl(from var(--primary) h s l /0.2);
+}
+
+.product--image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  
+}
+
+.product-content {
+  padding: 16px;
+}
+
+.product-content h3 {
+  color: var(--primary);
+}
+
+.product-content p {
+  margin: 0 0 14px;
+  font-size: 0.95rem;
+  color: var(--primary);
+  line-height: 1.5;
+}
+
+.shop-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: var(--bg);
+  text-decoration: none;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.shop-btn:hover {
+  background: #333;
+  transform: scale(1.03);
 }
