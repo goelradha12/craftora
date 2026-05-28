@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Customizer</title>
+<style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    canvas { border: 1px solid #ccc; cursor: grab; }
+    .controls { margin: 10px 0; }
+</style>
+</head>
+<body>
+
+<h2>Customize Your Product</h2>
+
+<div class="controls">
+    <label>Product Color: 
+        <input type="color" id="colorPicker" value="#ff0000">
+    </label>
+    <br><br>
+    <label>Add Text: 
+        <input type="text" id="customText" placeholder="Enter text">
+    </label>
+    <br><br>
+    <label>Or Upload Design: 
+        <input type="file" id="designUpload" accept="image/*">
+    </label>
+    <br><br>
+    <button id="downloadBtn">Download Design</button>
+</div>
+
+<canvas id="productCanvas" width="400" height="400"></canvas>
+
+<script>
+const canvas = document.getElementById('productCanvas');
+const ctx = canvas.getContext('2d');
+
+let productColor = document.getElementById('colorPicker').value;
+
+// Text properties
+let text = '';
+let textX = 200, textY = 200;
+
+// Image properties
+let designImage = null;
+let imgX = 150, imgY = 150, imgW = 100, imgH = 100;
+
+// Dragging state
+let isDragging = false;
+let dragTarget = null;
+
+// Draw product
+function drawProduct() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Product shape (circle for example)
+    ctx.fillStyle = productColor;
+    ctx.beginPath();
+    ctx.arc(200, 200, 150, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Draw image if exists
+    if (designImage) {
+        ctx.drawImage(designImage, imgX, imgY, imgW, imgH);
+    }
+
+    // Draw text if exists
+    if (text) {
+        ctx.fillStyle = 'white';
+        ctx.font = '24px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(text, textX, textY);
+    }
+}
+
+// Color change
+document.getElementById('colorPicker').addEventListener('input', (e) => {
+    productColor = e.target.value;
+    drawProduct();
+});
+
+// Text change
+document.getElementById('customText').addEventListener('input', (e) => {
+    text = e.target.value;
+    drawProduct();
+});
+
+// Image upload
+document.getElementById('designUpload').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const img = new Image();
+        img.onload = () => {
+            designImage = img;
+            drawProduct();
+        };
+        img.src = URL.createObjectURL(file);
+    }
+});
+
+// Mouse down - check if clicking text or image
+canvas.addEventListener('mousedown', (e) => {
+    const mouseX = e.offsetX;
+    const mouseY = e.offsetY;
+
+    // Check image
+    if (designImage && mouseX >= imgX && mouseX <= imgX + imgW &&
+        mouseY >= imgY && mouseY <= imgY + imgH) {
+        isDragging = true;
+        dragTarget = 'image';
+        return;
+    }
+
+    // Check text
+    const textWidth = ctx.measureText(text).width;
+    if (text && mouseX > textX - textWidth/2 && mouseX < textX + textWidth/2 &&
+        mouseY > textY - 20 && mouseY < textY + 10) {
+        isDragging = true;
+        dragTarget = 'text';
+    }
+});
+
+// Mouse move - drag target
+canvas.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+        if (dragTarget === 'text') {
+            textX = e.offsetX;
+            textY = e.offsetY;
+        } else if (dragTarget === 'image') {
+            imgX = e.offsetX - imgW / 2;
+            imgY = e.offsetY - imgH / 2;
+        }
+        drawProduct();
+    }
+});
+
+// Mouse up - stop dragging
+canvas.addEventListener('mouseup', () => {
+    isDragging = false;
+    dragTarget = null;
+});
+
+// Download design
+document.getElementById('downloadBtn').addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = 'custom_product.png';
+    link.href = canvas.toDataURL();
+    link.click();
+});
+
+// Initial draw
+drawProduct();
+</script>
+
+</body>
+</html>

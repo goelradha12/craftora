@@ -1,0 +1,461 @@
+{
+  "products": [
+    {
+      "id": "P001",
+      "name": "Minimalist Daily Diary",
+      "category": "Diary",
+      "template": "Plane",
+      "basePrice": 399,
+      "description": "Premium hardcover diary with smooth pages for daily journaling.",
+      "sizes": ["A5", "A4"],
+      "colors": ["#000000", "#FFFFFF", "#8B4513"],
+      "images": {
+        "default": "./assets/products/diary1/default.jpg",
+        "others": [
+          "./assets/products/diary1/open.jpg",
+          "./assets/products/diary1/back.jpg"
+        ]
+      },
+      "designs": ["D001"],
+      "badges": ["Best Seller"],
+      "featured": true,
+      "stock": 120
+    },
+    {
+      "id": "P002",
+      "name": "Vintage Leather Diary",
+      "category": "Diary",
+      "template": "Logo",
+      "basePrice": 599,
+      "description": "Elegant leather-bound diary with customizable logo embossing.",
+      "sizes": ["A5"],
+      "colors": ["#5C4033", "#000000"],
+      "images": {
+        "default": "./assets/products/diary2/default.jpg",
+        "others": []
+      },
+      "designs": ["D002"],
+      "badges": ["Premium"],
+      "featured": false,
+      "stock": 85
+    },
+    {
+      "id": "P003",
+      "name": "Creative Sketch Diary",
+      "category": "Diary",
+      "template": "Our designs",
+      "basePrice": 449,
+      "description": "Sketch-friendly diary with artistic cover designs.",
+      "sizes": ["A4"],
+      "colors": ["#FF69B4", "#FFD700"],
+      "images": {
+        "default": "./assets/products/diary3/default.jpg",
+        "others": []
+      },
+      "designs": ["D003"],
+      "badges": ["Artist Pick"],
+      "featured": true,
+      "stock": 60
+    },
+    {
+      "id": "P004",
+      "name": "Eco Steel Bottle",
+      "category": "Bottle",
+      "template": "Logo",
+      "basePrice": 699,
+      "description": "Insulated stainless steel bottle with logo customization.",
+      "sizes": ["500ml", "750ml"],
+      "colors": ["#1E90FF", "#000000", "#FFFFFF"],
+      "images": {
+        "default": "./assets/products/bottle1/default.jpg",
+        "others": []
+      },
+      "designs": ["D004"],
+      "badges": ["Eco Friendly"],
+      "featured": true,
+      "stock": 100
+    },
+    {
+      "id": "P005",
+      "name": "Gradient Gym Bottle",
+      "category": "Bottle",
+      "template": "Design Middle",
+      "basePrice": 799,
+      "description": "Stylish gradient gym bottle for daily hydration.",
+      "sizes": ["1L"],
+      "colors": ["#FF4500", "#9400D3"],
+      "images": {
+        "default": "./assets/products/bottle2/default.jpg",
+        "others": []
+      },
+      "designs": ["D005"],
+      "badges": ["Trending"],
+      "featured": true,
+      "stock": 70
+    },
+    {
+      "id": "P006",
+      "name": "Matte Black Bottle",
+      "category": "Bottle",
+      "template": "Plane",
+      "basePrice": 649,
+      "description": "Minimal matte black bottle with premium finish.",
+      "sizes": ["750ml"],
+      "colors": ["#000000"],
+      "images": {
+        "default": "./assets/products/bottle3/default.jpg",
+        "others": []
+      },
+      "designs": [],
+      "badges": [],
+      "featured": false,
+      "stock": 45
+    },
+    {
+      "id": "P007",
+      "name": "Oversized Cotton T-Shirt",
+      "category": "Tshirt",
+      "subCategory": "Oversized",
+      "template": "Big design middle",
+      "basePrice": 999,
+      "description": "Comfortable oversized cotton t-shirt with streetwear vibes.",
+      "sizes": ["S", "M", "L", "XL"],
+      "colors": ["#FFFFFF", "#000000", "#D3D3D3"],
+      "images": {
+        "default": "./assets/products/tshirt1/default.jpg",
+        "others": []
+      },
+      "designs": ["D006"],
+      "badges": ["Trending"],
+      "featured": true,
+      "stock": 140
+    },
+    {
+      "id": "P008",
+      "name": "Anime Oversized Tee",
+      "category": "Tshirt",
+      "subCategory": "Oversized",
+      "template": "Our designs",
+      "basePrice": 1099,
+      "description": "Anime-inspired oversized tee with vibrant artwork.",
+      "sizes": ["M", "L", "XL"],
+      "colors": ["#111111", "#FF0000"],
+      "images": {
+        "default": "./assets/products/tshirt2/default.jpg",
+        "others": []
+      },
+      "designs": ["D007"],
+      "badges": ["Hot"],
+      "featured": true,
+      "stock": 90
+    },
+    {
+      "id": "P009",
+      "name": "Full Sleeve Sports Tee",
+      "category": "Tshirt",
+      "subCategory": "Full sleeves",
+      "template": "Design Middle",
+      "basePrice": 899,
+      "description": "Polyester sports t-shirt designed for active wear.",
+      "sizes": ["M", "L", "XL"],
+      "colors": ["#0000FF", "#222222"],
+      "images": {
+        "default": "./assets/products/tshirt3/default.jpg",
+        "others": []
+      },
+      "designs": ["D008"],
+      "badges": ["Sports"],
+      "featured": false,
+      "stock": 80
+    },
+    {
+      "id": "P010",
+      "name": "Classic V-Neck Tee",
+      "category": "Tshirt",
+      "subCategory": "V neck",
+      "template": "design side",
+      "basePrice": 749,
+      "description": "Classic V-neck t-shirt with side print customization.",
+      "sizes": ["S", "M", "L"],
+      "colors": ["#FFFFFF", "#228B22"],
+      "images": {
+        "default": "./assets/products/tshirt4/default.jpg",
+        "others": []
+      },
+      "designs": ["D009"],
+      "badges": [],
+      "featured": false,
+      "stock": 65
+    },
+    {
+      "id": "P011",
+      "name": "Minimal Cotton Tee",
+      "category": "Tshirt",
+      "subCategory": "Cotton",
+      "template": "Plane",
+      "basePrice": 699,
+      "description": "Soft cotton t-shirt with minimalist aesthetics.",
+      "sizes": ["S", "M", "L", "XL"],
+      "colors": ["#FFFFFF", "#000000", "#808080"],
+      "images": {
+        "default": "./assets/products/tshirt5/default.jpg",
+        "others": []
+      },
+      "designs": [],
+      "badges": ["Daily Wear"],
+      "featured": true,
+      "stock": 200
+    },
+    {
+      "id": "P012",
+      "name": "Graphic Cotton Tee",
+      "category": "Tshirt",
+      "subCategory": "Cotton",
+      "template": "Big design middle",
+      "basePrice": 849,
+      "description": "Bold graphic print cotton t-shirt.",
+      "sizes": ["M", "L"],
+      "colors": ["#FFD700", "#000000"],
+      "images": {
+        "default": "./assets/products/tshirt6/default.jpg",
+        "others": []
+      },
+      "designs": ["D010"],
+      "badges": ["Limited Edition"],
+      "featured": true,
+      "stock": 55
+    },
+    {
+      "id": "P013",
+      "name": "Custom Printed Coffee Mug",
+      "category": "Cup",
+      "template": "Our designs",
+      "basePrice": 349,
+      "description": "Ceramic mug with high-quality custom print.",
+      "sizes": ["300ml"],
+      "colors": ["#FFFFFF", "#000000"],
+      "images": {
+        "default": "./assets/products/cup1/default.jpg",
+        "others": []
+      },
+      "designs": ["D011"],
+      "badges": ["Best Seller"],
+      "featured": true,
+      "stock": 300
+    },
+    {
+      "id": "P014",
+      "name": "Motivational Quote Mug",
+      "category": "Cup",
+      "template": "Design Middle",
+      "basePrice": 399,
+      "description": "Coffee mug with inspiring daily quotes.",
+      "sizes": ["350ml"],
+      "colors": ["#FFFFFF", "#FF6347"],
+      "images": {
+        "default": "./assets/products/cup2/default.jpg",
+        "others": []
+      },
+      "designs": ["D012"],
+      "badges": ["Motivation"],
+      "featured": false,
+      "stock": 120
+    },
+    {
+      "id": "P015",
+      "name": "Magic Color Changing Mug",
+      "category": "Cup",
+      "template": "Logo",
+      "basePrice": 599,
+      "description": "Heat-sensitive mug that changes color with hot drinks.",
+      "sizes": ["350ml"],
+      "colors": ["#000000"],
+      "images": {
+        "default": "./assets/products/cup3/default.jpg",
+        "others": []
+      },
+      "designs": ["D013"],
+      "badges": ["Magic"],
+      "featured": true,
+      "stock": 75
+    },
+    {
+      "id": "P016",
+      "name": "Couple Theme Mug Set",
+      "category": "Cup",
+      "template": "Our designs",
+      "basePrice": 799,
+      "description": "Cute matching mug set for couples.",
+      "sizes": ["300ml"],
+      "colors": ["#FFC0CB", "#87CEFA"],
+      "images": {
+        "default": "./assets/products/cup4/default.jpg",
+        "others": []
+      },
+      "designs": ["D014"],
+      "badges": ["Gift Item"],
+      "featured": true,
+      "stock": 50
+    },
+    {
+      "id": "P017",
+      "name": "Travel Diary Premium",
+      "category": "Diary",
+      "template": "Design Middle",
+      "basePrice": 499,
+      "description": "Travel-themed diary for documenting adventures.",
+      "sizes": ["A5"],
+      "colors": ["#4682B4", "#8B4513"],
+      "images": {
+        "default": "./assets/products/diary4/default.jpg",
+        "others": []
+      },
+      "designs": ["D015"],
+      "badges": ["Travel"],
+      "featured": false,
+      "stock": 90
+    },
+    {
+      "id": "P018",
+      "name": "Corporate Logo Bottle",
+      "category": "Bottle",
+      "template": "Logo",
+      "basePrice": 899,
+      "description": "Corporate branding bottle for office gifting.",
+      "sizes": ["1L"],
+      "colors": ["#C0C0C0", "#000080"],
+      "images": {
+        "default": "./assets/products/bottle4/default.jpg",
+        "others": []
+      },
+      "designs": ["D016"],
+      "badges": ["Corporate"],
+      "featured": false,
+      "stock": 110
+    },
+    {
+      "id": "P019",
+      "name": "Streetwear Graphic Hoodie Tee",
+      "category": "Tshirt",
+      "subCategory": "Full sleeves",
+      "template": "Big design middle",
+      "basePrice": 1299,
+      "description": "Streetwear inspired full sleeve hoodie tee.",
+      "sizes": ["L", "XL"],
+      "colors": ["#000000", "#800000"],
+      "images": {
+        "default": "./assets/products/tshirt7/default.jpg",
+        "others": []
+      },
+      "designs": ["D017"],
+      "badges": ["Streetwear"],
+      "featured": true,
+      "stock": 40
+    },
+    {
+      "id": "P020",
+      "name": "Minimal White Ceramic Cup",
+      "category": "Cup",
+      "template": "Plane",
+      "basePrice": 299,
+      "description": "Simple and elegant white ceramic cup.",
+      "sizes": ["250ml"],
+      "colors": ["#FFFFFF"],
+      "images": {
+        "default": "./assets/products/cup5/default.jpg",
+        "others": []
+      },
+      "designs": [],
+      "badges": [],
+      "featured": false,
+      "stock": 250
+    }
+  ],
+  "designs": [
+    {
+      "id": "D001",
+      "name": "Minimal Black Theme",
+      "image": "./assets/designs/d1.png"
+    },
+    {
+      "id": "D002",
+      "name": "Leather Stamp Logo",
+      "image": "./assets/designs/d2.png"
+    },
+    {
+      "id": "D003",
+      "name": "Creative Art Cover",
+      "image": "./assets/designs/d3.png"
+    },
+    {
+      "id": "D004",
+      "name": "Mountain Logo",
+      "image": "./assets/designs/d4.png"
+    },
+    {
+      "id": "D005",
+      "name": "Gradient Splash",
+      "image": "./assets/designs/d5.png"
+    },
+    {
+      "id": "D006",
+      "name": "Urban Streetwear",
+      "image": "./assets/designs/d6.png"
+    },
+    {
+      "id": "D007",
+      "name": "Anime Warrior",
+      "image": "./assets/designs/d7.png"
+    },
+    {
+      "id": "D008",
+      "name": "Sports Dynamic",
+      "image": "./assets/designs/d8.png"
+    },
+    {
+      "id": "D009",
+      "name": "Minimal Side Stripe",
+      "image": "./assets/designs/d9.png"
+    },
+    {
+      "id": "D010",
+      "name": "Bold Typography",
+      "image": "./assets/designs/d10.png"
+    },
+    {
+      "id": "D011",
+      "name": "Coffee Lover Quote",
+      "image": "./assets/designs/d11.png"
+    },
+    {
+      "id": "D012",
+      "name": "Morning Motivation",
+      "image": "./assets/designs/d12.png"
+    },
+    {
+      "id": "D013",
+      "name": "Hidden Heat Print",
+      "image": "./assets/designs/d13.png"
+    },
+    {
+      "id": "D014",
+      "name": "Couple Hearts",
+      "image": "./assets/designs/d14.png"
+    },
+    {
+      "id": "D015",
+      "name": "Travel Map Art",
+      "image": "./assets/designs/d15.png"
+    },
+    {
+      "id": "D016",
+      "name": "Corporate Branding",
+      "image": "./assets/designs/d16.png"
+    },
+    {
+      "id": "D017",
+      "name": "Street Graffiti",
+      "image": "./assets/designs/d17.png"
+    }
+  ]
+}

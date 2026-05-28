@@ -39,7 +39,7 @@ h2 {
 h2::after,
 h2::before {
     content: "";
-    border-top: 0.1em double var(--primary);
+    border-top: 0.1em double hsl(from var(--primary) h s l /0.4);
     align-self: center;
 }
 

@@ -4,48 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Craftora | Modern Custom Merchandize</title>
+
+    <title>Login - Craftora | Modern Custom Merchandise</title>
+
     <link rel="stylesheet" href="./styles/header.css">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/login.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
-    <main class="login">
-        <div class="login--image">
-            <img src="./assets/t-shirt_blue_person.jpg" alt="">
-        </div>
-        <div class="login--form">
-            <!-- <img src="./assets/logo.png" alt="Craftora Logo" class="logo-loginPage"> -->
-            <h2>Login</h2>
-            <form id="loginForm">
-                <title>Login</title>
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
-                    </div>
-                </div>
 
+    <main class="login">
+
+        <!-- Left Image -->
+        <div class="login--image">
+            <img src="./assets/t-shirt_blue_person.jpg" alt="Person wearing custom t-shirt">
+        </div>
+
+        <!-- Login Form -->
+        <div class="login--form">
+
+            <!-- Logo -->
+            <a href="./index.html" class="logo-link">
+                <img src="./assets/logo.png" alt="Craftora Logo" class="logo-loginPage">
+            </a>
+
+            <h2>Hello! Welcome Back!</h2>
+
+            <form id="loginForm">
+
+                <!-- Email -->
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="email" class="required">
+                        Email Address
+                    </label>
+
                     <div class="input-with-icon">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="password" class="form-control" placeholder="Enter your password"
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email"
                             required>
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn hero--btn">Sign In</button>
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password" class="required">
+                        Password
+                    </label>
 
-                <div class="signup-link">
-                    Don't have an account? <a href="./signup.html">Sign up here</a>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock" aria-hidden="true"></i>
+
+                        <input type="password" id="password" name="password" class="form-control"
+                            placeholder="Enter your password" required>
+                    </div>
                 </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn hero--btn">
+                    Sign In
+                </button>
+
+                <!-- Signup Link -->
+                <div class="signup-link">
+                    Don't have an account?
+                    <a href="./signup.html">Sign up here</a>
+                </div>
+
             </form>
+
         </div>
 
     </main>
+
 </body>
 
 </html>
