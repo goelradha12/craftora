@@ -94,24 +94,6 @@
       "stock": 70
     },
     {
-      "id": "P006",
-      "name": "Matte Black Bottle",
-      "category": "Bottle",
-      "template": "Plane",
-      "basePrice": 649,
-      "description": "Minimal matte black bottle with premium finish.",
-      "sizes": ["750ml"],
-      "colors": ["#000000"],
-      "images": {
-        "default": "./assets/products/bottle3/default.jpg",
-        "others": []
-      },
-      "designs": [],
-      "badges": [],
-      "featured": false,
-      "stock": 45
-    },
-    {
       "id": "P007",
       "name": "Oversized Cotton T-Shirt",
       "category": "Tshirt",
@@ -129,25 +111,6 @@
       "badges": ["Trending"],
       "featured": true,
       "stock": 140
-    },
-    {
-      "id": "P008",
-      "name": "Anime Oversized Tee",
-      "category": "Tshirt",
-      "subCategory": "Oversized",
-      "template": "Our designs",
-      "basePrice": 1099,
-      "description": "Anime-inspired oversized tee with vibrant artwork.",
-      "sizes": ["M", "L", "XL"],
-      "colors": ["#111111", "#FF0000"],
-      "images": {
-        "default": "./assets/products/tshirt2/default.jpg",
-        "others": []
-      },
-      "designs": ["D007"],
-      "badges": ["Hot"],
-      "featured": true,
-      "stock": 90
     },
     {
       "id": "P009",
@@ -207,27 +170,8 @@
       "stock": 200
     },
     {
-      "id": "P012",
-      "name": "Graphic Cotton Tee",
-      "category": "Tshirt",
-      "subCategory": "Cotton",
-      "template": "Big design middle",
-      "basePrice": 849,
-      "description": "Bold graphic print cotton t-shirt.",
-      "sizes": ["M", "L"],
-      "colors": ["#FFD700", "#000000"],
-      "images": {
-        "default": "./assets/products/tshirt6/default.jpg",
-        "others": []
-      },
-      "designs": ["D010"],
-      "badges": ["Limited Edition"],
-      "featured": true,
-      "stock": 55
-    },
-    {
       "id": "P013",
-      "name": "Custom Printed Coffee Mug",
+      "name": "Coffee Mug",
       "category": "Cup",
       "template": "Our designs",
       "basePrice": 349,
@@ -242,42 +186,6 @@
       "badges": ["Best Seller"],
       "featured": true,
       "stock": 300
-    },
-    {
-      "id": "P014",
-      "name": "Motivational Quote Mug",
-      "category": "Cup",
-      "template": "Design Middle",
-      "basePrice": 399,
-      "description": "Coffee mug with inspiring daily quotes.",
-      "sizes": ["350ml"],
-      "colors": ["#FFFFFF", "#FF6347"],
-      "images": {
-        "default": "./assets/products/cup2/default.jpg",
-        "others": []
-      },
-      "designs": ["D012"],
-      "badges": ["Motivation"],
-      "featured": false,
-      "stock": 120
-    },
-    {
-      "id": "P015",
-      "name": "Magic Color Changing Mug",
-      "category": "Cup",
-      "template": "Logo",
-      "basePrice": 599,
-      "description": "Heat-sensitive mug that changes color with hot drinks.",
-      "sizes": ["350ml"],
-      "colors": ["#000000"],
-      "images": {
-        "default": "./assets/products/cup3/default.jpg",
-        "others": []
-      },
-      "designs": ["D013"],
-      "badges": ["Magic"],
-      "featured": true,
-      "stock": 75
     },
     {
       "id": "P016",
@@ -296,42 +204,6 @@
       "badges": ["Gift Item"],
       "featured": true,
       "stock": 50
-    },
-    {
-      "id": "P017",
-      "name": "Travel Diary Premium",
-      "category": "Diary",
-      "template": "Design Middle",
-      "basePrice": 499,
-      "description": "Travel-themed diary for documenting adventures.",
-      "sizes": ["A5"],
-      "colors": ["#4682B4", "#8B4513"],
-      "images": {
-        "default": "./assets/products/diary4/default.jpg",
-        "others": []
-      },
-      "designs": ["D015"],
-      "badges": ["Travel"],
-      "featured": false,
-      "stock": 90
-    },
-    {
-      "id": "P018",
-      "name": "Corporate Logo Bottle",
-      "category": "Bottle",
-      "template": "Logo",
-      "basePrice": 899,
-      "description": "Corporate branding bottle for office gifting.",
-      "sizes": ["1L"],
-      "colors": ["#C0C0C0", "#000080"],
-      "images": {
-        "default": "./assets/products/bottle4/default.jpg",
-        "others": []
-      },
-      "designs": ["D016"],
-      "badges": ["Corporate"],
-      "featured": false,
-      "stock": 110
     },
     {
       "id": "P019",
