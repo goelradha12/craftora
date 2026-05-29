@@ -33,10 +33,10 @@ const FOOTER_CODE = `
                 <h3>Shop Categories</h3>
 
                 <ul>
-                    <li><a href="#">Diary</a></li>
-                    <li><a href="#">Bottle</a></li>
-                    <li><a href="#">T-shirt</a></li>
-                    <li><a href="#">Cup</a></li>
+                    <li><a href="./products.html?category=Diary">Diary</a></li>
+                    <li><a href="./products.html?category=Bottle">Bottle</a></li>
+                    <li><a href="./products.html?category=Tshirt">T-shirt</a></li>
+                    <li><a href="./products.html?category=Cup">Cup</a></li>
                 </ul>
             </div>
 
@@ -61,9 +61,9 @@ const FOOTER_CODE = `
 
 const HEADER_CODE = `<nav class="nav">
             <div class="nav__phone">
-                <li class="logo">
-                    <a href="#"><img src="./assets/logo.png" alt="Craftora logo. Click for home."></a>
-                </li>
+                <div class="logo">
+                    <a href="./index.html"><img src="./assets/logo.png" alt="Craftora logo. Click for home."></a>
+                </div>
                 <button class="nav__toggle nav__phone--open js_open_btn" aria-label="Toggle Navigation">
 
                     <!-- hamburger -->
@@ -91,7 +91,7 @@ const HEADER_CODE = `<nav class="nav">
                 <li><a class="nav--link" href="#">About</a></li>
                 <li><a class="nav--link" href="./products.html">Shop</a></li>
                 <li class="logo">
-                    <a href="#"><img src="./assets/logo.png" alt="Craftora logo. Click for home."></a>
+                    <a href="./index.html"><img src="./assets/logo.png" alt="Craftora logo. Click for home."></a>
                 </li>
                 <li><a class="nav--link" href="#">Contact</a></li>
                 <li class="nav--item dropdown">
@@ -115,3 +115,40 @@ const HEADER_CODE = `<nav class="nav">
             </ul>
         </nav>`;
 
+document.addEventListener("DOMContentLoaded", () => {
+    const footer = document.querySelector("#footer");
+    const header = document.querySelector("#header");
+
+    if (footer) footer.innerHTML = FOOTER_CODE;
+    if (header) header.innerHTML = HEADER_CODE;
+
+    if (header) {
+
+        const nav_close_btn = document.querySelector(".js_close_btn");
+        const nav_open_btn = document.querySelector(".js_open_btn");
+        const nav_list = document.querySelector(".js_nav_list");
+        nav_open_btn.addEventListener("click", () => {
+            nav_list.classList.add("active");
+
+            nav_open_btn.style.display = "none";
+            nav_close_btn.style.display = "block";
+        });
+
+        nav_close_btn.addEventListener("click", () => {
+            nav_list.classList.remove("active");
+
+            nav_open_btn.style.display = "block";
+            nav_close_btn.style.display = "none";
+        });
+
+        const dropdownToggle = document.querySelector(".dropdown--toggle");
+        const dropdown = document.querySelector(".dropdown");
+
+        dropdownToggle.addEventListener("click", (e) => {
+            e.preventDefault();
+            dropdown.classList.toggle("active");
+        });
+
+
+    }
+});

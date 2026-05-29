@@ -1,5 +1,5 @@
 .main-content {
-    background-color: var(--secondary);
+    background-color: var(--primary);
     color: var(--bg);
 }
 
@@ -49,9 +49,9 @@
 }
 
 .category-btn:hover {
-    border-color: rgba(37, 99, 235, 0.18);
-    background: rgba(37, 99, 235, 0.08);
-    color: var(--secondary);
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--bg);
 }
 
 .category-btn.active {
@@ -75,11 +75,8 @@
 .product-card {
     position: relative;
     max-width: 380px;
-    background: var(--bg);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
     padding: 24px;
-    overflow: hidden;
 }
 
 
@@ -165,7 +162,15 @@
     font-weight: 600;
 }
 
+.product-card__actions {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+}
 
+.product-card__wishlist {
+    display: none;
+}
 /* Button */
 .product-card__button {
     display: flex;

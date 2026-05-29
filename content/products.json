@@ -7,17 +7,29 @@
       "template": "Plane",
       "basePrice": 399,
       "description": "Premium hardcover diary with smooth pages for daily journaling.",
-      "sizes": ["A5", "A4"],
-      "colors": ["#000000", "#FFFFFF", "#8B4513"],
+      "sizes": [
+        "A5",
+        "A4"
+      ],
+      "colors": [
+        "#000000",
+        "#FFFFFF",
+        "#8B4513"
+      ],
       "images": {
-        "default": "./assets/products/diary1/default.jpg",
+        "default": "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=800&q=80",
         "others": [
-          "./assets/products/diary1/open.jpg",
-          "./assets/products/diary1/back.jpg"
+          "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1506784365847-bbad939e9335?auto=format&fit=crop&w=800&q=80"
         ]
       },
-      "designs": ["D001"],
-      "badges": ["Best Seller"],
+      "designs": [
+        "D001"
+      ],
+      "badges": [
+        "Best Seller"
+      ],
       "featured": true,
       "stock": 120
     },
@@ -28,14 +40,26 @@
       "template": "Logo",
       "basePrice": 599,
       "description": "Elegant leather-bound diary with customizable logo embossing.",
-      "sizes": ["A5"],
-      "colors": ["#5C4033", "#000000"],
+      "sizes": [
+        "A5"
+      ],
+      "colors": [
+        "#5C4033",
+        "#000000"
+      ],
       "images": {
-        "default": "./assets/products/diary2/default.jpg",
-        "others": []
+        "default": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80",
+        "others": [
+          "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80"
+        ]
       },
-      "designs": ["D002"],
-      "badges": ["Premium"],
+      "designs": [
+        "D002"
+      ],
+      "badges": [
+        "Premium"
+      ],
       "featured": false,
       "stock": 85
     },
@@ -46,14 +70,26 @@
       "template": "Our designs",
       "basePrice": 449,
       "description": "Sketch-friendly diary with artistic cover designs.",
-      "sizes": ["A4"],
-      "colors": ["#FF69B4", "#FFD700"],
+      "sizes": [
+        "A4"
+      ],
+      "colors": [
+        "#FF69B4",
+        "#FFD700"
+      ],
       "images": {
-        "default": "./assets/products/diary3/default.jpg",
-        "others": []
+        "default": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80",
+        "others": [
+          "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=800&q=80"
+        ]
       },
-      "designs": ["D003"],
-      "badges": ["Artist Pick"],
+      "designs": [
+        "D003"
+      ],
+      "badges": [
+        "Artist Pick"
+      ],
       "featured": true,
       "stock": 60
     },
@@ -64,14 +100,28 @@
       "template": "Logo",
       "basePrice": 699,
       "description": "Insulated stainless steel bottle with logo customization.",
-      "sizes": ["500ml", "750ml"],
-      "colors": ["#1E90FF", "#000000", "#FFFFFF"],
+      "sizes": [
+        "500ml",
+        "750ml"
+      ],
+      "colors": [
+        "#1E90FF",
+        "#000000",
+        "#FFFFFF"
+      ],
       "images": {
-        "default": "./assets/products/bottle1/default.jpg",
-        "others": []
+        "default": "https://images.unsplash.com/photo-1526401485004-2aa7c84f3a5a?auto=format&fit=crop&w=800&q=80",
+        "others": [
+          "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80"
+        ]
       },
-      "designs": ["D004"],
-      "badges": ["Eco Friendly"],
+      "designs": [
+        "D004"
+      ],
+      "badges": [
+        "Eco Friendly"
+      ],
       "featured": true,
       "stock": 100
     },
@@ -82,16 +132,61 @@
       "template": "Design Middle",
       "basePrice": 799,
       "description": "Stylish gradient gym bottle for daily hydration.",
-      "sizes": ["1L"],
-      "colors": ["#FF4500", "#9400D3"],
+      "sizes": [
+        "1L"
+      ],
+      "colors": [
+        "#FF4500",
+        "#9400D3"
+      ],
       "images": {
-        "default": "./assets/products/bottle2/default.jpg",
-        "others": []
+        "default": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80",
+        "others": [
+          "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1585238342028-4c4a6c8b3a10?auto=format&fit=crop&w=800&q=80"
+        ]
       },
-      "designs": ["D005"],
-      "badges": ["Trending"],
+      "designs": [
+        "D005"
+      ],
+      "badges": [
+        "Trending"
+      ],
       "featured": true,
       "stock": 70
+    },
+    {
+      "id": "P007",
+      "name": "Everyday Plastic Bottle",
+      "category": "Bottle",
+      "template": "Center Print",
+      "basePrice": 499,
+      "description": "Lightweight reusable plastic bottle perfect for school, office, and workouts.",
+      "sizes": [
+        "750ML",
+        "1L"
+      ],
+      "colors": [
+        "#00BFFF",
+        "#FF69B4",
+        "#32CD32",
+        "#FFFFFF"
+      ],
+      "images": {
+        "default": "https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?auto=format&fit=crop&w=800&q=80",
+        "others": [
+          "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1526401485004-2aa7c84f3a5a?auto=format&fit=crop&w=800&q=80"
+        ]
+      },
+      "designs": [
+        "D007"
+      ],
+      "badges": [
+        "Popular"
+      ],
+      "featured": true,
+      "stock": 120
     },
     {
       "id": "P007",
@@ -101,14 +196,30 @@
       "template": "Big design middle",
       "basePrice": 999,
       "description": "Comfortable oversized cotton t-shirt with streetwear vibes.",
-      "sizes": ["S", "M", "L", "XL"],
-      "colors": ["#FFFFFF", "#000000", "#D3D3D3"],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "#FFFFFF",
+        "#000000",
+        "#D3D3D3"
+      ],
       "images": {
-        "default": "./assets/products/tshirt1/default.jpg",
-        "others": []
+        "default": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80",
+        "others": [
+          "https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80"
+        ]
       },
-      "designs": ["D006"],
-      "badges": ["Trending"],
+      "designs": [
+        "D006"
+      ],
+      "badges": [
+        "Trending"
+      ],
       "featured": true,
       "stock": 140
     },
@@ -120,14 +231,28 @@
       "template": "Design Middle",
       "basePrice": 899,
       "description": "Polyester sports t-shirt designed for active wear.",
-      "sizes": ["M", "L", "XL"],
-      "colors": ["#0000FF", "#222222"],
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "#0000FF",
+        "#222222"
+      ],
       "images": {
-        "default": "./assets/products/tshirt3/default.jpg",
-        "others": []
+        "default": "https://images.unsplash.com/photo-1520975918311-5d3f9f6f8a6d?auto=format&fit=crop&w=800&q=80",
+        "others": [
+          "https://images.unsplash.com/photo-1520975682031-a9f7d0c1c2d1?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1520975745604-3c3f3c9c3c9c?auto=format&fit=crop&w=800&q=80"
+        ]
       },
-      "designs": ["D008"],
-      "badges": ["Sports"],
+      "designs": [
+        "D008"
+      ],
+      "badges": [
+        "Sports"
+      ],
       "featured": false,
       "stock": 80
     },
@@ -139,13 +264,25 @@
       "template": "design side",
       "basePrice": 749,
       "description": "Classic V-neck t-shirt with side print customization.",
-      "sizes": ["S", "M", "L"],
-      "colors": ["#FFFFFF", "#228B22"],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "colors": [
+        "#FFFFFF",
+        "#228B22"
+      ],
       "images": {
-        "default": "./assets/products/tshirt4/default.jpg",
-        "others": []
+        "default": "https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=800&q=80",
+        "others": [
+          "https://images.unsplash.com/photo-1520975930200-3f3f3f3f3f3f?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1520975941234-1a2b3c4d5e6f?auto=format&fit=crop&w=800&q=80"
+        ]
       },
-      "designs": ["D009"],
+      "designs": [
+        "D009"
+      ],
       "badges": [],
       "featured": false,
       "stock": 65
@@ -158,14 +295,28 @@
       "template": "Plane",
       "basePrice": 699,
       "description": "Soft cotton t-shirt with minimalist aesthetics.",
-      "sizes": ["S", "M", "L", "XL"],
-      "colors": ["#FFFFFF", "#000000", "#808080"],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "#FFFFFF",
+        "#000000",
+        "#808080"
+      ],
       "images": {
-        "default": "./assets/products/tshirt5/default.jpg",
-        "others": []
+        "default": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80",
+        "others": [
+          "https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80"
+        ]
       },
       "designs": [],
-      "badges": ["Daily Wear"],
+      "badges": [
+        "Daily Wear"
+      ],
       "featured": true,
       "stock": 200
     },
@@ -176,14 +327,26 @@
       "template": "Our designs",
       "basePrice": 349,
       "description": "Ceramic mug with high-quality custom print.",
-      "sizes": ["300ml"],
-      "colors": ["#FFFFFF", "#000000"],
+      "sizes": [
+        "300ml"
+      ],
+      "colors": [
+        "#FFFFFF",
+        "#000000"
+      ],
       "images": {
-        "default": "./assets/products/cup1/default.jpg",
-        "others": []
+        "default": "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80",
+        "others": [
+          "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba6?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80"
+        ]
       },
-      "designs": ["D011"],
-      "badges": ["Best Seller"],
+      "designs": [
+        "D011"
+      ],
+      "badges": [
+        "Best Seller"
+      ],
       "featured": true,
       "stock": 300
     },
@@ -194,35 +357,28 @@
       "template": "Our designs",
       "basePrice": 799,
       "description": "Cute matching mug set for couples.",
-      "sizes": ["300ml"],
-      "colors": ["#FFC0CB", "#87CEFA"],
+      "sizes": [
+        "300ml"
+      ],
+      "colors": [
+        "#FFC0CB",
+        "#87CEFA"
+      ],
       "images": {
-        "default": "./assets/products/cup4/default.jpg",
-        "others": []
+        "default": "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=800&q=80",
+        "others": [
+          "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba6?auto=format&fit=crop&w=800&q=80"
+        ]
       },
-      "designs": ["D014"],
-      "badges": ["Gift Item"],
+      "designs": [
+        "D014"
+      ],
+      "badges": [
+        "Gift Item"
+      ],
       "featured": true,
       "stock": 50
-    },
-    {
-      "id": "P019",
-      "name": "Streetwear Graphic Hoodie Tee",
-      "category": "Tshirt",
-      "subCategory": "Full sleeves",
-      "template": "Big design middle",
-      "basePrice": 1299,
-      "description": "Streetwear inspired full sleeve hoodie tee.",
-      "sizes": ["L", "XL"],
-      "colors": ["#000000", "#800000"],
-      "images": {
-        "default": "./assets/products/tshirt7/default.jpg",
-        "others": []
-      },
-      "designs": ["D017"],
-      "badges": ["Streetwear"],
-      "featured": true,
-      "stock": 40
     },
     {
       "id": "P020",
@@ -231,14 +387,21 @@
       "template": "Plane",
       "basePrice": 299,
       "description": "Simple and elegant white ceramic cup.",
-      "sizes": ["250ml"],
-      "colors": ["#FFFFFF"],
+      "sizes": [
+        "250ml"
+      ],
+      "colors": [
+        "#FFFFFF"
+      ],
       "images": {
-        "default": "./assets/products/cup5/default.jpg",
-        "others": []
+        "default": "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=800&q=80",
+        "others": [
+          "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80"
+        ]
       },
       "designs": [],
-      "badges": [],
+      "badges": ["Asthetic"],
       "featured": false,
       "stock": 250
     }
