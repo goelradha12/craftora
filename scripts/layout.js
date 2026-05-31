@@ -59,6 +59,7 @@ const FOOTER_CODE = `
 
     </footer>`;
 
+
 const HEADER_CODE = `<nav class="nav">
             <div class="nav__phone">
                 <div class="logo">
@@ -88,7 +89,8 @@ const HEADER_CODE = `<nav class="nav">
             </div>
 
             <ul class="nav--list container js_nav_list">
-                <li><a class="nav--link" href="#">About</a></li>
+                <li><a class="nav--link" href="./index.html">Home</a></li>
+                <li><a class="nav--link" href="./about.html">About</a></li>
                 <li><a class="nav--link" href="./products.html">Shop</a></li>
                 <li class="logo">
                     <a href="./index.html"><img src="./assets/logo.png" alt="Craftora logo. Click for home."></a>
@@ -112,6 +114,14 @@ const HEADER_CODE = `<nav class="nav">
                     </ul>
 
                 </li>
+                <li class="desktop-cart">
+                <a href="./cart.html" class="nav--link nav__cart" aria-label="View cart">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M3 3H5L5.4 5M5.4 5H21L19 14H7.2M5.4 5L7.2 14M7.2 14L6 16.5C5.6 17.3 6.2 18 7 18H19M9 21C9 21.5523 8.55228 22 8 22C7.44772 22 7 21.5523 7 21C7 20.4477 7.44772 20 8 20C8.55228 20 9 20.4477 9 21ZM19 21C19 21.5523 18.5523 22 18 22C17.4477 22 17 21.5523 17 21C17 20.4477 17.4477 20 18 20C18.5523 20 19 20.4477 19 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="cart-badge cart-badge--hidden" aria-live="polite">0</span>
+                </a>
+            </li>
             </ul>
         </nav>`;
 
