@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Craftora</title>
+    <link rel="stylesheet" href="styles/cart.css">
+</head>
+
+<body>
+    <main class="cart-page">
+        <h1 class="cart-title">Your Cart</h1>
+
+        <div class="cart-layout">
+            <div class="cart-items-container" id="cartItemsContainer" aria-live="polite">
+            </div>
+
+            <aside class="cart-summary">
+                <h2 class="summary-title">Order Summary</h2>
+
+                <div class="summary-row">
+                    <span>Items (<span id="summaryItemCount">0</span>)</span>
+                    <span id="summarySubtotal">₹0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <div class="summary-row summary-total">
+                    <span>Total</span>
+                    <span id="summaryTotal">₹0</span>
+                </div>
+
+                <button class="checkout-btn" id="checkoutBtn" disabled>
+                    Proceed to Checkout
+                </button>
+            </aside>
+        </div>
+    </main>
+    <script src="scripts/cart.js"></script>
+</body>
+
+</html>

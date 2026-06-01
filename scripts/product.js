@@ -1,162 +1,4 @@
-// <!DOCTYPE html>
-// <html lang="en">
-// <head>
-// <meta charset="UTF-8">
-// <meta name="viewport" content="width=device-width, initial-scale=1.0">
-// <title>Product Customizer</title>
-// <style>
-//     body { font-family: Arial, sans-serif; text-align: center; }
-//     canvas { border: 1px solid #ccc; cursor: grab; }
-//     .controls { margin: 10px 0; }
-// </style>
-// </head>
-// <body>
-
-// <h2>Customize Your Product</h2>
-
-// <div class="controls">
-//     <label>Product Color: 
-//         <input type="color" id="colorPicker" value="#ff0000">
-//     </label>
-//     <br><br>
-//     <label>Add Text: 
-//         <input type="text" id="customText" placeholder="Enter text">
-//     </label>
-//     <br><br>
-//     <label>Or Upload Design: 
-//         <input type="file" id="designUpload" accept="image/*">
-//     </label>
-//     <br><br>
-//     <button id="downloadBtn">Download Design</button>
-// </div>
-
-// <canvas id="productCanvas" width="400" height="400"></canvas>
-
-// <script>
-// const canvas = document.getElementById('productCanvas');
-// const ctx = canvas.getContext('2d');
-
-// let productColor = document.getElementById('colorPicker').value;
-
-// // Text properties
-// let text = '';
-// let textX = 200, textY = 200;
-
-// // Image properties
-// let designImage = null;
-// let imgX = 150, imgY = 150, imgW = 100, imgH = 100;
-
-// // Dragging state
-// let isDragging = false;
-// let dragTarget = null;
-
-// // Draw product
-// function drawProduct() {
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-//     // Product shape (circle for example)
-//     ctx.fillStyle = productColor;
-//     ctx.beginPath();
-//     ctx.arc(200, 200, 150, 0, Math.PI * 2);
-//     ctx.fill();
-
-//     // Draw image if exists
-//     if (designImage) {
-//         ctx.drawImage(designImage, imgX, imgY, imgW, imgH);
-//     }
-
-//     // Draw text if exists
-//     if (text) {
-//         ctx.fillStyle = 'white';
-//         ctx.font = '24px Arial';
-//         ctx.textAlign = 'center';
-//         ctx.fillText(text, textX, textY);
-//     }
-// }
-
-// // Color change
-// document.getElementById('colorPicker').addEventListener('input', (e) => {
-//     productColor = e.target.value;
-//     drawProduct();
-// });
-
-// // Text change
-// document.getElementById('customText').addEventListener('input', (e) => {
-//     text = e.target.value;
-//     drawProduct();
-// });
-
-// // Image upload
-// document.getElementById('designUpload').addEventListener('change', (e) => {
-//     const file = e.target.files[0];
-//     if (file) {
-//         const img = new Image();
-//         img.onload = () => {
-//             designImage = img;
-//             drawProduct();
-//         };
-//         img.src = URL.createObjectURL(file);
-//     }
-// });
-
-// // Mouse down - check if clicking text or image
-// canvas.addEventListener('mousedown', (e) => {
-//     const mouseX = e.offsetX;
-//     const mouseY = e.offsetY;
-
-//     // Check image
-//     if (designImage && mouseX >= imgX && mouseX <= imgX + imgW &&
-//         mouseY >= imgY && mouseY <= imgY + imgH) {
-//         isDragging = true;
-//         dragTarget = 'image';
-//         return;
-//     }
-
-//     // Check text
-//     const textWidth = ctx.measureText(text).width;
-//     if (text && mouseX > textX - textWidth/2 && mouseX < textX + textWidth/2 &&
-//         mouseY > textY - 20 && mouseY < textY + 10) {
-//         isDragging = true;
-//         dragTarget = 'text';
-//     }
-// });
-
-// // Mouse move - drag target
-// canvas.addEventListener('mousemove', (e) => {
-//     if (isDragging) {
-//         if (dragTarget === 'text') {
-//             textX = e.offsetX;
-//             textY = e.offsetY;
-//         } else if (dragTarget === 'image') {
-//             imgX = e.offsetX - imgW / 2;
-//             imgY = e.offsetY - imgH / 2;
-//         }
-//         drawProduct();
-//     }
-// });
-
-// // Mouse up - stop dragging
-// canvas.addEventListener('mouseup', () => {
-//     isDragging = false;
-//     dragTarget = null;
-// });
-
-// // Download design
-// document.getElementById('downloadBtn').addEventListener('click', () => {
-//     const link = document.createElement('a');
-//     link.download = 'custom_product.png';
-//     link.href = canvas.toDataURL();
-//     link.click();
-// });
-
-// // Initial draw
-// drawProduct();
-// </script>
-
-// </body>
-// </html>
-
-const CART_KEY = 'cra_cart';
+const CART_KEY = 'cart';
 
 const state = {
   product: null,
@@ -182,6 +24,7 @@ const getCart = () => JSON.parse(localStorage.getItem(CART_KEY) || '[]');
 
 const setCart = items => {
   localStorage.setItem(CART_KEY, JSON.stringify(items));
+  updateCartBadges();
   window.Layout?.refreshCartCount?.();
 };
 
@@ -236,7 +79,6 @@ function renderPage(p) {
       ${renderInfo(p)}
     </section>
 
-    ${renderDescription(p)}
     ${renderRelated(p)}
   `;
 }
@@ -270,10 +112,16 @@ function renderBreadcrumb(p) {
 function renderGallery(p) {
   const images = getImages(p);
   const main = images[0] || '';
+  const badges = Array.isArray(p.badges) ? p.badges : [];
 
   return `
     <div class="product__gallery">
       <div class="product__main-wrap">
+        ${badges.length ? `
+          <div class="product__badges">
+            ${badges.map(b => `<span class="product__badge">${esc(b)}</span>`).join('')}
+          </div>
+        ` : ''}
         <img
           class="product__main-img"
           id="productMainImg"
@@ -303,15 +151,13 @@ function renderGallery(p) {
 
 function renderInfo(p) {
   const outOfStock = Number(p.stock) <= 0;
-  const badges = Array.isArray(p.badges) ? p.badges : [];
-  const designs = Array.isArray(p.designs) ? p.designs : [];
   const colors = Array.isArray(p.colors) ? p.colors : [];
+  const colorNames = Array.isArray(p.colorNames) ? p.colorNames : []; 
   const sizes = Array.isArray(p.sizes) ? p.sizes : [];
 
   return `
     <div class="product__info">
       <div class="product__header">
-        ${badges.length ? badges.map(b => `<span class="product__badge">${esc(b)}</span>`).join('') : ''}
         <span class="product__category">${esc(cap(p.category))}</span>
         <h1 class="product__name">${esc(p.name)}</h1>
       </div>
@@ -320,15 +166,17 @@ function renderInfo(p) {
         <span class="product__price">${money(p.basePrice)}</span>
         <span class="product__price-note">base price</span>
       </div>
+      <div class="product__description">
+        ${esc(p.description)}
+      </div>
+      
 
+      ${renderColors(colors, colorNames)}
+      ${renderSizes(sizes)}
+      ${renderQty()}
       <span class="product__stock ${outOfStock ? 'product__stock--out' : 'product__stock--in'}">
         ${outOfStock ? 'Out of stock' : `${p.stock} in stock`}
       </span>
-
-      ${renderColors(colors)}
-      ${renderSizes(sizes)}
-      ${renderQty()}
-
       <div class="product__actions">
         <button
           class="product__add-btn"
@@ -346,54 +194,34 @@ function renderInfo(p) {
           Buy Now
         </button>
       </div>
-
-      <dl class="product__meta">
-        <div class="product__meta-row">
-          <dt class="product__meta-label">Template</dt>
-          <dd class="product__meta-value">${esc(p.template || '-')}</dd>
-        </div>
-
-        <div class="product__meta-row">
-          <dt class="product__meta-label">Designs</dt>
-          <dd class="product__meta-value">${designs.length ? designs.map(esc).join(', ') : 'None'}</dd>
-        </div>
-
-        <div class="product__meta-row">
-          <dt class="product__meta-label">Featured</dt>
-          <dd class="product__meta-value">${p.featured ? 'Yes' : 'No'}</dd>
-        </div>
-
-        <div class="product__meta-row">
-          <dt class="product__meta-label">Stock</dt>
-          <dd class="product__meta-value">${p.stock || 0} units</dd>
-        </div>
-      </dl>
     </div>
   `;
 }
 
-function renderColors(colors) {
+function renderColors(colors, colorNames) {
   if (!colors.length) return '';
+
+  const getName = (i) => colorNames[i] || colors[i];
 
   return `
     <fieldset class="product__option">
       <legend class="product__option-label">Color</legend>
       <div class="product__colors">
         ${colors.map((hex, i) => `
-          <label class="product__color-label" title="${esc(hex)}">
+          <label class="product__color-label" title="${esc(getName(i))}">
             <input
               class="product__color-input"
               type="radio"
               name="product-color"
               value="${i}"
-              data-color="${esc(hex)}"
+              data-color-name="${esc(getName(i))}"
               ${i === 0 ? 'checked' : ''}
             >
             <span class="product__color-swatch" style="background:${esc(hex)}" aria-hidden="true"></span>
           </label>
         `).join('')}
       </div>
-      <p class="product__color-name" id="selectedColorName">${esc(colors[0])}</p>
+      <p class="product__color-name" id="selectedColorName">${esc(getName(0))}</p>
     </fieldset>
   `;
 }
@@ -432,15 +260,6 @@ function renderQty() {
         <button class="product__qty-btn" id="qtyPlus" type="button" aria-label="Increase quantity">+</button>
       </div>
     </div>
-  `;
-}
-
-function renderDescription(p) {
-  return `
-    <section class="product__description" aria-labelledby="descHeading">
-      <h2 id="descHeading">Description</h2>
-      <p>${esc(p.description || '')}</p>
-    </section>
   `;
 }
 
@@ -518,7 +337,7 @@ function bindColors() {
   $$('.product__color-input').forEach(input => {
     input.addEventListener('change', () => {
       const nameEl = $('#selectedColorName');
-      if (nameEl) nameEl.textContent = input.dataset.color || input.value;
+      if (nameEl) nameEl.textContent = input.dataset.colorName || input.value;
       state.colorIdx = Number(input.value);
     });
   });
@@ -550,7 +369,7 @@ function addToCart(redirect) {
   const p = state.product;
   if (!p) return;
 
-  const color = p.colors?.[state.colorIdx] || p.colors?.[0] || '';
+  const color = p.colorNames?.[state.colorIdx] || p.colors?.[state.colorIdx] || '';
   const size = $('.product__size-input:checked')?.value || p.sizes?.[0] || '';
   const key = `${p.id}__${color}__${size}`;
 

@@ -1,11 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-:root {
+/* :root {
     --primary: #111827;
     --secondary: #2563EB;
     --accent: #FF6609;
     --bg: #F9FAF8;
+} */
+/* ==========================================================================
+   Base Variables & Resets
+   ========================================================================== */
+:root {
+    /* Your Core Palette */
+    --primary: #111827;
+    --secondary: #2563EB;
+    --accent: #FF6609;
+    --bg: #F9FAF8;
+
+    /* Mapped UI Variables */
+    --color-primary: var(--primary);      /* Headings, Main Text, Primary Buttons */
+    --color-secondary: #ffffff;           /* Text on primary buttons, card backgrounds */
+    --color-accent: var(--accent);        /* Badges, Out-of-stock text, Remove buttons */
+    --color-link: var(--secondary);       /* Hyperlinks, focus rings */
+    
+    /* Supporting UI Colors */
+    --color-bg-main: var(--bg);           /* Page background */
+    --color-bg-subtle: #ffffff;           /* Image wrappers and summary boxes */
+    --color-text: #374151;                /* Standard body text (slightly lighter than primary for readability) */
+    --color-muted: #6B7280;               /* Secondary text, breadcrumbs */
+    --color-border: #E5E7EB;              /* Dividers and borders */
+    --color-success: #10B981;             /* Green for "In Stock" text */
+    
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --transition: all 0.2s ease-in-out;
 }
 
 *,

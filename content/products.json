@@ -4,32 +4,21 @@
       "id": "P001",
       "name": "Minimalist Daily Diary",
       "category": "Diary",
-      "template": "Plane",
       "basePrice": 399,
       "description": "Premium hardcover diary with smooth pages for daily journaling.",
-      "sizes": [
-        "A5",
-        "A4"
-      ],
-      "colors": [
-        "#000000",
-        "#FFFFFF",
-        "#8B4513"
-      ],
+      "sizes": ["A5", "A4"],
+      "colors": ["#000000","#FFFFFF","#8B4513","#191970","#2F4F4F","#800000","#556B2F","#A9A9A9","#D2B48C","#483D8B"],
+      "colorNames": ["Black","White","Saddle Brown","Midnight Blue","Dark Slate Gray","Maroon","Dark Olive Green","Dark Gray","Tan","Dark Slate Blue"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
         "others": [
-          "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1506784365847-bbad939e9335?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80"
         ]
       },
-      "designs": [
-        "D001"
-      ],
-      "badges": [
-        "Best Seller"
-      ],
+      "designs": ["D001"],
+      "badges": ["Best Seller", "Limited Stock"],
       "featured": true,
       "stock": 120
     },
@@ -37,29 +26,21 @@
       "id": "P002",
       "name": "Vintage Leather Diary",
       "category": "Diary",
-      "template": "Logo",
       "basePrice": 599,
       "description": "Elegant leather-bound diary with customizable logo embossing.",
-      "sizes": [
-        "A5"
-      ],
-      "colors": [
-        "#5C4033",
-        "#000000"
-      ],
+      "sizes": ["A5"],
+      "colors": ["#5C4033","#000000","#8B4513","#D2691E","#A0522D","#CD853F","#F4A460","#DEB887","#3E2723","#4E342E"],
+      "colorNames": ["Dark Brown","Black","Saddle Brown","Chocolate","Sienna","Peru","Sandy Brown","Burlywood","Espresso","Mocha"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1512045482940-f37f5216f639?auto=format&fit=crop&w=800&q=80",
         "others": [
-          "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=800&q=80"
         ]
       },
-      "designs": [
-        "D002"
-      ],
-      "badges": [
-        "Premium"
-      ],
+      "designs": ["D002"],
+      "badges": ["Premium", "Handcrafted", "Gift Ready"],
       "featured": false,
       "stock": 85
     },
@@ -67,29 +48,21 @@
       "id": "P003",
       "name": "Creative Sketch Diary",
       "category": "Diary",
-      "template": "Our designs",
       "basePrice": 449,
       "description": "Sketch-friendly diary with artistic cover designs.",
-      "sizes": [
-        "A4"
-      ],
-      "colors": [
-        "#FF69B4",
-        "#FFD700"
-      ],
+      "sizes": ["A4"],
+      "colors": ["#FF69B4","#FFD700","#FF4500","#00CED1","#8A2BE2","#32CD32","#FF8C00","#1E90FF","#FF1493","#00FA9A"],
+      "colorNames": ["Hot Pink","Gold","Orange Red","Dark Turquoise","Blue Violet","Lime Green","Dark Orange","Dodger Blue","Deep Pink","Medium Spring Green"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1560785496-3c9d27877182?auto=format&fit=crop&w=800&q=80",
         "others": [
-          "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1574786198873-6780c8e23f95?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1517292987719-0369a794ec0f?auto=format&fit=crop&w=800&q=80"
         ]
       },
-      "designs": [
-        "D003"
-      ],
-      "badges": [
-        "Artist Pick"
-      ],
+      "designs": ["D003"],
+      "badges": ["Artist Pick", "Thick Pages"],
       "featured": true,
       "stock": 60
     },
@@ -97,31 +70,21 @@
       "id": "P004",
       "name": "Eco Steel Bottle",
       "category": "Bottle",
-      "template": "Logo",
       "basePrice": 699,
       "description": "Insulated stainless steel bottle with logo customization.",
-      "sizes": [
-        "500ml",
-        "750ml"
-      ],
-      "colors": [
-        "#1E90FF",
-        "#000000",
-        "#FFFFFF"
-      ],
+      "sizes": ["500ml", "750ml"],
+      "colors": ["#1E90FF","#000000","#FFFFFF","#C0C0C0","#228B22","#FF0000","#4B0082","#FFD700","#00FFFF","#FF69B4"],
+      "colorNames": ["Dodger Blue","Black","White","Silver","Forest Green","Red","Indigo","Gold","Cyan","Hot Pink"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1526401485004-2aa7c84f3a5a?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80",
         "others": [
-          "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1589365278144-c9e705f843ba?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1590731671542-a8c6fb25c341?auto=format&fit=crop&w=800&q=80"
         ]
       },
-      "designs": [
-        "D004"
-      ],
-      "badges": [
-        "Eco Friendly"
-      ],
+      "designs": ["D004"],
+      "badges": ["Eco Friendly", "BPA Free", "Keeps Cold 24hr"],
       "featured": true,
       "stock": 100
     },
@@ -129,62 +92,43 @@
       "id": "P005",
       "name": "Gradient Gym Bottle",
       "category": "Bottle",
-      "template": "Design Middle",
       "basePrice": 799,
       "description": "Stylish gradient gym bottle for daily hydration.",
-      "sizes": [
-        "1L"
-      ],
-      "colors": [
-        "#FF4500",
-        "#9400D3"
-      ],
+      "sizes": ["1L"],
+      "colors": ["#FF4500","#9400D3","#00BFFF","#32CD32","#FF1493","#FFD700","#8A2BE2","#00FA9A","#FF8C00","#1E90FF"],
+      "colorNames": ["Orange Red","Dark Violet","Deep Sky Blue","Lime Green","Deep Pink","Gold","Blue Violet","Medium Spring Green","Dark Orange","Dodger Blue"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80",
         "others": [
-          "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1585238342028-4c4a6c8b3a10?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1548685913-fe6678babe8d?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80"
         ]
       },
-      "designs": [
-        "D005"
-      ],
-      "badges": [
-        "Trending"
-      ],
+      "designs": ["D005"],
+      "badges": ["Trending", "Gym Essential", "Leak Proof"],
       "featured": true,
       "stock": 70
     },
     {
-      "id": "P007",
+      "id": "P006",
       "name": "Everyday Plastic Bottle",
       "category": "Bottle",
-      "template": "Center Print",
       "basePrice": 499,
       "description": "Lightweight reusable plastic bottle perfect for school, office, and workouts.",
-      "sizes": [
-        "750ML",
-        "1L"
-      ],
-      "colors": [
-        "#00BFFF",
-        "#FF69B4",
-        "#32CD32",
-        "#FFFFFF"
-      ],
+      "sizes": ["750ML", "1L"],
+      "colors": ["#00BFFF","#FF69B4","#32CD32","#FFFFFF","#000000","#FF0000","#FFFF00","#800080","#FFA500","#808080"],
+      "colorNames": ["Deep Sky Blue","Hot Pink","Lime Green","White","Black","Red","Yellow","Purple","Orange","Gray"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=80",
         "others": [
           "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1526401485004-2aa7c84f3a5a?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1588667635649-0417b18cbff9?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1616531770192-6eaea74c2456?auto=format&fit=crop&w=800&q=80"
         ]
       },
-      "designs": [
-        "D007"
-      ],
-      "badges": [
-        "Popular"
-      ],
+      "designs": ["D007"],
+      "badges": ["Popular", "Lightweight", "School Friendly"],
       "featured": true,
       "stock": 120
     },
@@ -193,33 +137,21 @@
       "name": "Oversized Cotton T-Shirt",
       "category": "Tshirt",
       "subCategory": "Oversized",
-      "template": "Big design middle",
       "basePrice": 999,
       "description": "Comfortable oversized cotton t-shirt with streetwear vibes.",
-      "sizes": [
-        "S",
-        "M",
-        "L",
-        "XL"
-      ],
-      "colors": [
-        "#FFFFFF",
-        "#000000",
-        "#D3D3D3"
-      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "colors": ["#FFFFFF","#000000","#D3D3D3","#191970","#8B0000","#556B2F","#F5F5DC","#708090","#A52A2A","#2F4F4F"],
+      "colorNames": ["White","Black","Light Gray","Midnight Blue","Dark Red","Dark Olive Green","Beige","Slate Gray","Brown","Dark Slate Gray"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80",
         "others": [
-          "https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1622445275463-afa2ab738c73?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80"
         ]
       },
-      "designs": [
-        "D006"
-      ],
-      "badges": [
-        "Trending"
-      ],
+      "designs": ["D006"],
+      "badges": ["Trending", "Streetwear", "100% Cotton"],
       "featured": true,
       "stock": 140
     },
@@ -228,31 +160,21 @@
       "name": "Full Sleeve Sports Tee",
       "category": "Tshirt",
       "subCategory": "Full sleeves",
-      "template": "Design Middle",
       "basePrice": 899,
       "description": "Polyester sports t-shirt designed for active wear.",
-      "sizes": [
-        "M",
-        "L",
-        "XL"
-      ],
-      "colors": [
-        "#0000FF",
-        "#222222"
-      ],
+      "sizes": ["M", "L", "XL"],
+      "colors": ["#0000FF","#222222","#FFFFFF","#FF0000","#FFFF00","#008000","#800080","#FFA500","#00FFFF","#FF1493"],
+      "colorNames": ["Blue","Dark Gray","White","Red","Yellow","Green","Purple","Orange","Cyan","Deep Pink"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1520975918311-5d3f9f6f8a6d?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?auto=format&fit=crop&w=800&q=80",
         "others": [
-          "https://images.unsplash.com/photo-1520975682031-a9f7d0c1c2d1?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1520975745604-3c3f3c9c3c9c?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1516826435551-36a8aa410887?auto=format&fit=crop&w=800&q=80"
         ]
       },
-      "designs": [
-        "D008"
-      ],
-      "badges": [
-        "Sports"
-      ],
+      "designs": ["D008"],
+      "badges": ["Sports", "Breathable", "Quick Dry"],
       "featured": false,
       "stock": 80
     },
@@ -261,29 +183,21 @@
       "name": "Classic V-Neck Tee",
       "category": "Tshirt",
       "subCategory": "V neck",
-      "template": "design side",
       "basePrice": 749,
       "description": "Classic V-neck t-shirt with side print customization.",
-      "sizes": [
-        "S",
-        "M",
-        "L"
-      ],
-      "colors": [
-        "#FFFFFF",
-        "#228B22"
-      ],
+      "sizes": ["S", "M", "L"],
+      "colors": ["#FFFFFF","#228B22","#000000","#000080","#808080","#FF0000","#ADD8E6","#FFC0CB","#FFFFE0","#A52A2A"],
+      "colorNames": ["White","Forest Green","Black","Navy","Gray","Red","Light Blue","Pink","Light Yellow","Brown"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=800&q=80",
         "others": [
-          "https://images.unsplash.com/photo-1520975930200-3f3f3f3f3f3f?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1520975941234-1a2b3c4d5e6f?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=800&q=80"
         ]
       },
-      "designs": [
-        "D009"
-      ],
-      "badges": [],
+      "designs": ["D009"],
+      "badges": ["Classic Fit", "Everyday", "Soft Feel"],
       "featured": false,
       "stock": 65
     },
@@ -292,31 +206,21 @@
       "name": "Minimal Cotton Tee",
       "category": "Tshirt",
       "subCategory": "Cotton",
-      "template": "Plane",
       "basePrice": 699,
       "description": "Soft cotton t-shirt with minimalist aesthetics.",
-      "sizes": [
-        "S",
-        "M",
-        "L",
-        "XL"
-      ],
-      "colors": [
-        "#FFFFFF",
-        "#000000",
-        "#808080"
-      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "colors": ["#FFFFFF","#000000","#808080","#F5F5DC","#000080","#8B0000","#2F4F4F","#D3D3D3","#FFE4C4","#E6E6FA"],
+      "colorNames": ["White","Black","Gray","Beige","Navy","Dark Red","Dark Slate Gray","Light Gray","Bisque","Lavender"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=800&q=80",
         "others": [
-          "https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1622445275576-721325763afe?auto=format&fit=crop&w=800&q=80",
           "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80"
         ]
       },
       "designs": [],
-      "badges": [
-        "Daily Wear"
-      ],
+      "badges": ["Daily Wear", "Minimal", "Pre-washed"],
       "featured": true,
       "stock": 200
     },
@@ -324,29 +228,21 @@
       "id": "P013",
       "name": "Coffee Mug",
       "category": "Cup",
-      "template": "Our designs",
       "basePrice": 349,
       "description": "Ceramic mug with high-quality custom print.",
-      "sizes": [
-        "300ml"
-      ],
-      "colors": [
-        "#FFFFFF",
-        "#000000"
-      ],
+      "sizes": ["300ml"],
+      "colors": ["#FFFFFF","#000000","#FF0000","#0000FF","#FFFF00","#008000","#FFA500","#800080","#FFC0CB","#A52A2A"],
+      "colorNames": ["White","Black","Red","Blue","Yellow","Green","Orange","Purple","Pink","Brown"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=800&q=80",
         "others": [
-          "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba6?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1572119865084-43c285814d63?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba6?auto=format&fit=crop&w=800&q=80"
         ]
       },
-      "designs": [
-        "D011"
-      ],
-      "badges": [
-        "Best Seller"
-      ],
+      "designs": ["D011"],
+      "badges": ["Best Seller", "Microwave Safe", "Customizable"],
       "featured": true,
       "stock": 300
     },
@@ -354,29 +250,21 @@
       "id": "P016",
       "name": "Couple Theme Mug Set",
       "category": "Cup",
-      "template": "Our designs",
       "basePrice": 799,
-      "description": "Cute matching mug set for couples.",
-      "sizes": [
-        "300ml"
-      ],
-      "colors": [
-        "#FFC0CB",
-        "#87CEFA"
-      ],
+      "description": "Cute matching, high-quality mug set for couples.",
+      "sizes": ["300ml"],
+      "colors": ["#FFC0CB","#87CEFA","#FFFFFF","#000000","#FF0000","#E6E6FA","#FFE4E1","#F08080","#98FB98","#DDA0DD"],
+      "colorNames": ["Pink","Light Sky Blue","White","Black","Red","Lavender","Misty Rose","Light Coral","Pale Green","Plum"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1483808581695-1f9f25752179?auto=format&fit=crop&w=800&q=80",
         "others": [
           "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba6?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1517701604596-f2b740523098?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1468249827848-bc6b8de05844?auto=format&fit=crop&w=800&q=80"
         ]
       },
-      "designs": [
-        "D014"
-      ],
-      "badges": [
-        "Gift Item"
-      ],
+      "designs": ["D014"],
+      "badges": ["Gift Ready", "Set of 2", "Couples"],
       "featured": true,
       "stock": 50
     },
@@ -384,113 +272,42 @@
       "id": "P020",
       "name": "Minimal White Ceramic Cup",
       "category": "Cup",
-      "template": "Plane",
       "basePrice": 299,
       "description": "Simple and elegant white ceramic cup.",
-      "sizes": [
-        "250ml"
-      ],
-      "colors": [
-        "#FFFFFF"
-      ],
+      "sizes": ["250ml"],
+      "colors": ["#FFFFFF","#F5F5F5","#FFF0F5","#F0FFFF","#F5FFFA","#F0F8FF","#FDF5E6","#FAF0E6","#FFF5EE","#FFFFF0"],
+      "colorNames": ["White","White Smoke","Lavender Blush","Azure","Mint Cream","Alice Blue","Old Lace","Linen","Sea Shell","Ivory"],
       "images": {
-        "default": "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=800&q=80",
+        "default": "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=800&q=80",
         "others": [
-          "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1572119865084-43c285814d63?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba6?auto=format&fit=crop&w=800&q=80"
         ]
       },
       "designs": [],
-      "badges": ["Asthetic"],
+      "badges": ["Aesthetic", "Minimalist", "Dishwasher Safe"],
       "featured": false,
       "stock": 250
     }
   ],
   "designs": [
-    {
-      "id": "D001",
-      "name": "Minimal Black Theme",
-      "image": "./assets/designs/d1.png"
-    },
-    {
-      "id": "D002",
-      "name": "Leather Stamp Logo",
-      "image": "./assets/designs/d2.png"
-    },
-    {
-      "id": "D003",
-      "name": "Creative Art Cover",
-      "image": "./assets/designs/d3.png"
-    },
-    {
-      "id": "D004",
-      "name": "Mountain Logo",
-      "image": "./assets/designs/d4.png"
-    },
-    {
-      "id": "D005",
-      "name": "Gradient Splash",
-      "image": "./assets/designs/d5.png"
-    },
-    {
-      "id": "D006",
-      "name": "Urban Streetwear",
-      "image": "./assets/designs/d6.png"
-    },
-    {
-      "id": "D007",
-      "name": "Anime Warrior",
-      "image": "./assets/designs/d7.png"
-    },
-    {
-      "id": "D008",
-      "name": "Sports Dynamic",
-      "image": "./assets/designs/d8.png"
-    },
-    {
-      "id": "D009",
-      "name": "Minimal Side Stripe",
-      "image": "./assets/designs/d9.png"
-    },
-    {
-      "id": "D010",
-      "name": "Bold Typography",
-      "image": "./assets/designs/d10.png"
-    },
-    {
-      "id": "D011",
-      "name": "Coffee Lover Quote",
-      "image": "./assets/designs/d11.png"
-    },
-    {
-      "id": "D012",
-      "name": "Morning Motivation",
-      "image": "./assets/designs/d12.png"
-    },
-    {
-      "id": "D013",
-      "name": "Hidden Heat Print",
-      "image": "./assets/designs/d13.png"
-    },
-    {
-      "id": "D014",
-      "name": "Couple Hearts",
-      "image": "./assets/designs/d14.png"
-    },
-    {
-      "id": "D015",
-      "name": "Travel Map Art",
-      "image": "./assets/designs/d15.png"
-    },
-    {
-      "id": "D016",
-      "name": "Corporate Branding",
-      "image": "./assets/designs/d16.png"
-    },
-    {
-      "id": "D017",
-      "name": "Street Graffiti",
-      "image": "./assets/designs/d17.png"
-    }
+    { "id": "D001", "name": "Minimal Black Theme", "image": "./assets/designs/d1.png" },
+    { "id": "D002", "name": "Leather Stamp Logo", "image": "./assets/designs/d2.png" },
+    { "id": "D003", "name": "Creative Art Cover", "image": "./assets/designs/d3.png" },
+    { "id": "D004", "name": "Mountain Logo", "image": "./assets/designs/d4.png" },
+    { "id": "D005", "name": "Gradient Splash", "image": "./assets/designs/d5.png" },
+    { "id": "D006", "name": "Urban Streetwear", "image": "./assets/designs/d6.png" },
+    { "id": "D007", "name": "Anime Warrior", "image": "./assets/designs/d7.png" },
+    { "id": "D008", "name": "Sports Dynamic", "image": "./assets/designs/d8.png" },
+    { "id": "D009", "name": "Minimal Side Stripe", "image": "./assets/designs/d9.png" },
+    { "id": "D010", "name": "Bold Typography", "image": "./assets/designs/d10.png" },
+    { "id": "D011", "name": "Coffee Lover Quote", "image": "./assets/designs/d11.png" },
+    { "id": "D012", "name": "Morning Motivation", "image": "./assets/designs/d12.png" },
+    { "id": "D013", "name": "Hidden Heat Print", "image": "./assets/designs/d13.png" },
+    { "id": "D014", "name": "Couple Hearts", "image": "./assets/designs/d14.png" },
+    { "id": "D015", "name": "Travel Map Art", "image": "./assets/designs/d15.png" },
+    { "id": "D016", "name": "Corporate Branding", "image": "./assets/designs/d16.png" },
+    { "id": "D017", "name": "Street Graffiti", "image": "./assets/designs/d17.png" }
   ]
 }
