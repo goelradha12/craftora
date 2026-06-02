@@ -1,14 +1,32 @@
+/* ============================================================
+   login.css  —  Login & Signup pages
+   ============================================================ */
+
+/* ── Layout ── */
 .login {
     display: grid;
     grid-template-columns: 1fr 1fr;
     min-height: 100vh;
 }
 
+/* ── Left image ── */
 .login--image img {
     object-fit: cover;
+    width: 100%;
     height: 100vh;
-    position: fixed;
+    position: sticky;
+    top: 0;
     object-position: top center;
+}
+
+/* ── Right form panel ── */
+.login--form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 3rem 4rem;
+    justify-content: center;
+    overflow-y: auto;
 }
 
 h2 {
@@ -16,15 +34,7 @@ h2 {
     font-size: 1.6rem;
 }
 
-.login--form {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    padding: 4rem;
-    justify-content: center;
-}
-
-
+/* ── Logo ── */
 .logo-loginPage {
     width: 150px;
 }
@@ -34,8 +44,41 @@ h2 {
     margin-bottom: -10px;
 }
 
+/* ── Error banner ── */
+.form-error-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    background: hsl(0 80% 97%);
+    border: 1px solid hsl(0 80% 88%);
+    border-radius: 8px;
+    color: #b91c1c;
+    font-size: 0.9rem;
+    font-family: 'Lato', sans-serif;
+}
+
+.form-error-banner[hidden] {
+    display: none !important;
+}
+
+/* ── Two-column field row ── */
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+@media (max-width: 520px) {
+    .form-row-2 {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+/* ── Form groups ── */
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
 }
 
 .form-group label {
@@ -50,37 +93,108 @@ h2 {
     position: relative;
 }
 
-.input-with-icon i {
+.input-with-icon > i:first-child {
     position: absolute;
     left: 16px;
     top: 50%;
     transform: translateY(-50%);
     color: #888;
     font-size: 18px;
+    pointer-events: none;
 }
 
 .form-control {
     width: 100%;
     padding: 16px 16px 16px 48px;
     background: var(--bg);
-    border: 1px solid hsl(from var(--primary) h s l /0.1);
+    border: 1px solid hsl(from var(--primary) h s l / 0.1);
     border-radius: 12px;
-    color: hsl(from var(--primary) h s l /0.4);
+    color: var(--primary);
     font-size: 16px;
     transition: all 0.3s ease;
 }
 
 .form-control:focus {
     outline: none;
-    border-color: hsl(from var(--primary) h s l /0.4);
+    border-color: hsl(from var(--primary) h s l / 0.4);
     background: var(--bg);
-    box-shadow: 0 0px 4px hsl(from var(--primary) h s l /0.2);
+    box-shadow: 0 0 4px hsl(from var(--primary) h s l / 0.2);
 }
 
 .form-control::placeholder {
-    color: hsl(from var(--primary) h s l /0.3);
+    color: hsl(from var(--primary) h s l / 0.3);
 }
 
+/* ── Password eye toggle ── */
+.eye-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    font-size: 17px;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease;
+}
+
+.eye-toggle:hover {
+    color: var(--primary);
+}
+
+/* when eye toggle is present, give extra right padding to input */
+.input-with-icon:has(.eye-toggle) .form-control {
+    padding-right: 44px;
+}
+
+/* ── Field-level error ── */
+.field-error {
+    display: block;
+    font-size: 0.8rem;
+    color: #dc2626;
+    font-family: 'Lato', sans-serif;
+    margin-top: 4px;
+    min-height: 1rem;
+}
+
+/* ── Password strength ── */
+.pw-strength {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.pw-strength__bar {
+    flex: 1;
+    height: 4px;
+    background: hsl(from var(--primary) h s l / 0.12);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.pw-strength__fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 99px;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+.pw-strength__label {
+    font-size: 0.78rem;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    min-width: 7ch;
+    text-align: right;
+}
+
+/* ── Submit button ── */
 .submit-btn {
     padding: 1rem 2rem;
     border: none;
@@ -88,18 +202,37 @@ h2 {
     width: 100%;
     background: var(--accent);
     color: var(--bg);
-
     font-size: 1rem;
     font-weight: 600;
-
     cursor: pointer;
-
     transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-spinner {
+    display: none !important;
+}
+
+.submit-btn.loading .btn-text    { display: none; }
+.submit-btn.loading .btn-spinner { display: inline-block !important; }
+
+/* ── Signup / login switch link ── */
 .signup-link {
     text-align: center;
-    color: hsl(from var(--primary) h s l /0.4);
+    color: hsl(from var(--primary) h s l / 0.4);
     font-size: 15px;
     margin-top: 28px;
 }
@@ -114,24 +247,25 @@ h2 {
     text-decoration: underline;
 }
 
+/* ── Required asterisk ── */
 label.required::after {
     content: " *";
     color: red;
 }
 
-@media(max-width: 768px) {
+/* ── Responsive ── */
+@media (max-width: 768px) {
     .login--form {
         padding: 2rem;
     }
 }
 
-@media(max-width: 520px) {
+@media (max-width: 520px) {
     .login {
         grid-template-columns: 1fr;
     }
 
-    .login--image{
+    .login--image {
         display: none;
-        transform: scale(0);
     }
 }

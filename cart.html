@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart - Craftora</title>
-    <link rel="stylesheet" href="styles/cart.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="./styles/cart.css">
 </head>
 
 <body>
-    <header>
-        <nav>
-            <a href="index.html">Go Back to Home</a>
-    </header>
-    <main class="cart-page">
+    <div id="header"></div>
+
+    <main id="main-content" class="cart-page">
         <h1 class="cart-title">Your Cart</h1>
 
         <div class="cart-layout">
@@ -45,7 +45,10 @@
             </aside>
         </div>
     </main>
-    <script src="scripts/cart.js"></script>
+
+    <div id="footer"></div>
+    <script src="./scripts/layout.js" defer></script>
+    <script src="./scripts/cart.js" defer></script>
 </body>
 
 </html>

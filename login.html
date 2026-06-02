@@ -4,14 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Login - Craftora | Modern Custom Merchandise</title>
-
-    <link rel="stylesheet" href="./styles/header.css">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/login.css">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
@@ -34,39 +29,43 @@
 
             <h2>Hello! Welcome Back!</h2>
 
-            <form id="loginForm">
+            <!-- Error banner -->
+            <div class="form-error-banner" id="loginError" role="alert" hidden>
+                <i class="fas fa-circle-exclamation" aria-hidden="true"></i>
+                <span id="loginErrorMsg"></span>
+            </div>
+
+            <form id="loginForm" novalidate>
 
                 <!-- Email -->
                 <div class="form-group">
-                    <label for="email" class="required">
-                        Email Address
-                    </label>
-
+                    <label for="email" class="required">Email Address</label>
                     <div class="input-with-icon">
                         <i class="fas fa-envelope" aria-hidden="true"></i>
-
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email"
-                            required>
+                        <input type="email" id="email" name="email" class="form-control"
+                               placeholder="Enter your email" autocomplete="email" required>
                     </div>
+                    <span class="field-error" id="emailError"></span>
                 </div>
 
                 <!-- Password -->
                 <div class="form-group">
-                    <label for="password" class="required">
-                        Password
-                    </label>
-
+                    <label for="password" class="required">Password</label>
                     <div class="input-with-icon">
                         <i class="fas fa-lock" aria-hidden="true"></i>
-
                         <input type="password" id="password" name="password" class="form-control"
-                            placeholder="Enter your password" required>
+                               placeholder="Enter your password" autocomplete="current-password" required>
+                        <button type="button" class="eye-toggle" id="togglePassword" aria-label="Show password">
+                            <i class="fas fa-eye" id="eyeIcon" aria-hidden="true"></i>
+                        </button>
                     </div>
+                    <span class="field-error" id="passwordError"></span>
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="submit-btn hero--btn">
-                    Sign In
+                <button type="submit" class="submit-btn hero--btn" id="loginBtn">
+                    <span class="btn-text">Sign In</span>
+                    <i class="fas fa-spinner fa-spin btn-spinner" aria-hidden="true"></i>
                 </button>
 
                 <!-- Signup Link -->
@@ -81,6 +80,64 @@
 
     </main>
 
-</body>
+    <script src="./scripts/auth.js"></script>
+    <script>
+        /* ── Read redirect param ── */
+        const _loginParams   = new URLSearchParams(window.location.search);
+        const _loginRedirect = _loginParams.get('redirect') || './index.html';
 
+        /* ── Pass redirect param to signup link ── */
+        const _signupLink = document.querySelector('a[href="./signup.html"]');
+        if (_signupLink && _loginParams.get('redirect')) {
+            _signupLink.href = `./signup.html?redirect=${encodeURIComponent(_loginParams.get('redirect'))}`;
+        }
+
+        /* ── Toggle password visibility ── */
+        document.getElementById('togglePassword').addEventListener('click', () => {
+            const input   = document.getElementById('password');
+            const icon    = document.getElementById('eyeIcon');
+            const show    = input.type === 'password';
+            input.type    = show ? 'text' : 'password';
+            icon.className = show ? 'fas fa-eye-slash' : 'fas fa-eye';
+            document.getElementById('togglePassword').setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        });
+
+        /* ── Form submit ── */
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const email    = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('loginError');
+            const errorMsg = document.getElementById('loginErrorMsg');
+            const btn      = document.getElementById('loginBtn');
+
+            errorDiv.hidden = true;
+            document.getElementById('emailError').textContent    = '';
+            document.getElementById('passwordError').textContent = '';
+
+            let valid = true;
+            if (!email)    { document.getElementById('emailError').textContent    = 'Email is required.';    valid = false; }
+            if (!password) { document.getElementById('passwordError').textContent = 'Password is required.'; valid = false; }
+            if (!valid) return;
+
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            setTimeout(() => {
+                const result = attemptLogin(email, password);
+                btn.classList.remove('loading');
+                btn.disabled = false;
+
+                if (result.ok) {
+                    window.location.href = _loginRedirect;
+                } else {
+                    errorMsg.textContent = result.error;
+                    errorDiv.hidden = false;
+                }
+            }, 400);
+        });
+    </script>
+
+</body>
 </html>

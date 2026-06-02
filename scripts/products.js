@@ -151,9 +151,9 @@ function renderProducts(productsToRender) {
                                 <path d="M5 3l.4 1.1L6.5 4.5l-1.1.4L5 6l-.4-1.1L3.5 4.5l1.1-.4Z" />
                             </svg>
                         </button>
-                        <button class="product-card__wishlist">
-                            <svg height="20px" width="20px" viewBox="0 0 13.066 13.066" xml:space="preserve">
-                                <path style="fill:#030104;" d="M6.555,12.558c-0.098,0-0.195-0.034-0.273-0.103c-0.233-0.2-5.718-4.954-6.199-7.885 C-0.133,3.243,0.071,2.201,0.69,1.474C1.22,0.85,2.034,0.507,2.982,0.507c0.082,0,0.165,0.002,0.247,0.008 c0.058-0.003,0.115-0.004,0.172-0.004c1.048,0,2.343,0.461,3.109,2.421c0.43-1.196,1.311-2.417,3.328-2.417 c1.135,0,2.023,0.342,2.571,0.987c0.597,0.701,0.787,1.733,0.569,3.068c-0.479,2.929-5.918,7.684-6.149,7.884 C6.751,12.524,6.653,12.558,6.555,12.558z" />
+                        <button class="product-card__wishlist" aria-label="Add to wishlist">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                             </svg>
                         </button>
                     </div>
@@ -161,6 +161,38 @@ function renderProducts(productsToRender) {
             </div>
         `;
         
+        // Wire wishlist button
+        const wishBtn = card.querySelector('.product-card__wishlist');
+        if (wishBtn) {
+            // Set initial filled/unfilled state
+            const wishlisted = typeof isWishlisted === 'function' && isWishlisted(product.id);
+            wishBtn.classList.toggle('wishlisted', wishlisted);
+
+            wishBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (typeof toggleWishlist !== 'function') {
+                    window.location.href = './login.html';
+                    return;
+                }
+                // Check login
+                const user = (() => {
+                    try { return JSON.parse(localStorage.getItem('craftora_user') || 'null'); } catch { return null; }
+                })();
+                if (!user) {
+                    window.location.href = './login.html';
+                    return;
+                }
+                const now = toggleWishlist({
+                    id:       product.id,
+                    name:     product.name,
+                    category: product.category,
+                    price:    product.basePrice,
+                    image:    product.images.default,
+                });
+                wishBtn.classList.toggle('wishlisted', now);
+            });
+        }
+
         grid.appendChild(card);
     });
 }

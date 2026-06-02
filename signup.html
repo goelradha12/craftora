@@ -5,12 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup - Craftora | Modern Custom Merchandize</title>
-
-    <link rel="stylesheet" href="./styles/header.css">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/login.css">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
@@ -18,83 +14,99 @@
 
     <main class="login">
 
+        <!-- Left Image -->
         <div class="login--image">
             <img src="./assets/t-shirt_blue_person.jpg" alt="Signup Banner">
         </div>
 
+        <!-- Signup Form -->
         <div class="login--form">
 
+            <!-- Logo -->
             <a href="./index.html" class="logo-link">
                 <img src="./assets/logo.png" alt="Craftora Logo" class="logo-loginPage">
             </a>
 
             <h2>Signup</h2>
 
-            <form id="signupForm">
+            <!-- Error banner -->
+            <div class="form-error-banner" id="signupError" role="alert" hidden>
+                <i class="fas fa-circle-exclamation" aria-hidden="true"></i>
+                <span id="signupErrorMsg"></span>
+            </div>
+
+            <form id="signupForm" novalidate>
+
+                <!-- Name + Phone (side by side) -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="fullname" class="required">Full Name</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user" aria-hidden="true"></i>
+                            <input type="text" id="fullname" name="fullname" class="form-control"
+                                   placeholder="Your full name" autocomplete="name" required>
+                        </div>
+                        <span class="field-error" id="nameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="required">Phone Number</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-phone" aria-hidden="true"></i>
+                            <input type="tel" id="phone" name="phone" class="form-control"
+                                   placeholder="Phone number" autocomplete="tel" required>
+                        </div>
+                        <span class="field-error" id="phoneError"></span>
+                    </div>
+                </div>
 
                 <!-- Email -->
                 <div class="form-group">
                     <label for="email" class="required">Email Address</label>
-
                     <div class="input-with-icon">
                         <i class="fas fa-envelope" aria-hidden="true"></i>
-
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email"
-                            required>
+                        <input type="email" id="email" name="email" class="form-control"
+                               placeholder="Enter your email" autocomplete="email" required>
                     </div>
-                </div>
-
-                <!-- Full Name -->
-                <div class="form-group">
-                    <label for="fullname" class="required">Full Name</label>
-
-                    <div class="input-with-icon">
-                        <i class="fas fa-user" aria-hidden="true"></i>
-
-                        <input type="text" id="fullname" name="fullname" class="form-control"
-                            placeholder="Enter your full name" required>
-                    </div>
+                    <span class="field-error" id="emailError"></span>
                 </div>
 
                 <!-- Address -->
                 <div class="form-group">
-                    <label for="address" class="">Full Address</label>
-
+                    <label for="address">Delivery Address</label>
                     <div class="input-with-icon">
                         <i class="fas fa-location-dot" aria-hidden="true"></i>
-
                         <input type="text" id="address" name="address" class="form-control"
-                            placeholder="Default Delivery Address">
-                    </div>
-                </div>
-
-                <!-- Phone -->
-                <div class="form-group">
-                    <label for="phone" class="required">Phone Number</label>
-
-                    <div class="input-with-icon">
-                        <i class="fas fa-phone" aria-hidden="true"></i>
-
-                        <input type="tel" id="phone" name="phone" class="form-control"
-                            placeholder="Enter your phone number" required>
+                               placeholder="Default delivery address (optional)" autocomplete="street-address">
                     </div>
                 </div>
 
                 <!-- Password -->
                 <div class="form-group">
                     <label for="password" class="required">Password</label>
-
                     <div class="input-with-icon">
                         <i class="fas fa-lock" aria-hidden="true"></i>
-
                         <input type="password" id="password" name="password" class="form-control"
-                            placeholder="Enter your password" required>
+                               placeholder="Min. 6 characters" autocomplete="new-password" required>
+                        <button type="button" class="eye-toggle" id="togglePassword" aria-label="Show password">
+                            <i class="fas fa-eye" id="eyeIcon" aria-hidden="true"></i>
+                        </button>
                     </div>
+                    <span class="field-error" id="passwordError"></span>
+                </div>
+
+                <!-- Password strength -->
+                <div class="pw-strength" aria-live="polite">
+                    <div class="pw-strength__bar">
+                        <div class="pw-strength__fill" id="pwFill"></div>
+                    </div>
+                    <span class="pw-strength__label" id="pwLabel"></span>
                 </div>
 
                 <!-- Submit -->
-                <button type="submit" class="submit-btn hero--btn">
-                    Sign Up
+                <button type="submit" class="submit-btn hero--btn" id="signupBtn">
+                    <span class="btn-text">Sign Up</span>
+                    <i class="fas fa-spinner fa-spin btn-spinner" aria-hidden="true"></i>
                 </button>
 
                 <!-- Login Link -->
@@ -109,6 +121,97 @@
 
     </main>
 
-</body>
+    <script src="./scripts/auth.js"></script>
+    <script>
+        /* ── Read redirect param ── */
+        const _signupParams   = new URLSearchParams(window.location.search);
+        const _signupRedirect = _signupParams.get('redirect') || './index.html';
 
+        /* ── Pass redirect param to login link ── */
+        const _loginLink = document.querySelector('a[href="./login.html"]');
+        if (_loginLink && _signupParams.get('redirect')) {
+            _loginLink.href = `./login.html?redirect=${encodeURIComponent(_signupParams.get('redirect'))}`;
+        }
+        /* ── Toggle password visibility ── */
+        document.getElementById('togglePassword').addEventListener('click', () => {
+            const input   = document.getElementById('password');
+            const icon    = document.getElementById('eyeIcon');
+            const show    = input.type === 'password';
+            input.type    = show ? 'text' : 'password';
+            icon.className = show ? 'fas fa-eye-slash' : 'fas fa-eye';
+            document.getElementById('togglePassword').setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        });
+
+        /* ── Password strength ── */
+        document.getElementById('password').addEventListener('input', () => {
+            const val   = document.getElementById('password').value;
+            const fill  = document.getElementById('pwFill');
+            const label = document.getElementById('pwLabel');
+            let score = 0;
+            if (val.length >= 6)  score++;
+            if (val.length >= 10) score++;
+            if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
+            if (/\d/.test(val))   score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+
+            const levels = ['', 'Weak', 'Fair', 'Good', 'Strong', 'Very strong'];
+            const colors = ['', '#ef4444', '#f97316', '#eab308', '#22c55e', '#10b981'];
+            const widths = ['0%', '20%', '40%', '60%', '80%', '100%'];
+
+            fill.style.width      = val.length ? widths[score] : '0%';
+            fill.style.background = colors[score];
+            label.textContent     = val.length ? levels[score] : '';
+            label.style.color     = colors[score];
+        });
+
+        /* ── Form submit ── */
+        document.getElementById('signupForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name     = document.getElementById('fullname').value.trim();
+            const email    = document.getElementById('email').value.trim();
+            const phone    = document.getElementById('phone').value.trim();
+            const address  = document.getElementById('address').value.trim();
+            const password = document.getElementById('password').value;
+
+            const errorDiv = document.getElementById('signupError');
+            const errorMsg = document.getElementById('signupErrorMsg');
+            const btn      = document.getElementById('signupBtn');
+
+            // Clear previous errors
+            errorDiv.hidden = true;
+            ['nameError', 'emailError', 'phoneError', 'passwordError'].forEach(id => {
+                document.getElementById(id).textContent = '';
+            });
+
+            let valid = true;
+            if (!name)     { document.getElementById('nameError').textContent     = 'Full name is required.';    valid = false; }
+            if (!email)    { document.getElementById('emailError').textContent    = 'Email is required.';        valid = false; }
+            if (!phone)    { document.getElementById('phoneError').textContent    = 'Phone number is required.'; valid = false; }
+            if (!password) { document.getElementById('passwordError').textContent = 'Password is required.';     valid = false; }
+            else if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+                valid = false;
+            }
+            if (!valid) return;
+
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            setTimeout(() => {
+                const result = attemptSignup({ name, email, phone, address, password });
+                btn.classList.remove('loading');
+                btn.disabled = false;
+
+                if (result.ok) {
+                    window.location.href = _signupRedirect;
+                } else {
+                    errorMsg.textContent = result.error;
+                    errorDiv.hidden = false;
+                }
+            }, 400);
+        });
+    </script>
+
+</body>
 </html>

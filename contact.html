@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Craftora</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/layout.css">
+    <style>
+        /* ── Hero ── */
+        .contact-hero {
+            background: var(--primary);
+            color: var(--bg);
+            padding: 5rem 0 4rem;
+            text-align: center;
+        }
+
+        .contact-hero h1 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 0.85rem;
+            display: block;
+        }
+
+        .contact-hero h1::before,
+        .contact-hero h1::after { display: none; }
+
+        .contact-hero p {
+            color: hsl(from var(--bg) h s l / 0.75);
+            font-size: 1rem;
+            max-width: 46ch;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ── Main grid ── */
+        .contact-main {
+            padding-block: 4rem;
+            background: var(--bg);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* ── Info sidebar ── */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-info__heading {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-info__heading::before,
+        .contact-info__heading::after { display: none; }
+
+        .contact-info__sub {
+            font-size: 0.9rem;
+            color: var(--color-muted);
+            font-family: 'Lato', sans-serif;
+            line-height: 1.65;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: #fff;
+            border-radius: 0.85rem;
+            border: 1px solid var(--color-border);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-card:hover {
+            box-shadow: 0 6px 24px hsl(from var(--primary) h s l / 0.08);
+            transform: translateY(-2px);
+        }
+
+        .contact-card__icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 0.65rem;
+            background: hsl(from var(--accent) h s l / 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-card__icon svg { color: var(--accent); }
+
+        .contact-card__label {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-muted);
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-card__value {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.4;
+        }
+
+        .contact-card__note {
+            font-size: 0.78rem;
+            color: var(--color-muted);
+            font-family: 'Lato', sans-serif;
+            margin-top: 0.15rem;
+        }
+
+        /* ── Social links ── */
+        .contact-social {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-social__link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 0.9rem;
+            border-radius: 99px;
+            border: 1.5px solid var(--color-border);
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            color: var(--primary);
+            text-decoration: none;
+            transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+        }
+
+        .contact-social__link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: hsl(from var(--accent) h s l / 0.05);
+        }
+
+        /* ── Form card ── */
+        .contact-form-card {
+            background: #fff;
+            border-radius: 1.25rem;
+            padding: 2.25rem;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 4px 24px hsl(from var(--primary) h s l / 0.06);
+        }
+
+        .contact-form-card h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.35rem;
+            display: block;
+        }
+
+        .contact-form-card h2::before,
+        .contact-form-card h2::after { display: none; }
+
+        .contact-form-card .form-sub {
+            font-size: 0.88rem;
+            color: var(--color-muted);
+            font-family: 'Lato', sans-serif;
+            margin-bottom: 1.75rem;
+        }
+
+        /* ── Form fields ── */
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group label .opt {
+            font-weight: 400;
+            color: var(--color-muted);
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 0.75rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.7rem 0.95rem;
+            border: 1.5px solid var(--color-border);
+            border-radius: 0.6rem;
+            background: var(--bg);
+            font-size: 0.92rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--primary);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px hsl(from var(--accent) h s l / 0.12);
+            background: #fff;
+        }
+
+        .form-control::placeholder { color: hsl(from var(--primary) h s l / 0.3); }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 130px;
+            line-height: 1.6;
+        }
+
+        select.form-control { cursor: pointer; }
+
+        /* ── Submit button ── */
+        .contact-submit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.88rem 1.5rem;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 0.6rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            margin-top: 0.25rem;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .contact-submit:hover:not(:disabled) {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .contact-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+
+        .contact-submit .btn-spinner { display: none !important; }
+        .contact-submit.loading .btn-text    { display: none; }
+        .contact-submit.loading .btn-spinner { display: inline-block !important; animation: spin 0.7s linear infinite; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Success banner ── */
+        .contact-success {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.75rem;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .contact-success__icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: hsl(142 70% 92%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-success__icon svg { color: #16a34a; }
+
+        .contact-success h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .contact-success p {
+            font-size: 0.9rem;
+            color: var(--color-muted);
+            max-width: 38ch;
+        }
+
+        .contact-success a {
+            font-size: 0.88rem;
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .contact-success a:hover { text-decoration: underline; }
+
+        /* ── FAQ strip ── */
+        .faq-section {
+            padding-block: 4rem;
+            background: #fff;
+        }
+
+        .faq-heading {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .faq-heading::before, .faq-heading::after { display: none; }
+
+        .faq-sub {
+            text-align: center;
+            color: var(--color-muted);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.92rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .faq-item {
+            padding: 1.25rem 1.5rem;
+            background: var(--bg);
+            border-radius: 0.85rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .faq-item h3 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .faq-item p {
+            font-size: 0.86rem;
+            color: var(--color-muted);
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 860px) {
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .form-row-2 { grid-template-columns: 1fr; gap: 0; }
+            .contact-form-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <main id="main-content">
+
+        <!-- Hero -->
+        <section class="contact-hero">
+            <div class="container">
+                <h1>Get in Touch</h1>
+                <p>Have a question, a bulk order, or just want to say hello? We're here and we respond fast.</p>
+            </div>
+        </section>
+
+        <!-- Main: info + form -->
+        <section class="contact-main">
+            <div class="container">
+                <div class="contact-grid">
+
+                    <!-- Left: contact info -->
+                    <aside class="contact-info">
+                        <div>
+                            <h2 class="contact-info__heading">Contact Information</h2>
+                            <p class="contact-info__sub">
+                                Reach us through any of the channels below. Our team typically replies within a few hours on business days.
+                            </p>
+                        </div>
+
+                        <a href="mailto:hello@craftora.com" class="contact-card">
+                            <div class="contact-card__icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="contact-card__label">Email</p>
+                                <p class="contact-card__value">hello@craftora.com</p>
+                                <p class="contact-card__note">We reply within 24 hours</p>
+                            </div>
+                        </a>
+
+                        <a href="tel:+919876543210" class="contact-card">
+                            <div class="contact-card__icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.61 5.61l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="contact-card__label">Phone</p>
+                                <p class="contact-card__value">+91 98765 43210</p>
+                                <p class="contact-card__note">Mon – Sat, 9 am – 6 pm IST</p>
+                            </div>
+                        </a>
+
+                        <div class="contact-card" style="cursor:default">
+                            <div class="contact-card__icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                                    <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="contact-card__label">Studio</p>
+                                <p class="contact-card__value">Mumbai, Maharashtra, India</p>
+                                <p class="contact-card__note">Visits by appointment only</p>
+                            </div>
+                        </div>
+
+                        <!-- Social -->
+                        <div>
+                            <p class="contact-card__label" style="margin-bottom:0.75rem">Follow us</p>
+                            <div class="contact-social">
+                                <a href="#" class="contact-social__link" aria-label="Instagram">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="2" aria-hidden="true">
+                                        <rect x="2" y="2" width="20" height="20" rx="5"/>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                                    </svg>
+                                    Instagram
+                                </a>
+                                <a href="#" class="contact-social__link" aria-label="Twitter / X">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="2" aria-hidden="true">
+                                        <path d="M4 4l16 16M20 4 4 20"/>
+                                    </svg>
+                                    Twitter
+                                </a>
+                                <a href="#" class="contact-social__link" aria-label="WhatsApp">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="2" aria-hidden="true">
+                                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                                    </svg>
+                                    WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Right: form -->
+                    <div class="contact-form-card">
+                        <!-- Form state -->
+                        <div id="formWrap">
+                            <h2>Send us a message</h2>
+                            <p class="form-sub">Fill in the form and we'll get back to you as soon as possible.</p>
+
+                            <form id="contactForm" novalidate>
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label for="cf-name">Name <span style="color:var(--accent)">*</span></label>
+                                        <input class="form-control" type="text" id="cf-name"
+                                               placeholder="Your name" autocomplete="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cf-email">Email <span style="color:var(--accent)">*</span></label>
+                                        <input class="form-control" type="email" id="cf-email"
+                                               placeholder="you@example.com" autocomplete="email" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label for="cf-phone">Phone <span class="opt">(optional)</span></label>
+                                        <input class="form-control" type="tel" id="cf-phone"
+                                               placeholder="+91 00000 00000" autocomplete="tel">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cf-subject">Topic <span style="color:var(--accent)">*</span></label>
+                                        <select class="form-control" id="cf-subject" required>
+                                            <option value="" disabled selected>Select a topic</option>
+                                            <option value="order">Order / Tracking</option>
+                                            <option value="custom">Custom / Bulk Order</option>
+                                            <option value="return">Return / Refund</option>
+                                            <option value="design">Design Help</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cf-message">Message <span style="color:var(--accent)">*</span></label>
+                                    <textarea class="form-control" id="cf-message"
+                                              placeholder="Tell us how we can help…" required></textarea>
+                                </div>
+
+                                <!-- Error banner -->
+                                <div id="cfError" style="display:none;background:hsl(0 80% 97%);border:1px solid hsl(0 80% 88%);color:#b91c1c;font-size:0.82rem;padding:0.6rem 0.9rem;border-radius:0.5rem;margin-bottom:0.75rem;font-family:'Lato',sans-serif;">
+                                </div>
+
+                                <button type="submit" class="contact-submit" id="contactSubmit">
+                                    <span class="btn-text">Send Message</span>
+                                    <svg class="btn-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                         stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                                        <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Success state (hidden until submit) -->
+                        <div id="formSuccess" style="display:none" class="contact-success">
+                            <div class="contact-success__icon">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <h3>Message sent!</h3>
+                            <p>Thanks for reaching out. We'll get back to you within 24 hours.</p>
+                            <a href="#" id="sendAnother">Send another message</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ strip -->
+        <section class="faq-section">
+            <div class="container">
+                <h2 class="faq-heading">Frequently Asked Questions</h2>
+                <p class="faq-sub">Quick answers to the questions we get most often.</p>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3>How long does delivery take?</h3>
+                        <p>Standard delivery takes 5–7 business days. Express shipping is available at checkout for 2–3 day delivery.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I place a bulk or corporate order?</h3>
+                        <p>Absolutely. We offer volume discounts starting at 10 units. Drop us a message with your requirements and we'll send a custom quote.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What's your return policy?</h3>
+                        <p>Customized products are non-returnable unless there's a defect on our end. Standard products can be returned within 7 days of delivery.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I upload my own design?</h3>
+                        <p>Yes — our Design Studio lets you upload any image, add text, and position elements anywhere on the product before ordering.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What file formats do you accept?</h3>
+                        <p>We accept PNG, JPG, and SVG. For best print quality, use high-resolution images at 300 DPI or higher.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Do you ship internationally?</h3>
+                        <p>Currently we ship within India only. International shipping is on our roadmap — sign up to be notified when it launches.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer"></div>
+    <script src="./scripts/layout.js" defer></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name    = document.getElementById('cf-name').value.trim();
+            const email   = document.getElementById('cf-email').value.trim();
+            const subject = document.getElementById('cf-subject').value;
+            const message = document.getElementById('cf-message').value.trim();
+            const errDiv  = document.getElementById('cfError');
+            const btn     = document.getElementById('contactSubmit');
+
+            errDiv.style.display = 'none';
+
+            if (!name || !email || !subject || !message) {
+                errDiv.textContent   = 'Please fill in all required fields.';
+                errDiv.style.display = 'block';
+                return;
+            }
+
+            const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRe.test(email)) {
+                errDiv.textContent   = 'Please enter a valid email address.';
+                errDiv.style.display = 'block';
+                return;
+            }
+
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            // Simulate send (replace with real API call)
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+                document.getElementById('formWrap').style.display    = 'none';
+                document.getElementById('formSuccess').style.display = 'flex';
+            }, 900);
+        });
+
+        document.getElementById('sendAnother').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('contactForm').reset();
+            document.getElementById('cfError').style.display      = 'none';
+            document.getElementById('formSuccess').style.display   = 'none';
+            document.getElementById('formWrap').style.display      = 'block';
+        });
+    </script>
+</body>
+</html>

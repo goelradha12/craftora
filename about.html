@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Craftora</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/layout.css">
+    <style>
+        /* ── Page Hero ── */
+        .about-hero {
+            background: var(--primary);
+            color: var(--bg);
+            padding: 7rem 0 5rem;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+            /* override the h2 grid trick — h1 should be plain */
+            display: block;
+        }
+
+        .about-hero h1::after,
+        .about-hero h1::before {
+            display: none;
+        }
+
+        .about-hero p {
+            color: hsl(from var(--bg) h s l / 0.8);
+            max-width: 52ch;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* ── Mission ── */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .mission-img {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 20px 50px hsl(from var(--primary) h s l / 0.15);
+        }
+
+        .mission-img img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .mission-text h2 {
+            display: block;
+            text-align: left;
+            margin-bottom: 1.25rem;
+            font-size: 2rem;
+        }
+
+        .mission-text h2::after,
+        .mission-text h2::before {
+            display: none;
+        }
+
+        .mission-text p {
+            margin-bottom: 1rem;
+            opacity: 1;
+            color: var(--color-text);
+            font-size: 1rem;
+            line-height: 1.75;
+        }
+
+        .mission-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .accent-bar {
+            width: 56px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+            margin-bottom: 1.25rem;
+        }
+
+        /* ── Stats ── */
+        .stats-section {
+            background: var(--primary);
+            color: var(--bg);
+            padding-block: 4rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .stat-number {
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+            color: hsl(from var(--bg) h s l / 0.75);
+        }
+
+        /* ── Values ── */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: #fff;
+            border-radius: 1rem;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 8px 24px hsl(from var(--primary) h s l / 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 36px hsl(from var(--primary) h s l / 0.14);
+        }
+
+        .value-icon {
+            width: 52px;
+            height: 52px;
+            background: hsl(from var(--accent) h s l / 0.12);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .value-icon svg {
+            color: var(--accent);
+        }
+
+        .value-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.6rem;
+            color: var(--primary);
+        }
+
+        .value-card p {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: var(--color-muted);
+        }
+
+        /* ── Team ── */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-card {
+            text-align: center;
+            background: #fff;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 8px 24px hsl(from var(--primary) h s l / 0.08);
+            transition: transform 0.25s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-avatar {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: hsl(from var(--primary) h s l / 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .team-avatar-placeholder {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, hsl(from var(--primary) h s l / 0.08), hsl(from var(--accent) h s l / 0.12));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+        }
+
+        .team-info {
+            padding: 1.25rem 1rem;
+        }
+
+        .team-info h3 {
+            font-size: 1.05rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .team-info p {
+            font-size: 0.9rem;
+            color: var(--color-muted);
+            opacity: 1;
+        }
+
+        /* ── CTA Banner ── */
+        .cta-section {
+            background: var(--accent);
+            padding-block: 5rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        .cta-section h2 {
+            display: block;
+            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .cta-section h2::after,
+        .cta-section h2::before {
+            display: none;
+        }
+
+        .cta-section p {
+            color: hsl(0 0% 100% / 0.88);
+            max-width: 48ch;
+            margin: 0 auto 2rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2.25rem;
+            background: #fff;
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px hsl(0 0% 0% / 0.15);
+        }
+
+        /* ── Section titles ── */
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--primary);
+            display: block;
+        }
+
+        .section-title::after,
+        .section-title::before {
+            display: none;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--color-muted);
+            max-width: 50ch;
+            margin: 0.75rem auto 0;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .mission-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .mission-img img {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <main id="main-content">
+
+        <!-- Hero -->
+        <section class="about-hero" aria-labelledby="about-heading">
+            <div class="container">
+                <h1 id="about-heading">We Make Your Ideas Wearable</h1>
+                <p>
+                    Craftora is a custom merchandise brand born from the belief that
+                    everyone deserves products as unique as they are. From tees to
+                    diaries, we bring your vision to life.
+                </p>
+            </div>
+        </section>
+
+        <!-- Mission -->
+        <section class="section" aria-labelledby="mission-heading">
+            <div class="container">
+                <div class="mission-grid">
+                    <div class="mission-img">
+                        <img
+                            src="./assets/t-shirt_blue_person.jpg"
+                            alt="A person wearing a custom Craftora printed t-shirt"
+                        />
+                    </div>
+                    <div class="mission-text">
+                        <div class="accent-bar" aria-hidden="true"></div>
+                        <h2 id="mission-heading">Our Mission</h2>
+                        <p>
+                            We started Craftora with a simple goal: make high-quality custom
+                            merchandise accessible to everyone — from individuals celebrating
+                            a moment to brands building their identity.
+                        </p>
+                        <p>
+                            Every product we ship is crafted with care. We use premium
+                            materials, vibrant inks, and a process that treats your design
+                            with the respect it deserves — because the details matter.
+                        </p>
+                        <p>
+                            Our in-house design studio means faster turnaround, tighter
+                            quality control, and a team that genuinely cares about the
+                            final result landing in your hands exactly as you imagined it.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="stats-section" aria-label="Craftora by the numbers">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">12K+</span>
+                        <span class="stat-label">Happy Customers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50K+</span>
+                        <span class="stat-label">Products Shipped</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Satisfaction Rate</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4+</span>
+                        <span class="stat-label">Years in Business</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values -->
+        <section class="section" aria-labelledby="values-heading">
+            <div class="container">
+                <h2 class="section-title" id="values-heading">What We Stand For</h2>
+                <p class="section-subtitle">
+                    These aren't slogans — they're the principles behind every
+                    decision we make.
+                </p>
+                <div class="values-grid">
+
+                    <div class="value-card">
+                        <div class="value-icon" aria-hidden="true">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
+                            </svg>
+                        </div>
+                        <h3>Quality First</h3>
+                        <p>We never cut corners. From material sourcing to final packaging, every step meets our high standard before it leaves our hands.</p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon" aria-hidden="true">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                                <line x1="15" y1="9" x2="15.01" y2="9"/>
+                            </svg>
+                        </div>
+                        <h3>Customer Happiness</h3>
+                        <p>Your satisfaction drives everything. We offer hassle-free returns, fast support, and a design process built around your vision.</p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon" aria-hidden="true">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 20h9"/>
+                                <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+                            </svg>
+                        </div>
+                        <h3>Creative Freedom</h3>
+                        <p>Your ideas, your rules. Our platform and team are here to help you realize exactly what you have in mind — no compromises.</p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon" aria-hidden="true">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                <polyline points="9 22 9 12 15 12 15 22"/>
+                            </svg>
+                        </div>
+                        <h3>Local Roots</h3>
+                        <p>We're a homegrown brand that understands its community. That local perspective shapes how we design, produce, and deliver.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Team -->
+        <section class="section" style="background:#fff;" aria-labelledby="team-heading">
+            <div class="container">
+                <h2 class="section-title" id="team-heading">Meet the Team</h2>
+                <p class="section-subtitle">
+                    A small, passionate crew dedicated to making your merch the best
+                    it can be.
+                </p>
+                <div class="team-grid">
+
+                    <div class="team-card">
+                        <div class="team-avatar-placeholder" role="img" aria-label="Photo of Aisha Musa">👩🏾‍💼</div>
+                        <div class="team-info">
+                            <h3>Aisha Musa</h3>
+                            <p>Founder &amp; Creative Director</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar-placeholder" role="img" aria-label="Photo of Kofi Asante">👨🏿‍🎨</div>
+                        <div class="team-info">
+                            <h3>Kofi Asante</h3>
+                            <p>Lead Product Designer</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar-placeholder" role="img" aria-label="Photo of Nadia Okafor">👩🏽‍💻</div>
+                        <div class="team-info">
+                            <h3>Nadia Okafor</h3>
+                            <p>Head of Technology</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar-placeholder" role="img" aria-label="Photo of Emeka Balogun">👨🏾‍🏭</div>
+                        <div class="team-info">
+                            <h3>Emeka Balogun</h3>
+                            <p>Production Manager</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section" aria-labelledby="cta-heading">
+            <div class="container">
+                <h2 id="cta-heading">Ready to Create Something?</h2>
+                <p>
+                    Browse our catalogue, pick your product, and design it your way.
+                    Fast shipping, great quality, zero stress.
+                </p>
+                <a href="./products.html" class="cta-btn">Shop Now</a>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer"></div>
+    <script src="./scripts/layout.js" defer></script>
+</body>
+
+</html>
