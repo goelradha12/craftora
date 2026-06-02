@@ -1,0 +1,62 @@
+[
+  {
+    "name": "No Excuses",
+    "category": "tshirt",
+    "file": "./assets/tshirt_templates/no_excuse.png"
+  },
+  {
+    "name": "Good Vibes",
+    "category": "tshirt",
+    "file": "./assets/tshirt_templates/good_vibes.png"
+  },
+  {
+    "name": "Mountain Moon",
+    "category": "tshirt",
+    "file": "./assets/tshirt_templates/mountain_moon.png"
+  },
+  {
+    "name": "Colorful Boxes",
+    "category": "tshirt",
+    "file": "./assets/tshirt_templates/colorful_boxes.png"
+  },
+  {
+    "name": "Wolf",
+    "category": "tshirt",
+    "file": "./assets/tshirt_templates/wolf.png"
+  },
+  {
+    "name": "Tiger",
+    "category": "tshirt",
+    "file": "./assets/tshirt_templates/tiger.png"
+  },
+  {
+    "name": "Sunset Adventure",
+    "category": "tshirt",
+    "file": "./assets/tshirt_templates/sunset_adventure.png"
+  },
+  {
+    "name": "Stay Wild",
+    "category": "tshirt",
+    "file": "./assets/tshirt_templates/stay_wild.png"
+  },
+  {
+    "name": "Coconut",
+    "category": "tshirt",
+    "file": "./assets/tshirt_templates/coconut.png"
+  },
+  {
+    "name": "Guy On Moon",
+    "category": "tshirt",
+    "file": "./assets/tshirt_templates/guy_on_moon.png"
+  },
+  {
+    "name": "Sun River Mountain",
+    "category": "tshirt",
+    "file": "./assets/tshirt_templates/sun_river_mountain.png"
+  },
+  {
+    "name": "Chillin Penguin",
+    "category": "tshirt",
+    "file": "./assets/tshirt_templates/chillin_penguin.png"
+  }
+]

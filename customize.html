@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>T-Shirt Customizer</title>
+  <style>
+    :root {
+      --primary: #111827;
+      --secondary: #2563EB;
+      --accent: #FF6609;
+      --bg: #F9FAF8;
+      --panel: #ffffff;
+      --line: #E5E7EB;
+      --muted: #6B7280;
+      --danger: #B91C1C;
+      --danger-bg: #FFF1F2;
+      --soft: #F3F4F6;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --font-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--primary);
+      font-family: var(--font-sans);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    #tc {
+      display: flex;
+      height: 100vh;
+      min-height: 760px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      font-size: 13px;
+    }
+
+    #tc-side {
+      width: 320px;
+      min-width: 320px;
+      background: var(--panel);
+      border-right: 1px solid var(--line);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 78px;
+    }
+
+    #tc-side::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    #tc-side::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 999px;
+    }
+
+    .tc-head {
+      padding: 16px 14px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tc-head h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    .tc-head p {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .flow-card {
+      margin: 12px 14px 0;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--soft);
+      font-size: 11px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .side-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      background: var(--soft);
+      border-radius: 12px;
+      padding: 4px;
+      margin: 12px 14px;
+    }
+
+    .side-tab {
+      padding: 8px 10px;
+      border: none;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .12s ease;
+    }
+
+    .side-tab.active {
+      background: var(--panel);
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(17, 24, 39, .08);
+    }
+
+    .acc {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .acc-hd {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .acc-hd:hover {
+      background: var(--soft);
+    }
+
+    .acc-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .acc-title .tag {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .acc-arrow {
+      font-size: 12px;
+      color: var(--muted);
+      transition: transform .18s ease;
+    }
+
+    .acc-arrow.open {
+      transform: rotate(180deg);
+    }
+
+    .acc-body {
+      padding: 10px 14px 12px;
+      display: none;
+    }
+
+    .acc-body.open {
+      display: block;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .field-group {
+      margin-bottom: 10px;
+    }
+
+    .field-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .templates-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .tpl-btn {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--soft);
+      cursor: pointer;
+      text-align: left;
+      padding: 7px;
+      transition: all .12s ease;
+      color: var(--primary);
+    }
+
+    .tpl-btn:hover {
+      background: #fff;
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+
+    .tpl-btn.active {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, .15);
+    }
+
+    .tpl-thumb {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .tpl-meta {
+      padding-top: 6px;
+    }
+
+    .tpl-name {
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .tpl-cat {
+      margin-top: 2px;
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.2;
+      text-transform: capitalize;
+    }
+
+    input[type=color] {
+      width: 32px;
+      height: 30px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1px;
+      cursor: pointer;
+      background: none;
+    }
+
+    input[type=text],
+    input[type=number],
+    select,
+    textarea {
+      width: 100%;
+      font-size: 12px;
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--primary);
+      font-family: var(--font-sans);
+      outline: none;
+    }
+
+    input[type=text]:focus,
+    input[type=number]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 54px;
+      line-height: 1.4;
+    }
+
+    .hex-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-top: 6px;
+    }
+
+    .hex-row input[type=text] {
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .align-btns {
+      display: flex;
+      gap: 4px;
+    }
+
+    .align-btn {
+      flex: 1;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--muted);
+      transition: all .12s ease;
+      text-align: center;
+    }
+
+    .align-btn:hover,
+    .align-btn.active {
+      background: var(--soft);
+      color: var(--primary);
+      border-color: #cbd5e1;
+    }
+
+    .btn {
+      padding: 7px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: background .12s ease, opacity .12s ease, border-color .12s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: var(--soft);
+    }
+
+    .btn-primary {
+      background: var(--secondary);
+      color: #fff;
+      border-color: var(--secondary);
+    }
+
+    .btn-primary:hover {
+      opacity: .9;
+      background: var(--secondary);
+    }
+
+    .btn-sm {
+      padding: 5px 8px;
+      font-size: 11px;
+    }
+
+    .btn-danger {
+      color: var(--danger);
+      border-color: #fecaca;
+    }
+
+    .btn-danger:hover {
+      background: var(--danger-bg);
+    }
+
+    #tc-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    #tc-toolbar {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .toolbar-side {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    #tc-canvas-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    #tc-stage {
+      position: relative;
+      width: 300px;
+      height: 340px;
+      user-select: none;
+      touch-action: none;
+      flex-shrink: 0;
+    }
+
+    #tc-shirt-svg {
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+    }
+
+    #tc-overlay {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .lobj {
+      position: absolute;
+      cursor: move;
+      touch-action: none;
+    }
+
+    .lobj.sel .lframe {
+      outline: 1.5px solid var(--secondary);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    .lframe {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .lframe img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      -webkit-user-drag: none;
+      display: block;
+    }
+
+    .rh {
+      position: absolute;
+      right: -7px;
+      bottom: -7px;
+      width: 16px;
+      height: 16px;
+      background: var(--secondary);
+      border: 2px solid var(--panel);
+      border-radius: 50%;
+      cursor: nwse-resize;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .rh i {
+      font-size: 8px;
+      color: #fff;
+      pointer-events: none;
+    }
+
+    #tc-statusbar {
+      padding: 7px 14px;
+      border-top: 1px solid var(--line);
+      background: var(--panel);
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 30px;
+    }
+
+    .notice {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .selected-box {
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--soft);
+      margin-bottom: 10px;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .selected-box strong {
+      color: var(--primary);
+    }
+
+    .action-stack {
+      display: grid;
+      gap: 6px;
+    }
+
+    .copy-btn {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(255, 102, 9, .2);
+    }
+
+    .copy-btn:hover {
+      background: #e65b06;
+      border-color: #e65b06;
+    }
+
+    .copy-btn.copied {
+      background: #16a34a;
+      border-color: #16a34a;
+    }
+
+    .back-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 24, 39, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 16px;
+    }
+
+    .back-modal.show {
+      display: flex;
+    }
+
+    .back-modal-card {
+      width: min(360px, 100%);
+      background: #fff;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--line);
+    }
+
+    .back-modal-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .back-modal-card p {
+      margin: 0 0 16px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .back-modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    @media (max-width: 980px) {
+      #tc {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+      }
+
+      #tc-side {
+        width: 100%;
+        min-width: 100%;
+        max-height: 52vh;
+      }
+
+      #tc-main {
+        min-height: 58vh;
+      }
+
+      #tc-stage {
+        transform: scale(.92);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h2 class="sr-only">T-Shirt Customizer</h2>
+
+  <div id="tc">
+    <aside id="tc-side">
+      <div class="tc-head">
+        <h3>T-shirt customizer</h3>
+        <p>Build the front and back separately. Select a layer to edit, move, resize, or remove it.</p>
+      </div>
+
+      <div class="flow-card">
+        Recommended flow: choose side, pick shirt color, apply a template, add text, then use the selected item tools to
+        align or remove layers.
+      </div>
+
+      <div class="side-tabs">
+        <button class="side-tab active" id="btn-front" onclick="switchSide('front')">Front</button>
+        <button class="side-tab" id="btn-back" onclick="switchSide('back')">Back</button>
+      </div>
+
+      <div class="acc" id="acc-color">
+        <div class="acc-hd" onclick="toggleAcc('color')">
+          <span class="acc-title">Color <span class="tag">shirt</span></span>
+          <i class="acc-arrow open" id="arr-color">⌄</i>
+        </div>
+        <div class="acc-body open" id="body-color">
+          <div class="color-swatches" id="preset-swatches"></div>
+          <div class="hex-row">
+            <input type="color" id="sc-pick" oninput="setShirtColor(this.value)">
+            <input type="text" id="sc-hex" value="#2563EB" maxlength="7" onchange="setShirtColor(this.value)"
+              style="font-family:var(--font-mono);font-size:11px;">
+          </div>
+          <div class="notice" style="margin-top:8px;">Use a preset swatch or enter a custom hex value.</div>
+        </div>
+      </div>
+
+      <div class="acc" id="acc-design">
+        <div class="acc-hd" onclick="toggleAcc('design')">
+          <span class="acc-title">Design <span class="tag">template</span></span>
+          <i class="acc-arrow" id="arr-design">⌄</i>
+        </div>
+        <div class="acc-body" id="body-design">
+          <div class="field-group">
+            <span class="field-label">Templates</span>
+            <div class="templates-grid" id="tpl-grid"></div>
+          </div>
+
+          <div class="selected-box" id="design-selection-box">
+            <strong>Selected design</strong><br>
+            Click a design on the canvas to center it, resize it, or remove it.
+          </div>
+
+          <div class="action-stack">
+            <button class="btn btn-sm" onclick="centerSel()">Center selected design</button>
+            <button class="btn btn-danger btn-sm" onclick="removeSel('design')">Remove selected design</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc" id="acc-text">
+        <div class="acc-hd" onclick="toggleAcc('text')">
+          <span class="acc-title">Text <span class="tag">typography</span></span>
+          <i class="acc-arrow" id="arr-text">⌄</i>
+        </div>
+        <div class="acc-body" id="body-text">
+          <div class="field-group">
+            <span class="field-label">Text content</span>
+            <textarea id="txt-content" rows="2" placeholder="Your text here...">YOUR TEXT</textarea>
+          </div>
+
+          <div class="field-group row2">
+            <div>
+              <span class="field-label">Font</span>
+              <select id="txt-font" onchange="syncTextSel()">
+                <option value="Georgia, serif">Georgia</option>
+                <option value="Impact, sans-serif">Impact</option>
+                <option value="'Courier New', monospace">Courier New</option>
+                <option value="Verdana, sans-serif">Verdana</option>
+                <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                <option value="'Arial Black', sans-serif">Arial Black</option>
+                <option value="Tahoma, sans-serif">Tahoma</option>
+              </select>
+            </div>
+            <div>
+              <span class="field-label">Weight</span>
+              <select id="txt-weight" onchange="syncTextSel()">
+                <option value="300">Light</option>
+                <option value="400" selected>Regular</option>
+                <option value="700">Bold</option>
+                <option value="900">Black</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group row2">
+            <div>
+              <span class="field-label">Size (px)</span>
+              <input type="number" id="txt-size" value="36" min="8" max="120" oninput="syncTextSel()">
+            </div>
+            <div>
+              <span class="field-label">Width (px)</span>
+              <input type="number" id="txt-width" value="160" min="40" max="280" oninput="syncTextSel()">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <span class="field-label">Alignment</span>
+            <div class="align-btns">
+              <button class="align-btn active" id="al-left" onclick="setTextAlign('left')">L</button>
+              <button class="align-btn" id="al-center" onclick="setTextAlign('center')">C</button>
+              <button class="align-btn" id="al-right" onclick="setTextAlign('right')">R</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <span class="field-label">Curve <span id="curve-val"
+                style="color:var(--primary);font-weight:700;">0°</span></span>
+            <input type="range" id="txt-curve" min="-60" max="60" value="0" step="1"
+              oninput="document.getElementById('curve-val').textContent=this.value+'°'; syncTextSel()"
+              style="width:100%;height:4px;margin-top:4px;">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px;">
+              <span>Arch down</span><span>Flat</span><span>Arch up</span>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <span class="field-label">Color</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <input type="color" id="txt-color" value="#FFFFFF" oninput="syncTextSel()">
+              <span style="font-size:11px;color:var(--muted);">Choose text color</span>
+            </div>
+          </div>
+
+          <div class="selected-box" id="text-selection-box">
+            <strong>Selected text</strong><br>
+            Click a text layer on the canvas to edit or delete it.
+          </div>
+
+          <div style="display:flex;gap:6px;margin-top:6px;">
+            <button class="btn btn-primary" style="flex:1;" onclick="addTextLayer()">Add text</button>
+            <button class="btn btn-danger btn-sm" onclick="removeSel('text')">Remove selected text</button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="padding:10px 14px;border-top:1px solid var(--line);margin-top:auto;display:flex;gap:6px;flex-wrap:wrap;align-items:center;position: fixed;bottom: 0;background-color: white;width: 320px;">
+        <button id="copy-json-btn" class="btn btn-primary copy-btn" style="flex:1;" onclick="saveDesignData()">Save
+          Design Data</button>
+        <button class="btn btn-sm" onclick="clearSide()">Clear current side</button>
+      </div>
+    </aside>
+
+    <div id="tc-main">
+      <div id="tc-toolbar">
+        <div class="toolbar-side">
+          <button class="btn btn-sm" onclick="goBackWithWarning()">← Back</button>
+          <span id="side-lbl" style="font-size:12px;color:var(--muted);">Editing <strong
+              style="color:var(--primary);">front</strong></span>
+        </div>
+        <div class="toolbar-side">
+          <button class="btn btn-sm" onclick="alignSel('hc')">Center X</button>
+          <button class="btn btn-sm" onclick="alignSel('vc')">Center Y</button>
+          <button class="btn btn-sm btn-danger" onclick="removeSel()">Delete selected</button>
+        </div>
+      </div>
+
+      <div id="tc-canvas-area">
+        <div id="tc-stage">
+          <svg id="tc-shirt-svg" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div id="tc-overlay"></div>
+        </div>
+      </div>
+
+      <div id="tc-statusbar">
+        <span id="status-msg">Loading templates and product data...</span>
+        <span id="layer-info" style="color:var(--muted);font-size:11px;"></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="back-modal" class="back-modal" aria-hidden="true">
+    <div class="back-modal-card" role="dialog" aria-modal="true" aria-labelledby="back-modal-title">
+      <h3 id="back-modal-title">Copy your design first</h3>
+      <p>You have not saved your style data yet.</p>
+      <div class="back-modal-actions">
+        <button class="btn btn-sm" onclick="closeBackModal()">OK</button>
+        <button class="btn btn-primary btn-sm" onclick="proceedBack()">Go back</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const W = 300;
+    const H = 340;
+    const TEMPLATE_JSON_URL = './content/templates.json';
+    const PRODUCTS_JSON_URL = './content/products.json';
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id') || '';
+
+    let colorPresetList = ['#111827', '#2563EB', '#FF6609', '#F9FAF8', '#DC2626', '#16A34A', '#7C3AED', '#0F172A'];
+    let currentProduct = null;
+
+    const state = {
+      shirtColor: '#2563EB',
+      front: [],
+      back: [],
+      side: 'front',
+      sel: null,
+      nid: 1,
+      styleCopied: false,
+      templates: [],
+      products: []
+    };
+
+    function layers() { return state[state.side]; }
+    function setStatus(m) { document.getElementById('status-msg').textContent = m; }
+    function setLayerInfo() {
+      const n = layers().length;
+      document.getElementById('layer-info').textContent = n ? `${n} layer${n > 1 ? 's' : ''}` : '';
+    }
+
+    function markDirty() {
+      state.styleCopied = false;
+    }
+
+    function toggleAcc(key) {
+      const body = document.getElementById('body-' + key);
+      const arr = document.getElementById('arr-' + key);
+      const open = body.classList.contains('open');
+      body.classList.toggle('open', !open);
+      arr.classList.toggle('open', !open);
+    }
+
+    function switchSide(s) {
+      state.side = s;
+      state.sel = null;
+      document.getElementById('btn-front').classList.toggle('active', s === 'front');
+      document.getElementById('btn-back').classList.toggle('active', s === 'back');
+      document.getElementById('side-lbl').innerHTML = `Editing <strong>${s}</strong>`;
+      document.getElementById('design-selection-box').innerHTML = '<strong>Selected design</strong><br>Click a design on the canvas to center it, resize it, or remove it.';
+      document.getElementById('text-selection-box').innerHTML = '<strong>Selected text</strong><br>Click a text layer on the canvas to edit or delete it.';
+      renderAll();
+      setStatus('Switched to ' + s + ' side.');
+    }
+
+    function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+    function escXml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function shade(hex, amt) {
+      let c = hex.replace('#', '');
+      if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+      let r = parseInt(c.slice(0, 2), 16), g = parseInt(c.slice(2, 4), 16), b = parseInt(c.slice(4, 6), 16);
+      r = Math.max(0, Math.min(255, r + amt));
+      g = Math.max(0, Math.min(255, g + amt));
+      b = Math.max(0, Math.min(255, b + amt));
+      return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+    }
+
+    function drawShirt(c) {
+      c = c || state.shirtColor;
+      const d = shade(c, -30), hi = shade(c, 25);
+      document.getElementById('tc-shirt-svg').innerHTML = `
+        <defs>
+          <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="${hi}"/>
+            <stop offset="55%" stop-color="${c}"/>
+            <stop offset="100%" stop-color="${d}"/>
+          </linearGradient>
+        </defs>
+        <path d="M55,28 L18,75 L56,94 L52,308 L248,308 L244,94 L282,75 L245,28 Q226,13 208,19 Q190,47 150,52 Q110,47 92,19 Q74,13 55,28 Z" fill="url(#sg)" stroke="${d}" stroke-width="0.8" stroke-opacity="0.3"/>
+        <path d="M55,28 Q74,13 92,19 Q110,47 150,52 Q190,47 208,19 Q226,13 245,28" fill="none" stroke="${d}" stroke-width="0.8" stroke-opacity="0.2"/>
+        <path d="M52,94 L56,308 L74,308 L74,104 Z" fill="${d}" fill-opacity="0.07"/>
+        <path d="M248,94 L244,308 L226,308 L226,104 Z" fill="${hi}" fill-opacity="0.05"/>
+      `;
+    }
+
+    function setShirtColor(v) {
+      if (!/^#[0-9a-fA-F]{3,6}$/.test(v)) return;
+      markDirty();
+      state.shirtColor = v;
+      document.getElementById('sc-pick').value = v;
+      document.getElementById('sc-hex').value = v;
+      document.querySelectorAll('.cs').forEach(s => s.classList.toggle('sel', s.dataset.c.toLowerCase() === v.toLowerCase()));
+      drawShirt(v);
+      setStatus('Shirt color updated.');
+    }
+
+    function buildSwatches() {
+      const wrap = document.getElementById('preset-swatches');
+      wrap.innerHTML = '';
+      colorPresetList.forEach((c, idx) => {
+        const b = document.createElement('button');
+        b.className = 'cs' + (c.toLowerCase() === state.shirtColor.toLowerCase() ? ' sel' : '') + (c.toLowerCase() === '#f9faf8' ? ' white-swatch' : '');
+        b.style.background = c;
+        b.dataset.c = c;
+        b.title = currentProduct?.colorNames?.[idx] || c;
+        b.onclick = () => setShirtColor(c);
+        wrap.appendChild(b);
+      });
+    }
+
+    async function loadTemplates() {
+      try {
+        const res = await fetch(TEMPLATE_JSON_URL, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        state.templates = Array.isArray(data) ? data.filter(t => (t.category || '').toLowerCase() === 'tshirt') : [];
+        buildTemplates();
+        if (!state.templates.length) setStatus('No T-shirt templates found in ./content/templates.json.');
+      } catch (err) {
+        console.error(err);
+        state.templates = [];
+        buildTemplates();
+        setStatus('Could not load ./content/templates.json.');
+      }
+    }
+
+    async function loadProductData() {
+      try {
+        const res = await fetch(PRODUCTS_JSON_URL, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const products = Array.isArray(data) ? data : (Array.isArray(data.products) ? data.products : []);
+        state.products = products;
+        currentProduct = products.find(p => String(p.id) === String(productId)) || products[0] || null;
+
+        if (currentProduct && Array.isArray(currentProduct.colors) && currentProduct.colors.length) {
+          colorPresetList = currentProduct.colors;
+          buildSwatches();
+          setShirtColor(currentProduct.colors[0]);
+          setStatus(`Loaded product ${currentProduct.id}${currentProduct.name ? ` — ${currentProduct.name}` : ''}.`);
+        } else if (!currentProduct) {
+          setStatus('No matching product found. Using default colors.');
+        }
+      } catch (err) {
+        console.error(err);
+        setStatus('Could not load ./content/products.json. Using default colors.');
+      }
+    }
+
+    function buildTemplates() {
+      const g = document.getElementById('tpl-grid');
+      g.innerHTML = '';
+
+      if (!state.templates.length) {
+        const empty = document.createElement('div');
+        empty.className = 'notice';
+        empty.style.gridColumn = '1 / -1';
+        empty.textContent = 'No templates loaded yet.';
+        g.appendChild(empty);
+        return;
+      }
+
+      state.templates.forEach((t, i) => {
+        const b = document.createElement('button');
+        b.className = 'tpl-btn';
+        b.dataset.index = String(i);
+        b.innerHTML = `
+          <img class="tpl-thumb" src="${t.file}" alt="${escXml(t.name || 'Template')} preview" loading="lazy">
+          <div class="tpl-meta">
+            <div class="tpl-name">${escXml(t.name || 'Template')}</div>
+            <div class="tpl-cat">${escXml(t.category || 'tshirt')}</div>
+          </div>
+        `;
+        b.onclick = () => applyTemplate(i);
+        g.appendChild(b);
+      });
+    }
+
+    function applyTemplate(i) {
+      markDirty();
+      clearSide(true);
+      const tpl = state.templates[i];
+      if (!tpl) return;
+      const id = state.nid++;
+      const layer = {
+        id,
+        type: 'image',
+        x: 70,
+        y: 75,
+        w: 160,
+        h: 160,
+        src: tpl.file,
+        name: tpl.name || 'Template'
+      };
+      layers().push(layer);
+      renderAll();
+      selectLayer(id);
+      setStatus(`Template "${tpl.name || 'Template'}" applied.`);
+      document.querySelectorAll('.tpl-btn').forEach(btn => btn.classList.toggle('active', Number(btn.dataset.index) === i));
+    }
+
+    function renderLayer(layer) {
+      const ov = document.getElementById('tc-overlay');
+      let el = document.getElementById('lo-' + layer.id);
+      if (!el) {
+        el = document.createElement('div');
+        el.className = 'lobj';
+        el.id = 'lo-' + layer.id;
+
+        const frame = document.createElement('div');
+        frame.className = 'lframe';
+        el.appendChild(frame);
+
+        const rh = document.createElement('div');
+        rh.className = 'rh';
+        rh.innerHTML = '<i>↘</i>';
+        el.appendChild(rh);
+
+        ov.appendChild(el);
+        setupDrag(el, layer);
+        setupResize(rh, layer);
+        el.addEventListener('pointerdown', e => {
+          if (e.target.closest('.rh')) return;
+          selectLayer(layer.id);
+        });
+      }
+
+      el.style.left = layer.x + 'px';
+      el.style.top = layer.y + 'px';
+      el.style.width = layer.w + 'px';
+      el.style.height = layer.h + 'px';
+      el.classList.toggle('sel', state.sel === layer.id);
+
+      const frame = el.querySelector('.lframe');
+
+      if (layer.type === 'image') {
+        const img = frame.querySelector('img');
+        if (!img || img.getAttribute('src') !== layer.src) {
+          frame.innerHTML = '';
+          const next = document.createElement('img');
+          next.src = layer.src;
+          next.alt = layer.name || 'Artwork';
+          frame.appendChild(next);
+        }
+      } else if (layer.type === 'text') {
+        const svgStr = makeCurvedTextSVG(layer);
+        const blob = new Blob([svgStr], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        frame.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = 'Text layer';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'contain';
+        frame.appendChild(img);
+      }
+    }
+
+    function renderAll() {
+      const ov = document.getElementById('tc-overlay');
+      const ids = new Set(layers().map(l => 'lo-' + l.id));
+      Array.from(ov.children).forEach(el => { if (!ids.has(el.id)) el.remove(); });
+      layers().forEach(renderLayer);
+      setLayerInfo();
+      updateActionCopy();
+      refreshTemplateSelectionUI();
+    }
+
+    function refreshTemplateSelectionUI() {
+      const buttons = document.querySelectorAll('.tpl-btn');
+      const selected = layers().find(l => l.type === 'image' && l.src);
+      buttons.forEach(btn => {
+        const idx = Number(btn.dataset.index);
+        const tpl = state.templates[idx];
+        btn.classList.toggle('active', !!selected && tpl && selected.src === tpl.file);
+      });
+    }
+
+    function updateActionCopy() {
+      const layer = layers().find(l => l.id === state.sel);
+      const designBox = document.getElementById('design-selection-box');
+      const textBox = document.getElementById('text-selection-box');
+
+      if (!layer) {
+        designBox.innerHTML = '<strong>Selected design</strong><br>Click a design on the canvas to center it, resize it, or remove it.';
+        textBox.innerHTML = '<strong>Selected text</strong><br>Click a text layer on the canvas to edit or delete it.';
+        return;
+      }
+
+      if (layer.type === 'image') {
+        designBox.innerHTML = `<strong>Selected design</strong><br>Selected: ${escXml(layer.name || 'template')}<br>Use the remove button to delete this design.`;
+      } else {
+        designBox.innerHTML = '<strong>Selected design</strong><br>Click a design on the canvas to center it, resize it, or remove it.';
+      }
+
+      if (layer.type === 'text') {
+        const txt = layer.text || '';
+        textBox.innerHTML = `<strong>Selected text</strong><br>Selected text layer. Current text: ${escXml(txt).slice(0, 28)}${txt.length > 28 ? '…' : ''}<br>Use the remove button to delete this text.`;
+      } else {
+        textBox.innerHTML = '<strong>Selected text</strong><br>Click a text layer on the canvas to edit or delete it.';
+      }
+    }
+
+    function selectLayer(id) {
+      state.sel = id;
+      const layer = layers().find(l => l.id === id);
+      if (layer) {
+        if (layer.type === 'text') {
+          document.getElementById('txt-content').value = layer.text;
+          document.getElementById('txt-font').value = layer.fontFamily;
+          document.getElementById('txt-weight').value = layer.fontWeight;
+          document.getElementById('txt-size').value = layer.fontSize;
+          document.getElementById('txt-width').value = layer.w;
+          document.getElementById('txt-color').value = layer.textColor;
+          document.getElementById('txt-curve').value = layer.curve || 0;
+          document.getElementById('curve-val').textContent = (layer.curve || 0) + '°';
+          setTextAlignUI(layer.textAlign || 'center');
+          if (!document.getElementById('body-text').classList.contains('open')) toggleAcc('text');
+        }
+        if (layer.type === 'image') {
+          if (!document.getElementById('body-design').classList.contains('open')) toggleAcc('design');
+        }
+      }
+      renderAll();
+      setStatus(layer ? `Selected ${layer.type} layer. Drag to move and use the corner to resize.` : '');
+    }
+
+    function setTextAlignUI(a) {
+      ['left', 'center', 'right'].forEach(v => document.getElementById('al-' + v).classList.toggle('active', v === a));
+    }
+
+    function setTextAlign(a) {
+      markDirty();
+      setTextAlignUI(a);
+      const layer = layers().find(l => l.id === state.sel && l.type === 'text');
+      if (layer) { layer.textAlign = a; renderLayer(layer); }
+    }
+
+    function makeCurvedTextSVG(layer) {
+      const text = layer.text || '';
+      const curve = layer.curve || 0;
+      const fs = layer.fontSize || 30;
+      const fw = layer.fontWeight || '400';
+      const ff = layer.fontFamily || 'Arial,sans-serif';
+      const col = layer.textColor || '#fff';
+      const ta = layer.textAlign || 'center';
+      const lw = layer.w || 160;
+      const lh = layer.h || 60;
+
+      if (curve === 0) {
+        const lines = text.split('\n');
+        const lineH = fs * 1.15;
+        const totalH = lines.length * lineH;
+        const startY = (lh - totalH) / 2 + fs * 0.85;
+        const linesSVG = lines.map((line, i) => {
+          const ax = ta === 'left' ? fs * 0.1 : ta === 'right' ? lw - fs * 0.1 : lw / 2;
+          const anchor = ta === 'left' ? 'start' : ta === 'right' ? 'end' : 'middle';
+          return `<text x="${ax}" y="${startY + i * lineH}" text-anchor="${anchor}" fill="${col}" font-size="${fs}" font-weight="${fw}" font-family="${ff}" dominant-baseline="auto">${escXml(line)}</text>`;
+        }).join('');
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="${lw}" height="${lh}" viewBox="0 0 ${lw} ${lh}">${linesSVG}</svg>`;
+      }
+
+      const r = Math.abs(5000 / curve);
+      const sweep = lw / (2 * r);
+      const cy = curve > 0 ? lh - r * Math.cos(sweep) + fs * 0.5 : r * Math.cos(sweep) - fs * 0.5;
+      const startX = lw / 2 - r * Math.sin(sweep);
+      const endX = lw / 2 + r * Math.sin(sweep);
+      const largeArc = sweep > Math.PI / 2 ? 1 : 0;
+      const sweepFlag = curve > 0 ? 0 : 1;
+      const pid = `cp${layer.id || 0}`;
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="${lw}" height="${lh}" viewBox="0 0 ${lw} ${lh}"><defs><path id="${pid}" d="M ${startX},${cy} A ${r} ${r} 0 ${largeArc} ${sweepFlag} ${endX},${cy}"/></defs><text font-size="${fs}" font-weight="${fw}" font-family="${ff}" fill="${col}"><textPath href="#${pid}" startOffset="50%" text-anchor="middle">
+        ${escXml(text.replace(/\n/g, ' '))}</textPath></text></svg>`;
+    }
+
+    function syncTextSel() {
+      markDirty();
+      const layer = layers().find(l => l.id === state.sel && l.type === 'text');
+      if (!layer) return;
+      layer.text = document.getElementById('txt-content').value;
+      layer.fontFamily = document.getElementById('txt-font').value;
+      layer.fontWeight = document.getElementById('txt-weight').value;
+      layer.fontSize = parseInt(document.getElementById('txt-size').value) || 30;
+      layer.w = parseInt(document.getElementById('txt-width').value) || 160;
+      layer.textColor = document.getElementById('txt-color').value;
+      layer.curve = parseInt(document.getElementById('txt-curve').value) || 0;
+      layer.textAlign = ['left', 'center', 'right'].find(v => document.getElementById('al-' + v).classList.contains('active')) || 'center';
+      renderLayer(layer);
+      setStatus('Text updated.');
+    }
+
+    function addTextLayer() {
+      markDirty();
+      const id = state.nid++;
+      const layer = {
+        id,
+        type: 'text',
+        x: 70,
+        y: 140,
+        w: parseInt(document.getElementById('txt-width').value) || 160,
+        h: 60,
+        text: document.getElementById('txt-content').value || 'YOUR TEXT',
+        fontFamily: document.getElementById('txt-font').value,
+        fontWeight: document.getElementById('txt-weight').value,
+        fontSize: parseInt(document.getElementById('txt-size').value) || 30,
+        textColor: document.getElementById('txt-color').value,
+        textAlign: ['left', 'center', 'right'].find(v => document.getElementById('al-' + v).classList.contains('active')) || 'center',
+        curve: parseInt(document.getElementById('txt-curve').value) || 0
+      };
+      layers().push(layer);
+      renderAll();
+      selectLayer(id);
+      setStatus('Text layer added.');
+    }
+
+    function removeSel(fallbackType) {
+      const selLayer = layers().find(l => l.id === state.sel);
+      const idx = selLayer ? layers().findIndex(l => l.id === selLayer.id) : -1;
+      if (idx < 0) {
+        if (fallbackType === 'text') setStatus('Select a text layer first.');
+        else if (fallbackType === 'design') setStatus('Select a design layer first.');
+        else setStatus('Select a layer first.');
+        return;
+      }
+      markDirty();
+      layers().splice(idx, 1);
+      state.sel = null;
+      renderAll();
+      setStatus('Layer removed.');
+    }
+
+    function centerSel() {
+      const layer = layers().find(l => l.id === state.sel);
+      if (!layer) { setStatus('Select a design layer first.'); return; }
+      markDirty();
+      layer.x = Math.round((W - layer.w) / 2);
+      layer.y = Math.round((H - layer.h) / 2);
+      renderLayer(layer);
+      setStatus('Layer centered.');
+    }
+
+    function alignSel(a) {
+      const layer = layers().find(l => l.id === state.sel);
+      if (!layer) { setStatus('Select a layer first.'); return; }
+      markDirty();
+      if (a === 'hc') layer.x = Math.round((W - layer.w) / 2);
+      else layer.y = Math.round((H - layer.h) / 2);
+      renderLayer(layer);
+      setStatus('Layer aligned.');
+    }
+
+    function clearSide(silent) {
+      markDirty();
+      state[state.side] = [];
+      state.sel = null;
+      document.getElementById('tc-overlay').innerHTML = '';
+      renderAll();
+      if (!silent) setStatus('Current side cleared.');
+    }
+
+    function setupDrag(el, layer) {
+      let sx, sy, ox, oy;
+      el.addEventListener('pointerdown', e => {
+        if (e.target.closest('.rh')) return;
+        e.preventDefault();
+        sx = e.clientX; sy = e.clientY; ox = layer.x; oy = layer.y;
+        el.setPointerCapture(e.pointerId);
+        const mv = ev => {
+          markDirty();
+          layer.x = clamp(ox + (ev.clientX - sx), 0, W - layer.w);
+          layer.y = clamp(oy + (ev.clientY - sy), 0, H - layer.h);
+          el.style.left = layer.x + 'px';
+          el.style.top = layer.y + 'px';
+        };
+        const up = () => {
+          el.removeEventListener('pointermove', mv);
+          el.removeEventListener('pointerup', up);
+        };
+        el.addEventListener('pointermove', mv);
+        el.addEventListener('pointerup', up);
+      });
+    }
+
+    function setupResize(rh, layer) {
+      let sx, sy, ow, oh;
+      rh.addEventListener('pointerdown', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        sx = e.clientX; sy = e.clientY; ow = layer.w; oh = layer.h;
+        rh.setPointerCapture(e.pointerId);
+        const mv = ev => {
+          markDirty();
+          layer.w = clamp(ow + (ev.clientX - sx), 30, W - layer.x);
+          if (layer.type === 'image') layer.h = layer.w;
+          else layer.h = Math.max(20, oh + (ev.clientY - sy));
+          renderLayer(layer);
+        };
+        const up = () => {
+          rh.removeEventListener('pointermove', mv);
+          rh.removeEventListener('pointerup', up);
+        };
+        rh.addEventListener('pointermove', mv);
+        rh.addEventListener('pointerup', up);
+      });
+    }
+
+    async function saveDesignData() {
+      const serialize = ls => ls.map(l => {
+        const o = { id: l.id, type: l.type, x: l.x, y: l.y, w: l.w, h: l.h };
+        if (l.type === 'text') {
+          o.text = l.text;
+          o.fontFamily = l.fontFamily;
+          o.fontWeight = l.fontWeight;
+          o.fontSize = l.fontSize;
+          o.textColor = l.textColor;
+          o.textAlign = l.textAlign;
+          o.curve = l.curve;
+        }
+        if (l.type === 'image') o.src = l.src;
+        return o;
+      });
+
+      const data = {
+        productId: productId || null,
+        shirtColor: state.shirtColor,
+        front: serialize(state.front),
+        back: serialize(state.back),
+        generatedAt: new Date().toISOString()
+      };
+
+      const json = JSON.stringify(data, null, 2);
+      const storageKey = productId ? `designData_${productId}` : 'designData';
+
+      try {
+        localStorage.setItem(storageKey, json);
+        try {
+          await navigator.clipboard.writeText(json);
+        } catch (err) {
+          // clipboard is optional; localStorage is the save source of truth
+        }
+        state.styleCopied = true;
+        const btn = document.getElementById('copy-json-btn');
+        btn.classList.add('copied');
+        btn.textContent = '✓ Saved';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.textContent = 'Save Design Data';
+        }, 2000);
+        setStatus(productId ? `Design data saved for product ${productId}.` : 'Design data saved.');
+      } catch (err) {
+        setStatus('Could not save design data.');
+      }
+    }
+
+    function updateSelectedNotice() {
+      const layer = layers().find(l => l.id === state.sel);
+      if (!layer) return;
+      if (layer.type === 'text') {
+        document.getElementById('txt-content').value = layer.text;
+        document.getElementById('txt-font').value = layer.fontFamily;
+        document.getElementById('txt-weight').value = layer.fontWeight;
+        document.getElementById('txt-size').value = layer.fontSize;
+        document.getElementById('txt-width').value = layer.w;
+        document.getElementById('txt-color').value = layer.textColor;
+        document.getElementById('txt-curve').value = layer.curve || 0;
+        document.getElementById('curve-val').textContent = (layer.curve || 0) + '°';
+        setTextAlignUI(layer.textAlign || 'center');
+      }
+    }
+
+    function goBackWithWarning() {
+      if (!state.styleCopied) {
+        document.getElementById('back-modal').classList.add('show');
+        document.getElementById('back-modal').setAttribute('aria-hidden', 'false');
+        return;
+      }
+      proceedBack();
+    }
+
+    function closeBackModal() {
+      const modal = document.getElementById('back-modal');
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    function proceedBack() {
+      closeBackModal();
+      if (productId) {
+        window.location.href = `/product.html?id=${productId}`;
+      } else {
+        window.location.href = '/products.html';
+      }
+    }
+
+    buildSwatches();
+    drawShirt();
+    setTextAlignUI('center');
+    loadTemplates();
+    loadProductData();
+    setShirtColor(state.shirtColor);
+    setStatus('Loading templates and product data...');
+
+    window.addEventListener('pointerup', () => {
+      if (state.sel) updateSelectedNotice();
+    });
+  </script>
+</body>
+
+</html>

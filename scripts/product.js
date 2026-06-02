@@ -1,10 +1,11 @@
 const CART_KEY = 'cart';
+const CUSTOMIZATION_PREFIX = 'designData_';
 
 const state = {
   product: null,
   products: [],
   qty: 1,
-  colorIdx: 0,
+  customization: null,
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -30,6 +31,67 @@ const setCart = items => {
 
 function getImages(p) {
   return [p?.images?.default, ...(p?.images?.others || [])].filter(Boolean);
+}
+
+function getCustomizationKey(productId) {
+  return `${CUSTOMIZATION_PREFIX}${productId}`;
+}
+
+function loadCustomizationForProduct(productId) {
+  const raw = localStorage.getItem(getCustomizationKey(productId));
+  if (!raw) return null;
+
+  try {
+    const parsed = JSON.parse(raw);
+    if (!parsed || String(parsed.productId || '') !== String(productId)) return null;
+    return parsed;
+  } catch (err) {
+    console.warn('Invalid customization data in localStorage', err);
+    return null;
+  }
+}
+
+function refreshCustomizationState() {
+  if (!state.product?.id) return false;
+
+  state.customization = loadCustomizationForProduct(state.product.id);
+  updateCustomizationUI();
+  return !!state.customization;
+}
+
+function updateCustomizationUI() {
+  const addBtn = $('#addToCartBtn');
+  if (!addBtn || !state.product) return;
+
+  const hasCustomization = !!state.customization;
+  addBtn.disabled = !hasCustomization || Number(state.product.stock) <= 0;
+  addBtn.setAttribute('aria-disabled', String(addBtn.disabled));
+
+  if (Number(state.product.stock) <= 0) {
+    addBtn.textContent = 'Out of Stock';
+    return;
+  }
+
+  addBtn.textContent = hasCustomization ? 'Add to Cart' : 'Customize to Add to Cart';
+
+  const customizeBtn = $('#customizeProductBtn');
+  if (customizeBtn) {
+    customizeBtn.textContent = hasCustomization ? 'Edit Design' : 'Customize Product';
+  }
+
+  const status = $('#customizationStatus');
+  if (status) {
+    if (hasCustomization) {
+      const shirtColor = state.customization?.shirtColor || 'saved color';
+      status.textContent = `Custom design saved for this product. Shirt color: ${shirtColor}.`;
+      status.classList.add('product__customization--ready');
+      status.classList.remove('product__customization--missing');
+    } else {
+      status.textContent = 'Customize this product to enable Add to Cart.';
+      status.classList.remove('product__customization--ready');
+      status.classList.add('product__customization--missing');
+    }
+  }
 }
 
 function init() {
@@ -62,6 +124,7 @@ function init() {
       mount.setAttribute('aria-busy', 'false');
 
       bindEvents();
+      refreshCustomizationState();
     })
     .catch(err => {
       console.error(err);
@@ -152,7 +215,7 @@ function renderGallery(p) {
 function renderInfo(p) {
   const outOfStock = Number(p.stock) <= 0;
   const colors = Array.isArray(p.colors) ? p.colors : [];
-  const colorNames = Array.isArray(p.colorNames) ? p.colorNames : []; 
+  const colorNames = Array.isArray(p.colorNames) ? p.colorNames : [];
   const sizes = Array.isArray(p.sizes) ? p.sizes : [];
 
   return `
@@ -169,9 +232,9 @@ function renderInfo(p) {
       <div class="product__description">
         ${esc(p.description)}
       </div>
-      
 
       ${renderColors(colors, colorNames)}
+      ${renderCustomizationStatus()}
       ${renderSizes(sizes)}
       ${renderQty()}
       <span class="product__stock ${outOfStock ? 'product__stock--out' : 'product__stock--in'}">
@@ -181,19 +244,31 @@ function renderInfo(p) {
         <button
           class="product__add-btn"
           id="addToCartBtn"
-          ${outOfStock ? 'disabled aria-disabled="true"' : ''}
+          ${outOfStock ? 'disabled aria-disabled="true"' : 'disabled aria-disabled="true"'}
         >
-          ${outOfStock ? 'Out of Stock' : 'Add to Cart'}
+          ${outOfStock ? 'Out of Stock' : 'Customize to Add to Cart'}
         </button>
 
         <button
           class="product__buy-btn"
           id="buyNowBtn"
-          ${outOfStock ? 'disabled aria-disabled="true"' : ''}
+          ${outOfStock ? 'disabled aria-disabled="true"' : 'disabled aria-disabled="true"'}
         >
           Buy Now
         </button>
       </div>
+
+      <div class="product__actions" style="margin-top:10px;">
+        <button class="product__add-btn" id="customizeProductBtn">Customize Product</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderCustomizationStatus() {
+  return `
+    <div class="product__customization" id="customizationStatus">
+      Customize this product to enable Add to Cart.
     </div>
   `;
 }
@@ -204,25 +279,17 @@ function renderColors(colors, colorNames) {
   const getName = (i) => colorNames[i] || colors[i];
 
   return `
-    <fieldset class="product__option">
-      <legend class="product__option-label">Color</legend>
-      <div class="product__colors">
+    <section class="product__option product__option--readonly" aria-label="Available colors">
+      <div class="product__option-label">Available colors</div>
+      <div class="product__colors product__colors--readonly">
         ${colors.map((hex, i) => `
-          <label class="product__color-label" title="${esc(getName(i))}">
-            <input
-              class="product__color-input"
-              type="radio"
-              name="product-color"
-              value="${i}"
-              data-color-name="${esc(getName(i))}"
-              ${i === 0 ? 'checked' : ''}
-            >
-            <span class="product__color-swatch" style="background:${esc(hex)}" aria-hidden="true"></span>
-          </label>
+          <span class="product__color-label" title="${esc(getName(i))}">
+            <span class="product__color-swatch" style="background:${esc(hex)}" aria-label="${esc(getName(i))}" title="${esc(getName(i))}"></span>
+          </span>
         `).join('')}
       </div>
-      <p class="product__color-name" id="selectedColorName">${esc(getName(0))}</p>
-    </fieldset>
+      <p class="product__color-name">Your saved shirt color from customization will be used at checkout.</p>
+    </section>
   `;
 }
 
@@ -308,10 +375,24 @@ function errorState(msg) {
 
 function bindEvents() {
   bindGallery();
-  bindColors();
   bindQty();
+
   $('#addToCartBtn')?.addEventListener('click', () => addToCart(false));
   $('#buyNowBtn')?.addEventListener('click', () => addToCart(true));
+  $('#customizeProductBtn')?.addEventListener('click', () => {
+    if (!state.product) return;
+    window.location.href = `./customize.html?id=${encodeURIComponent(state.product.id)}`;
+  });
+
+  window.addEventListener('storage', evt => {
+    if (evt.key === getCustomizationKey(state.product?.id)) {
+      refreshCustomizationState();
+    }
+  });
+
+  window.addEventListener('pageshow', () => {
+    refreshCustomizationState();
+  });
 }
 
 function bindGallery() {
@@ -329,16 +410,6 @@ function bindGallery() {
 
       btn.classList.add('product__thumb--active');
       btn.setAttribute('aria-pressed', 'true');
-    });
-  });
-}
-
-function bindColors() {
-  $$('.product__color-input').forEach(input => {
-    input.addEventListener('change', () => {
-      const nameEl = $('#selectedColorName');
-      if (nameEl) nameEl.textContent = input.dataset.colorName || input.value;
-      state.colorIdx = Number(input.value);
     });
   });
 }
@@ -369,27 +440,41 @@ function addToCart(redirect) {
   const p = state.product;
   if (!p) return;
 
-  const color = p.colorNames?.[state.colorIdx] || p.colors?.[state.colorIdx] || '';
+  if (!state.customization) {
+    setStatusMessage('Please customize this product first.');
+    return;
+  }
+
+  const customization = state.customization;
   const size = $('.product__size-input:checked')?.value || p.sizes?.[0] || '';
-  const key = `${p.id}__${color}__${size}`;
+  const color = customization.shirtColor || p.colors?.[0] || '';
+  const key = `${p.id}__customized__${size}`;
 
   const cart = getCart();
   const existing = cart.find(item => item.key === key);
 
+  const cartItem = {
+    key,
+    id: p.id,
+    name: p.name,
+    image: p.images?.default || '',
+    category: p.category,
+    price: p.basePrice,
+    color,
+    size,
+    qty: state.qty,
+    customized: true,
+    customization,
+  };
+
   if (existing) {
     existing.qty += state.qty;
+    existing.customized = true;
+    existing.customization = customization;
+    existing.color = color;
+    existing.size = size;
   } else {
-    cart.push({
-      key,
-      id: p.id,
-      name: p.name,
-      image: p.images?.default || '',
-      category: p.category,
-      price: p.basePrice,
-      color,
-      size,
-      qty: state.qty,
-    });
+    cart.push(cartItem);
   }
 
   setCart(cart);
@@ -407,9 +492,14 @@ function addToCart(redirect) {
   btn.disabled = true;
 
   setTimeout(() => {
+    updateCustomizationUI();
     btn.textContent = original;
-    btn.disabled = false;
   }, 1200);
+}
+
+function setStatusMessage(message) {
+  const status = $('#customizationStatus');
+  if (status) status.textContent = message;
 }
 
 init();
