@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank you - Order Received</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/layout.css">
+    <style>
+        .thank-you {
+            text-align: center;
+            padding-block: 4rem;
+        }
+        .thank-you >* {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="section">
+        <div class="container thank-you">
+
+            <h2>Order received successfully</h2>
+            <p>Your order ID is <strong id="orderIdText"></strong></p>
+            <button class="hero--btn" onclick="window.location.href='./products.html'">Back to Shop</button>
+        </div>
+    </div>
+    <div id="footer"></div>
+
+    <script src="./scripts/layout.js" defer></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const orderId = params.get('orderId') || localStorage.getItem('lastOrderId') || 'N/A';
+
+        document.getElementById('orderIdText').textContent = orderId;
+    </script>
+</body>
+
+</html>

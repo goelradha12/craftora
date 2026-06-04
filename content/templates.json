@@ -58,5 +58,165 @@
     "name": "Chillin Penguin",
     "category": "tshirt",
     "file": "./assets/tshirt_templates/chillin_penguin.png"
+  },
+  {
+    "name": "Butterfly",
+    "category": "diary",
+    "file": "./assets/diary_templates/butterfly.png"
+  },
+  {
+    "name": "Cloud Moon",
+    "category": "diary",
+    "file": "./assets/diary_templates/cloud_moon.png"
+  },
+  {
+    "name": "Cup Over Books",
+    "category": "diary",
+    "file": "./assets/diary_templates/cup_over_books.png"
+  },
+  {
+    "name": "Dream Catcher",
+    "category": "diary",
+    "file": "./assets/diary_templates/dream_catcher.png"
+  },
+  {
+    "name": "Feather",
+    "category": "diary",
+    "file": "./assets/diary_templates/feather.png"
+  },
+  {
+    "name": "Flower",
+    "category": "diary",
+    "file": "./assets/diary_templates/flower.png"
+  },
+  {
+    "name": "Golden Moon",
+    "category": "diary",
+    "file": "./assets/diary_templates/golden_moon.png"
+  },
+  {
+    "name": "Heart Leaves",
+    "category": "diary",
+    "file": "./assets/diary_templates/heart_leaves.png"
+  },
+  {
+    "name": "Leaves",
+    "category": "diary",
+    "file": "./assets/diary_templates/leaves.png"
+  },
+  {
+    "name": "Mountain Timer",
+    "category": "diary",
+    "file": "./assets/diary_templates/mountain_timer.png"
+  },
+  {
+    "name": "Teddy",
+    "category": "diary",
+    "file": "./assets/diary_templates/teddy.png"
+  },
+  {
+    "name": "Best Husband",
+    "category": "cup",
+    "file": "./assets/cup_templates/best_husband.png"
+  },
+  {
+    "name": "Best Sister",
+    "category": "cup",
+    "file": "./assets/cup_templates/best_sister.png"
+  },
+  {
+    "name": "Coffee First",
+    "category": "cup",
+    "file": "./assets/cup_templates/coffee_first.png"
+  },
+  {
+    "name": "Explore More",
+    "category": "cup",
+    "file": "./assets/cup_templates/explore_more.png"
+  },
+  {
+    "name": "For Brother",
+    "category": "cup",
+    "file": "./assets/cup_templates/for_brother.png"
+  },
+  {
+    "name": "His Hers",
+    "category": "cup",
+    "file": "./assets/cup_templates/his_hers.png"
+  },
+  {
+    "name": "Hot Coffee",
+    "category": "cup",
+    "file": "./assets/cup_templates/hot_coffee.png"
+  },
+  {
+    "name": "Kitty",
+    "category": "cup",
+    "file": "./assets/cup_templates/kitty.png"
+  },
+  {
+    "name": "Love Message",
+    "category": "cup",
+    "file": "./assets/cup_templates/love_msg.png"
+  },
+  {
+    "name": "Nature",
+    "category": "cup",
+    "file": "./assets/cup_templates/nature.png"
+  },
+  {
+    "name": "Perfect Message",
+    "category": "cup",
+    "file": "./assets/cup_templates/perfect_msg.png"
+  },
+  {
+    "name": "Bottle Line",
+    "category": "bottle",
+    "file": "./assets/bottle_templates/bottle_line.png"
+  },
+  {
+    "name": "Cat Line",
+    "category": "bottle",
+    "file": "./assets/bottle_templates/cat_line.png"
+  },
+  {
+    "name": "Cute Panda",
+    "category": "bottle",
+    "file": "./assets/bottle_templates/cute_panda.png"
+  },
+  {
+    "name": "Dreamy Night",
+    "category": "bottle",
+    "file": "./assets/bottle_templates/dreamy_night.png"
+  },
+  {
+    "name": "Dream Big",
+    "category": "bottle",
+    "file": "./assets/bottle_templates/dream_big.png"
+  },
+  {
+    "name": "Girl Line",
+    "category": "bottle",
+    "file": "./assets/bottle_templates/girl_line.png"
+  },
+  {
+    "name": "Hello Kitty",
+    "category": "bottle",
+    "file": "./assets/bottle_templates/hello_kitty.png"
+  },
+  {
+    "name": "Shoot For Stars",
+    "category": "bottle",
+    "file": "./assets/bottle_templates/shoot_for_stars.png"
+  },
+  {
+    "name": "Tree Lines",
+    "category": "bottle",
+    "file": "./assets/bottle_templates/tree_lines.png"
+  },
+  {
+    "name": "You Are Star",
+    "category": "bottle",
+    "file": "./assets/bottle_templates/you_are_star.png"
   }
 ]

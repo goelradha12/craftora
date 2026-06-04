@@ -2,27 +2,27 @@
    product.js  —  Craftora Product Detail Page
    ============================================================ */
 
-const CART_KEY             = 'cart';
-const WISHLIST_KEY         = 'craftora_wishlist';
+const CART_KEY = 'cart';
+const WISHLIST_KEY = 'craftora_wishlist';
 const CUSTOMIZATION_PREFIX = 'designData_';
 
 const state = {
-    product:       null,
-    products:      [],
-    qty:           1,
+    product: null,
+    products: [],
+    qty: 1,
     customization: null,
 };
 
 /* ── Utils ── */
-const $  = (sel, root = document) => root.querySelector(sel);
+const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
-const esc   = s => String(s ?? '').replace(/[&<>"']/g, m =>
+const esc = s => String(s ?? '').replace(/[&<>"']/g, m =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
 const money = n => `₹${Number(n || 0).toLocaleString('en-IN')}`;
 
-const getCart     = ()  => { try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }    catch { return []; } };
-const getWishlist = ()  => { try { return JSON.parse(localStorage.getItem(WISHLIST_KEY) || '[]'); } catch { return []; } };
+const getCart = () => { try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch { return []; } };
+const getWishlist = () => { try { return JSON.parse(localStorage.getItem(WISHLIST_KEY) || '[]'); } catch { return []; } };
 const isWishlisted = id => getWishlist().some(i => i.id === id);
 
 function setCart(items) {
@@ -32,7 +32,7 @@ function setCart(items) {
 
 function toggleWish(p) {
     const list = getWishlist();
-    const idx  = list.findIndex(i => i.id === p.id);
+    const idx = list.findIndex(i => i.id === p.id);
     if (idx >= 0) { list.splice(idx, 1); }
     else { list.push({ id: p.id, name: p.name, category: p.category, price: p.basePrice, image: p.images?.default || '' }); }
     localStorage.setItem(WISHLIST_KEY, JSON.stringify(list));
@@ -56,34 +56,34 @@ function init() {
     if (!mount) return;
 
     const id = new URLSearchParams(location.search).get('id');
-    if (!id) { mount.innerHTML = errHTML('No product specified.'); mount.setAttribute('aria-busy','false'); return; }
+    if (!id) { mount.innerHTML = errHTML('No product specified.'); mount.setAttribute('aria-busy', 'false'); return; }
 
     mount.innerHTML = skeletonHTML();
 
     fetch('./content/products.json')
         .then(r => r.json())
         .then(data => {
-            state.products    = data.products || [];
-            state.product     = state.products.find(p => p.id === id) || null;
+            state.products = data.products || [];
+            state.product = state.products.find(p => p.id === id) || null;
 
             if (!state.product) {
                 mount.innerHTML = errHTML('Product not found.');
-                mount.setAttribute('aria-busy','false');
+                mount.setAttribute('aria-busy', 'false');
                 return;
             }
 
-            document.title    = `${state.product.name} — Craftora`;
+            document.title = `${state.product.name} — Craftora`;
             state.customization = loadCustomization(id);
 
             mount.innerHTML = renderPage(state.product);
-            mount.setAttribute('aria-busy','false');
+            mount.setAttribute('aria-busy', 'false');
             bindEvents();
             updateCustomizationUI();
         })
         .catch(err => {
             console.error(err);
             mount.innerHTML = errHTML('Failed to load product. Please refresh.');
-            mount.setAttribute('aria-busy','false');
+            mount.setAttribute('aria-busy', 'false');
         });
 }
 
@@ -116,8 +116,8 @@ function breadcrumbHTML(p) {
 
 /* ── Gallery ── */
 function galleryHTML(p) {
-    const imgs    = [p.images?.default, ...(p.images?.others || [])].filter(Boolean);
-    const badges  = Array.isArray(p.badges) ? p.badges : [];
+    const imgs = [p.images?.default, ...(p.images?.others || [])].filter(Boolean);
+    const badges = Array.isArray(p.badges) ? p.badges : [];
     const wishlisted = isWishlisted(p.id);
 
     return `
@@ -156,10 +156,10 @@ function galleryHTML(p) {
 
 /* ── Info panel ── */
 function infoHTML(p) {
-    const oos      = Number(p.stock) <= 0;
-    const colors   = Array.isArray(p.colors)     ? p.colors     : [];
-    const cNames   = Array.isArray(p.colorNames) ? p.colorNames : [];
-    const sizes    = Array.isArray(p.sizes)      ? p.sizes      : [];
+    const oos = Number(p.stock) <= 0;
+    const colors = Array.isArray(p.colors) ? p.colors : [];
+    const cNames = Array.isArray(p.colorNames) ? p.colorNames : [];
+    const sizes = Array.isArray(p.sizes) ? p.sizes : [];
 
     return `
         <div class="product__info">
@@ -255,10 +255,49 @@ function infoHTML(p) {
                     <span>Secure Payment</span>
                 </div>
             </div>
+            ${productDetailsHTML(p)}
 
         </div>`;
 }
+/* ── Product Details ── */
+function productDetailsHTML(p) {
+    const details = Array.isArray(p.productDetails) ? p.productDetails : [];
+    if (!details.length) return '';
 
+    const labelMap = {
+        material: 'Material',
+        capacity: 'Capacity',
+        finish: 'Finish',
+        microwaveSafe: 'Microwave Safe',
+        dishwasherSafe: 'Dishwasher Safe',
+        washCare: 'Wash Care',
+        dimensions: 'Dimensions',
+        weight: 'Weight',
+        warranty: 'Warranty',
+        countryOfOrigin: 'Origin',
+    };
+
+    return `
+        <div class="product__details">
+            <button class="product__details-toggle" id="detailsToggle" aria-expanded="true" aria-controls="detailsBody" type="button">
+                <span>Product Details</span>
+                <svg class="product__details-chevron" width="16" height="16" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2.5"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="6 9 12 15 18 9"/>
+                </svg>
+            </button>
+            <div class="product__details-body" id="detailsBody">
+                <dl class="product__details-list">
+                    ${details.map(d => `
+                        <div class="product__details-row">
+                            <dt class="product__details-key">${esc(labelMap[d.label] || d.label)}</dt>
+                            <dd class="product__details-val">${esc(d.value)}</dd>
+                        </div>`).join('')}
+                </dl>
+            </div>
+        </div>`;
+}
 /* ── Related ── */
 function relatedHTML(p) {
     const related = state.products.filter(x => x.category === p.category && x.id !== p.id).slice(0, 4);
@@ -315,27 +354,27 @@ function errHTML(msg) {
    UI STATE
 ══════════════════════════════════════════════════════════ */
 function updateCustomizationUI() {
-    const p      = state.product;
+    const p = state.product;
     const hasDes = !!state.customization;
-    const oos    = Number(p?.stock ?? 0) <= 0;
+    const oos = Number(p?.stock ?? 0) <= 0;
 
-    const card     = $('#custCard');
-    const icon     = $('#custIcon');
-    const title    = $('#custTitle');
-    const desc     = $('#custDesc');
-    const addBtn   = $('#addToCartBtn');
-    const buyBtn   = $('#buyNowBtn');
-    const custBtn  = $('#customizeProductBtn');
-    const custLbl  = $('#custBtnLabel');
+    const card = $('#custCard');
+    const icon = $('#custIcon');
+    const title = $('#custTitle');
+    const desc = $('#custDesc');
+    const addBtn = $('#addToCartBtn');
+    const buyBtn = $('#buyNowBtn');
+    const custBtn = $('#customizeProductBtn');
+    const custLbl = $('#custBtnLabel');
     if (!card) return;
 
     if (oos) {
         card.className = 'product__customization-card missing';
-        if (icon)   icon.textContent  = '✗';
-        if (title)  title.textContent = 'Out of stock';
-        if (desc)   desc.textContent  = 'This product is currently unavailable.';
-        if (addBtn) addBtn.disabled   = true;
-        if (buyBtn) buyBtn.disabled   = true;
+        if (icon) icon.textContent = '✗';
+        if (title) title.textContent = 'Out of stock';
+        if (desc) desc.textContent = 'This product is currently unavailable.';
+        if (addBtn) addBtn.disabled = true;
+        if (buyBtn) buyBtn.disabled = true;
         if (custBtn) custBtn.disabled = true;
         return;
     }
@@ -343,19 +382,19 @@ function updateCustomizationUI() {
     if (hasDes) {
         const color = state.customization?.shirtColor || '';
         card.className = 'product__customization-card ready';
-        if (icon)  icon.textContent  = '✓';
+        if (icon) icon.textContent = '✓';
         if (title) title.textContent = 'Design saved — ready to order';
-        if (desc)  desc.textContent  = `Color: ${color || 'custom'}  ·  Click "Edit Design" to make changes`;
-        if (addBtn) addBtn.disabled  = false;
-        if (buyBtn) buyBtn.disabled  = false;
+        if (desc) desc.textContent = `Color: ${color || 'custom'}  ·  Click "Edit Design" to make changes`;
+        if (addBtn) addBtn.disabled = false;
+        if (buyBtn) buyBtn.disabled = false;
         if (custLbl) custLbl.textContent = 'Edit Design';
     } else {
         card.className = 'product__customization-card missing';
-        if (icon)  icon.textContent  = '🎨';
+        if (icon) icon.textContent = '🎨';
         if (title) title.textContent = 'Design required';
-        if (desc)  desc.textContent  = 'Open the studio and save your design to enable checkout.';
-        if (addBtn) addBtn.disabled  = true;
-        if (buyBtn) buyBtn.disabled  = true;
+        if (desc) desc.textContent = 'Open the studio and save your design to enable checkout.';
+        if (addBtn) addBtn.disabled = true;
+        if (buyBtn) buyBtn.disabled = true;
         if (custLbl) custLbl.textContent = 'Open Design Studio';
     }
 }
@@ -369,26 +408,26 @@ function bindEvents() {
     $$('.product__thumb').forEach(btn => {
         btn.addEventListener('click', () => {
             if (mainImg) mainImg.src = btn.dataset.src || '';
-            $$('.product__thumb').forEach(b => { b.classList.remove('product__thumb--active'); b.setAttribute('aria-pressed','false'); });
+            $$('.product__thumb').forEach(b => { b.classList.remove('product__thumb--active'); b.setAttribute('aria-pressed', 'false'); });
             btn.classList.add('product__thumb--active');
-            btn.setAttribute('aria-pressed','true');
+            btn.setAttribute('aria-pressed', 'true');
         });
     });
 
     /* Qty */
-    const valEl  = $('#qtyVal');
-    const minus  = $('#qtyMinus');
-    const plus   = $('#qtyPlus');
+    const valEl = $('#qtyVal');
+    const minus = $('#qtyMinus');
+    const plus = $('#qtyPlus');
     if (valEl && minus && plus) {
         minus.addEventListener('click', () => {
             if (state.qty <= 1) return;
             valEl.textContent = --state.qty;
-            minus.disabled    = state.qty <= 1;
+            minus.disabled = state.qty <= 1;
         });
         plus.addEventListener('click', () => {
             if (state.qty >= 99) return;
             valEl.textContent = ++state.qty;
-            minus.disabled    = false;
+            minus.disabled = false;
         });
     }
 
@@ -396,13 +435,23 @@ function bindEvents() {
     $('#wishlistBtn')?.addEventListener('click', () => {
         const p = state.product;
         if (!p) return;
-        const now    = toggleWish(p);
-        const btn    = $('#wishlistBtn');
-        const path   = btn?.querySelector('path');
+        const now = toggleWish(p);
+        const btn = $('#wishlistBtn');
+        const path = btn?.querySelector('path');
         btn?.classList.toggle('wishlisted', now);
         btn?.setAttribute('aria-label', now ? 'Remove from wishlist' : 'Save to wishlist');
         if (path) { path.setAttribute('fill', now ? '#e11d48' : 'none'); path.setAttribute('stroke', now ? '#e11d48' : 'currentColor'); }
-        if (btn)  { btn.style.transform = 'scale(1.3)'; setTimeout(() => { btn.style.transform = ''; }, 200); }
+        if (btn) { btn.style.transform = 'scale(1.3)'; setTimeout(() => { btn.style.transform = ''; }, 200); }
+    });
+
+    /* Product details accordion */
+    $('#detailsToggle')?.addEventListener('click', () => {
+        const toggle = $('#detailsToggle');
+        const body = $('#detailsBody');
+        if (!toggle || !body) return;
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        if (open) { body.hidden = true; } else { body.hidden = false; }
     });
 
     /* Studio — require login first */
@@ -419,7 +468,8 @@ function bindEvents() {
         if (!user) {
             // Not logged in — send to login with a redirect param so they come back here
             const returnTo = encodeURIComponent(destination);
-            location.href  = `./login.html?redirect=${returnTo}`;
+            alert('You must be signed in to open the design studio.');
+            location.href = `./login.html?redirect=${returnTo}`;
             return;
         }
 
@@ -428,7 +478,7 @@ function bindEvents() {
 
     /* Cart / Buy */
     $('#addToCartBtn')?.addEventListener('click', () => doAddToCart(false));
-    $('#buyNowBtn')?.addEventListener('click',    () => doAddToCart(true));
+    $('#buyNowBtn')?.addEventListener('click', () => doAddToCart(true));
 
     /* Refresh after returning from studio */
     window.addEventListener('pageshow', () => {
@@ -452,33 +502,35 @@ function doAddToCart(redirect) {
     const p = state.product;
     if (!p || !state.customization) return;
 
-    const size  = $('.product__size-input:checked')?.value || p.sizes?.[0] || '';
+    const size = $('.product__size-input:checked')?.value || p.sizes?.[0] || '';
     const color = state.customization.shirtColor || p.colors?.[0] || '';
-    const key   = `${p.id}__${size}__customized`;
+    const key = `${p.id}__${size}__customized`;
 
-    const cart     = getCart();
+    const cart = getCart();
     const existing = cart.find(i => i.key === key);
 
     if (existing) {
-        existing.qty          += state.qty;
+        existing.qty += state.qty;
         existing.customization = state.customization;
-        existing.color         = color;
-        existing.size          = size;
+        existing.color = color;
+        existing.size = size;
     } else {
-        cart.push({ key, id: p.id, name: p.name, image: p.images?.default || '',
+        cart.push({
+            key, id: p.id, name: p.name, image: p.images?.default || '',
             category: p.category, price: p.basePrice, color, size,
-            qty: state.qty, customized: true, customization: state.customization });
+            qty: state.qty, customized: true, customization: state.customization
+        });
     }
 
     setCart(cart);
 
     if (redirect) { location.href = './cart.html'; return; }
 
-    const btn  = $('#addToCartBtn');
-    if (!btn)  return;
+    const btn = $('#addToCartBtn');
+    if (!btn) return;
     const orig = btn.textContent;
     btn.textContent = 'Added ✓';
-    btn.disabled    = true;
+    btn.disabled = true;
     setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 1400);
 }
 

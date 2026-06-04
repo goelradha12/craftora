@@ -605,7 +605,7 @@
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
     /* Hide desktop bar, show phone bar */
     .nav--desktop {
         display: none;

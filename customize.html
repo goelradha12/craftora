@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Customize Your Product</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
   <style>
     /* ── TOKENS ── */
     :root {
@@ -26,8 +24,6 @@
       --r-md:       14px;
       --r-lg:       20px;
       --r-xl:       28px;
-      --sans:       'DM Sans', system-ui, sans-serif;
-      --display:    'Syne', system-ui, sans-serif;
       --shadow-sm:  0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.05);
       --shadow-md:  0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05);
       --shadow-lg:  0 12px 40px rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.06);
@@ -38,7 +34,6 @@
     html { height: 100%; font-size: 14px; }
     body {
       height: 100%;
-      font-family: var(--sans);
       background: var(--surface-2);
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
@@ -69,7 +64,6 @@
     .topbar-right { display: flex; align-items: center; gap: 8px; }
 
     #product-name {
-      font-family: var(--display);
       font-size: 15px;
       font-weight: 700;
       letter-spacing: -.01em;
@@ -125,7 +119,6 @@
     .panel-toggle:hover { background: var(--surface-2); }
 
     .panel-toggle-label {
-      font-family: var(--display);
       font-size: 12px;
       font-weight: 700;
       letter-spacing: .06em;
@@ -137,7 +130,6 @@
     }
 
     .panel-toggle-label .pill {
-      font-family: var(--sans);
       font-size: 10px;
       font-weight: 500;
       letter-spacing: 0;
@@ -191,7 +183,6 @@
     input[type="number"],
     select,
     textarea {
-      font-family: var(--sans);
       font-size: 13px;
       padding: 8px 11px;
       border: 1px solid var(--border);
@@ -388,7 +379,6 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
-      font-family: var(--sans);
       font-size: 12px;
       font-weight: 500;
       padding: 7px 13px;
@@ -461,7 +451,6 @@
       color: var(--ink-3);
       font-size: 11px;
       font-weight: 600;
-      font-family: var(--sans);
       cursor: pointer;
       transition: all var(--transition);
       text-align: center;
@@ -681,7 +670,6 @@
     }
 
     .modal-title {
-      font-family: var(--display);
       font-size: 17px;
       font-weight: 700;
       color: var(--ink);
@@ -786,7 +774,7 @@
     <div class="topbar-left">
       <button class="btn btn-sm" id="back-btn" onclick="handleBack()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-        Back
+        Back to Product
       </button>
       <span id="product-name">Loading…</span>
       <span class="topbar-badge" id="category-badge"></span>
@@ -1823,9 +1811,7 @@ async function saveAndBack() {
 
 function proceedBack() {
   closeModal('back-modal');
-  if (window.history.length > 1) window.history.back();
-  else if (document.referrer) window.location.href = document.referrer;
-  else window.location.href = './product.html' + (state.product?.id ? `?id=${state.product.id}` : '');
+  window.location.href = './product.html' + (state.product?.id ? `?id=${state.product.id}` : '');
 }
 
 /* ─────────────────────────────────────────
