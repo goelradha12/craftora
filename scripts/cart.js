@@ -121,22 +121,22 @@ function showCheckoutPopup(user, onConfirm) {
 
   overlay.querySelector('#popupConfirm').onclick = () => {
     const addressEl = overlay.querySelector('#popupAddress');
-    const phoneEl   = overlay.querySelector('#popupPhone');
-    const address   = addressEl.value.trim();
-    const phone     = phoneEl.value.trim();
+    const phoneEl = overlay.querySelector('#popupPhone');
+    const address = addressEl.value.trim();
+    const phone = phoneEl.value.trim();
 
     let valid = true;
 
     if (!address) {
       addressEl.style.borderColor = '#e53e3e';
-      addressEl.style.background  = '#fff5f5';
+      addressEl.style.background = '#fff5f5';
       addressEl.focus();
       valid = false;
     }
 
     if (!phone) {
       phoneEl.style.borderColor = '#e53e3e';
-      phoneEl.style.background  = '#fff5f5';
+      phoneEl.style.background = '#fff5f5';
       if (valid) phoneEl.focus();
       valid = false;
     }
@@ -253,13 +253,42 @@ function renderCart() {
 
         <div class="cart-item__details">
           <div class="cart-item__header">
-            <h3 class="cart-item__name">${esc(item.name)}</h3>
+            <h3 class="cart-item__name" onclick="window.location.href='./product.html?id=${item.id}'">${esc(item.name)}</h3>
             <span class="cart-item__price">${money(item.price * item.qty)}</span>
           </div>
 
           <div class="cart-item__meta">
-            ${item.color ? `<span>Color: ${esc(item.color)}</span>` : ''}
-            ${item.size  ? `<span>Size: ${esc(item.size)}</span>`  : ''}
+            ${item.color ? `
+              <span class="cart-meta-color">
+                Color:
+                <span
+                  style="
+                    display:inline-block;
+                    width:14px;
+                    height:14px;
+                    border-radius:50%;
+                    background:${esc(item.color)};
+                    border:1px solid #d1d5db;
+                    vertical-align:middle;
+                    margin-left:4px;
+                  "
+                  title="${esc(item.color)}"
+                ></span>,
+              </span>
+            ` : ''}
+
+            ${item.size ? `<span>Size: ${esc(item.size)},</span>` : ''}
+
+            ${item.customized && item.customization?.generatedAt ? `
+              <span>
+                Designed on:
+                ${new Date(item.customization.generatedAt).toLocaleDateString('en-IN', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+              })}
+              </span>
+            ` : ''}
           </div>
 
           <div class="cart-item__actions">
@@ -281,12 +310,12 @@ function renderCart() {
 
 function updateSummary(totalItems, subtotal) {
   const countEl = $('#summaryItemCount');
-  const subEl   = $('#summarySubtotal');
-  const totEl   = $('#summaryTotal');
+  const subEl = $('#summarySubtotal');
+  const totEl = $('#summaryTotal');
 
   if (countEl) countEl.textContent = totalItems;
-  if (subEl)   subEl.textContent   = money(subtotal);
-  if (totEl)   totEl.textContent   = money(subtotal);
+  if (subEl) subEl.textContent = money(subtotal);
+  if (totEl) totEl.textContent = money(subtotal);
 }
 
 document.addEventListener('DOMContentLoaded', initCart);
