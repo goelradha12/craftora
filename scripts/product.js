@@ -504,7 +504,15 @@ function doAddToCart(redirect) {
 
     const size = $('.product__size-input:checked')?.value || p.sizes?.[0] || '';
     const color = state.customization.shirtColor || p.colors?.[0] || '';
-    const key = `${p.id}__${size}__customized`;
+    
+    const cStr = JSON.stringify(state.customization);
+    let h = 0;
+    for (let i = 0; i < cStr.length; i++) {
+        h = ((h << 5) - h) + cStr.charCodeAt(i);
+        h |= 0;
+    }
+
+    const key = `${p.id}__${size}__${color}__${h}`;
 
     const cart = getCart();
     const existing = cart.find(i => i.key === key);
@@ -512,8 +520,6 @@ function doAddToCart(redirect) {
     if (existing) {
         existing.qty += state.qty;
         existing.customization = state.customization;
-        existing.color = color;
-        existing.size = size;
     } else {
         cart.push({
             key, id: p.id, name: p.name, image: p.images?.default || '',

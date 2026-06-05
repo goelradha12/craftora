@@ -75,7 +75,9 @@
 .product-card {
     position: relative;
     max-width: 380px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid hsl(from var(--accent) h s l / 0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 1rem;
     padding: 24px;
     display: flex;
     flex-direction: column;

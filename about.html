@@ -14,31 +14,12 @@
         .about-hero {
             background: var(--primary);
             color: var(--bg);
-            padding: 7rem 0 5rem;
-            text-align: center;
-        }
-
-        .about-hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            line-height: 1.15;
-            margin-bottom: 1.25rem;
-            /* override the h2 grid trick — h1 should be plain */
-            display: block;
-        }
-
-        .about-hero h1::after,
-        .about-hero h1::before {
-            display: none;
+            padding: 5rem 0 4rem;
         }
 
         .about-hero p {
-            color: hsl(from var(--bg) h s l / 0.8);
-            max-width: 52ch;
-            margin: 0 auto;
-            font-size: 1.1rem;
-            line-height: 1.7;
+            max-width: 46ch;
         }
-
         /* ── Mission ── */
         .mission-grid {
             display: grid;
@@ -320,6 +301,7 @@
         <section class="about-hero" aria-labelledby="about-heading">
             <div class="container">
                 <h1 id="about-heading">We Make Your Ideas Wearable</h1>
+                <br/>
                 <p>
                     Craftora is a custom merchandise brand born from the belief that
                     everyone deserves products as unique as they are. From tees to

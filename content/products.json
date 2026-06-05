@@ -75,8 +75,7 @@
         ]
       },
       "badges": [
-        "Best Seller",
-        "Limited Stock"
+        "Best Seller"
       ],
       "featured": true,
       "stock": 120
@@ -168,9 +167,7 @@
         ]
       },
       "badges": [
-        "Planner",
-        "Professional",
-        "Goal Tracking"
+        "Planner"
       ],
       "featured": false,
       "stock": 85
@@ -250,8 +247,7 @@
         ]
       },
       "badges": [
-        "Artist Pick",
-        "Thick Pages"
+        "Artist Pick"
       ],
       "featured": true,
       "stock": 60
@@ -324,9 +320,7 @@
         ]
       },
       "badges": [
-        "Eco Friendly",
-        "BPA Free",
-        "Keeps Cold 24hr"
+        "Eco Friendly"
       ],
       "featured": true,
       "stock": 100
@@ -398,9 +392,7 @@
         ]
       },
       "badges": [
-        "Trending",
-        "Gym Essential",
-        "Leak Proof"
+        "Trending"
       ],
       "featured": true,
       "stock": 70
@@ -472,9 +464,7 @@
         ]
       },
       "badges": [
-        "Popular",
-        "Lightweight",
-        "School Friendly"
+        "Popular"
       ],
       "featured": true,
       "stock": 120
@@ -553,9 +543,7 @@
         ]
       },
       "badges": [
-        "Trending",
-        "Streetwear",
-        "100% Cotton"
+        "Trending"
       ],
       "featured": true,
       "stock": 140
@@ -634,9 +622,7 @@
         ]
       },
       "badges": [
-        "Sports",
-        "Breathable",
-        "Quick Dry"
+        "Sports"
       ],
       "featured": false,
       "stock": 80
@@ -715,9 +701,7 @@
         ]
       },
       "badges": [
-        "Classic Fit",
-        "Everyday",
-        "Soft Feel"
+        "Classic Fit"
       ],
       "featured": false,
       "stock": 65
@@ -797,9 +781,7 @@
         ]
       },
       "badges": [
-        "Daily Wear",
-        "Minimal",
-        "Pre-washed"
+        "Daily Wear"
       ],
       "featured": true,
       "stock": 200
@@ -871,9 +853,7 @@
         ]
       },
       "badges": [
-        "Best Seller",
-        "Microwave Safe",
-        "Customizable"
+        "Best Seller"
       ],
       "featured": true,
       "stock": 300

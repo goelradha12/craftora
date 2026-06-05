@@ -181,15 +181,12 @@ function buildHeader(user) {
 
         <nav class="nav" role="navigation" aria-label="Main navigation">
 
-            <!-- ── Desktop bar ── -->
             <div class="nav--desktop container">
 
-                <!-- Logo (left) -->
                 <a class="nav__logo" href="./index.html" aria-label="Craftora – go to homepage">
                     <img width="200" height="40" src="./assets/logo.png" alt="Craftora">
                 </a>
 
-                <!-- Center links -->
                 <ul class="nav__links" role="list">
                     <li><a class="nav--link" href="./index.html">Home</a></li>
                     <li><a class="nav--link" href="./products.html">Shop</a></li>
@@ -197,11 +194,9 @@ function buildHeader(user) {
                     <li><a class="nav--link" href="./contact.html">Contact</a></li>
                 </ul>
 
-                <!-- Right actions -->
                 <div class="nav__actions">
                     ${user ? buildProfileMenuHTML(user) : buildGuestHTML()}
 
-                    <!-- Cart -->
                     <a href="./cart.html" class="nav__icon-btn" aria-label="View cart">
                         ${CART_SVG}
                         <span class="cart-badge cart-badge--hidden" aria-live="polite" aria-label="items in cart">0</span>
@@ -210,7 +205,6 @@ function buildHeader(user) {
 
             </div>
 
-            <!-- ── Mobile bar ── -->
             <div class="nav__phone">
 
                 <a class="nav__phone-logo" href="./index.html" aria-label="Craftora – go to homepage">
@@ -218,20 +212,17 @@ function buildHeader(user) {
                 </a>
 
                 <div class="nav__phone-actions">
-                    <!-- Mobile cart -->
                     <a href="./cart.html" class="nav__icon-btn" aria-label="View cart">
                         ${CART_SVG}
                         <span class="cart-badge cart-badge--hidden" aria-live="polite" aria-label="items in cart">0</span>
                     </a>
 
-                    <!-- Hamburger open -->
                     <button class="nav__icon-btn nav__phone--open js_open_btn" aria-label="Open navigation menu" aria-expanded="false">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
                             <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
                         </svg>
                     </button>
 
-                    <!-- Close -->
                     <button class="nav__icon-btn nav__phone--close js_close_btn" aria-label="Close navigation menu" aria-expanded="true" style="display:none">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
                             <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
@@ -240,7 +231,6 @@ function buildHeader(user) {
                 </div>
             </div>
 
-            <!-- Mobile slide-down menu -->
             <ul class="nav--list js_nav_list" aria-label="Mobile navigation">
                 <li><a class="nav--link" href="./index.html">Home</a></li>
                 <li><a class="nav--link" href="./products.html">Shop</a></li>
@@ -314,10 +304,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (footerEl) footerEl.innerHTML = FOOTER_HTML;
 
     /* ── Inject header ── */
-    if (!headerEl) return;
-
-    const user = getUser();
-    headerEl.innerHTML = buildHeader(user);
+    if (headerEl) {
+        const user = getUser();
+        headerEl.innerHTML = buildHeader(user);
+    }
 
     /* ── Mark active nav link ── */
     markActiveLink();
@@ -395,6 +385,55 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             logout();
         }
+    });
+
+    /* ── Scroll To Top Button ── */
+    const scrollToTopHTML = /* html */`
+        <button id="scrollToTopBtn" aria-label="Scroll to top" style="
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary, #111);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(15px);
+        ">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+        </button>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', scrollToTopHTML);
+    const scrollBtn = document.getElementById('scrollToTopBtn');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 350) {
+            scrollBtn.style.opacity = '1';
+            scrollBtn.style.visibility = 'visible';
+            scrollBtn.style.transform = 'translateY(0)';
+        } else {
+            scrollBtn.style.opacity = '0';
+            scrollBtn.style.visibility = 'hidden';
+            scrollBtn.style.transform = 'translateY(15px)';
+        }
+    });
+
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
 });
