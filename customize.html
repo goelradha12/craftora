@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Customize Your Product</title>
   <style>
-    /* ── TOKENS ── */
     :root {
       --ink:        #0d0d0d;
       --ink-2:      #3a3a3a;
@@ -32,14 +31,8 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { height: 100%; font-size: 14px; }
-    body {
-      height: 100%;
-      background: var(--surface-2);
-      color: var(--ink);
-      -webkit-font-smoothing: antialiased;
-    }
+    body { height: 100%; background: var(--surface-2); color: var(--ink); -webkit-font-smoothing: antialiased; }
 
-    /* ── LAYOUT ── */
     #app {
       display: grid;
       grid-template-columns: 340px 1fr;
@@ -48,7 +41,6 @@
       min-height: 600px;
     }
 
-    /* ── TOPBAR ── */
     #topbar {
       grid-column: 1 / -1;
       display: flex;
@@ -85,7 +77,6 @@
       white-space: nowrap;
     }
 
-    /* ── SIDEBAR ── */
     #sidebar {
       background: var(--surface);
       border-right: 1px solid var(--border);
@@ -101,10 +92,7 @@
     #sidebar::-webkit-scrollbar { width: 4px; }
     #sidebar::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 999px; }
 
-    /* ── PANEL SECTIONS ── */
-    .panel-section {
-      border-bottom: 1px solid var(--border);
-    }
+    .panel-section { border-bottom: 1px solid var(--border); }
 
     .panel-toggle {
       display: flex;
@@ -163,7 +151,6 @@
 
     .panel-section.open .panel-body { display: flex; }
 
-    /* ── FORM FIELDS ── */
     .field { display: flex; flex-direction: column; gap: 5px; }
 
     .field-label {
@@ -173,16 +160,9 @@
       letter-spacing: .02em;
     }
 
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
-    input[type="text"],
-    input[type="number"],
-    select,
-    textarea {
+    input[type="text"], input[type="number"], select, textarea {
       font-size: 13px;
       padding: 8px 11px;
       border: 1px solid var(--border);
@@ -204,7 +184,6 @@
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
 
-    /* ── COLOR SWATCH ROW ── */
     .color-field { display: flex; align-items: center; gap: 8px; }
 
     input[type="color"] {
@@ -218,11 +197,7 @@
       flex-shrink: 0;
     }
 
-    .color-swatches {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-    }
+    .color-swatches { display: flex; gap: 5px; flex-wrap: wrap; }
 
     .cs {
       width: 22px;
@@ -239,12 +214,7 @@
     .cs.sel { border-color: var(--ink); box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ink); }
     .cs.white { box-shadow: inset 0 0 0 1px var(--border-2); }
 
-    /* ── ALIGNMENT BUTTONS ── */
-    .align-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 4px;
-    }
+    .align-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 
     .align-btn {
       padding: 7px;
@@ -261,9 +231,6 @@
 
     .align-btn:hover { background: var(--surface-2); color: var(--ink); }
     .align-btn.active { background: var(--ink); color: var(--surface); border-color: var(--ink); }
-
-    /* ── RANGE SLIDER ── */
-    .range-wrap { position: relative; }
 
     input[type="range"] {
       width: 100%;
@@ -307,12 +274,7 @@
       margin-top: 2px;
     }
 
-    /* ── TEMPLATE GRID ── */
-    .tpl-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-    }
+    .tpl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 
     .tpl-btn {
       border: 1.5px solid var(--border);
@@ -326,16 +288,8 @@
       position: relative;
     }
 
-    .tpl-btn:hover {
-      border-color: var(--border-2);
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
-    .tpl-btn.active {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px var(--accent-dim);
-    }
+    .tpl-btn:hover { border-color: var(--border-2); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .tpl-btn.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-dim); }
 
     .tpl-btn.active::after {
       content: '✓';
@@ -355,13 +309,7 @@
       text-align: center;
     }
 
-    .tpl-thumb {
-      width: 100%;
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      display: block;
-      background: var(--surface-3);
-    }
+    .tpl-thumb { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background: var(--surface-3); }
 
     .tpl-name {
       font-size: 10px;
@@ -393,54 +341,87 @@
     }
 
     .btn:hover { background: var(--surface-2); border-color: var(--border-2); color: var(--ink); }
-
-    .btn-primary {
-      background: var(--ink);
-      color: var(--surface);
-      border-color: var(--ink);
-    }
-
+    .btn-primary { background: var(--ink); color: var(--surface); border-color: var(--ink); }
     .btn-primary:hover { background: #222; border-color: #222; }
-
-    .btn-accent {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-      font-weight: 600;
-    }
-
+    .btn-accent { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
     .btn-accent:hover { background: #d14420; border-color: #d14420; }
     .btn-accent.saved { background: var(--green); border-color: var(--green); }
-
-    .btn-danger {
-      color: #b91c1c;
-      border-color: #fecaca;
-    }
-
+    .btn-danger { color: #b91c1c; border-color: #fecaca; }
     .btn-danger:hover { background: #fff1f2; }
-
     .btn-sm { padding: 5px 10px; font-size: 11px; }
     .btn-xs { padding: 4px 8px; font-size: 11px; }
     .btn-full { width: 100%; }
+    .btn-icon { width: 30px; height: 30px; padding: 0; border-radius: var(--r-sm); }
+    .btn[disabled], .btn:disabled { opacity: .45; cursor: not-allowed; }
 
-    .btn-icon {
-      width: 30px;
-      height: 30px;
-      padding: 0;
-      border-radius: var(--r-sm);
+    /* ── ADD TEXT BUTTON — prominent CTA ── */
+    .btn-add-text {
+      flex: 1;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: var(--r-md);
+      border: 2px dashed var(--border-2);
+      background: var(--surface-2);
+      color: var(--ink-2);
+      cursor: pointer;
+      transition: all 220ms cubic-bezier(.34,1.56,.64,1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: .01em;
     }
 
-    .btn[disabled], .btn:disabled {
-      opacity: .45;
-      cursor: not-allowed;
+    .btn-add-text::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--ink);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 200ms cubic-bezier(.4,0,.2,1);
+      z-index: 0;
+    }
+
+    .btn-add-text:hover {
+      border-color: var(--ink);
+      color: var(--surface);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.16);
+    }
+
+    .btn-add-text:hover::before { transform: scaleX(1); }
+    .btn-add-text:active { transform: translateY(0); box-shadow: none; }
+
+    .btn-add-text .at-icon,
+    .btn-add-text .at-label { position: relative; z-index: 1; }
+
+    .btn-add-text .at-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: var(--ink);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: background var(--transition), transform 200ms cubic-bezier(.34,1.56,.64,1);
+    }
+
+    .btn-add-text:hover .at-icon {
+      background: rgba(255,255,255,.2);
+      transform: rotate(90deg) scale(1.1);
     }
 
     /* ── SIDE TABS ── */
-    .side-tabs {
-      display: flex;
-      gap: 4px;
-      padding: 12px 18px 4px;
-    }
+    .side-tabs { display: flex; gap: 4px; padding: 12px 18px 4px; }
 
     .side-tab {
       flex: 1;
@@ -460,7 +441,6 @@
     .side-tab:hover { background: var(--surface-2); color: var(--ink); }
     .side-tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
 
-    /* ── INFO BANNER ── */
     .info-banner {
       margin: 12px 18px 0;
       padding: 10px 12px;
@@ -474,7 +454,6 @@
 
     .info-banner strong { color: var(--ink-2); font-weight: 600; }
 
-    /* ── SELECTED LAYER BOX ── */
     .sel-box {
       padding: 9px 11px;
       border-radius: var(--r-sm);
@@ -489,13 +468,7 @@
     .sel-box.active { background: #eff6ff; border-color: #bfdbfe; }
     .sel-box.active strong { color: var(--blue); }
 
-    /* ── CANVAS AREA ── */
-    #canvas-wrap {
-      display: flex;
-      flex-direction: column;
-      background: var(--surface-2);
-      overflow: hidden;
-    }
+    #canvas-wrap { display: flex; flex-direction: column; background: var(--surface-2); overflow: hidden; }
 
     #canvas-toolbar {
       display: flex;
@@ -528,26 +501,11 @@
       overflow: hidden;
     }
 
-    #stage-svg {
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      position: absolute;
-      inset: 0;
-    }
-
-    #overlay {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-    }
+    #stage-svg { width: 100%; height: 100%; pointer-events: none; position: absolute; inset: 0; }
+    #overlay { position: absolute; inset: 0; overflow: hidden; }
 
     /* ── LAYER OBJECTS ── */
-    .lobj {
-      position: absolute;
-      cursor: move;
-      touch-action: none;
-    }
+    .lobj { position: absolute; cursor: move; touch-action: none; }
 
     .lobj .lframe {
       width: 100%;
@@ -558,6 +516,7 @@
       overflow: visible;
     }
 
+    /* Selection outline ONLY when .sel is present */
     .lobj.sel .lframe {
       outline: 1.5px solid var(--blue);
       outline-offset: 3px;
@@ -573,6 +532,7 @@
       display: block;
     }
 
+    /* Resize handle: hidden by default, visible only when selected */
     .resize-handle {
       position: absolute;
       right: -7px;
@@ -584,12 +544,18 @@
       border-radius: 50%;
       cursor: nwse-resize;
       z-index: 10;
-      transition: transform var(--transition);
+      transition: transform var(--transition), opacity var(--transition);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .lobj.sel .resize-handle {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     .resize-handle:hover { transform: scale(1.2); }
 
-    /* ── STATUS BAR ── */
     #statusbar {
       grid-column: 2;
       display: flex;
@@ -615,7 +581,6 @@
     #status-dot.active { background: var(--green); }
     #status-dot.warning { background: #f59e0b; }
 
-    /* ── BOTTOM SAVE BAR ── */
     #save-bar {
       grid-column: 1;
       display: flex;
@@ -627,7 +592,6 @@
       border-right: 1px solid var(--border);
     }
 
-    /* ── MODAL ── */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -669,38 +633,17 @@
       margin-bottom: 14px;
     }
 
-    .modal-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 8px;
-    }
+    .modal-icon.danger { background: #fee2e2; }
 
-    .modal-body {
-      font-size: 13px;
-      color: var(--ink-3);
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+    .modal-title { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
 
-    .modal-actions {
-      display: flex;
-      gap: 8px;
-      justify-content: flex-end;
-    }
+    .modal-body { font-size: 13px; color: var(--ink-3); line-height: 1.6; margin-bottom: 20px; }
 
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      text-align: center;
-      padding: 24px 12px;
-      color: var(--ink-4);
-      font-size: 12px;
-      line-height: 1.6;
-    }
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
 
+    .empty-state { text-align: center; padding: 24px 12px; color: var(--ink-4); font-size: 12px; line-height: 1.6; }
     .empty-state .icon { font-size: 28px; margin-bottom: 6px; }
 
-    /* ── TOAST ── */
     #toast {
       position: fixed;
       bottom: 60px;
@@ -719,12 +662,8 @@
       white-space: nowrap;
     }
 
-    #toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* ── UNSAVED INDICATOR ── */
     .unsaved-dot {
       width: 6px;
       height: 6px;
@@ -739,37 +678,23 @@
 
     .unsaved-dot.show { opacity: 1; }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
-      #app {
-        grid-template-columns: 1fr;
-        grid-template-rows: 52px auto 1fr 40px;
-        height: auto;
-        min-height: 100vh;
-      }
-
-      #sidebar {
-        max-height: 50vh;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-
-      #canvas-wrap {
-        min-height: 55vw;
-      }
-
+      #app { grid-template-columns: 1fr; grid-template-rows: 52px auto 1fr 40px; height: auto; min-height: 100vh; }
+      #sidebar { max-height: 50vh; border-right: none; border-bottom: 1px solid var(--border); }
+      #canvas-wrap { min-height: 55vw; }
       #save-bar { grid-column: 1; }
       #statusbar { grid-column: 1; }
-
       #canvas-stage-area { padding: 16px; }
     }
-  </style>
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div id="app">
 
-  <!-- TOP BAR -->
   <header id="topbar">
     <div class="topbar-left">
       <button class="btn btn-sm" id="back-btn" onclick="handleBack()">
@@ -790,16 +715,11 @@
     </div>
   </header>
 
-  <!-- SIDEBAR -->
   <aside id="sidebar">
-
-    <!-- Side tabs (front/back/wrap) -->
     <div id="side-tabs-wrap"></div>
-
-    <!-- Info card -->
     <div class="info-banner" id="info-banner">Loading product settings…</div>
 
-    <!-- COLOR SECTION (shirt only) -->
+    <!-- COLOR SECTION -->
     <div class="panel-section open" id="panel-color" style="display:none">
       <div class="panel-toggle" onclick="togglePanel('color')">
         <span class="panel-toggle-label">
@@ -929,21 +849,19 @@
           Add text then click a layer to edit it.
         </div>
 
-        <div style="display:flex;gap:6px;">
-          <button class="btn btn-primary btn-sm" style="flex:1" onclick="addTextLayer()">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Add text
+        <div style="display:flex;gap:6px;align-items:stretch;">
+          <button class="btn-add-text" onclick="addTextLayer()">
+            <span class="at-icon">+</span>
+            <span class="at-label">Add Text to Canvas</span>
           </button>
-          <button class="btn btn-sm btn-danger" onclick="removeSel('text')">Remove</button>
+          <button class="btn btn-sm btn-danger" onclick="removeSel('text')" style="flex-shrink:0;">Remove</button>
         </div>
       </div>
     </div>
-
   </aside>
 
   <!-- CANVAS -->
   <div id="canvas-wrap">
-
     <div id="canvas-toolbar">
       <div class="toolbar-cluster">
         <span id="side-label" style="font-size:12px;color:var(--ink-3);">
@@ -951,7 +869,11 @@
         </span>
       </div>
       <div class="toolbar-cluster">
-        <button class="btn btn-xs" onclick="clearSide()">Clear side</button>
+        <button class="btn btn-xs btn-danger" onclick="promptResetDesign()">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          Reset All
+        </button>
+        <button class="btn btn-xs" onclick="clearSide()">Clear Side</button>
       </div>
     </div>
 
@@ -961,10 +883,9 @@
         <div id="overlay"></div>
       </div>
     </div>
-
   </div>
 
-  <!-- SAVE BAR (sidebar bottom) -->
+  <!-- SAVE BAR -->
   <div id="save-bar">
     <button class="btn btn-accent btn-sm" style="flex:1" id="save-btn" onclick="saveDesign()">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
@@ -980,15 +901,14 @@
     </div>
     <span id="layer-info" style="color:var(--ink-4);"></span>
   </div>
-
 </div>
 
-<!-- BACK WARNING MODAL -->
+<!-- BACK MODAL -->
 <div class="modal-backdrop" id="back-modal">
   <div class="modal-card">
     <div class="modal-icon">⚠️</div>
     <div class="modal-title">Unsaved design</div>
-    <div class="modal-body">You have unsaved changes. If you leave now, your design will be lost. Save your design first or discard changes.</div>
+    <div class="modal-body">You have unsaved changes. If you leave now, your design will be lost.</div>
     <div class="modal-actions">
       <button class="btn btn-sm" onclick="closeModal('back-modal')">Cancel</button>
       <button class="btn btn-sm btn-danger" onclick="proceedBack()">Leave anyway</button>
@@ -997,923 +917,592 @@
   </div>
 </div>
 
+<!-- RESET MODAL -->
+<div class="modal-backdrop" id="reset-modal">
+  <div class="modal-card">
+    <div class="modal-icon danger">🗑️</div>
+    <div class="modal-title">Reset all designs?</div>
+    <div class="modal-body">This will clear <strong>all layers on every side</strong> (front, back &amp; wrap) and start fresh. This cannot be undone.</div>
+    <div class="modal-actions">
+      <button class="btn btn-sm" onclick="closeModal('reset-modal')">Cancel</button>
+      <button class="btn btn-sm btn-danger" onclick="confirmResetDesign()">Yes, reset everything</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
-/* ─────────────────────────────────────────
-   CONSTANTS & CONFIG
-───────────────────────────────────────── */
+/* ── CONFIG ── */
 const TEMPLATE_JSON_URL = './content/templates.json';
 const PRODUCTS_JSON_URL = './content/products.json';
 
 const CATEGORY_CONFIG = {
   tshirt: {
-    label: 'T-Shirt',
-    sides: ['front', 'back'],
-    defaultSide: 'front',
-    stageW: 300, stageH: 340,
-    productShape: 'shirt',
-    showColor: true,
+    label: 'T-Shirt', sides: ['front','back'], defaultSide: 'front',
+    stageW: 300, stageH: 340, productShape: 'shirt', showColor: true,
     colorPresets: ['#111827','#2563EB','#DC2626','#16A34A','#7C3AED','#F9FAF8','#F59E0B','#0F172A'],
   },
   diary: {
-    label: 'Diary',
-    sides: ['front', 'back'],
-    defaultSide: 'front',
-    stageW: 300, stageH: 360,
-    productShape: 'rectBook',
-    showColor: true,
+    label: 'Diary', sides: ['front','back'], defaultSide: 'front',
+    stageW: 300, stageH: 360, productShape: 'rectBook', showColor: true,
     colorPresets: ['#111827','#2563EB','#DC2626','#16A34A','#7C3AED','#F9FAF8','#F59E0B','#0F172A'],
   },
   bottle: {
-    label: 'Bottle',
-    sides: ['wrap'],
-    defaultSide: 'wrap',
-    stageW: 280, stageH: 360,
-    productShape: 'rectLabel',
-    showColor: false,
-    colorPresets: [],
+    label: 'Bottle', sides: ['wrap'], defaultSide: 'wrap',
+    stageW: 280, stageH: 360, productShape: 'rectLabel', showColor: false, colorPresets: [],
   },
   cup: {
-    label: 'Cup',
-    sides: ['wrap'],
-    defaultSide: 'wrap',
-    stageW: 280, stageH: 240,
-    productShape: 'rectLabel',
-    showColor: false,
-    colorPresets: [],
+    label: 'Cup', sides: ['wrap'], defaultSide: 'wrap',
+    stageW: 280, stageH: 240, productShape: 'rectLabel', showColor: false, colorPresets: [],
   },
   default: {
-    label: 'Product',
-    sides: ['wrap'],
-    defaultSide: 'wrap',
-    stageW: 280, stageH: 320,
-    productShape: 'rectLabel',
-    showColor: false,
-    colorPresets: [],
+    label: 'Product', sides: ['wrap'], defaultSide: 'wrap',
+    stageW: 280, stageH: 320, productShape: 'rectLabel', showColor: false, colorPresets: [],
   },
 };
 
-/* ─────────────────────────────────────────
-   STATE
-───────────────────────────────────────── */
+/* ── STATE ── */
 const state = {
-  product: null,
-  category: 'default',
-  side: 'front',
-  shirtColor: '#2563EB',
-  front: [], back: [], wrap: [],
-  sel: null,
-  nid: 1,
-  saved: true,         // true = design is saved / never edited
-  templates: [],
-  templatesToShow: [],
+  product: null, category: 'default', side: 'front', shirtColor: '#2563EB',
+  front: [], back: [], wrap: [], sel: null, nid: 1, saved: true,
+  templates: [], templatesToShow: [], _colorInitialized: false,
 };
 
-/* ─────────────────────────────────────────
-   DOM HELPERS
-───────────────────────────────────────── */
-const $ = (sel, root = document) => root.querySelector(sel);
-const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+/* ── HELPERS ── */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+function esc(s) { return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function getCfg() { return CATEGORY_CONFIG[state.category] || CATEGORY_CONFIG.default; }
+function layers() { return state[state.side] || []; }
+function stageSize() { const c=getCfg(); return {w:c.stageW, h:c.stageH}; }
 
-function esc(s) {
-  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function getCfg() {
-  return CATEGORY_CONFIG[state.category] || CATEGORY_CONFIG.default;
-}
-
-function layers() {
-  return state[state.side] || [];
-}
-
-function stageSize() {
-  const cfg = getCfg();
-  return { w: cfg.stageW, h: cfg.stageH };
-}
-
-/* ─────────────────────────────────────────
-   STATUS / TOAST
-───────────────────────────────────────── */
-function setStatus(msg, type = 'idle') {
-  const dot = $('#status-dot');
-  const txt = $('#status-msg');
+/* ── STATUS / TOAST ── */
+function setStatus(msg, type='idle') {
+  const dot=$('#status-dot'), txt=$('#status-msg');
   if (txt) txt.textContent = msg;
-  if (dot) {
-    dot.className = type === 'success' ? 'active' : type === 'warning' ? 'warning' : '';
-  }
+  if (dot) dot.className = type==='success'?'active':type==='warning'?'warning':'';
 }
-
 let toastTimer;
 function showToast(msg) {
-  const t = $('#toast');
-  if (!t) return;
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  const t=$('#toast'); if(!t) return;
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
 }
+function markDirty() { state.saved=false; const d=$('#unsaved-dot'); if(d) d.classList.add('show'); }
+function markSaved() { state.saved=true;  const d=$('#unsaved-dot'); if(d) d.classList.remove('show'); }
+function setLayerInfo() { const n=layers().length; $('#layer-info').textContent=n?`${n} layer${n!==1?'s':''}`:''; }
 
-function markDirty() {
-  state.saved = false;
-  const dot = $('#unsaved-dot');
-  if (dot) dot.classList.add('show');
-}
+/* ── PANELS ── */
+function togglePanel(key) { const s=$(`#panel-${key}`); if(s) s.classList.toggle('open'); }
+function openPanel(key) { const s=$(`#panel-${key}`); if(s&&!s.classList.contains('open')) s.classList.add('open'); }
 
-function markSaved() {
-  state.saved = true;
-  const dot = $('#unsaved-dot');
-  if (dot) dot.classList.remove('show');
-}
-
-/* ─────────────────────────────────────────
-   LAYER COUNT & INFO
-───────────────────────────────────────── */
-function setLayerInfo() {
-  const n = layers().length;
-  $('#layer-info').textContent = n ? `${n} layer${n !== 1 ? 's' : ''}` : '';
-}
-
-/* ─────────────────────────────────────────
-   ACCORDION / PANELS
-───────────────────────────────────────── */
-function togglePanel(key) {
-  const section = $(`#panel-${key}`);
-  if (!section) return;
-  section.classList.toggle('open');
-}
-
-function openPanel(key) {
-  const section = $(`#panel-${key}`);
-  if (section && !section.classList.contains('open')) section.classList.add('open');
-}
-
-/* ─────────────────────────────────────────
-   SIDE TABS
-───────────────────────────────────────── */
+/* ── SIDE TABS ── */
 function buildSideTabs() {
-  const cfg = getCfg();
-  const wrap = $('#side-tabs-wrap');
+  const cfg=getCfg(), wrap=$('#side-tabs-wrap');
   if (!wrap) return;
-
-  if (cfg.sides.length <= 1) {
-    wrap.innerHTML = '';
-    return;
-  }
-
-  wrap.innerHTML = `<div class="side-tabs">${
-    cfg.sides.map(s =>
-      `<button class="side-tab${state.side === s ? ' active' : ''}" onclick="switchSide('${s}')">
-        ${s === 'wrap' ? 'Wrap' : s.charAt(0).toUpperCase() + s.slice(1)}
-      </button>`
-    ).join('')
-  }</div>`;
+  if (cfg.sides.length<=1) { wrap.innerHTML=''; return; }
+  wrap.innerHTML=`<div class="side-tabs">${cfg.sides.map(s=>`<button class="side-tab${state.side===s?' active':''}" onclick="switchSide('${s}')">${s==='wrap'?'Wrap':s.charAt(0).toUpperCase()+s.slice(1)}</button>`).join('')}</div>`;
 }
-
 function switchSide(side) {
-  if (!getCfg().sides.includes(side)) return;
-  state.side = side;
-  state.sel = null;
+  if(!getCfg().sides.includes(side)) return;
+  state.side=side; state.sel=null;
   buildSideTabs();
-  const lbl = $('#side-label');
-  if (lbl) lbl.innerHTML = `Editing <strong>${side}</strong>`;
-  resetSelBoxes();
-  renderAll();
-  setStatus(`Switched to ${side} side.`);
+  const lbl=$('#side-label'); if(lbl) lbl.innerHTML=`Editing <strong>${side}</strong>`;
+  resetSelBoxes(); renderAll(); setStatus(`Switched to ${side} side.`);
 }
 
-/* ─────────────────────────────────────────
-   COLOR SWATCHES
-───────────────────────────────────────── */
-function buildSwatches() {
-  const cfg = getCfg();
-  const colorPanel = $('#panel-color');
-  if (!colorPanel) return;
+/* ── COLOR SWATCHES — reads product.colors first ── */
+function isLightColor(hex) {
+  const c=hex.replace('#','');
+  const r=parseInt(c.substr(0,2),16), g=parseInt(c.substr(2,2),16), b=parseInt(c.substr(4,2),16);
+  return (r*299+g*587+b*114)/1000 > 200;
+}
 
-  if (!cfg.showColor) {
-    colorPanel.style.display = 'none';
-    return;
+function buildSwatches() {
+  const cfg=getCfg(), colorPanel=$('#panel-color');
+  if (!colorPanel) return;
+  if (!cfg.showColor) { colorPanel.style.display='none'; return; }
+  colorPanel.style.display='';
+
+  const wrap=$('#preset-swatches');
+  if (!wrap) return;
+  wrap.innerHTML='';
+
+  // Use product.colors if available, fall back to CATEGORY_CONFIG presets
+  let presets = cfg.colorPresets;
+  if (state.product?.colors && Array.isArray(state.product.colors) && state.product.colors.length) {
+    presets = state.product.colors;
   }
 
-  colorPanel.style.display = '';
-  const wrap = $('#preset-swatches');
-  if (!wrap) return;
-  wrap.innerHTML = '';
+  // Auto-select first color if no saved state
+  if (presets.length && !state._colorInitialized) {
+    state.shirtColor = presets[0];
+    state._colorInitialized = true;
+  }
 
-  cfg.colorPresets.forEach(c => {
-    const b = document.createElement('button');
-    b.className = 'cs' + (c.toLowerCase() === state.shirtColor.toLowerCase() ? ' sel' : '') +
-                  (c.toLowerCase() === '#f9faf8' ? ' white' : '');
-    b.style.background = c;
-    b.dataset.c = c;
-    b.title = c;
-    b.onclick = () => setShirtColor(c);
+  presets.forEach(c => {
+    const b=document.createElement('button');
+    b.className='cs'+(c.toLowerCase()===state.shirtColor.toLowerCase()?' sel':'')+(isLightColor(c)?' white':'');
+    b.style.background=c; b.dataset.c=c; b.title=c;
+    b.onclick=()=>setShirtColor(c);
     wrap.appendChild(b);
   });
 
-  const pick = $('#sc-pick');
-  if (pick) pick.value = state.shirtColor;
+  const pick=$('#sc-pick');
+  if (pick) pick.value=state.shirtColor;
 }
 
 function setShirtColor(v) {
-  if (!/^#[0-9a-fA-F]{3,6}$/.test(v)) return;
-  markDirty();
-  state.shirtColor = v;
-  const pick = $('#sc-pick');
-  if (pick) pick.value = v;
-  $$('.cs').forEach(s => s.classList.toggle('sel', s.dataset.c.toLowerCase() === v.toLowerCase()));
-  renderStage();
-  setStatus('Product color updated.', 'success');
+  if(!/^#[0-9a-fA-F]{3,6}$/.test(v)) return;
+  markDirty(); state.shirtColor=v;
+  const pick=$('#sc-pick'); if(pick) pick.value=v;
+  $$('.cs').forEach(s=>s.classList.toggle('sel',s.dataset.c.toLowerCase()===v.toLowerCase()));
+  renderStage(); setStatus('Product color updated.','success');
 }
 
-/* ─────────────────────────────────────────
-   STAGE / SVG
-───────────────────────────────────────── */
+/* ── STAGE SVG ── */
 function renderStage() {
-  const cfg = getCfg();
-  const stage = $('#stage');
-  const svg = $('#stage-svg');
-  if (!stage || !svg) return;
-
-  // Scale stage to fit canvas area
-  const areaEl = $('#canvas-stage-area');
+  const cfg=getCfg(), stage=$('#stage'), svg=$('#stage-svg');
+  if (!stage||!svg) return;
+  const areaEl=$('#canvas-stage-area');
   if (areaEl) {
-    const aW = areaEl.clientWidth - 64;
-    const aH = areaEl.clientHeight - 64;
-    const scale = Math.min(1, aW / cfg.stageW, aH / cfg.stageH);
-    stage.style.width  = `${cfg.stageW}px`;
-    stage.style.height = `${cfg.stageH}px`;
-    stage.style.transform = `scale(${scale})`;
-    stage.style.transformOrigin = 'center center';
-  } else {
-    stage.style.width  = `${cfg.stageW}px`;
-    stage.style.height = `${cfg.stageH}px`;
-  }
-
-  svg.setAttribute('viewBox', `0 0 ${cfg.stageW} ${cfg.stageH}`);
-
-  if (cfg.productShape === 'shirt') svg.innerHTML = shirtSVG(cfg.stageW, cfg.stageH, state.shirtColor);
-  else if (cfg.productShape === 'rectBook') svg.innerHTML = bookSVG(cfg.stageW, cfg.stageH, state.shirtColor);
-  else svg.innerHTML = rectSVG(cfg.stageW, cfg.stageH, state.shirtColor);
+    const aW=areaEl.clientWidth-64, aH=areaEl.clientHeight-64;
+    const scale=Math.min(1,aW/cfg.stageW,aH/cfg.stageH);
+    stage.style.width=`${cfg.stageW}px`; stage.style.height=`${cfg.stageH}px`;
+    stage.style.transform=`scale(${scale})`; stage.style.transformOrigin='center center';
+  } else { stage.style.width=`${cfg.stageW}px`; stage.style.height=`${cfg.stageH}px`; }
+  svg.setAttribute('viewBox',`0 0 ${cfg.stageW} ${cfg.stageH}`);
+  if (cfg.productShape==='shirt') svg.innerHTML=shirtSVG(cfg.stageW,cfg.stageH,state.shirtColor);
+  else if (cfg.productShape==='rectBook') svg.innerHTML=bookSVG(cfg.stageW,cfg.stageH,state.shirtColor);
+  else svg.innerHTML=rectSVG(cfg.stageW,cfg.stageH,state.shirtColor);
 }
 
-function shade(hex, pct) {
-  const n = parseInt(hex.replace('#',''), 16);
-  const r = Math.min(255, Math.max(0, (n >> 16) + pct));
-  const g = Math.min(255, Math.max(0, ((n >> 8) & 0xff) + pct));
-  const b = Math.min(255, Math.max(0, (n & 0xff) + pct));
-  return '#' + [r,g,b].map(x => x.toString(16).padStart(2,'0')).join('');
+function shade(hex,pct) {
+  const n=parseInt(hex.replace('#',''),16);
+  const r=Math.min(255,Math.max(0,(n>>16)+pct));
+  const g=Math.min(255,Math.max(0,((n>>8)&0xff)+pct));
+  const b=Math.min(255,Math.max(0,(n&0xff)+pct));
+  return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
 }
 
-function shirtSVG(w, h, c) {
-  const d = shade(c,-32), hi = shade(c,28);
-  return `<defs>
-    <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="${hi}"/>
-      <stop offset="55%" stop-color="${c}"/>
-      <stop offset="100%" stop-color="${d}"/>
-    </linearGradient>
-    <filter id="sf"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="${d}" flood-opacity="0.2"/></filter>
-  </defs>
-  <path filter="url(#sf)" d="M55,28 L18,75 L56,94 L52,308 L248,308 L244,94 L282,75 L245,28 Q226,13 208,19 Q190,47 150,52 Q110,47 92,19 Q74,13 55,28 Z"
-    fill="url(#sg)" stroke="${d}" stroke-width="0.7" stroke-opacity="0.3"/>
-  <path d="M55,28 Q74,13 92,19 Q110,47 150,52 Q190,47 208,19 Q226,13 245,28" fill="none" stroke="${d}" stroke-width="0.7" stroke-opacity="0.2"/>
-  <path d="M52,94 L56,308 L74,308 L74,104 Z" fill="${d}" fill-opacity="0.06"/>
-  <path d="M248,94 L244,308 L226,308 L226,104 Z" fill="${hi}" fill-opacity="0.04"/>`;
+function shirtSVG(w,h,c) {
+  const d=shade(c,-32),hi=shade(c,28);
+  return `<defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${hi}"/><stop offset="55%" stop-color="${c}"/><stop offset="100%" stop-color="${d}"/></linearGradient><filter id="sf"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="${d}" flood-opacity="0.2"/></filter></defs><path filter="url(#sf)" d="M55,28 L18,75 L56,94 L52,308 L248,308 L244,94 L282,75 L245,28 Q226,13 208,19 Q190,47 150,52 Q110,47 92,19 Q74,13 55,28 Z" fill="url(#sg)" stroke="${d}" stroke-width="0.7" stroke-opacity="0.3"/><path d="M55,28 Q74,13 92,19 Q110,47 150,52 Q190,47 208,19 Q226,13 245,28" fill="none" stroke="${d}" stroke-width="0.7" stroke-opacity="0.2"/><path d="M52,94 L56,308 L74,308 L74,104 Z" fill="${d}" fill-opacity="0.06"/><path d="M248,94 L244,308 L226,308 L226,104 Z" fill="${hi}" fill-opacity="0.04"/>`;
 }
 
-function rectSVG(w, h, c) {
-  const d = shade(c,-26), hi = shade(c,20);
-  return `<defs>
-    <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="${hi}"/>
-      <stop offset="60%" stop-color="${c}"/>
-      <stop offset="100%" stop-color="${d}"/>
-    </linearGradient>
-    <filter id="rf"><feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.15"/></filter>
-  </defs>
-  <rect filter="url(#rf)" x="24" y="18" rx="22" ry="22" width="${w-48}" height="${h-36}"
-    fill="url(#rg)" stroke="${d}" stroke-width="1"/>
-  <rect x="38" y="32" rx="14" ry="14" width="${w-76}" height="${h-64}"
-    fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1.2" stroke-dasharray="5 4"/>`;
+function rectSVG(w,h,c) {
+  const d=shade(c,-26),hi=shade(c,20);
+  return `<defs><linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${hi}"/><stop offset="60%" stop-color="${c}"/><stop offset="100%" stop-color="${d}"/></linearGradient><filter id="rf"><feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.15"/></filter></defs><rect filter="url(#rf)" x="24" y="18" rx="22" ry="22" width="${w-48}" height="${h-36}" fill="url(#rg)" stroke="${d}" stroke-width="1"/><rect x="38" y="32" rx="14" ry="14" width="${w-76}" height="${h-64}" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1.2" stroke-dasharray="5 4"/>`;
 }
 
-function bookSVG(w, h, c) {
-  const d = shade(c,-30), hi = shade(c,20);
-  return `<defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="${hi}"/>
-      <stop offset="70%" stop-color="${c}"/>
-      <stop offset="100%" stop-color="${d}"/>
-    </linearGradient>
-    <filter id="bf"><feDropShadow dx="2" dy="4" stdDeviation="8" flood-opacity="0.18"/></filter>
-  </defs>
-  <rect filter="url(#bf)" x="28" y="16" rx="20" ry="20" width="${w-56}" height="${h-32}"
-    fill="url(#bg)" stroke="${d}" stroke-width="1"/>
-  <rect x="44" y="30" rx="12" ry="12" width="${w-88}" height="${h-60}"
-    fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"/>
-  <rect x="40" y="16" width="18" height="${h-32}" fill="rgba(0,0,0,0.10)" rx="0"/>`;
+function bookSVG(w,h,c) {
+  const d=shade(c,-30),hi=shade(c,20);
+  return `<defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${hi}"/><stop offset="70%" stop-color="${c}"/><stop offset="100%" stop-color="${d}"/></linearGradient><filter id="bf"><feDropShadow dx="2" dy="4" stdDeviation="8" flood-opacity="0.18"/></filter></defs><rect filter="url(#bf)" x="28" y="16" rx="20" ry="20" width="${w-56}" height="${h-32}" fill="url(#bg)" stroke="${d}" stroke-width="1"/><rect x="44" y="30" rx="12" ry="12" width="${w-88}" height="${h-60}" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"/><rect x="40" y="16" width="18" height="${h-32}" fill="rgba(0,0,0,0.10)" rx="0"/>`;
 }
 
-/* ─────────────────────────────────────────
-   TEMPLATES
-───────────────────────────────────────── */
+/* ── TEMPLATES ── */
 async function loadTemplates() {
   try {
-    const res = await fetch(TEMPLATE_JSON_URL, { cache: 'no-store' });
+    const res=await fetch(TEMPLATE_JSON_URL,{cache:'no-store'});
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    state.templates = Array.isArray(data) ? data : [];
-  } catch {
-    state.templates = [];
-  }
+    const data=await res.json();
+    state.templates=Array.isArray(data)?data:[];
+  } catch { state.templates=[]; }
 }
 
 function renderTemplates() {
-  const grid = $('#tpl-grid');
-  const pill = $('#tpl-count-pill');
+  const grid=$('#tpl-grid'), pill=$('#tpl-count-pill');
   if (!grid) return;
-
-  const matching = state.templates.filter(t =>
-    String(t.category || '').toLowerCase() === state.category
-  );
-  state.templatesToShow = matching;
-  if (pill) pill.textContent = matching.length;
-
-  grid.innerHTML = '';
-
-  if (!matching.length) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <div class="icon">🎨</div>
-      No templates for this category.
-    </div>`;
-    return;
-  }
-
-  matching.forEach((t, i) => {
-    const b = document.createElement('button');
-    b.className = 'tpl-btn';
-    b.dataset.index = i;
-    b.title = t.name || 'Template';
-    b.innerHTML = `
-      <img class="tpl-thumb" src="${esc(t.file)}" alt="${esc(t.name || 'Template')}" loading="lazy">
-      <div class="tpl-name">${esc(t.name || 'Template')}</div>`;
-    b.onclick = () => applyTemplate(t);
+  const matching=state.templates.filter(t=>String(t.category||'').toLowerCase()===state.category);
+  state.templatesToShow=matching;
+  if (pill) pill.textContent=matching.length;
+  grid.innerHTML='';
+  if (!matching.length) { grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="icon">🎨</div>No templates for this category.</div>`; return; }
+  matching.forEach((t,i)=>{
+    const b=document.createElement('button');
+    b.className='tpl-btn'; b.dataset.index=i; b.title=t.name||'Template';
+    b.innerHTML=`<img class="tpl-thumb" src="${esc(t.file)}" alt="${esc(t.name||'Template')}" loading="lazy"><div class="tpl-name">${esc(t.name||'Template')}</div>`;
+    b.onclick=()=>applyTemplate(t);
     grid.appendChild(b);
   });
 }
 
 function applyTemplate(tpl) {
   markDirty();
-  // Remove existing image layers on this side
-  state[state.side] = state[state.side].filter(l => l.type !== 'image');
-  state.sel = null;
-
-  const { w: sw, h: sh } = stageSize();
-  const size = Math.min(sw, sh) * 0.55;
-  const layer = {
-    id: state.nid++,
-    type: 'image',
-    x: Math.round((sw - size) / 2),
-    y: Math.round((sh - size) / 2),
-    w: size, h: size,
-    src: tpl.file,
-    name: tpl.name || 'Template',
-  };
+  state[state.side]=state[state.side].filter(l=>l.type!=='image');
+  state.sel=null;
+  const {w:sw,h:sh}=stageSize();
+  const size=Math.min(sw,sh)*0.55;
+  const layer={id:state.nid++,type:'image',x:Math.round((sw-size)/2),y:Math.round((sh-size)/2),w:size,h:size,src:tpl.file,name:tpl.name||'Template'};
   layers().push(layer);
-  renderAll();
-  selectLayer(layer.id);
-  setStatus(`Template "${tpl.name || 'Template'}" applied.`, 'success');
+  renderAll(); selectLayer(layer.id);
+  setStatus(`Template "${tpl.name||'Template'}" applied.`,'success');
 }
 
 function refreshTemplateHighlight() {
-  const selected = layers().find(l => l.type === 'image');
-  $$('.tpl-btn').forEach(btn => {
-    const idx = Number(btn.dataset.index);
-    const tpl = state.templatesToShow[idx];
-    btn.classList.toggle('active', !!selected && !!tpl && selected.src === tpl.file);
+  const selected=layers().find(l=>l.type==='image');
+  $$('.tpl-btn').forEach(btn=>{
+    const idx=Number(btn.dataset.index), tpl=state.templatesToShow[idx];
+    btn.classList.toggle('active',!!selected&&!!tpl&&selected.src===tpl.file);
   });
 }
 
-/* ─────────────────────────────────────────
-   TEXT SVG
-───────────────────────────────────────── */
-function escXml(s) {
-  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+/* ── TEXT SVG — improved curved text ── */
+function escXml(s) { return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function makeCurvedTextSVG(layer) {
-  const text  = layer.text || '';
-  const curve = layer.curve || 0;
-  const fs    = layer.fontSize || 30;
-  const fw    = layer.fontWeight || '400';
-  const ff    = layer.fontFamily || 'Arial,sans-serif';
-  const col   = layer.textColor || '#fff';
-  const ta    = layer.textAlign || 'center';
-  const lw    = layer.w || 160;
-  const lh    = layer.h || 60;
+  const text   = layer.text || '';
+  const curve  = layer.curve || 0;
+  const fs     = layer.fontSize || 30;
+  const fw     = layer.fontWeight || '400';
+  const ff     = layer.fontFamily || 'Arial,sans-serif';
+  const col    = layer.textColor || '#fff';
+  const ta     = layer.textAlign || 'center';
+  const lw     = layer.w || 160;
 
   if (curve === 0) {
+    // Flat text — generous height to avoid clipping descenders
     const lines  = text.split('\n');
-    const lineH  = fs * 1.2;
+    const lineH  = fs * 1.3;
     const totalH = lines.length * lineH;
-    const startY = (lh - totalH) / 2 + fs * 0.82;
-    const svgLines = lines.map((line, i) => {
-      const ax     = ta === 'left' ? 4 : ta === 'right' ? lw - 4 : lw / 2;
-      const anchor = ta === 'left' ? 'start' : ta === 'right' ? 'end' : 'middle';
-      return `<text x="${ax}" y="${startY + i * lineH}" text-anchor="${anchor}" fill="${col}"
-        font-size="${fs}" font-weight="${fw}" font-family="${ff}">${escXml(line)}</text>`;
+    const svgH   = Math.max(totalH + fs * 0.7, 40);
+    const startY = (svgH - totalH) / 2 + fs * 0.78;
+    const svgLines = lines.map((line,i)=>{
+      const ax     = ta==='left' ? 4 : ta==='right' ? lw-4 : lw/2;
+      const anchor = ta==='left' ? 'start' : ta==='right' ? 'end' : 'middle';
+      return `<text x="${ax}" y="${startY+i*lineH}" text-anchor="${anchor}" fill="${col}" font-size="${fs}" font-weight="${fw}" font-family="${ff}">${escXml(line)}</text>`;
     }).join('');
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="${lw}" height="${lh}" viewBox="0 0 ${lw} ${lh}">${svgLines}</svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${lw}" height="${svgH}" viewBox="0 0 ${lw} ${svgH}">${svgLines}</svg>`;
   }
 
-  const r        = Math.abs(5000 / curve);
-  const sweep    = lw / (2 * r);
-  const cy       = curve > 0 ? lh - r * Math.cos(sweep) + fs * 0.5 : r * Math.cos(sweep) - fs * 0.5;
-  const startX   = lw / 2 - r * Math.sin(sweep);
-  const endX     = lw / 2 + r * Math.sin(sweep);
-  const largeArc = sweep > Math.PI / 2 ? 1 : 0;
-  const sweepFlg = curve > 0 ? 0 : 1;
-  const pid      = `cp${layer.id}`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${lw}" height="${lh}" viewBox="0 0 ${lw} ${lh}">
-    <defs><path id="${pid}" d="M ${startX},${cy} A ${r} ${r} 0 ${largeArc} ${sweepFlg} ${endX},${cy}"/></defs>
+  // Curved text — proper arc geometry
+  const absCurve = Math.abs(curve);
+  // Radius: larger = flatter arc. At curve=60 → tight; at curve=1 → very flat.
+  const radius = Math.max(lw * 0.5, (lw * 55) / absCurve);
+
+  // Half-angle the text arc subtends
+  const halfAngle = Math.asin(Math.min(0.97, (lw * 0.44) / radius));
+  const sagitta   = radius - radius * Math.cos(halfAngle);
+
+  // SVG viewport: tall enough for arc + text glyph height
+  const svgH = Math.max(sagitta + fs * 2.0, fs * 2.4);
+  const svgW = lw;
+  const pid  = `cp${layer.id}_${(Math.random()*1e6)|0}`;
+
+  let pathD;
+  if (curve > 0) {
+    // Arch UP: text reads along the top of the arc (convex side)
+    // Circle centre is below the canvas so the arc curves upward
+    const cx = svgW / 2;
+    const cy = svgH + radius - sagitta - fs * 0.5;
+    const startAngle = Math.PI/2 + halfAngle;
+    const endAngle   = Math.PI/2 - halfAngle;
+    const sx = cx + radius * Math.cos(startAngle);
+    const sy = cy - radius * Math.sin(startAngle);
+    const ex = cx + radius * Math.cos(endAngle);
+    const ey = cy - radius * Math.sin(endAngle);
+    pathD = `M ${sx},${sy} A ${radius},${radius} 0 0,1 ${ex},${ey}`;
+  } else {
+    // Arch DOWN: text reads along the bottom of the arc (concave side)
+    const cx = svgW / 2;
+    const cy = -(radius - sagitta) + fs * 0.5;
+    const startAngle = Math.PI/2 + halfAngle;
+    const endAngle   = Math.PI/2 - halfAngle;
+    const sx = cx - radius * Math.cos(endAngle);
+    const sy = cy + radius * Math.sin(endAngle);
+    const ex = cx - radius * Math.cos(startAngle);
+    const ey = cy + radius * Math.sin(startAngle);
+    pathD = `M ${sx},${sy} A ${radius},${radius} 0 0,0 ${ex},${ey}`;
+  }
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}">
+    <defs><path id="${pid}" d="${pathD}"/></defs>
     <text font-size="${fs}" font-weight="${fw}" font-family="${ff}" fill="${col}">
       <textPath href="#${pid}" startOffset="50%" text-anchor="middle">${escXml(text.replace(/\n/g,' '))}</textPath>
-    </text></svg>`;
+    </text>
+  </svg>`;
 }
 
-/* ─────────────────────────────────────────
-   LAYER RENDERING
-───────────────────────────────────────── */
+/* ── LAYER RENDERING ── */
 function renderLayer(layer) {
-  const ov = $('#overlay');
-  if (!ov) return;
-
-  let el = $(`#lo-${layer.id}`);
+  const ov=$('#overlay'); if(!ov) return;
+  let el=$(`#lo-${layer.id}`);
   if (!el) {
-    el = document.createElement('div');
-    el.className = 'lobj';
-    el.id = `lo-${layer.id}`;
-
-    const frame = document.createElement('div');
-    frame.className = 'lframe';
-    el.appendChild(frame);
-
-    const rh = document.createElement('div');
-    rh.className = 'resize-handle';
-    el.appendChild(rh);
-
+    el=document.createElement('div');
+    el.className='lobj'; el.id=`lo-${layer.id}`;
+    const frame=document.createElement('div'); frame.className='lframe'; el.appendChild(frame);
+    const rh=document.createElement('div'); rh.className='resize-handle'; el.appendChild(rh);
     ov.appendChild(el);
-    setupDrag(el, layer);
-    setupResize(rh, layer);
-
-    el.addEventListener('pointerdown', e => {
-      if (e.target.closest('.resize-handle')) return;
-      selectLayer(layer.id);
-    });
+    setupDrag(el,layer); setupResize(rh,layer);
+    el.addEventListener('pointerdown',e=>{ if(e.target.closest('.resize-handle')) return; e.stopPropagation(); selectLayer(layer.id); });
   }
+  el.style.left=`${layer.x}px`; el.style.top=`${layer.y}px`;
+  el.style.width=`${layer.w}px`; el.style.height=`${layer.h}px`;
+  el.classList.toggle('sel',state.sel===layer.id);
 
-  el.style.left   = `${layer.x}px`;
-  el.style.top    = `${layer.y}px`;
-  el.style.width  = `${layer.w}px`;
-  el.style.height = `${layer.h}px`;
-  el.classList.toggle('sel', state.sel === layer.id);
-
-  const frame = el.querySelector('.lframe');
-
-  if (layer.type === 'image') {
-    const existing = frame.querySelector('img');
-    if (!existing || existing.src !== layer.src) {
-      frame.innerHTML = '';
-      const img = document.createElement('img');
-      img.src = layer.src;
-      img.alt = layer.name || 'Design';
+  const frame=el.querySelector('.lframe');
+  if (layer.type==='image') {
+    const existing=frame.querySelector('img');
+    if (!existing||existing.src!==layer.src) {
+      frame.innerHTML='';
+      const img=document.createElement('img'); img.src=layer.src; img.alt=layer.name||'Design';
       frame.appendChild(img);
     }
-  } else if (layer.type === 'text') {
-    const svgStr = makeCurvedTextSVG(layer);
-    const blob   = new Blob([svgStr], { type: 'image/svg+xml' });
-    const url    = URL.createObjectURL(blob);
-    // Revoke previous blob URL
-    const prev = frame.querySelector('img');
-    if (prev && prev.src.startsWith('blob:')) URL.revokeObjectURL(prev.src);
-    frame.innerHTML = '';
-    const img = document.createElement('img');
-    img.src = url;
-    img.alt = 'Text layer';
-    img.style.cssText = 'width:100%;height:100%;object-fit:contain;';
+  } else if (layer.type==='text') {
+    const svgStr=makeCurvedTextSVG(layer);
+    const blob=new Blob([svgStr],{type:'image/svg+xml'});
+    const url=URL.createObjectURL(blob);
+    const prev=frame.querySelector('img');
+    if (prev&&prev.src.startsWith('blob:')) URL.revokeObjectURL(prev.src);
+    frame.innerHTML='';
+    const img=document.createElement('img'); img.src=url; img.alt='Text layer';
+    img.style.cssText='width:100%;height:100%;object-fit:contain;';
     frame.appendChild(img);
   }
 }
 
 function renderAll() {
-  const ov = $('#overlay');
-  if (!ov) return;
-
-  const ids = new Set(layers().map(l => `lo-${l.id}`));
-  Array.from(ov.children).forEach(el => { if (!ids.has(el.id)) el.remove(); });
+  const ov=$('#overlay'); if(!ov) return;
+  const ids=new Set(layers().map(l=>`lo-${l.id}`));
+  Array.from(ov.children).forEach(el=>{ if(!ids.has(el.id)) el.remove(); });
   layers().forEach(renderLayer);
-
-  setLayerInfo();
-  refreshSelBoxes();
-  refreshTemplateHighlight();
+  setLayerInfo(); refreshSelBoxes(); refreshTemplateHighlight();
 }
 
-/* ─────────────────────────────────────────
-   SELECTION
-───────────────────────────────────────── */
-function selectLayer(id) {
-  state.sel = id;
-  const layer = layers().find(l => l.id === id);
-
-  if (layer?.type === 'text') {
-    populateTextControls(layer);
-    openPanel('text');
-  } else if (layer?.type === 'image') {
-    openPanel('design');
+/* ── CLICK OUTSIDE TO DESELECT ── */
+document.addEventListener('pointerdown', e => {
+  const stage=$('#stage');
+  if (stage && stage.contains(e.target) && !e.target.closest('.lobj')) {
+    if (state.sel !== null) {
+      state.sel = null;
+      renderAll();
+      resetSelBoxes();
+      setStatus('');
+    }
   }
+});
 
+/* ── SELECTION ── */
+function selectLayer(id) {
+  state.sel=id;
+  const layer=layers().find(l=>l.id===id);
+  if (layer?.type==='text') { populateTextControls(layer); openPanel('text'); }
+  else if (layer?.type==='image') { openPanel('design'); }
   renderAll();
-  setStatus(layer
-    ? `${layer.type === 'text' ? 'Text' : 'Design'} layer selected — drag to move, corner to resize.`
-    : '', 'idle');
+  setStatus(layer?`${layer.type==='text'?'Text':'Design'} layer selected — drag to move, corner to resize.`:'','idle');
 }
 
 function populateTextControls(layer) {
-  $('#txt-content').value = layer.text || '';
-  $('#txt-font').value    = layer.fontFamily || 'Georgia, serif';
-  $('#txt-weight').value  = layer.fontWeight || '400';
-  $('#txt-size').value    = layer.fontSize || 36;
-  $('#txt-width').value   = layer.w || 160;
-  $('#txt-color').value   = layer.textColor || '#FFFFFF';
-  $('#txt-curve').value   = layer.curve || 0;
-  $('#curve-val').textContent = (layer.curve || 0) + '°';
-  setTextAlignUI(layer.textAlign || 'center');
+  $('#txt-content').value=layer.text||'';
+  $('#txt-font').value=layer.fontFamily||'Georgia, serif';
+  $('#txt-weight').value=layer.fontWeight||'400';
+  $('#txt-size').value=layer.fontSize||36;
+  $('#txt-width').value=layer.w||160;
+  $('#txt-color').value=layer.textColor||'#FFFFFF';
+  $('#txt-curve').value=layer.curve||0;
+  $('#curve-val').textContent=(layer.curve||0)+'°';
+  setTextAlignUI(layer.textAlign||'center');
 }
 
 function refreshSelBoxes() {
-  const layer = layers().find(l => l.id === state.sel);
-  const dbox  = $('#design-sel-box');
-  const tbox  = $('#text-sel-box');
-
-  if (!layer) {
-    resetSelBoxes();
-    return;
-  }
-
-  if (layer.type === 'image') {
-    dbox.className = 'sel-box active';
-    dbox.innerHTML = `<strong>${esc(layer.name || 'Design')}</strong><br>Selected. Drag to reposition, corner to resize.`;
-    tbox.className = 'sel-box';
-    tbox.innerHTML = '<strong>No text selected</strong><br>Click a text layer to edit it.';
-  } else if (layer.type === 'text') {
-    tbox.className = 'sel-box active';
-    const preview = (layer.text || '').slice(0, 24);
-    tbox.innerHTML = `<strong>Text layer</strong> — ${esc(preview)}${layer.text.length > 24 ? '…' : ''}<br>Editing in the panel above.`;
-    dbox.className = 'sel-box';
-    dbox.innerHTML = '<strong>No design selected</strong><br>Click a design layer to select it.';
+  const layer=layers().find(l=>l.id===state.sel);
+  const dbox=$('#design-sel-box'), tbox=$('#text-sel-box');
+  if (!layer) { resetSelBoxes(); return; }
+  if (layer.type==='image') {
+    dbox.className='sel-box active'; dbox.innerHTML=`<strong>${esc(layer.name||'Design')}</strong><br>Selected. Drag to reposition, corner to resize.`;
+    tbox.className='sel-box'; tbox.innerHTML='<strong>No text selected</strong><br>Click a text layer to edit it.';
+  } else if (layer.type==='text') {
+    tbox.className='sel-box active';
+    const preview=(layer.text||'').slice(0,24);
+    tbox.innerHTML=`<strong>Text layer</strong> — ${esc(preview)}${layer.text.length>24?'…':''}<br>Editing in the panel above.`;
+    dbox.className='sel-box'; dbox.innerHTML='<strong>No design selected</strong><br>Click a design layer to select it.';
   }
 }
 
 function resetSelBoxes() {
-  const dbox = $('#design-sel-box');
-  const tbox = $('#text-sel-box');
-  if (dbox) { dbox.className = 'sel-box'; dbox.innerHTML = '<strong>No design selected</strong><br>Pick a template or drag a design to the canvas.'; }
-  if (tbox) { tbox.className = 'sel-box'; tbox.innerHTML = '<strong>No text selected</strong><br>Add text then click a layer to edit it.'; }
+  const dbox=$('#design-sel-box'), tbox=$('#text-sel-box');
+  if (dbox) { dbox.className='sel-box'; dbox.innerHTML='<strong>No design selected</strong><br>Pick a template or drag a design to the canvas.'; }
+  if (tbox) { tbox.className='sel-box'; tbox.innerHTML='<strong>No text selected</strong><br>Add text then click a layer to edit it.'; }
 }
 
-/* ─────────────────────────────────────────
-   TEXT CONTROLS
-───────────────────────────────────────── */
-function setTextAlignUI(a) {
-  ['left','center','right'].forEach(v => $(`#al-${v}`).classList.toggle('active', v === a));
-}
-
+/* ── TEXT CONTROLS ── */
+function setTextAlignUI(a) { ['left','center','right'].forEach(v=>$(`#al-${v}`).classList.toggle('active',v===a)); }
 function setTextAlign(a) {
-  markDirty();
-  setTextAlignUI(a);
-  const layer = layers().find(l => l.id === state.sel && l.type === 'text');
-  if (layer) { layer.textAlign = a; renderLayer(layer); }
+  markDirty(); setTextAlignUI(a);
+  const layer=layers().find(l=>l.id===state.sel&&l.type==='text');
+  if (layer) { layer.textAlign=a; renderLayer(layer); }
 }
-
 function syncTextSel() {
   markDirty();
-  const layer = layers().find(l => l.id === state.sel && l.type === 'text');
+  const layer=layers().find(l=>l.id===state.sel&&l.type==='text');
   if (!layer) return;
-  layer.text       = $('#txt-content').value;
-  layer.fontFamily = $('#txt-font').value;
-  layer.fontWeight = $('#txt-weight').value;
-  layer.fontSize   = parseInt($('#txt-size').value) || 30;
-  layer.w          = parseInt($('#txt-width').value) || 160;
-  layer.textColor  = $('#txt-color').value;
-  layer.curve      = parseInt($('#txt-curve').value) || 0;
-  layer.textAlign  = ['left','center','right'].find(v => $(`#al-${v}`).classList.contains('active')) || 'center';
+  layer.text=$('#txt-content').value;
+  layer.fontFamily=$('#txt-font').value;
+  layer.fontWeight=$('#txt-weight').value;
+  layer.fontSize=parseInt($('#txt-size').value)||30;
+  layer.w=parseInt($('#txt-width').value)||160;
+  layer.textColor=$('#txt-color').value;
+  layer.curve=parseInt($('#txt-curve').value)||0;
+  layer.textAlign=['left','center','right'].find(v=>$(`#al-${v}`).classList.contains('active'))||'center';
   renderLayer(layer);
 }
 
-// Debounced sync for live updates while typing
 let syncTimer;
-$('#txt-content')?.addEventListener('input', () => {
-  clearTimeout(syncTimer);
-  syncTimer = setTimeout(syncTextSel, 60);
-});
+$('#txt-content')?.addEventListener('input',()=>{ clearTimeout(syncTimer); syncTimer=setTimeout(syncTextSel,60); });
 
 function addTextLayer() {
   markDirty();
-  const { w: sw, h: sh } = stageSize();
-  const id = state.nid++;
-  const layer = {
-    id, type: 'text',
-    x: Math.round(sw * 0.2),
-    y: Math.round(sh * 0.4),
-    w: parseInt($('#txt-width').value) || 160,
-    h: 64,
-    text:       $('#txt-content').value || 'YOUR TEXT',
-    fontFamily: $('#txt-font').value,
-    fontWeight: $('#txt-weight').value,
-    fontSize:   parseInt($('#txt-size').value) || 36,
-    textColor:  $('#txt-color').value,
-    textAlign:  ['left','center','right'].find(v => $(`#al-${v}`).classList.contains('active')) || 'center',
-    curve:      parseInt($('#txt-curve').value) || 0,
+  const {w:sw,h:sh}=stageSize();
+  const id=state.nid++;
+  const layer={
+    id, type:'text',
+    x:Math.round(sw*0.2), y:Math.round(sh*0.4),
+    w:parseInt($('#txt-width').value)||160, h:64,
+    text:$('#txt-content').value||'YOUR TEXT',
+    fontFamily:$('#txt-font').value, fontWeight:$('#txt-weight').value,
+    fontSize:parseInt($('#txt-size').value)||36,
+    textColor:$('#txt-color').value,
+    textAlign:['left','center','right'].find(v=>$(`#al-${v}`).classList.contains('active'))||'center',
+    curve:parseInt($('#txt-curve').value)||0,
   };
-  layers().push(layer);
-  renderAll();
-  selectLayer(id);
-  setStatus('Text layer added.', 'success');
+  layers().push(layer); renderAll(); selectLayer(id);
+  setStatus('Text layer added.','success');
 }
 
-/* ─────────────────────────────────────────
-   LAYER ACTIONS
-───────────────────────────────────────── */
+/* ── LAYER ACTIONS ── */
 function removeSel(fallback) {
-  const idx = layers().findIndex(l => l.id === state.sel);
-  if (idx < 0) {
-    setStatus(fallback === 'text' ? 'No text layer selected.' : fallback === 'design' ? 'No design layer selected.' : 'No layer selected.', 'warning');
-    return;
-  }
-  markDirty();
-  layers().splice(idx, 1);
-  state.sel = null;
-  renderAll();
-  setStatus('Layer removed.');
+  const idx=layers().findIndex(l=>l.id===state.sel);
+  if (idx<0) { setStatus(fallback==='text'?'No text layer selected.':fallback==='design'?'No design layer selected.':'No layer selected.','warning'); return; }
+  markDirty(); layers().splice(idx,1); state.sel=null; renderAll(); setStatus('Layer removed.');
 }
-
 function centerSel() {
-  const layer = layers().find(l => l.id === state.sel);
-  if (!layer) { setStatus('Select a layer first.', 'warning'); return; }
+  const layer=layers().find(l=>l.id===state.sel);
+  if (!layer) { setStatus('Select a layer first.','warning'); return; }
   markDirty();
-  const { w, h } = stageSize();
-  layer.x = Math.round((w - layer.w) / 2);
-  layer.y = Math.round((h - layer.h) / 2);
-  renderLayer(layer);
-  setStatus('Layer centered.', 'success');
+  const {w,h}=stageSize(); layer.x=Math.round((w-layer.w)/2); layer.y=Math.round((h-layer.h)/2);
+  renderLayer(layer); setStatus('Layer centered.','success');
 }
-
 function alignSel(axis) {
-  const layer = layers().find(l => l.id === state.sel);
-  if (!layer) { setStatus('Select a layer first.', 'warning'); return; }
+  const layer=layers().find(l=>l.id===state.sel);
+  if (!layer) { setStatus('Select a layer first.','warning'); return; }
   markDirty();
-  const { w, h } = stageSize();
-  if (axis === 'hc') layer.x = Math.round((w - layer.w) / 2);
-  else               layer.y = Math.round((h - layer.h) / 2);
-  renderLayer(layer);
-  setStatus('Layer aligned.', 'success');
+  const {w,h}=stageSize();
+  if (axis==='hc') layer.x=Math.round((w-layer.w)/2); else layer.y=Math.round((h-layer.h)/2);
+  renderLayer(layer); setStatus('Layer aligned.','success');
 }
-
 function clearSide(silent) {
-  markDirty();
-  state[state.side] = [];
-  state.sel = null;
-  const ov = $('#overlay');
-  if (ov) ov.innerHTML = '';
-  renderAll();
-  if (!silent) { setStatus('Side cleared.'); showToast('Canvas cleared'); }
+  markDirty(); state[state.side]=[]; state.sel=null;
+  const ov=$('#overlay'); if(ov) ov.innerHTML='';
+  renderAll(); if(!silent) { setStatus('Side cleared.'); showToast('Canvas cleared'); }
 }
 
-/* ─────────────────────────────────────────
-   DRAG & RESIZE
-───────────────────────────────────────── */
-function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
+/* ── RESET ALL DESIGNS ── */
+function promptResetDesign() { openModal('reset-modal'); }
+function confirmResetDesign() {
+  closeModal('reset-modal'); markDirty();
+  state.front=[]; state.back=[]; state.wrap=[]; state.sel=null;
+  const ov=$('#overlay'); if(ov) ov.innerHTML='';
+  renderAll(); setStatus('Design reset.','success'); showToast('All designs cleared');
+}
 
-function setupDrag(el, layer) {
-  let sx, sy, ox, oy;
-  el.addEventListener('pointerdown', e => {
-    if (e.target.closest('.resize-handle')) return;
-    e.preventDefault();
-    sx = e.clientX; sy = e.clientY; ox = layer.x; oy = layer.y;
+/* ── DRAG & RESIZE ── */
+function clamp(v,lo,hi){ return Math.min(hi,Math.max(lo,v)); }
+function setupDrag(el,layer) {
+  let sx,sy,ox,oy;
+  el.addEventListener('pointerdown',e=>{
+    if(e.target.closest('.resize-handle')) return;
+    e.preventDefault(); sx=e.clientX; sy=e.clientY; ox=layer.x; oy=layer.y;
     el.setPointerCapture(e.pointerId);
-    const { w, h } = stageSize();
-    const mv = ev => {
-      markDirty();
-      layer.x = clamp(ox + (ev.clientX - sx), 0, w - layer.w);
-      layer.y = clamp(oy + (ev.clientY - sy), 0, h - layer.h);
-      el.style.left = `${layer.x}px`;
-      el.style.top  = `${layer.y}px`;
-    };
-    const up = () => { el.removeEventListener('pointermove', mv); el.removeEventListener('pointerup', up); };
-    el.addEventListener('pointermove', mv);
-    el.addEventListener('pointerup', up);
+    const {w,h}=stageSize();
+    const mv=ev=>{ markDirty(); layer.x=clamp(ox+(ev.clientX-sx),0,w-layer.w); layer.y=clamp(oy+(ev.clientY-sy),0,h-layer.h); el.style.left=`${layer.x}px`; el.style.top=`${layer.y}px`; };
+    const up=()=>{ el.removeEventListener('pointermove',mv); el.removeEventListener('pointerup',up); };
+    el.addEventListener('pointermove',mv); el.addEventListener('pointerup',up);
   });
 }
-
-function setupResize(rh, layer) {
-  let sx, sy, ow, oh;
-  rh.addEventListener('pointerdown', e => {
-    e.preventDefault(); e.stopPropagation();
-    sx = e.clientX; sy = e.clientY; ow = layer.w; oh = layer.h;
+function setupResize(rh,layer) {
+  let sx,sy,ow,oh;
+  rh.addEventListener('pointerdown',e=>{
+    e.preventDefault(); e.stopPropagation(); sx=e.clientX; sy=e.clientY; ow=layer.w; oh=layer.h;
     rh.setPointerCapture(e.pointerId);
-    const { w } = stageSize();
-    const mv = ev => {
-      markDirty();
-      layer.w = clamp(ow + (ev.clientX - sx), 30, w - layer.x);
-      if (layer.type === 'image') layer.h = layer.w;
-      else layer.h = Math.max(24, oh + (ev.clientY - sy));
-      renderLayer(layer);
-    };
-    const up = () => { rh.removeEventListener('pointermove', mv); rh.removeEventListener('pointerup', up); };
-    rh.addEventListener('pointermove', mv);
-    rh.addEventListener('pointerup', up);
+    const {w}=stageSize();
+    const mv=ev=>{ markDirty(); layer.w=clamp(ow+(ev.clientX-sx),30,w-layer.x); if(layer.type==='image') layer.h=layer.w; else layer.h=Math.max(24,oh+(ev.clientY-sy)); renderLayer(layer); };
+    const up=()=>{ rh.removeEventListener('pointermove',mv); rh.removeEventListener('pointerup',up); };
+    rh.addEventListener('pointermove',mv); rh.addEventListener('pointerup',up);
   });
 }
 
-/* ─────────────────────────────────────────
-   SAVE DESIGN
-───────────────────────────────────────── */
+/* ── SAVE ── */
 function serializeLayers(ls) {
-  return ls.map(l => {
-    const o = { id: l.id, type: l.type, x: l.x, y: l.y, w: l.w, h: l.h };
-    if (l.type === 'text') {
-      Object.assign(o, { text: l.text, fontFamily: l.fontFamily, fontWeight: l.fontWeight,
-        fontSize: l.fontSize, textColor: l.textColor, textAlign: l.textAlign, curve: l.curve });
-    }
-    if (l.type === 'image') o.src = l.src;
+  return ls.map(l=>{
+    const o={id:l.id,type:l.type,x:l.x,y:l.y,w:l.w,h:l.h};
+    if(l.type==='text') Object.assign(o,{text:l.text,fontFamily:l.fontFamily,fontWeight:l.fontWeight,fontSize:l.fontSize,textColor:l.textColor,textAlign:l.textAlign,curve:l.curve});
+    if(l.type==='image') o.src=l.src;
     return o;
   });
 }
-
 async function saveDesign() {
-  const pid = state.product?.id;
-  const data = {
-    productId:       pid || null,
-    productCategory: state.category,
-    productName:     state.product?.name || null,
-    shirtColor:      state.shirtColor,
-    activeSide:      state.side,
-    front:           serializeLayers(state.front),
-    back:            serializeLayers(state.back),
-    wrap:            serializeLayers(state.wrap),
-    generatedAt:     new Date().toISOString(),
-  };
-
-  const key = pid ? `designData_${pid}` : 'designData';
+  const pid=state.product?.id;
+  const data={productId:pid||null,productCategory:state.category,productName:state.product?.name||null,shirtColor:state.shirtColor,activeSide:state.side,front:serializeLayers(state.front),back:serializeLayers(state.back),wrap:serializeLayers(state.wrap),generatedAt:new Date().toISOString()};
+  const key=pid?`designData_${pid}`:'designData';
   try {
-    localStorage.setItem(key, JSON.stringify(data));
-    markSaved();
-
-    const btn = $('#save-btn');
-    if (btn) {
-      btn.classList.add('saved');
-      btn.textContent = '✓ Saved!';
-      setTimeout(() => {
-        btn.classList.remove('saved');
-        btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save Design`;
-      }, 2200);
-    }
-
-    setStatus(`Design saved${pid ? ` for product #${pid}` : ''}.`, 'success');
-    showToast('Design saved successfully!');
-  } catch {
-    setStatus('Could not save design data.', 'warning');
-    showToast('Save failed — storage may be full.');
-  }
+    localStorage.setItem(key,JSON.stringify(data)); markSaved();
+    const btn=$('#save-btn');
+    if (btn) { btn.classList.add('saved'); btn.textContent='✓ Saved!'; setTimeout(()=>{ btn.classList.remove('saved'); btn.innerHTML=`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save Design`; },2200); }
+    setStatus(`Design saved${pid?` for product #${pid}`:'.'}`,'success'); showToast('Design saved successfully!');
+  } catch { setStatus('Could not save design data.','warning'); showToast('Save failed — storage may be full.'); }
 }
 
-/* ─────────────────────────────────────────
-   BACK NAVIGATION
-───────────────────────────────────────── */
-function handleBack() {
-  if (!state.saved) {
-    openModal('back-modal');
-    return;
-  }
-  proceedBack();
-}
+/* ── BACK NAV ── */
+function handleBack() { if(!state.saved){openModal('back-modal');return;} proceedBack(); }
+function openModal(id){ $(`#${id}`).classList.add('show'); }
+function closeModal(id){ $(`#${id}`).classList.remove('show'); }
+async function saveAndBack(){ await saveDesign(); closeModal('back-modal'); proceedBack(); }
+function proceedBack(){ closeModal('back-modal'); window.location.href='./product.html'+(state.product?.id?`?id=${state.product.id}`:''); }
 
-function openModal(id)  { $(`#${id}`).classList.add('show'); }
-function closeModal(id) { $(`#${id}`).classList.remove('show'); }
-
-async function saveAndBack() {
-  await saveDesign();
-  closeModal('back-modal');
-  proceedBack();
-}
-
-function proceedBack() {
-  closeModal('back-modal');
-  window.location.href = './product.html' + (state.product?.id ? `?id=${state.product.id}` : '');
-}
-
-/* ─────────────────────────────────────────
-   META / INFO
-───────────────────────────────────────── */
+/* ── META ── */
 function updateMeta() {
-  const cfg = getCfg();
-  const p = state.product;
-
-  const nameEl = $('#product-name');
-  const badgeEl = $('#category-badge');
-  const infoEl = $('#info-banner');
-  const sideLbl = $('#side-label');
-
-  if (nameEl) nameEl.textContent = p?.name || 'Customizer';
-  if (badgeEl) badgeEl.textContent = cfg.label;
-  if (sideLbl) sideLbl.innerHTML = `Editing <strong>${state.side}</strong>`;
-
-  if (infoEl) {
-    const sideDesc = cfg.sides.length === 1 ? `${cfg.sides[0]} panel` : `${cfg.sides.join(' & ')} panels`;
-    infoEl.innerHTML = `<strong>${cfg.label}</strong> &mdash; ${sideDesc}. Canvas: ${cfg.stageW}×${cfg.stageH}px. Design is saved per product and loaded at checkout.`;
-  }
-
-  document.title = p?.name ? `Customize — ${p.name}` : 'Product Customizer';
+  const cfg=getCfg(), p=state.product;
+  const nameEl=$('#product-name'), badgeEl=$('#category-badge'), infoEl=$('#info-banner'), sideLbl=$('#side-label');
+  if(nameEl) nameEl.textContent=p?.name||'Customizer';
+  if(badgeEl) badgeEl.textContent=cfg.label;
+  if(sideLbl) sideLbl.innerHTML=`Editing <strong>${state.side}</strong>`;
+  if(infoEl){const sd=cfg.sides.length===1?`${cfg.sides[0]} panel`:`${cfg.sides.join(' & ')} panels`;infoEl.innerHTML=`<strong>${cfg.label}</strong> &mdash; ${sd}. Canvas: ${cfg.stageW}×${cfg.stageH}px.`;}
+  document.title=p?.name?`Customize — ${p.name}`:'Product Customizer';
 }
 
-/* ─────────────────────────────────────────
-   RESIZE OBSERVER (re-scale stage on resize)
-───────────────────────────────────────── */
 function observeResize() {
-  if (!window.ResizeObserver) return;
-  const area = $('#canvas-stage-area');
-  if (!area) return;
-  const ro = new ResizeObserver(() => renderStage());
-  ro.observe(area);
+  if(!window.ResizeObserver) return;
+  const area=$('#canvas-stage-area'); if(!area) return;
+  const ro=new ResizeObserver(()=>renderStage()); ro.observe(area);
 }
 
-/* ─────────────────────────────────────────
-   INIT
-───────────────────────────────────────── */
+/* ── INIT ── */
 async function init() {
-  const id = new URLSearchParams(location.search).get('id');
+  const id=new URLSearchParams(location.search).get('id');
   setStatus('Loading product…');
-
-  // Load products
   try {
-    const res = await fetch(PRODUCTS_JSON_URL);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    const products = data.products || [];
-    const product = id ? products.find(p => String(p.id) === String(id)) : null;
-
-    if (!product && id) {
-      setStatus('Product not found.', 'warning');
-      showToast('Product not found — showing default canvas.');
+    const res=await fetch(PRODUCTS_JSON_URL);
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data=await res.json();
+    const products=data.products||[];
+    const product=id?products.find(p=>String(p.id)===String(id)):null;
+    if(!product&&id){setStatus('Product not found.','warning');showToast('Product not found — showing default canvas.');}
+    state.product=product||null;
+    state.category=String(product?.category||'default').toLowerCase();
+    if(product?.id){
+      const saved=localStorage.getItem(`designData_${product.id}`);
+      if(saved){try{const d=JSON.parse(saved);if(d.front)state.front=d.front||[];if(d.back)state.back=d.back||[];if(d.wrap)state.wrap=d.wrap||[];if(d.shirtColor){state.shirtColor=d.shirtColor;state._colorInitialized=true;}const allIds=[...state.front,...state.back,...state.wrap].map(l=>l.id);if(allIds.length)state.nid=Math.max(...allIds)+1;state.saved=true;}catch{}}
     }
+  } catch(err){ console.error(err); setStatus('Could not load product data.','warning'); }
 
-    state.product  = product || null;
-    state.category = String(product?.category || 'default').toLowerCase();
-
-    // Load any existing saved design
-    if (product?.id) {
-      const saved = localStorage.getItem(`designData_${product.id}`);
-      if (saved) {
-        try {
-          const d = JSON.parse(saved);
-          if (d.front)  state.front  = d.front  || [];
-          if (d.back)   state.back   = d.back   || [];
-          if (d.wrap)   state.wrap   = d.wrap   || [];
-          if (d.shirtColor) state.shirtColor = d.shirtColor;
-          // Restore nid counter
-          const allIds = [...state.front, ...state.back, ...state.wrap].map(l => l.id);
-          if (allIds.length) state.nid = Math.max(...allIds) + 1;
-          // Design loaded from storage is considered "saved"
-          state.saved = true;
-        } catch { /* ignore */ }
-      }
-    }
-  } catch (err) {
-    console.error(err);
-    setStatus('Could not load product data.', 'warning');
-  }
-
-  const cfg = getCfg();
-  state.side = cfg.defaultSide;
-
-  // Load templates
+  const cfg=getCfg(); state.side=cfg.defaultSide;
   await loadTemplates();
-
-  // Build UI
-  updateMeta();
-  buildSwatches();
-  buildSideTabs();
-  renderTemplates();
-  renderStage();
-  renderAll();
-  observeResize();
-
-  setStatus('Ready — pick a template or add text.', 'success');
+  updateMeta(); buildSwatches(); buildSideTabs(); renderTemplates(); renderStage(); renderAll(); observeResize();
+  setStatus('Ready — pick a template or add text.','success');
 }
 
-window.addEventListener('load', init);
+window.addEventListener('load',init);
 </script>
 </body>
 </html>

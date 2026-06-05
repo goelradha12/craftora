@@ -183,8 +183,7 @@ function infoHTML(p) {
                         ${colors.map((hex, i) => `
                             <span class="product__color-swatch"
                                   style="background:${esc(hex)}"
-                                  title="${esc(cNames[i] || hex)}"
-                                  aria-label="${esc(cNames[i] || hex)}"></span>`).join('')}
+                                  title="${esc(cNames[i] || hex)}"></span>`).join('')}
                     </div>
                     <p class="product__color-note">Choose your exact color inside the Design Studio</p>
                 </div>` : ''}
@@ -329,15 +328,16 @@ function relatedHTML(p) {
 function skeletonHTML() {
     return `
         <div class="product__skeleton">
-            <div class="skeleton-block" style="aspect-ratio:3/3.5;border-radius:1.25rem"></div>
+            <div class="skeleton-block" style="aspect-ratio:4/5;border-radius:1.5rem"></div>
             <div style="display:flex;flex-direction:column;gap:1rem;padding-top:0.5rem">
-                <div class="skeleton-block" style="height:0.9rem;width:35%;border-radius:4px"></div>
-                <div class="skeleton-block" style="height:2.2rem;width:75%;border-radius:6px"></div>
-                <div class="skeleton-block" style="height:1.75rem;width:28%;border-radius:4px;margin-top:0.25rem"></div>
-                <div class="skeleton-block" style="height:5rem;border-radius:8px;margin-top:0.5rem"></div>
-                <div class="skeleton-block" style="height:2.5rem;border-radius:8px"></div>
-                <div class="skeleton-block" style="height:3rem;border-radius:8px"></div>
-                <div class="skeleton-block" style="height:3rem;border-radius:8px"></div>
+                <div class="skeleton-block" style="height:0.8rem;width:30%;border-radius:4px"></div>
+                <div class="skeleton-block" style="height:2.4rem;width:72%;border-radius:6px"></div>
+                <div class="skeleton-block" style="height:2rem;width:26%;border-radius:4px;margin-top:0.5rem"></div>
+                <div class="skeleton-block" style="height:4.5rem;border-radius:10px;margin-top:0.75rem"></div>
+                <div class="skeleton-block" style="height:2.4rem;border-radius:8px"></div>
+                <div class="skeleton-block" style="height:3.5rem;border-radius:10px"></div>
+                <div class="skeleton-block" style="height:2.8rem;border-radius:8px"></div>
+                <div class="skeleton-block" style="height:2.8rem;border-radius:8px"></div>
             </div>
         </div>`;
 }
