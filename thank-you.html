@@ -6,16 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thank you - Order Received</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./styles/style.css">
     <style>
         .thank-you {
             text-align: center;
             padding-block: 4rem;
         }
-        .thank-you >* {
+
+        .thank-you>* {
             margin-bottom: 2rem;
+        }
+
+        .btn {
+            width: fit-content;
+
+            padding: 1rem 2rem;
+
+            border: none;
+            border-radius: 0.5rem;
+
+            background: var(--accent);
+            color: var(--bg);
+
+            font-size: 1rem;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -27,7 +54,7 @@
 
             <h2>Order received successfully</h2>
             <p>Your order ID is <strong id="orderIdText"></strong></p>
-            <button class="hero--btn" onclick="window.location.href='./products.html'">Back to Shop</button>
+            <button class="btn" onclick="window.location.href='./products.html'">Back to Shop</button>
         </div>
     </div>
     <div id="footer"></div>

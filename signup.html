@@ -6,20 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup - Craftora | Modern Custom Merchandize</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
-
     <main class="login">
 
         <!-- Left Image -->
         <div class="login--image">
-            <img src="./assets/t-shirt_blue_person.jpg" alt="Signup Banner">
+            <img loading="lazy" src="./assets/t-shirt_blue_person.webp" alt="Signup Banner" width="600" height="800">
         </div>
 
         <!-- Signup Form -->
@@ -27,7 +28,7 @@
 
             <!-- Logo -->
             <a href="./index.html" class="logo-link">
-                <img src="./assets/logo.png" alt="Craftora Logo" class="logo-loginPage">
+                <img src="./assets/logo.webp" alt="Craftora Logo" class="logo-loginPage" width="200" height="40">
             </a>
 
             <h2>Signup</h2>
@@ -47,7 +48,7 @@
                         <div class="input-with-icon">
                             <i class="fas fa-user" aria-hidden="true"></i>
                             <input type="text" id="fullname" name="fullname" class="form-control"
-                                   placeholder="Your full name" autocomplete="name" required>
+                                placeholder="Your full name" autocomplete="name" required>
                         </div>
                         <span class="field-error" id="nameError"></span>
                     </div>
@@ -56,8 +57,8 @@
                         <label for="phone" class="required">Phone Number</label>
                         <div class="input-with-icon">
                             <i class="fas fa-phone" aria-hidden="true"></i>
-                            <input type="tel" id="phone" name="phone" class="form-control"
-                                   placeholder="Phone number" autocomplete="tel" required>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone number"
+                                autocomplete="tel" required>
                         </div>
                         <span class="field-error" id="phoneError"></span>
                     </div>
@@ -68,8 +69,8 @@
                     <label for="email" class="required">Email Address</label>
                     <div class="input-with-icon">
                         <i class="fas fa-envelope" aria-hidden="true"></i>
-                        <input type="email" id="email" name="email" class="form-control"
-                               placeholder="Enter your email" autocomplete="email" required>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email"
+                            autocomplete="email" required>
                     </div>
                     <span class="field-error" id="emailError"></span>
                 </div>
@@ -80,7 +81,7 @@
                     <div class="input-with-icon">
                         <i class="fas fa-location-dot" aria-hidden="true"></i>
                         <input type="text" id="address" name="address" class="form-control"
-                               placeholder="Default delivery address (optional)" autocomplete="street-address">
+                            placeholder="Default delivery address (optional)" autocomplete="street-address">
                     </div>
                 </div>
 
@@ -90,7 +91,7 @@
                     <div class="input-with-icon">
                         <i class="fas fa-lock" aria-hidden="true"></i>
                         <input type="password" id="password" name="password" class="form-control"
-                               placeholder="Min. 6 characters" autocomplete="new-password" required>
+                            placeholder="Min. 6 characters" autocomplete="new-password" required>
                         <button type="button" class="eye-toggle" id="togglePassword" aria-label="Show password">
                             <i class="fas fa-eye" id="eyeIcon" aria-hidden="true"></i>
                         </button>
@@ -124,10 +125,10 @@
 
     </main>
 
-    <script src="./scripts/auth.js"></script>
+    <script defer src="./scripts/auth.js"></script>
     <script>
         /* ── Read redirect param ── */
-        const _signupParams   = new URLSearchParams(window.location.search);
+        const _signupParams = new URLSearchParams(window.location.search);
         const _signupRedirect = _signupParams.get('redirect') || './index.html';
 
         /* ── Pass redirect param to login link ── */
@@ -137,49 +138,49 @@
         }
         /* ── Toggle password visibility ── */
         document.getElementById('togglePassword').addEventListener('click', () => {
-            const input   = document.getElementById('password');
-            const icon    = document.getElementById('eyeIcon');
-            const show    = input.type === 'password';
-            input.type    = show ? 'text' : 'password';
+            const input = document.getElementById('password');
+            const icon = document.getElementById('eyeIcon');
+            const show = input.type === 'password';
+            input.type = show ? 'text' : 'password';
             icon.className = show ? 'fas fa-eye-slash' : 'fas fa-eye';
             document.getElementById('togglePassword').setAttribute('aria-label', show ? 'Hide password' : 'Show password');
         });
 
         /* ── Password strength ── */
         document.getElementById('password').addEventListener('input', () => {
-            const val   = document.getElementById('password').value;
-            const fill  = document.getElementById('pwFill');
+            const val = document.getElementById('password').value;
+            const fill = document.getElementById('pwFill');
             const label = document.getElementById('pwLabel');
             let score = 0;
-            if (val.length >= 6)  score++;
+            if (val.length >= 6) score++;
             if (val.length >= 10) score++;
             if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
-            if (/\d/.test(val))   score++;
+            if (/\d/.test(val)) score++;
             if (/[^A-Za-z0-9]/.test(val)) score++;
 
             const levels = ['', 'Weak', 'Fair', 'Good', 'Strong', 'Very strong'];
             const colors = ['', '#ef4444', '#f97316', '#eab308', '#22c55e', '#10b981'];
             const widths = ['0%', '20%', '40%', '60%', '80%', '100%'];
 
-            fill.style.width      = val.length ? widths[score] : '0%';
+            fill.style.width = val.length ? widths[score] : '0%';
             fill.style.background = colors[score];
-            label.textContent     = val.length ? levels[score] : '';
-            label.style.color     = colors[score];
+            label.textContent = val.length ? levels[score] : '';
+            label.style.color = colors[score];
         });
 
         /* ── Form submit ── */
         document.getElementById('signupForm').addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const name     = document.getElementById('fullname').value.trim();
-            const email    = document.getElementById('email').value.trim();
-            const phone    = document.getElementById('phone').value.trim();
-            const address  = document.getElementById('address').value.trim();
+            const name = document.getElementById('fullname').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
             const password = document.getElementById('password').value;
 
             const errorDiv = document.getElementById('signupError');
             const errorMsg = document.getElementById('signupErrorMsg');
-            const btn      = document.getElementById('signupBtn');
+            const btn = document.getElementById('signupBtn');
 
             // Clear previous errors
             errorDiv.hidden = true;
@@ -188,10 +189,10 @@
             });
 
             let valid = true;
-            if (!name)     { document.getElementById('nameError').textContent     = 'Full name is required.';    valid = false; }
-            if (!email)    { document.getElementById('emailError').textContent    = 'Email is required.';        valid = false; }
-            if (!phone)    { document.getElementById('phoneError').textContent    = 'Phone number is required.'; valid = false; }
-            if (!password) { document.getElementById('passwordError').textContent = 'Password is required.';     valid = false; }
+            if (!name) { document.getElementById('nameError').textContent = 'Full name is required.'; valid = false; }
+            if (!email) { document.getElementById('emailError').textContent = 'Email is required.'; valid = false; }
+            if (!phone) { document.getElementById('phoneError').textContent = 'Phone number is required.'; valid = false; }
+            if (!password) { document.getElementById('passwordError').textContent = 'Password is required.'; valid = false; }
             else if (password.length < 6) {
                 document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
                 valid = false;
@@ -217,4 +218,5 @@
     </script>
 
 </body>
+
 </html>

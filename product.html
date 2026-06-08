@@ -5,11 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details - Craftora</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap">
+    </noscript>
+
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            font-display: swap;
+            src: local('Inter');
+        }
+
+        @font-face {
+            font-family: 'Lato';
+            font-display: swap;
+            src: local('Lato');
+        }
+
+        #product {
+            min-height: 100vh;
+        }
+    </style>
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/product.css">
+    <link rel="preload" href="./content/products.json" as="fetch" crossorigin="anonymous">
 </head>
 
 <body>

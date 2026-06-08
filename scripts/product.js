@@ -1,10 +1,6 @@
-/* ============================================================
-   product.js  —  Craftora Product Detail Page
-   ============================================================ */
-
 const CART_KEY = 'cart';
 const WISHLIST_KEY = 'craftora_wishlist';
-const CUSTOMIZATION_PREFIX = 'designData_';
+const CUSTOM_PREFIX = 'designData_';
 
 const state = {
     product: null,
@@ -13,177 +9,203 @@ const state = {
     customization: null,
 };
 
-/* ── Utils ── */
-const $ = (sel, root = document) => root.querySelector(sel);
-const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+const $ = (selector, root = document) => root.querySelector(selector);
+const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-const esc = s => String(s ?? '').replace(/[&<>"']/g, m =>
-    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
-const money = n => `₹${Number(n || 0).toLocaleString('en-IN')}`;
+const escapeHTML = str => String(str ?? '').replace(/[&<>"']/g, match =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[match]);
+const formatMoney = num => `₹${Number(num || 0).toLocaleString('en-IN')}`;
+
+// --- IMAGE OPTIMIZATION HELPER ---
+const getOptImg = (src, width) => {
+    try {
+        const url = new URL(src);
+        url.searchParams.set('w', width);
+        url.searchParams.set('fm', 'webp');
+        url.searchParams.set('q', '75');
+        url.searchParams.set('fit', 'crop');
+        return url.toString();
+    } catch (e) {
+        return src; // Fallback if src is not a valid URL
+    }
+};
 
 const getCart = () => { try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch { return []; } };
 const getWishlist = () => { try { return JSON.parse(localStorage.getItem(WISHLIST_KEY) || '[]'); } catch { return []; } };
-const isWishlisted = id => getWishlist().some(i => i.id === id);
+const isWishlisted = id => getWishlist().some(item => item.id === id);
 
-function setCart(items) {
+function saveCart(items) {
     localStorage.setItem(CART_KEY, JSON.stringify(items));
     if (typeof updateCartBadges === 'function') updateCartBadges();
 }
 
-function toggleWish(p) {
-    const list = getWishlist();
-    const idx = list.findIndex(i => i.id === p.id);
-    if (idx >= 0) { list.splice(idx, 1); }
-    else { list.push({ id: p.id, name: p.name, category: p.category, price: p.basePrice, image: p.images?.default || '' }); }
+function toggleWishlist(product) {
+    let list = getWishlist();
+    let index = list.findIndex(item => item.id === product.id);
+    if (index >= 0) { list.splice(index, 1); }
+    else { list.push({ id: product.id, name: product.name, category: product.category, price: product.basePrice, image: product.images?.default || '' }); }
     localStorage.setItem(WISHLIST_KEY, JSON.stringify(list));
-    return idx < 0; // true = now wishlisted
+    return index < 0;
 }
 
 function loadCustomization(id) {
     try {
-        const raw = localStorage.getItem(`${CUSTOMIZATION_PREFIX}${id}`);
-        if (!raw) return null;
-        const d = JSON.parse(raw);
-        return String(d?.productId ?? '') === String(id) ? d : null;
+        let rawData = localStorage.getItem(`${CUSTOM_PREFIX}${id}`);
+        if (!rawData) return null;
+        let parsedData = JSON.parse(rawData);
+        return String(parsedData?.productId ?? '') === String(id) ? parsedData : null;
     } catch { return null; }
 }
 
-/* ══════════════════════════════════════════════════════════
-   INIT
-══════════════════════════════════════════════════════════ */
-function init() {
-    const mount = $('#product');
-    if (!mount) return;
+function initProductPage() {
+    let mountNode = $('#product');
+    if (!mountNode) return;
 
-    const id = new URLSearchParams(location.search).get('id');
-    if (!id) { mount.innerHTML = errHTML('No product specified.'); mount.setAttribute('aria-busy', 'false'); return; }
+    let productId = new URLSearchParams(location.search).get('id');
+    if (!productId) { mountNode.innerHTML = renderError('No product specified.'); mountNode.setAttribute('aria-busy', 'false'); return; }
 
-    mount.innerHTML = skeletonHTML();
+    mountNode.innerHTML = renderSkeleton();
 
-    fetch('./content/products.json')
-        .then(r => r.json())
+    // Use priority hint to grab JSON faster
+    fetch('./content/products.json', { priority: 'high' })
+        .then(res => res.json())
         .then(data => {
             state.products = data.products || [];
-            state.product = state.products.find(p => p.id === id) || null;
+            state.product = state.products.find(item => item.id === productId) || null;
 
             if (!state.product) {
-                mount.innerHTML = errHTML('Product not found.');
-                mount.setAttribute('aria-busy', 'false');
+                mountNode.innerHTML = renderError('Product not found.');
+                mountNode.setAttribute('aria-busy', 'false');
                 return;
             }
 
-            document.title = `${state.product.name} — Craftora`;
-            state.customization = loadCustomization(id);
+            // --- LCP FIX: DYNAMIC PRELOAD ---
+            const mainImgSrc = state.product.images?.default;
+            if (mainImgSrc) {
+                const preload = document.createElement('link');
+                preload.rel = 'preload';
+                preload.as = 'image';
+                preload.href = getOptImg(mainImgSrc, 800);
+                preload.fetchPriority = 'high';
+                document.head.appendChild(preload);
+            }
 
-            mount.innerHTML = renderPage(state.product);
-            mount.setAttribute('aria-busy', 'false');
+            document.title = `${state.product.name} — Craftora`;
+            state.customization = loadCustomization(productId);
+
+            mountNode.innerHTML = renderPage(state.product);
+            mountNode.setAttribute('aria-busy', 'false');
             bindEvents();
             updateCustomizationUI();
         })
         .catch(err => {
             console.error(err);
-            mount.innerHTML = errHTML('Failed to load product. Please refresh.');
-            mount.setAttribute('aria-busy', 'false');
+            mountNode.innerHTML = renderError('Failed to load product. Please refresh.');
+            mountNode.setAttribute('aria-busy', 'false');
         });
 }
 
-/* ══════════════════════════════════════════════════════════
-   RENDER
-══════════════════════════════════════════════════════════ */
-function renderPage(p) {
+function renderPage(product) {
     return `
-        ${breadcrumbHTML(p)}
-        <section class="product" aria-label="${esc(p.name)}">
-            ${galleryHTML(p)}
-            ${infoHTML(p)}
+        ${renderBreadcrumbs(product)}
+        <section class="product" aria-label="${escapeHTML(product.name)}">
+            ${renderGallery(product)}
+            ${renderProductInfo(product)}
         </section>
-        ${relatedHTML(p)}
+        ${renderRelatedProducts(product)}
     `;
 }
 
-/* ── Breadcrumb ── */
-function breadcrumbHTML(p) {
+function renderBreadcrumbs(product) {
     return `
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <ol class="breadcrumb__list">
                 <li class="breadcrumb__item"><a class="breadcrumb__link" href="./index.html">Home</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
                 <li class="breadcrumb__item"><a class="breadcrumb__link" href="./products.html">Shop</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
-                <li class="breadcrumb__item"><a class="breadcrumb__link" href="./products.html?category=${encodeURIComponent(p.category)}">${esc(p.category)}</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
-                <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">${esc(p.name)}</li>
+                <li class="breadcrumb__item"><a class="breadcrumb__link" href="./products.html?category=${encodeURIComponent(product.category)}">${escapeHTML(product.category)}</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
+                <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">${escapeHTML(product.name)}</li>
             </ol>
         </nav>`;
 }
 
-/* ── Gallery ── */
-function galleryHTML(p) {
-    const imgs = [p.images?.default, ...(p.images?.others || [])].filter(Boolean);
-    const badges = Array.isArray(p.badges) ? p.badges : [];
-    const wishlisted = isWishlisted(p.id);
+function renderGallery(product) {
+    let images = [product.images?.default, ...(product.images?.others || [])].filter(Boolean);
+    let badges = Array.isArray(product.badges) ? product.badges : [];
+    let isSaved = isWishlisted(product.id);
 
     return `
         <div class="product__gallery">
             <div class="product__main-wrap">
                 ${badges.length ? `
                     <div class="product__badges">
-                        ${badges.map((b, i) => `<span class="product__badge${i > 0 ? ' product__badge--accent' : ''}">${esc(b)}</span>`).join('')}
+                        ${badges.map((badge, idx) => `<span class="product__badge${idx > 0 ? ' product__badge--accent' : ''}">${escapeHTML(badge)}</span>`).join('')}
                     </div>` : ''}
 
-                <button class="product__wishlist-btn${wishlisted ? ' wishlisted' : ''}"
+                <button class="product__wishlist-btn${isSaved ? ' wishlisted' : ''}"
                         id="wishlistBtn"
-                        aria-label="${wishlisted ? 'Remove from wishlist' : 'Save to wishlist'}">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="${wishlisted ? '#e11d48' : 'none'}"
-                         stroke="${wishlisted ? '#e11d48' : 'currentColor'}" stroke-width="2"
+                        aria-label="${isSaved ? 'Remove from wishlist' : 'Save to wishlist'}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="${isSaved ? '#e11d48' : 'none'}"
+                         stroke="${isSaved ? '#e11d48' : 'currentColor'}" stroke-width="2"
                          stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                     </svg>
                 </button>
 
                 <img class="product__main-img" id="productMainImg"
-                     src="${esc(imgs[0] || '')}" alt="${esc(p.name)}">
+                     src="${getOptImg(images[0], 800)}"
+                     srcset="${getOptImg(images[0], 400)} 400w, 
+                             ${getOptImg(images[0], 800)} 800w, 
+                             ${getOptImg(images[0], 1200)} 1200w"
+                     sizes="(max-width: 960px) 100vw, 52vw"
+                     alt="${escapeHTML(product.name)}" 
+                     width="800" height="1000" 
+                     fetchpriority="high"
+                     decoding="sync">
             </div>
 
-            ${imgs.length > 1 ? `
+            ${images.length > 1 ? `
                 <ul class="product__thumbs" aria-label="Product images">
-                    ${imgs.map((src, i) => `
-                        <li><button class="product__thumb${i === 0 ? ' product__thumb--active' : ''}"
-                                    type="button" data-src="${esc(src)}"
-                                    aria-label="View image ${i + 1}" aria-pressed="${i === 0}">
-                            <img class="product__thumb-img" src="${esc(src)}" alt="" loading="lazy">
+                    ${images.map((src, idx) => `
+                        <li><button class="product__thumb${idx === 0 ? ' product__thumb--active' : ''}"
+                                    type="button" data-src="${getOptImg(src, 800)}"
+                                    aria-label="View image ${idx + 1}" aria-pressed="${idx === 0}">
+                            <img class="product__thumb-img" 
+                                 src="${getOptImg(src, 128)}" 
+                                 alt="" loading="lazy" width="64" height="64">
                         </button></li>`).join('')}
                 </ul>` : ''}
         </div>`;
 }
 
-/* ── Info panel ── */
-function infoHTML(p) {
-    const oos = Number(p.stock) <= 0;
-    const colors = Array.isArray(p.colors) ? p.colors : [];
-    const cNames = Array.isArray(p.colorNames) ? p.colorNames : [];
-    const sizes = Array.isArray(p.sizes) ? p.sizes : [];
+function renderProductInfo(product) {
+    let outOfStock = Number(product.stock) <= 0;
+    let colors = Array.isArray(product.colors) ? product.colors : [];
+    let colorNames = Array.isArray(product.colorNames) ? product.colorNames : [];
+    let sizes = Array.isArray(product.sizes) ? product.sizes : [];
 
     return `
         <div class="product__info">
 
             <div class="product__header">
-                <span class="product__category">${esc(p.category)}</span>
-                <h1 class="product__name">${esc(p.name)}</h1>
+                <span class="product__category">${escapeHTML(product.category)}</span>
+                <h1 class="product__name">${escapeHTML(product.name)}</h1>
             </div>
 
             <div class="product__pricing">
-                <span class="product__price">${money(p.basePrice)}</span>
+                <span class="product__price">${formatMoney(product.basePrice)}</span>
                 <span class="product__price-note">base price</span>
             </div>
 
-            <p class="product__description">${esc(p.description)}</p>
+            <p class="product__description">${escapeHTML(product.description)}</p>
 
             ${colors.length ? `
                 <div class="product__option">
                     <span class="product__option-label">Available Colors</span>
                     <div class="product__colors">
-                        ${colors.map((hex, i) => `
+                        ${colors.map((hex, idx) => `
                             <span class="product__color-swatch"
-                                  style="background:${esc(hex)}"
-                                  title="${esc(cNames[i] || hex)}"></span>`).join('')}
+                                  style="background:${escapeHTML(hex)}"
+                                  title="${escapeHTML(colorNames[idx] || hex)}"></span>`).join('')}
                     </div>
                     <p class="product__color-note">Choose your exact color inside the Design Studio</p>
                 </div>` : ''}
@@ -192,20 +214,18 @@ function infoHTML(p) {
                 <fieldset class="product__option">
                     <legend class="product__option-label">Size</legend>
                     <div class="product__sizes">
-                        ${sizes.map((s, i) => `
+                        ${sizes.map((size, idx) => `
                             <label class="product__size-label">
                                 <input class="product__size-input" type="radio"
-                                       name="product-size" value="${esc(s)}" ${i === 0 ? 'checked' : ''}>
-                                <span class="product__size-btn">${esc(s)}</span>
+                                       name="product-size" value="${escapeHTML(size)}" ${idx === 0 ? 'checked' : ''}>
+                                <span class="product__size-btn">${escapeHTML(size)}</span>
                             </label>`).join('')}
                     </div>
                 </fieldset>` : ''}
 
             <div class="product__meta-row">
-                <span class="product__stock ${oos ? 'product__stock--out' : 'product__stock--in'}">
-                    ${oos ? 'Out of stock' : `${p.stock} in stock`}
-                </span>
                 <div class="product__option" style="margin:0">
+                    <span class="product__option-label">Quantity</span>
                     <div class="product__qty" role="group" aria-label="Quantity">
                         <button class="product__qty-btn" id="qtyMinus" type="button" aria-label="Decrease" disabled>−</button>
                         <output class="product__qty-val" id="qtyVal">1</output>
@@ -214,7 +234,6 @@ function infoHTML(p) {
                 </div>
             </div>
 
-            <!-- Customization status -->
             <div class="product__customization-card missing" id="custCard">
                 <div class="product__cust-icon" id="custIcon">🎨</div>
                 <div class="product__cust-text">
@@ -223,9 +242,8 @@ function infoHTML(p) {
                 </div>
             </div>
 
-            <!-- Actions -->
             <div class="product__actions">
-                <button class="product__customize-btn" id="customizeProductBtn" ${oos ? 'disabled' : ''}>
+                <button class="product__customize-btn" id="customizeProductBtn" ${outOfStock ? 'disabled' : ''}>
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
@@ -239,7 +257,6 @@ function infoHTML(p) {
                 </div>
             </div>
 
-            <!-- Trust strip -->
             <div class="product__trust">
                 <div class="product__trust-item">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
@@ -254,16 +271,16 @@ function infoHTML(p) {
                     <span>Secure Payment</span>
                 </div>
             </div>
-            ${productDetailsHTML(p)}
+            ${renderProductDetails(product)}
 
         </div>`;
 }
-/* ── Product Details ── */
-function productDetailsHTML(p) {
-    const details = Array.isArray(p.productDetails) ? p.productDetails : [];
-    if (!details.length) return '';
 
-    const labelMap = {
+function renderProductDetails(product) {
+    let detailsArray = Array.isArray(product.productDetails) ? product.productDetails : [];
+    if (!detailsArray.length) return '';
+
+    let labelMap = {
         material: 'Material',
         capacity: 'Capacity',
         finish: 'Finish',
@@ -288,35 +305,35 @@ function productDetailsHTML(p) {
             </button>
             <div class="product__details-body" id="detailsBody">
                 <dl class="product__details-list">
-                    ${details.map(d => `
+                    ${detailsArray.map(detail => `
                         <div class="product__details-row">
-                            <dt class="product__details-key">${esc(labelMap[d.label] || d.label)}</dt>
-                            <dd class="product__details-val">${esc(d.value)}</dd>
+                            <dt class="product__details-key">${escapeHTML(labelMap[detail.label] || detail.label)}</dt>
+                            <dd class="product__details-val">${escapeHTML(detail.value)}</dd>
                         </div>`).join('')}
                 </dl>
             </div>
         </div>`;
 }
-/* ── Related ── */
-function relatedHTML(p) {
-    const related = state.products.filter(x => x.category === p.category && x.id !== p.id).slice(0, 4);
-    if (!related.length) return '';
+
+function renderRelatedProducts(product) {
+    let relatedArray = state.products.filter(item => item.category === product.category && item.id !== product.id).slice(0, 4);
+    if (!relatedArray.length) return '';
 
     return `
         <section class="related" aria-labelledby="relatedHeading">
             <h2 class="related__heading" id="relatedHeading">You May Also Like</h2>
             <ul class="related__grid">
-                ${related.map(item => `
+                ${relatedArray.map(item => `
                     <li>
                         <a class="related__card" href="./product.html?id=${encodeURIComponent(item.id)}">
                             <div class="related__img-wrap">
-                                <img class="related__img" src="${esc(item.images?.default || '')}"
-                                     alt="${esc(item.name)}" loading="lazy">
+                                <img class="related__img" src="${getOptImg(item.images?.default, 400)}"
+                                     alt="${escapeHTML(item.name)}" loading="lazy" width="273" height="273">
                             </div>
                             <div class="related__body">
-                                <span class="related__cat">${esc(item.category)}</span>
-                                <h3 class="related__name">${esc(item.name)}</h3>
-                                <span class="related__price">${money(item.basePrice)}</span>
+                                <span class="related__cat">${escapeHTML(item.category)}</span>
+                                <h3 class="related__name">${escapeHTML(item.name)}</h3>
+                                <span class="related__price">${formatMoney(item.basePrice)}</span>
                             </div>
                         </a>
                     </li>`).join('')}
@@ -324,9 +341,11 @@ function relatedHTML(p) {
         </section>`;
 }
 
-/* ── Skeleton ── */
-function skeletonHTML() {
+function renderSkeleton() {
     return `
+        <nav aria-hidden="true" style="margin-bottom: 2.75rem;">
+            <div class="skeleton-block" style="height: 1rem; width: 40%; border-radius: 4px;"></div>
+        </nav>
         <div class="product__skeleton">
             <div class="skeleton-block" style="aspect-ratio:4/5;border-radius:1.5rem"></div>
             <div style="display:flex;flex-direction:column;gap:1rem;padding-top:0.5rem">
@@ -342,202 +361,210 @@ function skeletonHTML() {
         </div>`;
 }
 
-function errHTML(msg) {
+function renderError(message) {
     return `
         <div class="product-error">
-            <p class="product-error__msg">${esc(msg)}</p>
+            <p class="product-error__msg">${escapeHTML(message)}</p>
             <a class="product-error__link" href="./products.html">Back to Shop</a>
         </div>`;
 }
 
-/* ══════════════════════════════════════════════════════════
-   UI STATE
-══════════════════════════════════════════════════════════ */
 function updateCustomizationUI() {
-    const p = state.product;
-    const hasDes = !!state.customization;
-    const oos = Number(p?.stock ?? 0) <= 0;
+    let product = state.product;
+    let hasDesign = !!state.customization;
+    let outOfStock = Number(product?.stock ?? 0) <= 0;
 
-    const card = $('#custCard');
-    const icon = $('#custIcon');
-    const title = $('#custTitle');
-    const desc = $('#custDesc');
-    const addBtn = $('#addToCartBtn');
-    const buyBtn = $('#buyNowBtn');
-    const custBtn = $('#customizeProductBtn');
-    const custLbl = $('#custBtnLabel');
-    if (!card) return;
+    let cardNode = $('#custCard');
+    let iconNode = $('#custIcon');
+    let titleNode = $('#custTitle');
+    let descNode = $('#custDesc');
+    let addBtnNode = $('#addToCartBtn');
+    let buyBtnNode = $('#buyNowBtn');
+    let custBtnNode = $('#customizeProductBtn');
+    let custLabelNode = $('#custBtnLabel');
 
-    if (oos) {
-        card.className = 'product__customization-card missing';
-        if (icon) icon.textContent = '✗';
-        if (title) title.textContent = 'Out of stock';
-        if (desc) desc.textContent = 'This product is currently unavailable.';
-        if (addBtn) addBtn.disabled = true;
-        if (buyBtn) buyBtn.disabled = true;
-        if (custBtn) custBtn.disabled = true;
+    if (!cardNode) return;
+
+    if (outOfStock) {
+        cardNode.className = 'product__customization-card missing';
+        if (iconNode) iconNode.textContent = '✗';
+        if (titleNode) titleNode.textContent = 'Out of stock';
+        if (descNode) descNode.textContent = 'This product is currently unavailable.';
+        if (addBtnNode) addBtnNode.disabled = true;
+        if (buyBtnNode) buyBtnNode.disabled = true;
+        if (custBtnNode) custBtnNode.disabled = true;
         return;
     }
 
-    if (hasDes) {
-        const color = state.customization?.shirtColor || '';
-        card.className = 'product__customization-card ready';
-        if (icon) icon.textContent = '✓';
-        if (title) title.textContent = 'Design saved — ready to order';
-        if (desc) desc.textContent = `Color: ${color || 'custom'}  ·  Click "Edit Design" to make changes`;
-        if (addBtn) addBtn.disabled = false;
-        if (buyBtn) buyBtn.disabled = false;
-        if (custLbl) custLbl.textContent = 'Edit Design';
+    if (hasDesign) {
+        let savedColorHex = state.customization?.shirtColor;
+        let displayColorName = savedColorHex;
+        if (product?.colors && product?.colorNames) {
+            let colorIndex = product.colors.indexOf(savedColorHex);
+            if (colorIndex > -1) displayColorName = product.colorNames[colorIndex];
+        }
+        cardNode.className = 'product__customization-card ready';
+        if (iconNode) iconNode.textContent = '✓';
+        if (titleNode) titleNode.textContent = 'Design saved — ready to order';
+        if (descNode) descNode.textContent = `Color: ${displayColorName || 'custom'}  ·  Click "Edit Design" to make changes`;
+        if (addBtnNode) addBtnNode.disabled = false;
+        if (buyBtnNode) buyBtnNode.disabled = false;
+        if (custLabelNode) custLabelNode.textContent = 'Edit Design';
     } else {
-        card.className = 'product__customization-card missing';
-        if (icon) icon.textContent = '🎨';
-        if (title) title.textContent = 'Design required';
-        if (desc) desc.textContent = 'Open the studio and save your design to enable checkout.';
-        if (addBtn) addBtn.disabled = true;
-        if (buyBtn) buyBtn.disabled = true;
-        if (custLbl) custLbl.textContent = 'Open Design Studio';
+        cardNode.className = 'product__customization-card missing';
+        if (iconNode) iconNode.textContent = '🎨';
+        if (titleNode) titleNode.textContent = 'Design required';
+        if (descNode) descNode.textContent = 'Open the studio and save your design to enable checkout.';
+        if (addBtnNode) addBtnNode.disabled = true;
+        if (buyBtnNode) buyBtnNode.disabled = true;
+        if (custLabelNode) custLabelNode.textContent = 'Open Design Studio';
     }
 }
 
-/* ══════════════════════════════════════════════════════════
-   EVENTS
-══════════════════════════════════════════════════════════ */
 function bindEvents() {
-    /* Gallery thumbnails */
-    const mainImg = $('#productMainImg');
-    $$('.product__thumb').forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (mainImg) mainImg.src = btn.dataset.src || '';
-            $$('.product__thumb').forEach(b => { b.classList.remove('product__thumb--active'); b.setAttribute('aria-pressed', 'false'); });
-            btn.classList.add('product__thumb--active');
-            btn.setAttribute('aria-pressed', 'true');
+    let mainImgNode = $('#productMainImg');
+    $$('.product__thumb').forEach(thumbBtn => {
+        thumbBtn.addEventListener('click', () => {
+            if (mainImgNode) {
+                // Remove srcset so we can swap out the direct image easily on click
+                mainImgNode.removeAttribute('srcset');
+                mainImgNode.src = thumbBtn.dataset.src || '';
+            }
+            $$('.product__thumb').forEach(btn => {
+                btn.classList.remove('product__thumb--active');
+                btn.setAttribute('aria-pressed', 'false');
+            });
+            thumbBtn.classList.add('product__thumb--active');
+            thumbBtn.setAttribute('aria-pressed', 'true');
         });
     });
 
-    /* Qty */
-    const valEl = $('#qtyVal');
-    const minus = $('#qtyMinus');
-    const plus = $('#qtyPlus');
-    if (valEl && minus && plus) {
-        minus.addEventListener('click', () => {
+    let valNode = $('#qtyVal');
+    let minusBtn = $('#qtyMinus');
+    let plusBtn = $('#qtyPlus');
+
+    if (valNode && minusBtn && plusBtn) {
+        minusBtn.addEventListener('click', () => {
             if (state.qty <= 1) return;
-            valEl.textContent = --state.qty;
-            minus.disabled = state.qty <= 1;
+            valNode.textContent = --state.qty;
+            minusBtn.disabled = state.qty <= 1;
         });
-        plus.addEventListener('click', () => {
+        plusBtn.addEventListener('click', () => {
             if (state.qty >= 99) return;
-            valEl.textContent = ++state.qty;
-            minus.disabled = false;
+            valNode.textContent = ++state.qty;
+            minusBtn.disabled = false;
         });
     }
 
-    /* Wishlist */
     $('#wishlistBtn')?.addEventListener('click', () => {
-        const p = state.product;
-        if (!p) return;
-        const now = toggleWish(p);
-        const btn = $('#wishlistBtn');
-        const path = btn?.querySelector('path');
-        btn?.classList.toggle('wishlisted', now);
-        btn?.setAttribute('aria-label', now ? 'Remove from wishlist' : 'Save to wishlist');
-        if (path) { path.setAttribute('fill', now ? '#e11d48' : 'none'); path.setAttribute('stroke', now ? '#e11d48' : 'currentColor'); }
-        if (btn) { btn.style.transform = 'scale(1.3)'; setTimeout(() => { btn.style.transform = ''; }, 200); }
+        let product = state.product;
+        if (!product) return;
+        let isNowSaved = toggleWishlist(product);
+        let wishBtn = $('#wishlistBtn');
+        let svgPath = wishBtn?.querySelector('path');
+
+        wishBtn?.classList.toggle('wishlisted', isNowSaved);
+        wishBtn?.setAttribute('aria-label', isNowSaved ? 'Remove from wishlist' : 'Save to wishlist');
+
+        if (svgPath) {
+            svgPath.setAttribute('fill', isNowSaved ? '#e11d48' : 'none');
+            svgPath.setAttribute('stroke', isNowSaved ? '#e11d48' : 'currentColor');
+        }
+        if (wishBtn) {
+            wishBtn.style.transform = 'scale(1.3)';
+            setTimeout(() => { wishBtn.style.transform = ''; }, 200);
+        }
     });
 
-    /* Product details accordion */
     $('#detailsToggle')?.addEventListener('click', () => {
-        const toggle = $('#detailsToggle');
-        const body = $('#detailsBody');
-        if (!toggle || !body) return;
-        const open = toggle.getAttribute('aria-expanded') === 'true';
-        toggle.setAttribute('aria-expanded', String(!open));
-        if (open) { body.hidden = true; } else { body.hidden = false; }
+        let toggleBtn = $('#detailsToggle');
+        let contentBody = $('#detailsBody');
+        if (!toggleBtn || !contentBody) return;
+        let isOpen = toggleBtn.getAttribute('aria-expanded') === 'true';
+        toggleBtn.setAttribute('aria-expanded', String(!isOpen));
+        if (isOpen) { contentBody.hidden = true; } else { contentBody.hidden = false; }
     });
 
-    /* Studio — require login first */
     $('#customizeProductBtn')?.addEventListener('click', () => {
         if (!state.product) return;
-
-        // Check if user is logged in
-        const user = (() => {
+        let userAuth = (() => {
             try { return JSON.parse(localStorage.getItem('craftora_user') || 'null'); } catch { return null; }
         })();
-
-        const destination = `./customize.html?id=${encodeURIComponent(state.product.id)}`;
-
-        if (!user) {
-            // Not logged in — send to login with a redirect param so they come back here
-            const returnTo = encodeURIComponent(destination);
+        let targetUrl = `./customize.html?id=${encodeURIComponent(state.product.id)}`;
+        if (!userAuth) {
+            let redirectUrl = encodeURIComponent(targetUrl);
             alert('You must be signed in to open the design studio.');
-            location.href = `./login.html?redirect=${returnTo}`;
+            location.href = `./login.html?redirect=${redirectUrl}`;
             return;
         }
-
-        location.href = destination;
+        location.href = targetUrl;
     });
 
-    /* Cart / Buy */
-    $('#addToCartBtn')?.addEventListener('click', () => doAddToCart(false));
-    $('#buyNowBtn')?.addEventListener('click', () => doAddToCart(true));
+    $('#addToCartBtn')?.addEventListener('click', () => handleAddToCart(false));
+    $('#buyNowBtn')?.addEventListener('click', () => handleAddToCart(true));
 
-    /* Refresh after returning from studio */
     window.addEventListener('pageshow', () => {
         if (!state.product) return;
         state.customization = loadCustomization(state.product.id);
         updateCustomizationUI();
     });
 
-    window.addEventListener('storage', evt => {
-        if (state.product && evt.key === `${CUSTOMIZATION_PREFIX}${state.product.id}`) {
+    window.addEventListener('storage', event => {
+        if (state.product && event.key === `${CUSTOM_PREFIX}${state.product.id}`) {
             state.customization = loadCustomization(state.product.id);
             updateCustomizationUI();
         }
     });
 }
 
-/* ══════════════════════════════════════════════════════════
-   CART
-══════════════════════════════════════════════════════════ */
-function doAddToCart(redirect) {
-    const p = state.product;
-    if (!p || !state.customization) return;
+function handleAddToCart(shouldRedirect) {
+    let product = state.product;
+    if (!product || !state.customization) return;
 
-    const size = $('.product__size-input:checked')?.value || p.sizes?.[0] || '';
-    const color = state.customization.shirtColor || p.colors?.[0] || '';
-    
-    const cStr = JSON.stringify(state.customization);
-    let h = 0;
-    for (let i = 0; i < cStr.length; i++) {
-        h = ((h << 5) - h) + cStr.charCodeAt(i);
-        h |= 0;
+    let selectedSize = $('.product__size-input:checked')?.value || product.sizes?.[0] || '';
+    let selectedColor = state.customization.shirtColor || product.colors?.[0] || '';
+
+    let customString = JSON.stringify(state.customization);
+    let hash = 0;
+    for (let i = 0; i < customString.length; i++) {
+        hash = ((hash << 5) - hash) + customString.charCodeAt(i);
+        hash |= 0;
     }
 
-    const key = `${p.id}__${size}__${color}__${h}`;
+    let uniqueKey = `${product.id}__${selectedSize}__${selectedColor}__${hash}`;
 
-    const cart = getCart();
-    const existing = cart.find(i => i.key === key);
+    let currentCart = getCart();
+    let existingItem = currentCart.find(item => item.key === uniqueKey);
 
-    if (existing) {
-        existing.qty += state.qty;
-        existing.customization = state.customization;
+    if (existingItem) {
+        existingItem.qty += state.qty;
+        existingItem.customization = state.customization;
     } else {
-        cart.push({
-            key, id: p.id, name: p.name, image: p.images?.default || '',
-            category: p.category, price: p.basePrice, color, size,
-            qty: state.qty, customized: true, customization: state.customization
+        currentCart.push({
+            key: uniqueKey,
+            id: product.id,
+            name: product.name,
+            image: product.images?.default || '',
+            category: product.category,
+            price: product.basePrice,
+            color: selectedColor,
+            size: selectedSize,
+            qty: state.qty,
+            customized: true,
+            customization: state.customization
         });
     }
 
-    setCart(cart);
+    saveCart(currentCart);
 
-    if (redirect) { location.href = './cart.html'; return; }
+    if (shouldRedirect) { location.href = './cart.html'; return; }
 
-    const btn = $('#addToCartBtn');
-    if (!btn) return;
-    const orig = btn.textContent;
-    btn.textContent = 'Added ✓';
-    btn.disabled = true;
-    setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 1400);
+    let addBtnNode = $('#addToCartBtn');
+    if (!addBtnNode) return;
+    let originalText = addBtnNode.textContent;
+    addBtnNode.textContent = 'Added ✓';
+    addBtnNode.disabled = true;
+    setTimeout(() => { addBtnNode.textContent = originalText; addBtnNode.disabled = false; }, 1400);
 }
 
-init();
+initProductPage();
