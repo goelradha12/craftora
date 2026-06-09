@@ -1,5 +1,6 @@
 /* ============================================================
-   login.css  —  Login & Signup pages
+   login.css — Login & Signup Pages
+   Tokens sourced from tokens.css
    ============================================================ */
 
 /* ── Layout ── */
@@ -23,15 +24,14 @@
 .login--form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    padding: 3rem 4rem;
+    gap: var(--space-4);
+    padding: var(--space-12) var(--space-16);
     justify-content: center;
     overflow-y: auto;
 }
 
 h2 {
     text-align: center;
-    font-size: 1.6rem;
 }
 
 /* ── Logo ── */
@@ -47,14 +47,14 @@ h2 {
 .form-error-banner {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.7rem 1rem;
-    background: hsl(0 80% 97%);
-    border: 1px solid hsl(0 80% 88%);
-    border-radius: 8px;
-    color: #b91c1c;
+    gap: var(--space-2);
+    padding: 0.7rem var(--space-4);
+    background: var(--color-error-bg);
+    border: 1px solid var(--color-error-border);
+    border-radius: var(--radius-lg);
+    color: var(--color-error-hover);
     font-size: 0.9rem;
-    font-family: 'Lato', sans-serif;
+    font-family: var(--font-body);
 }
 
 .form-error-banner[hidden] {
@@ -65,7 +65,7 @@ h2 {
 .form-row-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
+    gap: var(--space-3);
 }
 
 @media (max-width: 520px) {
@@ -77,15 +77,15 @@ h2 {
 
 /* ── Form groups ── */
 .form-group {
-    margin-bottom: 0.75rem;
+    margin-bottom: var(--space-3);
 }
 
 .form-group label {
     display: block;
-    color: var(--primary);
-    margin-bottom: 8px;
-    font-size: 1rem;
-    font-weight: 500;
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
 }
 
 .input-with-icon {
@@ -94,121 +94,123 @@ h2 {
 
 .input-with-icon > i:first-child {
     position: absolute;
-    left: 16px;
+    left: var(--space-4);
     top: 50%;
     transform: translateY(-50%);
-    color: #888;
-    font-size: 18px;
+    color: var(--text-icon-muted);
+    font-size: 1.125rem;   /* 18px — icon sizing, no semantic token needed */
     pointer-events: none;
 }
 
 .form-control {
     width: 100%;
-    padding: 16px 16px 16px 48px;
-    background: var(--bg);
-    border: 1px solid hsl(from var(--primary) h s l / 0.1);
-    border-radius: 12px;
-    color: var(--primary);
-    font-size: 16px;
-    transition: all 0.3s ease;
+    padding: var(--space-4) var(--space-4) var(--space-4) 3rem;
+    background: var(--surface-bg);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    color: var(--color-primary);
+    font-size: var(--text-base);
+    font-family: var(--font-body);
+    transition: all var(--transition-slow);
 }
 
 .form-control:focus {
     outline: none;
-    border-color: hsl(from var(--primary) h s l / 0.4);
-    background: var(--bg);
-    box-shadow: 0 0 4px hsl(from var(--primary) h s l / 0.2);
+    border-color: var(--color-accent);
+    background: var(--surface-bg);
+    box-shadow: var(--shadow-focus);
 }
 
 .form-control::placeholder {
-    color: hsl(from var(--primary) h s l / 0.3);
+    color: var(--text-placeholder);
 }
 
 /* ── Password eye toggle ── */
 .eye-toggle {
     position: absolute;
-    right: 14px;
+    right: 0.875rem;
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
-    color: #888;
-    font-size: 17px;
-    padding: 4px;
-    border-radius: 4px;
+    color: var(--text-icon-muted);
+    font-size: 1.0625rem;  /* 17px — icon sizing, no semantic token needed */
+    padding: var(--space-1);
+    border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
-    transition: color 0.2s ease;
+    transition: color var(--transition-base);
 }
 
 .eye-toggle:hover {
-    color: var(--primary);
+    color: var(--color-primary);
 }
 
 /* when eye toggle is present, give extra right padding to input */
 .input-with-icon:has(.eye-toggle) .form-control {
-    padding-right: 44px;
+    padding-right: 2.75rem;
 }
 
 /* ── Field-level error ── */
 .field-error {
     display: block;
-    font-size: 0.8rem;
-    color: #dc2626;
-    font-family: 'Lato', sans-serif;
-    margin-top: 4px;
-    min-height: 1rem;
+    font-size: var(--text-sm);
+    color: var(--color-error);
+    font-family: var(--font-body);
+    margin-top: var(--space-1);
+    min-height: var(--text-base);
 }
 
 /* ── Password strength ── */
 .pw-strength {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-top: -0.5rem;
-    margin-bottom: 0.5rem;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-2) * -1);
+    margin-bottom: var(--space-2);
 }
 
 .pw-strength__bar {
     flex: 1;
     height: 4px;
     background: hsl(from var(--primary) h s l / 0.12);
-    border-radius: 99px;
+    border-radius: var(--radius-full);
     overflow: hidden;
 }
 
 .pw-strength__fill {
     height: 100%;
     width: 0%;
-    border-radius: 99px;
-    transition: width 0.3s ease, background 0.3s ease;
+    border-radius: var(--radius-full);
+    transition: width var(--transition-slow), background var(--transition-slow);
 }
 
 .pw-strength__label {
     font-size: 0.78rem;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
+    font-family: var(--font-body);
+    font-weight: var(--weight-bold);
     min-width: 7ch;
     text-align: right;
 }
 
 /* ── Submit button ── */
 .submit-btn {
-    padding: 1rem 2rem;
+    padding: var(--space-4) var(--space-8);
     border: none;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-md);
     width: 100%;
-    background: var(--accent);
-    color: var(--bg);
-    font-size: 1rem;
-    font-weight: 600;
+    background: var(--color-accent);
+    color: var(--text-on-accent);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    font-family: var(--font-heading);
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: all var(--transition-slow);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
 }
 
 .submit-btn:hover:not(:disabled) {
@@ -232,14 +234,14 @@ h2 {
 .signup-link {
     text-align: center;
     color: hsl(from var(--primary) h s l / 0.4);
-    font-size: 15px;
-    margin-top: 28px;
+    font-size: 0.9375rem;   /* 15px equivalent in rem */
+    margin-top: 1.75rem;
 }
 
 .signup-link a {
-    color: var(--accent);
+    color: var(--color-accent);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: var(--weight-semibold);
 }
 
 .signup-link a:hover {
@@ -249,13 +251,13 @@ h2 {
 /* ── Required asterisk ── */
 label.required::after {
     content: " *";
-    color: red;
+    color: var(--color-error);
 }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
     .login--form {
-        padding: 2rem;
+        padding: var(--space-8);
     }
 }
 

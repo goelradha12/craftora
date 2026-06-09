@@ -1,50 +1,53 @@
+/* ============================================================
+   home.css — Homepage Hero & Product Cards
+   Tokens sourced from tokens.css
+   ============================================================ */
+
+/* ══════════════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════════════ */
 
 .hero {
-    padding: 7rem 0;
-    background: var(--primary);
-    color: var(--bg);
+    padding: var(--space-28) 0;
+    background: var(--color-primary);
+    color: var(--surface-bg);
 }
 
 .hero--wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    gap: var(--space-12);
 }
 
 .hero--content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1.5rem;
+    gap: var(--space-6);
 }
 
 .hero--content h1 {
-    line-height: 1.1;
+    line-height: var(--leading-tight);
     max-width: 24ch;
 }
 
 .hero--content p {
     max-width: 50ch;
-    color: var(--bg);
+    color: var(--surface-bg);
 }
 
 .hero--btn {
     width: fit-content;
-
-    padding: 1rem 2rem;
-
+    padding: var(--space-4) var(--space-8);
     border: none;
-    border-radius: 0.5rem;
-
-    background: var(--accent);
-    color: var(--bg);
-
-    font-size: 1rem;
-    font-weight: 600;
-
+    border-radius: var(--radius-md);
+    background: var(--color-accent);
+    color: var(--text-on-accent);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    font-family: var(--font-heading);
     cursor: pointer;
-
-    transition: 0.3s ease;
+    transition: opacity var(--transition-slow), transform var(--transition-slow);
 }
 
 .hero--btn:hover {
@@ -52,117 +55,123 @@
     opacity: 0.9;
 }
 
-.hero--reviews {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
 
-.review {
-    padding: 1.5rem;
-
-    border-radius: 1rem;
-
-    background: rgba(255,255,255,0.08);
-
-    backdrop-filter: blur(6px);
-    width: 320px;
-    flex-shrink: 0; 
-}
-
-.review--text {
-    line-height: 1.7;
-    margin-bottom: 1rem;
-}
-
-.review--author {
-    color: var(--accent);
-    font-weight: 600;
-}
+/* ══════════════════════════════════════════════════════════
+   REVIEW CARDS (hero right column)
+══════════════════════════════════════════════════════════ */
 
 .hero--reviews {
     overflow: hidden;
     display: flex;
     justify-content: center;
 }
+
 .reviews--track {
     display: flex;
-    gap: 10px;
-    /* align-items: center; */
+    gap: var(--space-2);
     justify-content: center;
 }
 
-
-@media(max-width: 600px) {
-    .hero--wrapper {
-        grid-template-columns: 1fr;
-        
-    }
-    .hero--reviews {
-        order: 1;
-    }
-    .hero--content {
-        order: -1;
-    }
+.review {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+    width: 320px;
+    flex-shrink: 0;
 }
-/* **********Product Section****** */
+
+.review--text {
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-4);
+}
+
+.review--author {
+    color: var(--color-accent);
+    font-weight: var(--weight-semibold);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   HOME PRODUCT CARDS
+══════════════════════════════════════════════════════════ */
 
 .products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 24px;
-  padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: var(--space-6);
+    padding: var(--space-5);
 }
 
 .product-card {
-  background: var(--bg);
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px hsl(from var(--primary) h s l /0.2);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: pointer;
+    background: var(--surface-bg);
+    border-radius: 18px;             /* one-off: intentionally oversized for a "friendly" card aesthetic */
+    overflow: hidden;
+    box-shadow: 0 10px 30px hsl(from var(--primary) h s l / 0.2);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
 }
 
 .product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 14px 35px hsl(from var(--primary) h s l /0.2);
+    transform: translateY(-6px);
+    box-shadow: 0 14px 35px hsl(from var(--primary) h s l / 0.2);
 }
 
 .product--image {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
 }
 
 .product-content {
-  padding: 16px;
+    padding: var(--space-4);
 }
 
 .product-content h3 {
-  color: var(--primary);
+    color: var(--color-primary);
 }
 
 .product-content p {
-  margin: 0 0 14px;
-  font-size: 0.95rem;
-  color: var(--primary);
-  line-height: 1.5;
+    margin: 0 0 0.875rem;
+    font-size: var(--text-nav);
+    color: var(--color-primary);
+    line-height: var(--leading-normal);
 }
 
+/* Shop Now pill button */
 .shop-btn {
-  display: inline-block;
-  padding: 10px 16px;
-  background: var(--accent);
-  color: var(--bg);
-  text-decoration: none;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  transition: background 0.25s ease, transform 0.25s ease;
+    display: inline-block;
+    padding: 0.625rem var(--space-4);
+    background: var(--color-accent);
+    color: var(--surface-bg);
+    text-decoration: none;
+    border-radius: var(--radius-full);
+    font-size: var(--text-nav);
+    font-weight: var(--weight-semibold);
+    font-family: var(--font-heading);
+    transition: background 0.25s ease, transform 0.25s ease;
 }
 
 .shop-btn:hover {
-  background: #333;
-  transform: scale(1.03);
+    background: var(--color-primary);
+    transform: scale(1.03);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════ */
+
+@media (max-width: 600px) {
+    .hero--wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .hero--reviews {
+        order: 1;
+    }
+
+    .hero--content {
+        order: -1;
+    }
 }
