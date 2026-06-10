@@ -112,7 +112,7 @@ function buildMobileProfileHTML(user) {
             <li>
                 <div class="dropdown" id="profileDropdownMobile">
                     <button class="dropdown--toggle-mobile" aria-haspopup="true" aria-expanded="false">
-                        <span>${escHTML(displayName.split(' ')[0])}</span>
+                        <span>Hi, ${escHTML(displayName.split(' ')[0])}</span>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
                     </button>
                     <ul class="dropdown__menu" id="profileMenuMobile" role="menu">
@@ -237,9 +237,8 @@ function buildHeader(user) {
                 <div class="nav__drawer-header">
                     <div>
                         <p class="nav__drawer-eyebrow">Menu</p>
-                        <p class="nav__drawer-title">Explore Craftora</p>
                     </div>
-                    <button class="nav__drawer-close js_close_btn" aria-label="Close navigation menu" aria-expanded="false" aria-controls="mobileNavMenu">
+                    <button class="center-svg-icon js_close_btn" aria-label="Close navigation menu" aria-expanded="false" aria-controls="mobileNavMenu">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
                             <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                         </svg>

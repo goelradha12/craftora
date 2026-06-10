@@ -12,6 +12,13 @@ function generateOrderId() {
   return `CRF-${Date.now().toString(36).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`;
 }
 
+function openDesignPreview(event, productKey) {
+  event.stopPropagation();
+  if (typeof DesignPreview !== 'undefined') {
+    DesignPreview.showCartCustomization(productKey);
+  }
+}
+
 function showCheckoutPopup(user, onConfirm) {
   const userData = typeof user === 'string' ? JSON.parse(user) : user;
 
@@ -139,7 +146,7 @@ function showCheckoutPopup(user, onConfirm) {
         ? { ...account, address, phone: phoneValidation.digits }
         : account);
       localStorage.setItem('craftora_accounts', JSON.stringify(nextAccounts));
-    } catch {}
+    } catch { }
 
     close();
     onConfirm({ address, phone: phoneValidation.digits });
@@ -304,15 +311,17 @@ function renderCart() {
                   </span>
                 ` : ''}
                 ${item.size ? `<span>Size ${esc(item.size)}</span>` : ''}
-                ${item.customized && item.customization?.generatedAt ? `
-                  <span>
-                    Designed ${new Date(item.customization.generatedAt).toLocaleDateString('en-IN', {
-                      day: '2-digit',
-                      month: 'short',
-                      year: 'numeric'
-                    })}
-                  </span>
-                ` : ''}
+                ${item.customized && item.customization?.previewImage ? `
+                <button class="cart-item__preview-btn" type="button"
+                        aria-label="View saved design for ${esc(item.name)}"
+                        onclick="openDesignPreview(event, '${esc(item.key)}')">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  View design
+                </button>` : ''}
               </div>
             </div>
             <span class="cart-item__price">${money(item.price * item.qty)}</span>

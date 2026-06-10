@@ -542,12 +542,27 @@ body.nav-open {
 
 .nav__drawer-header {
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: space-between;
     gap: var(--space-4);
     padding: calc(var(--space-6) + env(safe-area-inset-top, 0px)) var(--space-6) var(--space-4);
     border-bottom: 1px solid hsl(from var(--accent) h s l / 0.12);
     background: linear-gradient(180deg, hsl(from var(--bg) h s l / 0.94), #fff 100%);
+}
+
+.center-svg-icon {
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--border-default);
+    border-radius: 50%;
+    padding: 0; /* Crucial for perfect centering in fixed-size buttons */
+    background: var(--surface-page);
+    color: var(--color-primary);
+
+    /* Center the SVG perfectly */
+    display: grid;
+    place-items: center;
 }
 
 .nav__drawer-eyebrow {
@@ -566,16 +581,6 @@ body.nav-open {
     font-weight: var(--weight-bold);
     color: var(--color-primary);
     opacity: 1;
-}
-
-.nav__drawer-close {
-    flex-shrink: 0;
-    width: 2.75rem;
-    height: 2.75rem;
-    border: 1px solid var(--border-default);
-    border-radius: 50%;
-    background: var(--surface-page);
-    color: var(--color-primary);
 }
 
 .nav__drawer .nav--list {
