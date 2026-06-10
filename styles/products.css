@@ -90,7 +90,7 @@
     border: 1px solid hsl(from var(--accent) h s l / 0.2);
     box-shadow: var(--shadow-sm);
     border-radius: var(--radius-xl);
-    padding: var(--space-6);
+    padding: var(--space-3);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -144,7 +144,8 @@
 
 .product-card__description {
     margin-bottom: var(--space-6);
-    color: var(--text-muted);       /* was --text-dim (undefined) — now resolved */
+    color: var(--text-muted);
+    /* was --text-dim (undefined) — now resolved */
     font-size: var(--text-nav);
     font-family: var(--font-body);
     line-height: var(--leading-normal);

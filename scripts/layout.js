@@ -65,6 +65,12 @@ function buildProfileMenuHTML(user) {
                     </a>
                 </li>
                 <li role="none">
+                    <a href="./account.html#my-orders" role="menuitem">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 12h6"/><path d="M9 16h6"/><path d="M9 8h6"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
+                        My Orders
+                    </a>
+                </li>
+                <li role="none">
                     <a href="./wishlist.html" role="menuitem">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                         Wishlist
@@ -116,6 +122,7 @@ function buildMobileProfileHTML(user) {
                         </li>
                         <li class="dropdown__divider" role="none"></li>
                         <li><a href="./account.html" role="menuitem">My Account</a></li>
+                        <li><a href="./account.html#my-orders" role="menuitem">My Orders</a></li>
                         <li><a href="./wishlist.html" role="menuitem">Wishlist</a></li>
                         <li><a href="./cart.html" role="menuitem">Cart</a></li>
                         <li class="dropdown__divider" role="none"></li>
@@ -180,6 +187,7 @@ function buildHeader(user) {
         <a class="skip-link" href="#main-content">Skip to main content</a>
 
         <nav class="nav" role="navigation" aria-label="Main navigation">
+            <div class="nav__overlay js_nav_overlay" hidden></div>
 
             <div class="nav--desktop container">
 
@@ -222,22 +230,29 @@ function buildHeader(user) {
                             <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
                         </svg>
                     </button>
+                </div>
+            </div>
 
-                    <button class="nav__icon-btn nav__phone--close js_close_btn" aria-label="Close navigation menu" aria-expanded="true" style="display:none">
+            <div class="nav__drawer js_nav_list" id="mobileNavMenu" aria-label="Mobile navigation" hidden>
+                <div class="nav__drawer-header">
+                    <div>
+                        <p class="nav__drawer-eyebrow">Menu</p>
+                        <p class="nav__drawer-title">Explore Craftora</p>
+                    </div>
+                    <button class="nav__drawer-close js_close_btn" aria-label="Close navigation menu" aria-expanded="false" aria-controls="mobileNavMenu">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
                             <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                         </svg>
                     </button>
                 </div>
+                <ul class="nav--list" role="list">
+                    <li><a class="nav--link" href="./index.html">Home</a></li>
+                    <li><a class="nav--link" href="./products.html">Shop</a></li>
+                    <li><a class="nav--link" href="./about.html">About</a></li>
+                    <li><a class="nav--link" href="./contact.html">Contact</a></li>
+                    ${buildMobileProfileHTML(user)}
+                </ul>
             </div>
-
-            <ul class="nav--list js_nav_list" aria-label="Mobile navigation">
-                <li><a class="nav--link" href="./index.html">Home</a></li>
-                <li><a class="nav--link" href="./products.html">Shop</a></li>
-                <li><a class="nav--link" href="./about.html">About</a></li>
-                <li><a class="nav--link" href="./contact.html">Contact</a></li>
-                ${buildMobileProfileHTML(user)}
-            </ul>
 
         </nav>
     `;
@@ -348,26 +363,58 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ── Mobile hamburger ── */
     const openBtn  = document.querySelector('.js_open_btn');
     const closeBtn = document.querySelector('.js_close_btn');
-    const navList  = document.querySelector('.js_nav_list');
+    const navDrawer  = document.querySelector('.js_nav_list');
+    const navRoot  = document.querySelector('.nav');
+    const navOverlay = document.querySelector('.js_nav_overlay');
+    const body = document.body;
 
     function openMenu() {
-        navList.classList.add('active');
-        openBtn.style.display  = 'none';
-        closeBtn.style.display = 'flex';
+        if (!navDrawer || !openBtn || !closeBtn) return;
+        navDrawer.hidden = false;
+        navOverlay.hidden = false;
+        window.requestAnimationFrame(() => {
+            navDrawer.classList.add('active');
+            navOverlay.classList.add('active');
+        });
+        navRoot?.classList.add('nav--menu-open');
         openBtn.setAttribute('aria-expanded', 'true');
+        closeBtn.setAttribute('aria-expanded', 'true');
+        body.classList.add('nav-open');
+        navDrawer.querySelector('a, button')?.focus();
     }
 
     function closeMenu() {
-        navList.classList.remove('active');
-        openBtn.style.display  = 'flex';
-        closeBtn.style.display = 'none';
+        if (!navDrawer || !openBtn || !closeBtn) return;
+        navDrawer.classList.remove('active');
+        navOverlay?.classList.remove('active');
+        navRoot?.classList.remove('nav--menu-open');
         openBtn.setAttribute('aria-expanded', 'false');
+        closeBtn.setAttribute('aria-expanded', 'false');
+        body.classList.remove('nav-open');
         // also close any open mobile dropdowns
-        document.querySelectorAll('.nav--list .dropdown.open').forEach(d => d.classList.remove('open'));
+        document.querySelectorAll('.nav__drawer .dropdown.open').forEach(d => d.classList.remove('open'));
+        document.querySelectorAll('.dropdown--toggle-mobile[aria-expanded="true"]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+        window.setTimeout(() => {
+            if (!navDrawer.classList.contains('active')) {
+                navDrawer.hidden = true;
+                if (navOverlay) navOverlay.hidden = true;
+            }
+        }, 220);
     }
 
+    openBtn?.setAttribute('aria-controls', 'mobileNavMenu');
     openBtn?.addEventListener('click', openMenu);
     closeBtn?.addEventListener('click', closeMenu);
+    navDrawer?.addEventListener('click', (e) => {
+        if (e.target.closest('a[href]') && !e.target.closest('.dropdown--toggle-mobile')) closeMenu();
+    });
+    navOverlay?.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navDrawer?.classList.contains('active')) {
+            closeMenu();
+            openBtn?.focus();
+        }
+    });
 
     /* ── Mobile profile dropdown ── */
     const mobileDd = document.getElementById('profileDropdownMobile');

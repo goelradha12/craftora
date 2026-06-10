@@ -74,7 +74,10 @@ function attemptSignup({ name, email, phone, address, password }) {
     if (accounts.find(a => a.email === email)) {
         return { ok: false, error: 'An account with this email already exists.' };
     }
-    const user = { name, email, phone, address, password, joinedAt: new Date().toISOString() };
+    const normalizedPhone = window.CraftoraUI?.normalizePhoneInput
+        ? window.CraftoraUI.normalizePhoneInput(phone)
+        : String(phone ?? '').replace(/\D/g, '').slice(0, 10);
+    const user = { name, email, phone: normalizedPhone, address, password, joinedAt: new Date().toISOString() };
     saveAccount(user);
 
     // Auto-login

@@ -55,6 +55,11 @@
     opacity: 0.9;
 }
 
+.hero--btn:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+}
+
 
 /* ══════════════════════════════════════════════════════════
    REVIEW CARDS (hero right column)
@@ -92,6 +97,108 @@
 }
 
 
+/* ============================================================
+   FEATURED PRODUCTS
+   ============================================================ */
+
+.section-featured {
+    background:
+        radial-gradient(circle at top left, hsl(from var(--accent) h s l / 0.08), transparent 34%),
+        linear-gradient(180deg, #fff 0%, var(--surface-bg) 100%);
+}
+
+.featured-title {
+    align-items: center;
+}
+
+.featured-link {
+    color: var(--color-primary);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+}
+
+/* ── Featured row wrapper (nav + scroll strip) ── */
+.featured-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+/* ── Prev / Next nav buttons ── */
+.featured-nav {
+    flex-shrink: 0;
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 1.5px solid var(--border-default);
+    border-radius: 50%;
+    background: var(--surface-page);
+    color: var(--color-primary);
+    font-size: 1.7rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition-base), color var(--transition-base),
+        border-color var(--transition-base), transform var(--transition-base);
+    box-shadow: var(--shadow-xs);
+}
+
+.featured-nav:hover {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+    transform: scale(1.06);
+}
+
+.featured-nav:active {
+    transform: scale(0.97);
+}
+
+/* ── Featured products scroll container ── */
+.featured-products {
+    /* Becomes the scroll host on mobile/tablet; clips on desktop */
+    display: flex;
+    gap: var(--space-6);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    /* Firefox */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: var(--space-2);
+    /* breathing room for box-shadow */
+}
+
+.featured-products::-webkit-scrollbar {
+    display: none;
+}
+
+.featured-products__placeholder {
+    padding: var(--space-8);
+    border: 1px dashed var(--border-default);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    color: var(--text-muted);
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* ── Card sizing inside the featured row ── */
+.featured-products .product-card {
+    /* Desktop default: ~4 cards in a row */
+    flex: 0 0 clamp(260px, 24%, 320px);
+    max-width: none;
+    scroll-snap-align: start;
+    /* Ensure cards stretch to equal height */
+    align-self: stretch;
+}
+
+
+
+
+
+
 /* ══════════════════════════════════════════════════════════
    HOME PRODUCT CARDS
 ══════════════════════════════════════════════════════════ */
@@ -103,16 +210,17 @@
     padding: var(--space-5);
 }
 
-.product-card {
+.home-category-card {
     background: var(--surface-bg);
-    border-radius: 18px;             /* one-off: intentionally oversized for a "friendly" card aesthetic */
+    border-radius: 18px;
+    /* one-off: intentionally oversized for a "friendly" card aesthetic */
     overflow: hidden;
     box-shadow: 0 10px 30px hsl(from var(--primary) h s l / 0.2);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     cursor: pointer;
 }
 
-.product-card:hover {
+.home-category-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 14px 35px hsl(from var(--primary) h s l / 0.2);
 }
@@ -165,6 +273,7 @@
 @media (max-width: 600px) {
     .hero--wrapper {
         grid-template-columns: 1fr;
+        gap: var(--space-8);
     }
 
     .hero--reviews {
@@ -173,5 +282,73 @@
 
     .hero--content {
         order: -1;
+    }
+
+    .hero {
+        padding: var(--space-16) 0;
+    }
+
+    .hero--content h1,
+    .hero--content p {
+        max-width: none;
+    }
+
+    .review {
+        width: min(82vw, 320px);
+    }
+
+    .products {
+        padding: 0;
+    }
+
+    .featured-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: var(--space-6);
+    }
+
+    /* Mobile: show ~1.3 cards to hint at scrollability */
+    .featured-products .product-card {
+        flex: 0 0 min(80vw, 300px);
+    }
+
+    .featured-products {
+        gap: var(--space-4);
+    }
+
+    /* On mobile, hide nav buttons — pure touch swipe */
+    .featured-nav {
+        display: none;
+    }
+
+}
+
+@media (min-width: 601px) and (max-width: 960px) {
+    .hero--wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* Tablet: show 2–3 cards comfortably */
+    .featured-products .product-card {
+        flex: 0 0 clamp(240px, 44%, 300px);
+    }
+
+    /* Keep scrollable but show more content */
+    .featured-products {
+        scroll-snap-type: x proximity;
+    }
+}
+
+/* Desktop: scrollable strip driven by arrow buttons */
+@media (min-width: 961px) {
+    .featured-products {
+        /* Keep scrollable — nav buttons drive it */
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+    }
+
+    .featured-products .product-card {
+        /* Fixed width so cards stay consistent; ~4 visible at 1200px container */
+        flex: 0 0 clamp(240px, 26%, 300px);
     }
 }

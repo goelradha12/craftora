@@ -1,18 +1,12 @@
 const CART_KEY = 'cart';
 
 const $ = (sel, root = document) => root.querySelector(sel);
-const money = n => `₹${Number(n || 0).toLocaleString('en-IN')}`;
+const money = n => `Rs ${Number(n || 0).toLocaleString('en-IN')}`;
 const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 })[m]);
 
 let cartData = [];
-
-function isUserLoggedIn() {
-  const raw = localStorage.getItem('craftora_user');
-  try { return raw ? !!JSON.parse(raw) : false; }
-  catch { return false; }
-}
 
 function generateOrderId() {
   return `CRF-${Date.now().toString(36).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -23,133 +17,133 @@ function showCheckoutPopup(user, onConfirm) {
 
   const overlay = document.createElement('div');
   overlay.id = 'checkoutOverlay';
-  overlay.style.cssText = `
-    position: fixed; inset: 0; z-index: 9999;
-    background: rgba(0,0,0,0.45);
-    display: flex; align-items: center; justify-content: center;
-    padding: 1rem;
-  `;
-
+  overlay.className = 'checkout-modal';
   overlay.innerHTML = `
-    <div style="
-      background: #fff; border-radius: 14px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-      padding: 1.75rem; width: 100%; max-width: 420px;
-    " role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.25rem;">
-        <div style="
-          width:36px; height:36px; border-radius:50%;
-          background:#e6f9f1; display:flex; align-items:center;
-          justify-content:center; flex-shrink:0; font-size:18px;
-        ">📦</div>
-        <div>
-          <p id="popupTitle" style="margin:0; font-size:16px; font-weight:600; color:#1a1a1a;">Confirm delivery details</p>
-          <p style="margin:2px 0 0; font-size:13px; color:#666;">Edit if anything has changed</p>
+    <div class="checkout-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <div class="checkout-modal__header">
+        <div class="checkout-modal__icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>
         </div>
-        <button id="popupClose" style="
-          margin-left:auto; background:none; border:none;
-          font-size:22px; cursor:pointer; color:#aaa; line-height:1; padding:0 4px;
-        " aria-label="Close">&times;</button>
+        <div>
+          <p id="popupTitle" class="checkout-modal__title">Confirm delivery details</p>
+          <p class="checkout-modal__subtitle">Review your address and phone number before placing the order.</p>
+        </div>
+        <button id="popupClose" class="checkout-modal__close" type="button" aria-label="Close">&times;</button>
       </div>
 
-      <label style="display:block; font-size:11px; font-weight:600; color:#888;
-        letter-spacing:.06em; text-transform:uppercase; margin-bottom:6px;">
-        Delivery address
-      </label>
-      <input id="popupAddress" type="text" value="${esc(userData.address || '')}"
-        placeholder="Enter your full delivery address"
-        style="width:100%; box-sizing:border-box; font-size:14px; padding:9px 12px;
-          border:1px solid #ddd; border-radius:8px; margin-bottom:1rem;
-          background:#f9f9f9; color:#1a1a1a; outline:none;" />
+      <div class="checkout-modal__field">
+        <label class="checkout-modal__label" for="popupAddress">Delivery address</label>
+        <input id="popupAddress" class="checkout-modal__input" type="text" value="${esc(userData.address || '')}"
+          placeholder="Enter your full delivery address" autocomplete="street-address">
+        <p class="checkout-modal__error" id="popupAddressError" aria-live="polite"></p>
+      </div>
 
-      <label style="display:block; font-size:11px; font-weight:600; color:#888;
-        letter-spacing:.06em; text-transform:uppercase; margin-bottom:6px;">
-        Phone number
-      </label>
-      <input id="popupPhone" type="tel" value="${esc(userData.phone || '')}"
-        placeholder="Enter your phone number"
-        style="width:100%; box-sizing:border-box; font-size:14px; padding:9px 12px;
-          border:1px solid #ddd; border-radius:8px; margin-bottom:1.25rem;
-          background:#f9f9f9; color:#1a1a1a; outline:none;" />
+      <div class="checkout-modal__field">
+        <label class="checkout-modal__label" for="popupPhone">Phone number</label>
+        <input id="popupPhone" class="checkout-modal__input" type="tel" value="${esc(userData.phone || '')}"
+          placeholder="Enter your phone number" inputmode="numeric" maxlength="10" autocomplete="tel">
+        <p class="checkout-modal__error" id="popupPhoneError" aria-live="polite"></p>
+      </div>
 
-      <div style="border-top:1px solid #f0f0f0; padding-top:1rem; margin-bottom:1.25rem;
-        display:flex; align-items:center; gap:10px;">
-        <div style="
-          width:34px; height:34px; border-radius:50%; background:#eee;
-          display:flex; align-items:center; justify-content:center;
-          font-size:13px; font-weight:600; color:#555; flex-shrink:0;
-        ">${esc(userData.name?.charAt(0).toUpperCase() || '?')}</div>
+      <div class="checkout-modal__user">
+        <div class="checkout-modal__avatar" aria-hidden="true">${esc(userData.name?.charAt(0).toUpperCase() || '?')}</div>
         <div>
-          <p style="margin:0; font-size:13px; font-weight:500; color:#1a1a1a;">${esc(userData.name || '')}</p>
-          <p style="margin:0; font-size:12px; color:#888;">${esc(userData.email || '')}</p>
+          <p>${esc(userData.name || '')}</p>
+          <p>${esc(userData.email || '')}</p>
         </div>
       </div>
 
-      <button id="popupConfirm" style="
-        width:100%; padding:11px; border-radius:8px;
-        background:#1a1a1a; color:#fff; border:none;
-        font-size:14px; font-weight:600; cursor:pointer; margin-bottom:8px;
-      ">Place order</button>
-
-      <button id="popupCancel" style="
-        width:100%; padding:11px; border-radius:8px;
-        background:transparent; color:#888;
-        border:1px solid #e0e0e0; font-size:13px; cursor:pointer;
-      ">Cancel</button>
+      <div class="checkout-modal__actions">
+        <button id="popupConfirm" class="checkout-btn" type="button">Place order</button>
+        <button id="popupCancel" class="checkout-modal__secondary" type="button">Cancel</button>
+      </div>
     </div>
   `;
 
   document.body.appendChild(overlay);
   document.body.style.overflow = 'hidden';
 
-  const close = () => {
-    document.body.removeChild(overlay);
+  const addressEl = $('#popupAddress', overlay);
+  const phoneEl = $('#popupPhone', overlay);
+  const addressErrorEl = $('#popupAddressError', overlay);
+  const phoneErrorEl = $('#popupPhoneError', overlay);
+
+  function setFieldError(input, errorNode, message) {
+    input.classList.toggle('is-invalid', Boolean(message));
+    input.setAttribute('aria-invalid', message ? 'true' : 'false');
+    errorNode.textContent = message || '';
+    errorNode.classList.toggle('is-visible', Boolean(message));
+  }
+
+  function close() {
+    document.removeEventListener('keydown', handleEsc);
+    overlay.remove();
     document.body.style.overflow = '';
-  };
+  }
 
-  overlay.querySelector('#popupClose').onclick = close;
-  overlay.querySelector('#popupCancel').onclick = close;
-  overlay.onclick = e => { if (e.target === overlay) close(); };
+  function handleEsc(event) {
+    if (event.key === 'Escape') close();
+  }
 
-  // Focus ring on inputs when interacted with
-  ['popupAddress', 'popupPhone'].forEach(id => {
-    const el = overlay.querySelector(`#${id}`);
-    el.onfocus = () => { el.style.borderColor = '#1a1a1a'; el.style.background = '#fff'; };
-    el.oninput = () => { el.style.borderColor = '#ddd'; };
+  addressEl.addEventListener('input', () => setFieldError(addressEl, addressErrorEl, ''));
+  phoneEl.addEventListener('input', () => {
+    phoneEl.value = window.CraftoraUI?.normalizePhoneInput(phoneEl.value) || phoneEl.value;
+    setFieldError(phoneEl, phoneErrorEl, '');
   });
 
-  overlay.querySelector('#popupConfirm').onclick = () => {
-    const addressEl = overlay.querySelector('#popupAddress');
-    const phoneEl = overlay.querySelector('#popupPhone');
+  overlay.addEventListener('click', event => {
+    if (event.target === overlay) close();
+  });
+  document.addEventListener('keydown', handleEsc);
+
+  $('#popupClose', overlay).addEventListener('click', close);
+  $('#popupCancel', overlay).addEventListener('click', close);
+  window.CraftoraUI?.bindPhoneInput(phoneEl);
+  addressEl.focus();
+
+  $('#popupConfirm', overlay).addEventListener('click', () => {
     const address = addressEl.value.trim();
     const phone = phoneEl.value.trim();
+    const phoneValidation = window.CraftoraUI?.validatePhoneNumber(phone) || {
+      valid: !!phone,
+      error: phone ? '' : 'Phone number is required.',
+      digits: phone
+    };
 
     let valid = true;
 
     if (!address) {
-      addressEl.style.borderColor = '#e53e3e';
-      addressEl.style.background = '#fff5f5';
-      addressEl.focus();
+      setFieldError(addressEl, addressErrorEl, 'Delivery address is required.');
       valid = false;
+    } else {
+      setFieldError(addressEl, addressErrorEl, '');
     }
 
-    if (!phone) {
-      phoneEl.style.borderColor = '#e53e3e';
-      phoneEl.style.background = '#fff5f5';
-      if (valid) phoneEl.focus();
+    if (!phoneValidation.valid) {
+      setFieldError(phoneEl, phoneErrorEl, phoneValidation.error);
       valid = false;
+    } else {
+      setFieldError(phoneEl, phoneErrorEl, '');
     }
 
-    if (!valid) return;
+    if (!valid) {
+      (addressErrorEl.textContent ? addressEl : phoneEl).focus();
+      return;
+    }
 
-    // Persist updated details back to localStorage
-    const updated = { ...userData, address, phone };
+    const updated = { ...userData, address, phone: phoneValidation.digits };
     localStorage.setItem('craftora_user', JSON.stringify(updated));
+    try {
+      const accounts = JSON.parse(localStorage.getItem('craftora_accounts') || '[]');
+      const nextAccounts = accounts.map(account => account.email === updated.email
+        ? { ...account, address, phone: phoneValidation.digits }
+        : account);
+      localStorage.setItem('craftora_accounts', JSON.stringify(nextAccounts));
+    } catch {}
 
     close();
-    onConfirm({ address, phone });
-  };
+    onConfirm({ address, phone: phoneValidation.digits });
+  });
 }
 
 function initCart() {
@@ -188,24 +182,68 @@ function bindCheckoutButton() {
 
   checkoutBtn.addEventListener('click', () => {
     if (cartData.length === 0) {
-      alert('Your cart is empty.');
+      window.CraftoraUI?.showToast({
+        id: 'cart-empty',
+        variant: 'warning',
+        title: 'Your cart is empty',
+        message: 'Add a product before proceeding to checkout.'
+      });
       return;
     }
 
     const raw = localStorage.getItem('craftora_user');
     if (!raw) {
-      alert('Please log in first to place your order.');
+      window.CraftoraUI?.showToast({
+        id: 'checkout-auth',
+        variant: 'warning',
+        title: 'Sign in required',
+        message: 'Please log in first to place your order.'
+      });
       window.location.href = './login.html';
       return;
     }
 
     showCheckoutPopup(raw, ({ address, phone }) => {
       const orderId = generateOrderId();
+      const user = JSON.parse(raw);
+      const subtotal = cartData.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const itemsCount = cartData.reduce((sum, item) => sum + item.qty, 0);
+
+      window.CraftoraUI?.addOrder({
+        id: orderId,
+        date: new Date().toISOString(),
+        status: 'Processing',
+        items: cartData.map(item => ({
+          id: item.id,
+          key: item.key,
+          name: item.name,
+          image: item.image,
+          price: item.price,
+          qty: item.qty,
+          size: item.size || '',
+          color: item.color || '',
+          customized: !!item.customized
+        })),
+        summary: {
+          items: itemsCount,
+          subtotal,
+          shipping: 0,
+          total: subtotal
+        },
+        delivery: {
+          address,
+          phone
+        },
+        customer: {
+          name: user.name || '',
+          email: user.email || ''
+        }
+      });
 
       localStorage.setItem('lastOrderId', orderId);
       localStorage.setItem('lastOrderTotal', JSON.stringify({
-        items: cartData.reduce((sum, item) => sum + item.qty, 0),
-        subtotal: cartData.reduce((sum, item) => sum + (item.price * item.qty), 0),
+        items: itemsCount,
+        subtotal,
         address,
         phone
       }));
@@ -253,52 +291,46 @@ function renderCart() {
 
         <div class="cart-item__details">
           <div class="cart-item__header">
-            <h3 class="cart-item__name" onclick="window.location.href='./product.html?id=${item.id}'">${esc(item.name)}</h3>
+            <div>
+              <h3 class="cart-item__name" onclick="window.location.href='./product.html?id=${item.id}'">${esc(item.name)}</h3>
+              <div class="cart-item__meta">
+                ${item.color ? `
+                  <span>
+                    Color
+                    <span
+                      style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${esc(item.color)};border:1px solid #d1d5db;"
+                      title="${esc(item.color)}"
+                    ></span>
+                  </span>
+                ` : ''}
+                ${item.size ? `<span>Size ${esc(item.size)}</span>` : ''}
+                ${item.customized && item.customization?.generatedAt ? `
+                  <span>
+                    Designed ${new Date(item.customization.generatedAt).toLocaleDateString('en-IN', {
+                      day: '2-digit',
+                      month: 'short',
+                      year: 'numeric'
+                    })}
+                  </span>
+                ` : ''}
+              </div>
+            </div>
             <span class="cart-item__price">${money(item.price * item.qty)}</span>
           </div>
 
-          <div class="cart-item__meta">
-            ${item.color ? `
-              <span class="cart-meta-color">
-                Color:
-                <span
-                  style="
-                    display:inline-block;
-                    width:14px;
-                    height:14px;
-                    border-radius:50%;
-                    background:${esc(item.color)};
-                    border:1px solid #d1d5db;
-                    vertical-align:middle;
-                    margin-left:4px;
-                  "
-                  title="${esc(item.color)}"
-                ></span>,
-              </span>
-            ` : ''}
-
-            ${item.size ? `<span>Size: ${esc(item.size)},</span>` : ''}
-
-            ${item.customized && item.customization?.generatedAt ? `
-              <span>
-                Designed on:
-                ${new Date(item.customization.generatedAt).toLocaleDateString('en-IN', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
-              })}
-              </span>
-            ` : ''}
-          </div>
-
           <div class="cart-item__actions">
-            <div class="product__qty">
-              <button class="product__qty-btn" onclick="updateQuantity('${esc(item.key)}', -1)">−</button>
-              <output class="product__qty-val">${item.qty}</output>
-              <button class="product__qty-btn" onclick="updateQuantity('${esc(item.key)}', 1)">+</button>
+            <div class="cart-item__controls">
+              <div class="product__qty" role="group" aria-label="Quantity selector for ${esc(item.name)}">
+                <button class="product__qty-btn" type="button" aria-label="Decrease quantity" onclick="updateQuantity('${esc(item.key)}', -1)">−</button>
+                <output class="product__qty-val">${item.qty}</output>
+                <button class="product__qty-btn" type="button" aria-label="Increase quantity" onclick="updateQuantity('${esc(item.key)}', 1)">+</button>
+              </div>
+              <p class="cart-item__line-total">Unit price ${money(item.price)}</p>
             </div>
 
-            <button class="cart-item__remove" onclick="removeItem('${esc(item.key)}')">Remove</button>
+            <button class="cart-item__remove" type="button" aria-label="Remove ${esc(item.name)} from cart" onclick="removeItem('${esc(item.key)}')">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
         </div>
       </article>
@@ -311,11 +343,19 @@ function renderCart() {
 function updateSummary(totalItems, subtotal) {
   const countEl = $('#summaryItemCount');
   const subEl = $('#summarySubtotal');
+  const discountEl = $('#summaryDiscount');
   const totEl = $('#summaryTotal');
+  const noteEl = $('#checkoutNote');
 
   if (countEl) countEl.textContent = totalItems;
   if (subEl) subEl.textContent = money(subtotal);
+  if (discountEl) discountEl.textContent = money(0);
   if (totEl) totEl.textContent = money(subtotal);
+  if (noteEl) {
+    noteEl.textContent = totalItems
+      ? 'Secure checkout with free shipping on every order.'
+      : 'Add products to continue to checkout.';
+  }
 }
 
 document.addEventListener('DOMContentLoaded', initCart);

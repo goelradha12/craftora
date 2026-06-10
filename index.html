@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Craftora | Modern Custom Merchandize</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./styles/tokens.css">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/home.css">
+    <link rel="stylesheet" href="./styles/products.css">
 </head>
 
 <body>
@@ -42,7 +45,7 @@
                             of happy customers worldwide.
                         </p>
 
-                        <button class="hero--btn">
+                        <button class="hero--btn" type="button">
                             Shop Now!
                         </button>
 
@@ -54,11 +57,28 @@
 
         </div>
 
+        <div class="section section-featured">
+            <div class="container">
+                <div class="featured-heading">
+                    <h2 class="section-heading">Featured</h2>
+                </div>
+                <div class="featured-row">
+                    <button class="featured-nav" id="featuredPrev" type="button"
+                        aria-label="Scroll featured products left">&#8249;</button>
+                    <div class="featured-products" id="featuredProducts" aria-live="polite">
+                        <div class="featured-products__placeholder">Loading featured products...</div>
+                    </div>
+                    <button class="featured-nav" id="featuredNext" type="button"
+                        aria-label="Scroll featured products right">&#8250;</button>
+                </div>
+            </div>
+        </div>
+
         <div class="section">
             <div class="container">
                 <h2 class="section-heading">Our Products</h2>
                 <div class="products">
-                    <div class="product-card">
+                    <div class="home-category-card">
                         <img class="product--image" src="./assets/products (1).webp"
                             alt="Printed black diary with a custom design on the cover" />
                         <div class="product-content">
@@ -68,7 +88,7 @@
                         </div>
                     </div>
 
-                    <div class="product-card">
+                    <div class="home-category-card">
                         <img class="product--image" src="./assets/products (2).webp"
                             alt="Printed white bottle with a custom design" />
                         <div class="product-content">
@@ -78,7 +98,7 @@
                         </div>
                     </div>
 
-                    <div class="product-card">
+                    <div class="home-category-card">
                         <img class="product--image" src="./assets/products (3).webp"
                             alt="Printed t-shirt with a custom graphic design" />
                         <div class="product-content">
@@ -88,7 +108,7 @@
                         </div>
                     </div>
 
-                    <div class="product-card">
+                    <div class="home-category-card">
                         <img class="product--image" src="./assets/products (4).webp"
                             alt="Printed cup with a custom design" />
                         <div class="product-content">
@@ -102,6 +122,7 @@
         </div>
     </main>
     <div id="footer"></div>
+    <script src="./scripts/wishlist.js" defer></script>
     <script src="./scripts/index.js" defer></script>
     <script src="./scripts/layout.js" defer></script>
 </body>

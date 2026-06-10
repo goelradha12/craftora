@@ -5,183 +5,460 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Account - Craftora</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles/tokens.css">
-    <link rel="stylesheet" href="./styles/style.css">
+    <meta name="description" content="Manage your Craftora account details, orders, wishlist, and cart in one place.">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="./assets/logo.webp" fetchpriority="high">
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Lato:wght@400;700&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Lato:wght@400;700&display=swap">
+    </noscript>
     <style>
+        :root {
+            --primary: #111827;
+            --secondary: #2563eb;
+            --accent: #ff6609;
+            --bg: #f9faf8;
+            --surface-page: #fff;
+            --surface-bg: var(--bg);
+            --text-primary: var(--primary);
+            --text-body: #374151;
+            --text-muted: #6b7280;
+            --text-on-dark: #fff;
+            --border-default: #e5e7eb;
+            --color-success: #10b981;
+            --font-heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            --font-body: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 6px 22px rgba(17, 24, 39, 0.08);
+            --shadow-lg: 0 18px 44px rgba(17, 24, 39, 0.08);
+            --radius-sm: 0.45rem;
+            --radius-md: 0.6rem;
+            --radius-lg: 0.95rem;
+            --radius-xl: 1.2rem;
+            --nav-height: 68px;
+            --nav-height-mobile: 60px;
+            --container: min(1200px, 85vw);
+            --transition: 0.2s ease;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-width: 320px;
+            font-family: var(--font-heading);
+            font-size: 16px;
+            color: var(--text-body);
+            background: var(--surface-bg);
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a,
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin: 0;
+            overflow-wrap: break-word;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+        }
+
+        p {
+            font-family: var(--font-body);
+            line-height: 1.6;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -120px;
+            left: 1rem;
+            padding: 0.7rem 1rem;
+            background: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 0.75rem;
+        }
+
+        .container {
+            width: var(--container);
+            margin: 0 auto;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.97);
+            border-bottom: 1px solid rgba(255, 102, 9, 0.18);
+            backdrop-filter: blur(12px);
+        }
+
+        .site-header__desktop,
+        .site-header__mobile {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .site-header__desktop {
+            min-height: var(--nav-height);
+            gap: 1.5rem;
+        }
+
+        .site-logo {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .site-logo img {
+            width: 160px;
+            height: 32px;
+        }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+        }
+
+        .site-nav__link,
+        .site-shell__ghost,
+        .site-shell__solid,
+        .site-shell__account {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            min-height: 2.5rem;
+            padding: 0.45rem 0.95rem;
+            border: 0;
+            border-radius: 999px;
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+        }
+
+        .site-nav__link:hover,
+        .site-nav__link:focus-visible,
+        .site-shell__ghost:hover,
+        .site-shell__solid:hover,
+        .site-shell__account:hover,
+        .site-shell__cart:hover {
+            color: var(--accent);
+            background: rgba(255, 102, 9, 0.08);
+        }
+
+        .site-nav__link.is-active {
+            color: var(--accent);
+        }
+
+        .site-shell__actions,
+        .site-shell__auth {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .site-shell__solid {
+            color: #fff;
+            background: var(--accent);
+        }
+
+        .site-shell__solid:hover,
+        .site-shell__solid:focus-visible {
+            color: #fff;
+            background: #e75d08;
+        }
+
+        .site-shell__account {
+            border: 1px solid var(--border-default);
+            background: #fff;
+        }
+
+        .site-shell__cart {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 999px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: background var(--transition), color var(--transition);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 4px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            line-height: 18px;
+            text-align: center;
+        }
+
+        .cart-badge[hidden] {
+            display: none;
+        }
+
+        .site-header__mobile {
+            display: none;
+            min-height: var(--nav-height-mobile);
+            gap: 1rem;
+        }
+
+        .site-header__mobile .site-logo img {
+            width: 112px;
+            height: 22px;
+        }
+
+        .site-mobile-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .site-mobile-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.75rem;
+            height: 2.75rem;
+            border: 0;
+            border-radius: 999px;
+            background: transparent;
+            color: var(--text-primary);
+        }
+
+        .site-mobile-menu {
+            display: none;
+            list-style: none;
+            padding: 0 0 0.8rem;
+            margin: 0;
+        }
+
+        .site-mobile-menu[hidden] {
+            display: none;
+        }
+
+        .site-mobile-menu.is-open {
+            display: block;
+        }
+
+        .site-mobile-menu li {
+            border-top: 1px solid rgba(17, 24, 39, 0.08);
+        }
+
+        .site-mobile-menu a,
+        .site-mobile-menu button {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            min-height: 52px;
+            padding: 0.85rem 0;
+            border: 0;
+            background: transparent;
+            color: var(--text-primary);
+            font: inherit;
+            text-decoration: none;
+        }
+
         .account-page {
-            padding-block: 3rem;
-            background: var(--bg);
-            min-height: 60vh;
+            padding-block: 2rem 3rem;
+            min-height: calc(100vh - var(--nav-height));
         }
 
         .account-grid {
             display: grid;
             grid-template-columns: 260px 1fr;
-            gap: 2rem;
+            gap: 1.5rem;
             align-items: start;
         }
 
-        /* ── Sidebar ── */
-        .account-sidebar {
+        .account-sidebar,
+        .account-card {
             background: #fff;
-            border-radius: 1rem;
+            border: 1px solid rgba(17, 24, 39, 0.06);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+
+        .account-sidebar {
             overflow: hidden;
-            box-shadow: 0 4px 20px hsl(from var(--primary) h s l / 0.07);
+            position: sticky;
+            top: calc(var(--nav-height) + 1rem);
         }
 
         .account-sidebar__header {
-            background: var(--primary);
-            padding: 1.75rem 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.75rem;
+            padding: 1.75rem 1.5rem;
             text-align: center;
+            background: linear-gradient(145deg, #111827, #1f2937);
         }
 
         .account-avatar {
+            display: grid;
+            place-items: center;
             width: 68px;
             height: 68px;
-            border-radius: 50%;
+            border-radius: 999px;
             background: var(--accent);
             color: #fff;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            border: 3px solid rgba(255,255,255,0.2);
+            border: 3px solid rgba(255, 255, 255, 0.15);
         }
 
         .account-sidebar__name {
             color: #fff;
             font-size: 1rem;
             font-weight: 700;
-            margin: 0;
         }
 
         .account-sidebar__email {
-            color: rgba(255,255,255,0.65);
-            font-size: 0.8rem;
-            font-family: 'Lato', sans-serif;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.85rem;
         }
 
         .account-sidebar__nav {
             list-style: none;
-            padding: 0.5rem 0;
+            margin: 0;
+            padding: 0.65rem 0;
         }
 
-        .account-sidebar__nav li a,
-        .account-sidebar__nav li button {
+        .account-sidebar__nav a,
+        .account-sidebar__nav button {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             width: 100%;
-            padding: 0.75rem 1.5rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            font-family: 'Inter', sans-serif;
-            color: var(--primary);
-            text-decoration: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            text-align: left;
-            transition: background 0.15s ease, color 0.15s ease;
+            min-height: 46px;
+            padding: 0.75rem 1.25rem;
+            border: 0;
             border-left: 3px solid transparent;
+            background: transparent;
+            color: var(--text-primary);
+            text-align: left;
+            text-decoration: none;
+            font: inherit;
+            font-weight: 600;
+            transition: background var(--transition), color var(--transition), border-color var(--transition);
         }
 
-        .account-sidebar__nav li a:hover,
-        .account-sidebar__nav li button:hover {
-            background: var(--bg);
+        .account-sidebar__nav a:hover,
+        .account-sidebar__nav a.is-active,
+        .account-sidebar__nav button:hover {
+            background: rgba(255, 102, 9, 0.06);
             color: var(--accent);
             border-left-color: var(--accent);
         }
 
-        .account-sidebar__nav li a.active {
-            background: hsl(from var(--accent) h s l / 0.07);
-            color: var(--accent);
-            border-left-color: var(--accent);
-            font-weight: 700;
-        }
-
-        .account-sidebar__nav li a svg,
-        .account-sidebar__nav li button svg {
-            color: var(--color-muted);
+        .account-sidebar__nav svg {
             flex-shrink: 0;
-        }
-
-        .account-sidebar__nav li a:hover svg,
-        .account-sidebar__nav li button:hover svg,
-        .account-sidebar__nav li a.active svg {
-            color: var(--accent);
         }
 
         .account-sidebar__divider {
             height: 1px;
-            background: var(--color-border);
-            margin: 0.4rem 1.5rem;
+            margin: 0.5rem 1.25rem;
+            background: var(--border-default);
         }
 
         .nav-logout {
-            color: #dc2626 !important;
+            color: #dc2626;
         }
 
-        .nav-logout:hover {
-            background: hsl(0 80% 97%) !important;
-            color: #b91c1c !important;
-            border-left-color: #dc2626 !important;
-        }
-
-        .nav-logout svg {
-            color: #dc2626 !important;
-        }
-
-        /* ── Main content ── */
         .account-main {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+            min-width: 0;
         }
 
         .account-card {
-            background: #fff;
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 4px 20px hsl(from var(--primary) h s l / 0.07);
+            padding: 1.5rem;
         }
 
         .account-card__title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid var(--color-border);
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.55rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px solid var(--border-default);
+            font-size: 1.1rem;
+            font-weight: 700;
         }
 
         .account-card__title svg {
             color: var(--accent);
         }
 
-        /* Info rows */
         .info-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
         }
 
         .info-field {
             display: flex;
             flex-direction: column;
-            gap: 0.3rem;
+            gap: 0.35rem;
+            min-width: 0;
         }
 
         .info-field--full {
@@ -189,36 +466,32 @@
         }
 
         .info-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
+            font-size: 0.76rem;
+            font-weight: 700;
             letter-spacing: 0.05em;
-            color: var(--color-muted);
-            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            color: var(--text-muted);
         }
 
         .info-value {
-            font-size: 0.95rem;
-            color: var(--primary);
-            font-family: 'Lato', sans-serif;
-            padding: 0.6rem 0.9rem;
-            background: var(--bg);
-            border-radius: 0.5rem;
-            border: 1px solid var(--color-border);
-            min-height: 2.5rem;
             display: flex;
             align-items: center;
+            min-height: 44px;
+            padding: 0.7rem 0.95rem;
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            background: var(--bg);
+            color: var(--text-primary);
         }
 
         .info-value--empty {
-            color: var(--color-muted);
+            color: var(--text-muted);
             font-style: italic;
         }
 
-        /* Quick links */
         .quick-links {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
         }
 
@@ -226,21 +499,23 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             gap: 0.6rem;
-            padding: 1.25rem 1rem;
-            background: var(--bg);
-            border-radius: 0.75rem;
-            text-decoration: none;
-            color: var(--primary);
-            border: 1.5px solid var(--color-border);
-            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+            min-height: 124px;
+            padding: 1rem;
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-lg);
+            background: linear-gradient(180deg, #fff, #fafaf9);
+            color: var(--text-primary);
             text-align: center;
+            text-decoration: none;
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
         }
 
         .quick-link-card:hover {
-            border-color: var(--accent);
-            box-shadow: 0 4px 16px hsl(from var(--accent) h s l / 0.15);
             transform: translateY(-2px);
+            border-color: rgba(255, 102, 9, 0.28);
+            box-shadow: var(--shadow-sm);
         }
 
         .quick-link-card svg {
@@ -248,117 +523,424 @@
         }
 
         .quick-link-card span {
-            font-size: 0.85rem;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
+            font-weight: 700;
         }
 
-        /* Not logged in state */
-        .account-guest {
+        #my-orders,
+        .account-footer {
+            content-visibility: auto;
+            contain-intrinsic-size: 540px;
+        }
+
+        .orders-empty {
+            display: grid;
+            place-items: center;
+            gap: 0.8rem;
+            min-height: 220px;
+            padding: 2rem;
             text-align: center;
-            padding: 4rem 2rem;
+            border: 1px dashed rgba(255, 102, 9, 0.25);
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, rgba(255, 102, 9, 0.05), rgba(37, 99, 235, 0.04));
         }
 
-        .account-guest svg {
-            color: var(--color-muted);
+        .orders-empty p {
+            max-width: 420px;
+            color: var(--text-muted);
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform var(--transition), opacity var(--transition), border-color var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border-default);
+            color: var(--text-primary);
+            background: #fff;
+        }
+
+        .orders-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .order-card {
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-lg);
+            background: linear-gradient(180deg, #fff, #fbfbfa);
+            padding: 1.1rem;
+        }
+
+        .order-card__top {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: start;
             margin-bottom: 1rem;
         }
 
-        .account-guest h2 {
-            display: block;
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
+        .order-card__id {
+            font-size: 1rem;
+            font-weight: 800;
         }
 
-        .account-guest h2::before,
-        .account-guest h2::after { display: none; }
+        .order-card__meta {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        .order-status {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 108px;
+            min-height: 34px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--color-success);
+            font-size: 0.76rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .order-card__grid {
+            display: grid;
+            grid-template-columns: 1.55fr 1fr;
+            gap: 1rem;
+        }
+
+        .order-items,
+        .order-side {
+            display: grid;
+            gap: 0.85rem;
+        }
+
+        .order-item,
+        .order-summary,
+        .delivery-card {
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            background: #fff;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.85rem 0.95rem;
+        }
+
+        .order-item__name {
+            font-size: 0.96rem;
+            font-weight: 700;
+        }
+
+        .order-item__meta,
+        .order-summary__row,
+        .delivery-card p {
+            color: var(--text-body);
+            font-size: 0.88rem;
+            opacity: 1;
+        }
+
+        .order-item__price {
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+
+        .order-summary,
+        .delivery-card {
+            padding: 1rem;
+        }
+
+        .order-summary h3,
+        .delivery-card h3 {
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .order-summary__row {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 0.55rem;
+        }
+
+        .order-summary__row:last-child {
+            margin-bottom: 0;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-default);
+            font-weight: 800;
+        }
+
+        .delivery-card p + p {
+            margin-top: 0.45rem;
+        }
+
+        .account-guest {
+            padding: 4rem 1.75rem;
+            text-align: center;
+        }
+
+        .account-guest svg {
+            margin: 0 auto 1rem;
+            color: var(--text-muted);
+        }
+
+        .account-guest h1 {
+            margin-bottom: 0.6rem;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            line-height: 1.1;
+            color: var(--text-primary);
+        }
 
         .account-guest p {
-            color: var(--color-muted);
-            margin-bottom: 1.5rem;
+            max-width: 480px;
+            margin: 0 auto 1.5rem;
+            color: var(--text-muted);
         }
 
         .account-guest__actions {
             display: flex;
-            gap: 1rem;
+            flex-wrap: wrap;
             justify-content: center;
+            gap: 0.85rem;
+        }
+
+        .account-footer {
+            margin-top: 3rem;
+            background: #111827;
+            color: rgba(255, 255, 255, 0.74);
+        }
+
+        .account-footer__top,
+        .account-footer__bottom {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
             flex-wrap: wrap;
         }
 
-        .btn-primary {
-            padding: 0.75rem 1.75rem;
-            background: var(--accent);
+        .account-footer__top {
+            padding: 3rem 0 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .account-footer__brand {
+            max-width: 320px;
+        }
+
+        .account-footer__brand img {
+            width: 112px;
+            height: 22px;
+            margin-bottom: 1rem;
+        }
+
+        .account-footer__title {
+            margin-bottom: 0.85rem;
+            font-size: 1rem;
             color: #fff;
-            text-decoration: none;
-            border-radius: 0.5rem;
-            font-weight: 700;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            transition: opacity 0.2s ease;
         }
 
-        .btn-primary:hover { opacity: 0.88; }
-
-        .btn-secondary {
-            padding: 0.75rem 1.75rem;
-            background: #fff;
-            color: var(--primary);
-            text-decoration: none;
-            border-radius: 0.5rem;
-            font-weight: 700;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            border: 1.5px solid var(--color-border);
-            transition: border-color 0.2s ease;
+        .account-footer ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
         }
 
-        .btn-secondary:hover { border-color: var(--primary); }
+        .account-footer li + li {
+            margin-top: 0.55rem;
+        }
 
-        /* ── Responsive ── */
-        @media (max-width: 768px) {
-            .account-grid {
+        .account-footer a {
+            color: rgba(255, 255, 255, 0.72);
+            text-decoration: none;
+        }
+
+        .account-footer__bottom {
+            padding: 1.25rem 0 2rem;
+        }
+
+        .account-footer__bottom-links {
+            display: flex;
+            gap: 1.1rem;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 900px) {
+            .account-grid,
+            .order-card__grid {
                 grid-template-columns: 1fr;
             }
 
             .account-sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: min(92vw, 1200px);
+            }
+
+            .site-header__desktop {
+                display: none;
+            }
+
+            .site-header__mobile {
                 display: flex;
-                flex-direction: column;
+            }
+
+            .account-page {
+                padding-top: 1.25rem;
             }
 
             .account-sidebar__header {
                 flex-direction: row;
                 text-align: left;
-                gap: 1rem;
             }
 
             .info-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .order-card__top,
+            .order-item {
+                flex-direction: column;
+            }
+
+            .order-status {
+                min-width: 0;
+                width: fit-content;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+                animation: none !important;
             }
         }
     </style>
 </head>
 
 <body>
-    <div id="header"></div>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="site-header__desktop">
+                <a class="site-logo" href="./index.html" aria-label="Craftora homepage">
+                    <img src="./assets/logo.webp" alt="Craftora" width="160" height="32" fetchpriority="high" decoding="async">
+                </a>
+                <nav aria-label="Primary">
+                    <ul class="site-nav">
+                        <li><a class="site-nav__link" href="./index.html">Home</a></li>
+                        <li><a class="site-nav__link" href="./products.html">Shop</a></li>
+                        <li><a class="site-nav__link" href="./about.html">About</a></li>
+                        <li><a class="site-nav__link" href="./contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="site-shell__actions">
+                    <div class="site-shell__auth" id="desktopAuth">
+                        <a class="site-shell__ghost" href="./login.html">Sign In</a>
+                        <a class="site-shell__solid" href="./signup.html">Sign Up</a>
+                    </div>
+                    <a class="site-shell__account" id="desktopAccount" href="./account.html" hidden>My Account</a>
+                    <a class="site-shell__cart" href="./cart.html" aria-label="View cart">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M3 3H5L5.4 5M5.4 5H21L19 14H7.2M5.4 5L7.2 14M7.2 14L6 16.5C5.6 17.3 6.2 18 7 18H19M9 21C9 21.5523 8.55228 22 8 22C7.44772 22 7 21.5523 7 21C7 20.4477 7.44772 20 8 20C8.55228 20 9 20.4477 9 21ZM19 21C19 21.5523 18.5523 22 18 22C17.4477 22 17 21.5523 17 21C17 20.4477 17.4477 20 18 20C18.5523 20 19 20.4477 19 21Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="cart-badge" id="desktopCartBadge" hidden>0</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="site-header__mobile">
+                <a class="site-logo" href="./index.html" aria-label="Craftora homepage">
+                    <img src="./assets/logo.webp" alt="Craftora" width="112" height="22" fetchpriority="high" decoding="async">
+                </a>
+                <div class="site-mobile-actions">
+                    <a class="site-shell__cart" href="./cart.html" aria-label="View cart">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M3 3H5L5.4 5M5.4 5H21L19 14H7.2M5.4 5L7.2 14M7.2 14L6 16.5C5.6 17.3 6.2 18 7 18H19M9 21C9 21.5523 8.55228 22 8 22C7.44772 22 7 21.5523 7 21C7 20.4477 7.44772 20 8 20C8.55228 20 9 20.4477 9 21ZM19 21C19 21.5523 18.5523 22 18 22C17.4477 22 17 21.5523 17 21C17 20.4477 17.4477 20 18 20C18.5523 20 19 20.4477 19 21Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="cart-badge" id="mobileCartBadge" hidden>0</span>
+                    </a>
+                    <button class="site-mobile-toggle" id="mobileMenuToggle" type="button" aria-expanded="false"
+                        aria-controls="mobileMenu" aria-label="Open menu">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <ul class="site-mobile-menu" id="mobileMenu" hidden>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./products.html">Shop</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./account.html">My Account</a></li>
+                <li><a href="./account.html#my-orders">My Orders</a></li>
+                <li><a href="./wishlist.html">Wishlist</a></li>
+                <li><a href="./cart.html">Cart</a></li>
+                <li id="mobileGuestLinks">
+                    <a href="./login.html">Sign In</a>
+                </li>
+                <li id="mobileGuestSignup">
+                    <a href="./signup.html">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </header>
 
     <main id="main-content" class="account-page">
         <div class="container">
-
-            <!-- Guest state (hidden when logged in) -->
-            <div class="account-card account-guest" id="guestState" hidden>
-                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-                <h2>You're not signed in</h2>
-                <p>Sign in to view and manage your account details.</p>
+            <section class="account-card account-guest" id="guestState" hidden>
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    aria-hidden="true">
+                    <circle cx="12" cy="8" r="4"></circle>
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"></path>
+                </svg>
+                <h1>You're not signed in</h1>
+                <p>Sign in to view your saved details, recent orders, wishlist, and cart activity in one place.</p>
                 <div class="account-guest__actions">
                     <a href="./login.html" class="btn-primary">Sign In</a>
                     <a href="./signup.html" class="btn-secondary">Create Account</a>
                 </div>
-            </div>
+            </section>
 
-            <!-- Logged in state -->
             <div class="account-grid" id="accountState" hidden>
-
-                <!-- Sidebar -->
                 <aside class="account-sidebar">
                     <div class="account-sidebar__header">
                         <div class="account-avatar" id="sidebarAvatar" aria-hidden="true"></div>
@@ -369,40 +951,72 @@
                     </div>
                     <ul class="account-sidebar__nav">
                         <li>
-                            <a href="./account.html" class="active">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                            <a href="./account.html" class="is-active">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" aria-hidden="true">
+                                    <circle cx="12" cy="8" r="4"></circle>
+                                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"></path>
+                                </svg>
                                 My Account
                             </a>
                         </li>
                         <li>
+                            <a href="#my-orders">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" aria-hidden="true">
+                                    <path d="M9 12h6"></path>
+                                    <path d="M9 16h6"></path>
+                                    <path d="M9 8h6"></path>
+                                    <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                                </svg>
+                                My Orders
+                            </a>
+                        </li>
+                        <li>
                             <a href="./wishlist.html">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" aria-hidden="true">
+                                    <path
+                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                    </path>
+                                </svg>
                                 Wishlist
                             </a>
                         </li>
                         <li>
                             <a href="./cart.html">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3H5L5.4 5M5.4 5H21L19 14H7.2M5.4 5L7.2 14M7.2 14L6 16.5C5.6 17.3 6.2 18 7 18H19M9 21C9 21.5523 8.55228 22 8 22C7.44772 22 7 21.5523 7 21C7 20.4477 7.44772 20 8 20C8.55228 20 9 20.4477 9 21ZM19 21C19 21.5523 18.5523 22 18 22C17.4477 22 17 21.5523 17 21C17 20.4477 17.4477 20 18 20C18.5523 20 19 20.4477 19 21Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" aria-hidden="true">
+                                    <path
+                                        d="M3 3H5L5.4 5M5.4 5H21L19 14H7.2M5.4 5L7.2 14M7.2 14L6 16.5C5.6 17.3 6.2 18 7 18H19M9 21C9 21.5523 8.55228 22 8 22C7.44772 22 7 21.5523 7 21C7 20.4477 7.44772 20 8 20C8.55228 20 9 20.4477 9 21ZM19 21C19 21.5523 18.5523 22 18 22C17.4477 22 17 21.5523 17 21C17 20.4477 17.4477 20 18 20C18.5523 20 19 20.4477 19 21Z"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
                                 Cart
                             </a>
                         </li>
                         <li><div class="account-sidebar__divider"></div></li>
                         <li>
-                            <button class="nav-logout js-logout-btn">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                            <button class="nav-logout js-logout-btn" type="button">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" aria-hidden="true">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                    <polyline points="16 17 21 12 16 7"></polyline>
+                                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                                </svg>
                                 Sign Out
                             </button>
                         </li>
                     </ul>
                 </aside>
 
-                <!-- Main -->
                 <div class="account-main">
-
-                    <!-- Personal Info -->
-                    <div class="account-card">
+                    <section class="account-card">
                         <h2 class="account-card__title">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" aria-hidden="true">
+                                <circle cx="12" cy="8" r="4"></circle>
+                                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"></path>
+                            </svg>
                             Personal Information
                         </h2>
                         <div class="info-grid">
@@ -427,74 +1041,114 @@
                                 <div class="info-value" id="infoAddress"></div>
                             </div>
                         </div>
-                    </div>
+                    </section>
 
-                    <!-- Quick links -->
-                    <div class="account-card">
+                    <section class="account-card">
                         <h2 class="account-card__title">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" aria-hidden="true">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
                             Quick Links
                         </h2>
                         <div class="quick-links">
                             <a href="./products.html" class="quick-link-card">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" aria-hidden="true">
+                                    <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                    <path d="M8 21h8M12 17v4"></path>
+                                </svg>
                                 <span>Shop Now</span>
                             </a>
+                            <a href="#my-orders" class="quick-link-card">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" aria-hidden="true">
+                                    <path d="M9 12h6"></path>
+                                    <path d="M9 16h6"></path>
+                                    <path d="M9 8h6"></path>
+                                    <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                                </svg>
+                                <span>My Orders</span>
+                            </a>
                             <a href="./wishlist.html" class="quick-link-card">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" aria-hidden="true">
+                                    <path
+                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                    </path>
+                                </svg>
                                 <span>My Wishlist</span>
                             </a>
                             <a href="./cart.html" class="quick-link-card">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3H5L5.4 5M5.4 5H21L19 14H7.2M5.4 5L7.2 14M7.2 14L6 16.5C5.6 17.3 6.2 18 7 18H19M9 21C9 21.5523 8.55228 22 8 22C7.44772 22 7 21.5523 7 21C7 20.4477 7.44772 20 8 20C8.55228 20 9 20.4477 9 21ZM19 21C19 21.5523 18.5523 22 18 22C17.4477 22 17 21.5523 17 21C17 20.4477 17.4477 20 18 20C18.5523 20 19 20.4477 19 21Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" aria-hidden="true">
+                                    <path
+                                        d="M3 3H5L5.4 5M5.4 5H21L19 14H7.2M5.4 5L7.2 14M7.2 14L6 16.5C5.6 17.3 6.2 18 7 18H19M9 21C9 21.5523 8.55228 22 8 22C7.44772 22 7 21.5523 7 21C7 20.4477 7.44772 20 8 20C8.55228 20 9 20.4477 9 21ZM19 21C19 21.5523 18.5523 22 18 22C17.4477 22 17 21.5523 17 21C17 20.4477 17.4477 20 18 20C18.5523 20 19 20.4477 19 21Z"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
                                 <span>View Cart</span>
                             </a>
                         </div>
-                    </div>
+                    </section>
 
+                    <section class="account-card" id="my-orders">
+                        <h2 class="account-card__title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" aria-hidden="true">
+                                <path d="M9 12h6"></path>
+                                <path d="M9 16h6"></path>
+                                <path d="M9 8h6"></path>
+                                <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                            </svg>
+                            My Orders
+                        </h2>
+                        <div id="ordersState"></div>
+                    </section>
                 </div>
             </div>
-
         </div>
     </main>
 
-    <div id="footer"></div>
-    <script src="./scripts/layout.js" defer></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const raw = localStorage.getItem('craftora_user');
-            const user = raw ? JSON.parse(raw) : null;
+    <footer class="account-footer">
+        <div class="container">
+            <div class="account-footer__top">
+                <div class="account-footer__brand">
+                    <a href="./index.html" aria-label="Craftora homepage">
+                        <img src="./assets/dark_logo.webp" alt="Craftora" width="112" height="22" loading="lazy" decoding="async">
+                    </a>
+                    <p>Modern custom merchandise designed to bring your ideas to life.</p>
+                </div>
+                <div>
+                    <h3 class="account-footer__title">Quick Links</h3>
+                    <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="./products.html">Shop</a></li>
+                        <li><a href="./about.html">About</a></li>
+                        <li><a href="./contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="account-footer__title">Account</h3>
+                    <ul>
+                        <li><a href="./account.html">My Account</a></li>
+                        <li><a href="./wishlist.html">Wishlist</a></li>
+                        <li><a href="./cart.html">Cart</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="account-footer__bottom">
+                <p>© 2026 Craftora. All rights reserved.</p>
+                <div class="account-footer__bottom-links">
+                    <a href="./return-policy.html">Return Policy</a>
+                    <a href="./privacy-policy.html">Privacy Policy</a>
+                    <a href="./terms.html">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-            if (!user) {
-                document.getElementById('guestState').hidden = false;
-                return;
-            }
-
-            document.getElementById('accountState').hidden = false;
-
-            // Sidebar
-            const initials = (user.name || user.email || '?')
-                .split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-            document.getElementById('sidebarAvatar').textContent = initials;
-            document.getElementById('sidebarName').textContent   = user.name  || '—';
-            document.getElementById('sidebarEmail').textContent  = user.email || '—';
-
-            // Info fields
-            const empty = (v) => v
-                ? `<span>${v}</span>`
-                : `<span class="info-value--empty">Not provided</span>`;
-
-            document.getElementById('infoName').innerHTML    = empty(user.name);
-            document.getElementById('infoEmail').innerHTML   = empty(user.email);
-            document.getElementById('infoPhone').innerHTML   = empty(user.phone);
-            document.getElementById('infoAddress').innerHTML = empty(user.address);
-
-            // Member since — store a joined date on first signup if present, otherwise show today
-            const joined = user.joinedAt
-                ? new Date(user.joinedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-                : 'Member';
-            document.getElementById('infoJoined').innerHTML = `<span>${joined}</span>`;
-        });
-    </script>
+    <script src="./scripts/account.js" defer></script>
 </body>
 
 </html>

@@ -19,30 +19,24 @@
 <body>
     <main class="login">
 
-        <!-- Left Image -->
         <div class="login--image">
             <img loading="lazy" src="./assets/t-shirt_blue_person.webp" alt="Signup Banner" width="600" height="800">
         </div>
 
-        <!-- Signup Form -->
         <div class="login--form">
 
-            <!-- Logo -->
             <a href="./index.html" class="logo-link">
                 <img src="./assets/logo.webp" alt="Craftora Logo" class="logo-loginPage" width="200" height="40">
             </a>
 
             <h2>Signup</h2>
 
-            <!-- Error banner -->
             <div class="form-error-banner" id="signupError" role="alert" hidden>
                 <i class="fas fa-circle-exclamation" aria-hidden="true"></i>
                 <span id="signupErrorMsg"></span>
             </div>
 
             <form id="signupForm" novalidate>
-
-                <!-- Name + Phone (side by side) -->
                 <div class="form-row-2">
                     <div class="form-group">
                         <label for="fullname" class="required">Full Name</label>
@@ -59,13 +53,12 @@
                         <div class="input-with-icon">
                             <i class="fas fa-phone" aria-hidden="true"></i>
                             <input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone number"
-                                autocomplete="tel" required>
+                                autocomplete="tel" inputmode="numeric" maxlength="10" required>
                         </div>
                         <span class="field-error" id="phoneError"></span>
                     </div>
                 </div>
 
-                <!-- Email -->
                 <div class="form-group">
                     <label for="email" class="required">Email Address</label>
                     <div class="input-with-icon">
@@ -76,7 +69,6 @@
                     <span class="field-error" id="emailError"></span>
                 </div>
 
-                <!-- Address -->
                 <div class="form-group">
                     <label for="address">Delivery Address</label>
                     <div class="input-with-icon">
@@ -86,7 +78,6 @@
                     </div>
                 </div>
 
-                <!-- Password -->
                 <div class="form-group">
                     <label for="password" class="required">Password</label>
                     <div class="input-with-icon">
@@ -100,7 +91,6 @@
                     <span class="field-error" id="passwordError"></span>
                 </div>
 
-                <!-- Password strength -->
                 <div class="pw-strength" aria-live="polite">
                     <div class="pw-strength__bar">
                         <div class="pw-strength__fill" id="pwFill"></div>
@@ -108,36 +98,32 @@
                     <span class="pw-strength__label" id="pwLabel"></span>
                 </div>
 
-                <!-- Submit -->
                 <button type="submit" class="submit-btn hero--btn" id="signupBtn">
                     <span class="btn-text">Sign Up</span>
                     <i class="fas fa-spinner fa-spin btn-spinner" aria-hidden="true"></i>
                 </button>
 
-                <!-- Login Link -->
                 <div class="signup-link">
                     Already have an account?
                     <a href="./login.html">Sign in here</a>
                 </div>
-
             </form>
 
         </div>
 
     </main>
 
+    <script defer src="./scripts/ui.js"></script>
     <script defer src="./scripts/auth.js"></script>
     <script>
-        /* ── Read redirect param ── */
         const _signupParams = new URLSearchParams(window.location.search);
         const _signupRedirect = _signupParams.get('redirect') || './index.html';
 
-        /* ── Pass redirect param to login link ── */
         const _loginLink = document.querySelector('a[href="./login.html"]');
         if (_loginLink && _signupParams.get('redirect')) {
             _loginLink.href = `./login.html?redirect=${encodeURIComponent(_signupParams.get('redirect'))}`;
         }
-        /* ── Toggle password visibility ── */
+
         document.getElementById('togglePassword').addEventListener('click', () => {
             const input = document.getElementById('password');
             const icon = document.getElementById('eyeIcon');
@@ -147,7 +133,6 @@
             document.getElementById('togglePassword').setAttribute('aria-label', show ? 'Hide password' : 'Show password');
         });
 
-        /* ── Password strength ── */
         document.getElementById('password').addEventListener('input', () => {
             const val = document.getElementById('password').value;
             const fill = document.getElementById('pwFill');
@@ -169,7 +154,9 @@
             label.style.color = colors[score];
         });
 
-        /* ── Form submit ── */
+        const phoneInput = document.getElementById('phone');
+        window.CraftoraUI?.bindPhoneInput(phoneInput);
+
         document.getElementById('signupForm').addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -183,16 +170,21 @@
             const errorMsg = document.getElementById('signupErrorMsg');
             const btn = document.getElementById('signupBtn');
 
-            // Clear previous errors
             errorDiv.hidden = true;
             ['nameError', 'emailError', 'phoneError', 'passwordError'].forEach(id => {
                 document.getElementById(id).textContent = '';
             });
 
+            const phoneValidation = window.CraftoraUI?.validatePhoneNumber(phone) || {
+                valid: !!phone,
+                error: phone ? '' : 'Phone number is required.',
+                digits: phone
+            };
+
             let valid = true;
             if (!name) { document.getElementById('nameError').textContent = 'Full name is required.'; valid = false; }
             if (!email) { document.getElementById('emailError').textContent = 'Email is required.'; valid = false; }
-            if (!phone) { document.getElementById('phoneError').textContent = 'Phone number is required.'; valid = false; }
+            if (!phoneValidation.valid) { document.getElementById('phoneError').textContent = phoneValidation.error; valid = false; }
             if (!password) { document.getElementById('passwordError').textContent = 'Password is required.'; valid = false; }
             else if (password.length < 6) {
                 document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
@@ -204,7 +196,13 @@
             btn.disabled = true;
 
             setTimeout(() => {
-                const result = attemptSignup({ name, email, phone, address, password });
+                const result = attemptSignup({
+                    name,
+                    email,
+                    phone: phoneValidation.digits || phone,
+                    address,
+                    password
+                });
                 btn.classList.remove('loading');
                 btn.disabled = false;
 
