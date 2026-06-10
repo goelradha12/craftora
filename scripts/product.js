@@ -26,7 +26,7 @@ const getOptImg = (src, width) => {
         url.searchParams.set('fit', 'crop');
         return url.toString();
     } catch (e) {
-        return src; // Fallback if src is not a valid URL
+        return src;
     }
 };
 
@@ -66,7 +66,6 @@ function initProductPage() {
 
     mountNode.innerHTML = renderSkeleton();
 
-    // Use priority hint to grab JSON faster
     fetch('./content/products.json', { priority: 'high' })
         .then(res => res.json())
         .then(data => {
@@ -79,7 +78,6 @@ function initProductPage() {
                 return;
             }
 
-            // --- LCP FIX: DYNAMIC PRELOAD ---
             const mainImgSrc = state.product.images?.default;
             if (mainImgSrc) {
                 const preload = document.createElement('link');
@@ -97,6 +95,7 @@ function initProductPage() {
             mountNode.setAttribute('aria-busy', 'false');
             bindEvents();
             updateCustomizationUI();
+            initDesignPreviewBtn(productId);
         })
         .catch(err => {
             console.error(err);
@@ -210,8 +209,9 @@ function renderProductInfo(product) {
                     <p class="product__color-note">Choose your exact color inside the Design Studio</p>
                 </div>` : ''}
 
-            ${sizes.length ? `
-                <fieldset class="product__option">
+            <div class="product__meta-row">
+                ${sizes.length ? `
+                <fieldset class="product__option" style="margin:0">
                     <legend class="product__option-label">Size</legend>
                     <div class="product__sizes">
                         ${sizes.map((size, idx) => `
@@ -221,9 +221,7 @@ function renderProductInfo(product) {
                                 <span class="product__size-btn">${escapeHTML(size)}</span>
                             </label>`).join('')}
                     </div>
-                </fieldset>` : ''}
-
-            <div class="product__meta-row">
+                </fieldset>` : '<div></div>'}
                 <div class="product__option" style="margin:0">
                     <span class="product__option-label">Quantity</span>
                     <div class="product__qty" role="group" aria-label="Quantity">
@@ -233,6 +231,13 @@ function renderProductInfo(product) {
                     </div>
                 </div>
             </div>
+
+            <button class="product__preview-btn" id="viewDesignPreviewBtn" style="display:none;" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+                View Saved Design
+            </button>
 
             <div class="product__customization-card missing" id="custCard">
                 <div class="product__cust-icon" id="custIcon">🎨</div>
@@ -348,7 +353,7 @@ function renderSkeleton() {
         </nav>
         <div class="product__skeleton">
             <div class="skeleton-block" style="aspect-ratio:4/5;border-radius:1.5rem"></div>
-            <div style="display:flex;flex-direction:column;gap:1rem;padding-top:0.5rem">
+            <div style="display:flex;flex-direction:column;gap:1rem;padding-top:0.5rem;min-height:650px">
                 <div class="skeleton-block" style="height:0.8rem;width:30%;border-radius:4px"></div>
                 <div class="skeleton-block" style="height:2.4rem;width:72%;border-radius:6px"></div>
                 <div class="skeleton-block" style="height:2rem;width:26%;border-radius:4px;margin-top:0.5rem"></div>
@@ -367,6 +372,17 @@ function renderError(message) {
             <p class="product-error__msg">${escapeHTML(message)}</p>
             <a class="product-error__link" href="./products.html">Back to Shop</a>
         </div>`;
+}
+
+function initDesignPreviewBtn(productId) {
+    const btn = $('#viewDesignPreviewBtn');
+    if (!btn) return;
+    if (typeof DesignPreview === 'undefined') return;
+
+    if (DesignPreview.exists(productId)) {
+        btn.style.display = 'inline-flex';
+        btn.addEventListener('click', () => DesignPreview.show(productId));
+    }
 }
 
 function updateCustomizationUI() {
@@ -410,6 +426,12 @@ function updateCustomizationUI() {
         if (addBtnNode) addBtnNode.disabled = false;
         if (buyBtnNode) buyBtnNode.disabled = false;
         if (custLabelNode) custLabelNode.textContent = 'Edit Design';
+
+        // Show/refresh the preview button
+        const prevBtn = $('#viewDesignPreviewBtn');
+        if (prevBtn && typeof DesignPreview !== 'undefined' && DesignPreview.exists(product?.id)) {
+            prevBtn.style.display = 'inline-flex';
+        }
     } else {
         cardNode.className = 'product__customization-card missing';
         if (iconNode) iconNode.textContent = '🎨';
@@ -418,6 +440,10 @@ function updateCustomizationUI() {
         if (addBtnNode) addBtnNode.disabled = true;
         if (buyBtnNode) buyBtnNode.disabled = true;
         if (custLabelNode) custLabelNode.textContent = 'Open Design Studio';
+
+        // Hide the preview button if design was cleared
+        const prevBtn = $('#viewDesignPreviewBtn');
+        if (prevBtn) prevBtn.style.display = 'none';
     }
 }
 
@@ -426,7 +452,6 @@ function bindEvents() {
     $$('.product__thumb').forEach(thumbBtn => {
         thumbBtn.addEventListener('click', () => {
             if (mainImgNode) {
-                // Remove srcset so we can swap out the direct image easily on click
                 mainImgNode.removeAttribute('srcset');
                 mainImgNode.src = thumbBtn.dataset.src || '';
             }
@@ -507,6 +532,7 @@ function bindEvents() {
         if (!state.product) return;
         state.customization = loadCustomization(state.product.id);
         updateCustomizationUI();
+        initDesignPreviewBtn(state.product.id);
     });
 
     window.addEventListener('storage', event => {

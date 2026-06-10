@@ -18,12 +18,12 @@
 
 const DesignPreview = (() => {
 
-    // ── Inject styles once ──────────────────────────────────────────────────────
-    function injectStyles() {
-        if (document.getElementById('dp-styles')) return;
-        const style = document.createElement('style');
-        style.id = 'dp-styles';
-        style.textContent = `
+  // ── Inject styles once ──────────────────────────────────────────────────────
+  function injectStyles() {
+    if (document.getElementById('dp-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'dp-styles';
+    style.textContent = `
       #dp-backdrop {
         position: fixed;
         inset: 0;
@@ -100,15 +100,14 @@ const DesignPreview = (() => {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 28px;
-        min-height: 220px;
+        padding: 28px 40px;
       }
       #dp-image {
-        max-width: 100%;
-        max-height: 320px;
-        object-fit: contain;
-        border-radius: 6px;
+        width: 100%;
+        max-width: 260px;
+        height: auto;
         display: block;
+        border-radius: 6px;
       }
       #dp-no-preview {
         text-align: center;
@@ -174,16 +173,16 @@ const DesignPreview = (() => {
         border-color: #d14420;
       }
     `;
-        document.head.appendChild(style);
-    }
+    document.head.appendChild(style);
+  }
 
-    // ── Build modal DOM ──────────────────────────────────────────────────────────
-    function buildModal() {
-        if (document.getElementById('dp-backdrop')) return;
+  // ── Build modal DOM ──────────────────────────────────────────────────────────
+  function buildModal() {
+    if (document.getElementById('dp-backdrop')) return;
 
-        const backdrop = document.createElement('div');
-        backdrop.id = 'dp-backdrop';
-        backdrop.innerHTML = `
+    const backdrop = document.createElement('div');
+    backdrop.id = 'dp-backdrop';
+    backdrop.innerHTML = `
       <div id="dp-card">
         <div id="dp-header">
           <div id="dp-header-left">
@@ -212,149 +211,149 @@ const DesignPreview = (() => {
         </div>
       </div>
     `;
-        document.body.appendChild(backdrop);
+    document.body.appendChild(backdrop);
 
-        // Close on backdrop click
-        backdrop.addEventListener('click', e => {
-            if (e.target === backdrop) close();
-        });
+    // Close on backdrop click
+    backdrop.addEventListener('click', e => {
+      if (e.target === backdrop) close();
+    });
 
-        // Close button
-        document.getElementById('dp-close').addEventListener('click', close);
+    // Close button
+    document.getElementById('dp-close').addEventListener('click', close);
 
-        // Escape key
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape' && backdrop.classList.contains('dp-visible')) close();
-        });
+    // Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && backdrop.classList.contains('dp-visible')) close();
+    });
+  }
+
+  // ── Open / close ─────────────────────────────────────────────────────────────
+  function open() {
+    const backdrop = document.getElementById('dp-backdrop');
+    if (!backdrop) return;
+    document.body.style.overflow = 'hidden';
+    backdrop.style.display = 'flex';
+    // trigger transition on next frame
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => backdrop.classList.add('dp-visible'));
+    });
+  }
+
+  function close() {
+    const backdrop = document.getElementById('dp-backdrop');
+    if (!backdrop) return;
+    backdrop.classList.remove('dp-visible');
+    document.body.style.overflow = '';
+    setTimeout(() => { backdrop.style.display = 'none'; }, 220);
+  }
+
+  // ── Populate modal with data ──────────────────────────────────────────────────
+  function populate(data, productId) {
+    const img = document.getElementById('dp-image');
+    const noPreview = document.getElementById('dp-no-preview');
+    const subtitle = document.getElementById('dp-subtitle');
+    const meta = document.getElementById('dp-meta');
+    const editBtn = document.getElementById('dp-edit-btn');
+    const customizeBtn = document.getElementById('dp-customize-btn');
+
+    // Subtitle: product name + category
+    const parts = [];
+    if (data.productName) parts.push(data.productName);
+    if (data.productCategory) parts.push(data.productCategory.charAt(0).toUpperCase() + data.productCategory.slice(1));
+    subtitle.textContent = parts.join(' · ') || 'Custom design';
+
+    // Saved date
+    if (data.generatedAt) {
+      const d = new Date(data.generatedAt);
+      meta.textContent = `Saved ${d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}`;
+    } else {
+      meta.textContent = '';
     }
 
-    // ── Open / close ─────────────────────────────────────────────────────────────
-    function open() {
-        const backdrop = document.getElementById('dp-backdrop');
-        if (!backdrop) return;
-        document.body.style.overflow = 'hidden';
-        backdrop.style.display = 'flex';
-        // trigger transition on next frame
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => backdrop.classList.add('dp-visible'));
-        });
+    // Preview image
+    if (data.previewImage) {
+      img.src = data.previewImage;
+      img.style.display = 'block';
+      noPreview.style.display = 'none';
+    } else {
+      img.style.display = 'none';
+      img.src = '';
+      noPreview.style.display = 'block';
     }
 
-    function close() {
-        const backdrop = document.getElementById('dp-backdrop');
-        if (!backdrop) return;
-        backdrop.classList.remove('dp-visible');
-        document.body.style.overflow = '';
-        setTimeout(() => { backdrop.style.display = 'none'; }, 220);
+    // Edit button — links to customize.html
+    const customizeUrl = `./customize.html${productId ? `?id=${productId}` : ''}`;
+    editBtn.onclick = () => { window.location.href = customizeUrl; };
+
+    // If no preview image, show a "Customize" button as CTA
+    if (!data.previewImage) {
+      customizeBtn.style.display = 'inline-flex';
+      customizeBtn.onclick = () => { window.location.href = customizeUrl; };
+    } else {
+      customizeBtn.style.display = 'none';
+    }
+  }
+
+  // ── Public API ────────────────────────────────────────────────────────────────
+
+  /**
+   * Show the design preview for a given product ID.
+   * @param {string|number} productId
+   */
+  function show(productId) {
+    injectStyles();
+    buildModal();
+
+    const key = productId ? `designData_${productId}` : 'designData';
+    const raw = localStorage.getItem(key);
+
+    if (!raw) {
+      console.warn(`DesignPreview: no saved design found for key "${key}"`);
+      return false;
     }
 
-    // ── Populate modal with data ──────────────────────────────────────────────────
-    function populate(data, productId) {
-        const img = document.getElementById('dp-image');
-        const noPreview = document.getElementById('dp-no-preview');
-        const subtitle = document.getElementById('dp-subtitle');
-        const meta = document.getElementById('dp-meta');
-        const editBtn = document.getElementById('dp-edit-btn');
-        const customizeBtn = document.getElementById('dp-customize-btn');
-
-        // Subtitle: product name + category
-        const parts = [];
-        if (data.productName) parts.push(data.productName);
-        if (data.productCategory) parts.push(data.productCategory.charAt(0).toUpperCase() + data.productCategory.slice(1));
-        subtitle.textContent = parts.join(' · ') || 'Custom design';
-
-        // Saved date
-        if (data.generatedAt) {
-            const d = new Date(data.generatedAt);
-            meta.textContent = `Saved ${d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}`;
-        } else {
-            meta.textContent = '';
-        }
-
-        // Preview image
-        if (data.previewImage) {
-            img.src = data.previewImage;
-            img.style.display = 'block';
-            noPreview.style.display = 'none';
-        } else {
-            img.style.display = 'none';
-            img.src = '';
-            noPreview.style.display = 'block';
-        }
-
-        // Edit button — links to customize.html
-        const customizeUrl = `./customize.html${productId ? `?id=${productId}` : ''}`;
-        editBtn.onclick = () => { window.location.href = customizeUrl; };
-
-        // If no preview image, show a "Customize" button as CTA
-        if (!data.previewImage) {
-            customizeBtn.style.display = 'inline-flex';
-            customizeBtn.onclick = () => { window.location.href = customizeUrl; };
-        } else {
-            customizeBtn.style.display = 'none';
-        }
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch (e) {
+      console.error('DesignPreview: could not parse saved design data', e);
+      return false;
     }
 
-    // ── Public API ────────────────────────────────────────────────────────────────
+    populate(data, productId);
+    open();
+    return true;
+  }
 
-    /**
-     * Show the design preview for a given product ID.
-     * @param {string|number} productId
-     */
-    function show(productId) {
-        injectStyles();
-        buildModal();
+  /**
+   * Auto-detect product ID from ?id= URL param and show preview.
+   */
+  function showFromUrl() {
+    const id = new URLSearchParams(window.location.search).get('id');
+    return show(id);
+  }
 
-        const key = productId ? `designData_${productId}` : 'designData';
-        const raw = localStorage.getItem(key);
+  /**
+   * Returns true if a saved design exists for the given product ID.
+   * Useful for conditionally showing a "View design" button.
+   * @param {string|number} productId
+   */
+  function exists(productId) {
+    const key = productId ? `designData_${productId}` : 'designData';
+    return !!localStorage.getItem(key);
+  }
 
-        if (!raw) {
-            console.warn(`DesignPreview: no saved design found for key "${key}"`);
-            return false;
-        }
+  /**
+   * Returns the raw saved design data object (or null if not found).
+   * @param {string|number} productId
+   */
+  function getData(productId) {
+    const key = productId ? `designData_${productId}` : 'designData';
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    try { return JSON.parse(raw); } catch { return null; }
+  }
 
-        let data;
-        try {
-            data = JSON.parse(raw);
-        } catch (e) {
-            console.error('DesignPreview: could not parse saved design data', e);
-            return false;
-        }
-
-        populate(data, productId);
-        open();
-        return true;
-    }
-
-    /**
-     * Auto-detect product ID from ?id= URL param and show preview.
-     */
-    function showFromUrl() {
-        const id = new URLSearchParams(window.location.search).get('id');
-        return show(id);
-    }
-
-    /**
-     * Returns true if a saved design exists for the given product ID.
-     * Useful for conditionally showing a "View design" button.
-     * @param {string|number} productId
-     */
-    function exists(productId) {
-        const key = productId ? `designData_${productId}` : 'designData';
-        return !!localStorage.getItem(key);
-    }
-
-    /**
-     * Returns the raw saved design data object (or null if not found).
-     * @param {string|number} productId
-     */
-    function getData(productId) {
-        const key = productId ? `designData_${productId}` : 'designData';
-        const raw = localStorage.getItem(key);
-        if (!raw) return null;
-        try { return JSON.parse(raw); } catch { return null; }
-    }
-
-    return { show, showFromUrl, exists, getData, close };
+  return { show, showFromUrl, exists, getData, close };
 
 })();

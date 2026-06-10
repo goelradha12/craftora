@@ -1861,7 +1861,7 @@
                     await drawImageLayerToCanvas(ctx, layer);
                 } else if (layer.type === 'text') {
                     const svgStr = makeCurvedTextSVG(layer);
-                    await drawSvgStringToCanvas(ctx, svgStr, layer.x, layer.y, layer.w, layer.h);
+                    await drawSvgStringToCanvas(ctx, svgStr, layer.x, layer.y, layer.w, null);
                 }
             }
 
@@ -1874,7 +1874,15 @@
                 const url = URL.createObjectURL(blob);
                 const img = new Image();
                 img.onload = () => {
-                    ctx.drawImage(img, x, y, w, h);
+                    if (h === null) {
+                        // Draw at natural aspect ratio — width fixed, height auto
+                        const naturalH = img.naturalHeight || img.height;
+                        const naturalW = img.naturalWidth || img.width;
+                        const drawH = naturalW > 0 ? (w * naturalH / naturalW) : naturalH;
+                        ctx.drawImage(img, x, y, w, drawH);
+                    } else {
+                        ctx.drawImage(img, x, y, w, h);
+                    }
                     URL.revokeObjectURL(url);
                     resolve();
                 };
