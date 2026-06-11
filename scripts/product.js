@@ -197,18 +197,6 @@ function renderProductInfo(product) {
 
             <p class="product__description">${escapeHTML(product.description)}</p>
 
-            ${colors.length ? `
-                <div class="product__option">
-                    <span class="product__option-label">Available Colors</span>
-                    <div class="product__colors">
-                        ${colors.map((hex, idx) => `
-                            <span class="product__color-swatch"
-                                  style="background:${escapeHTML(hex)}"
-                                  title="${escapeHTML(colorNames[idx] || hex)}"></span>`).join('')}
-                    </div>
-                    <p class="product__color-note">Choose your exact color inside the Design Studio</p>
-                </div>` : ''}
-
             <div class="product__meta-row">
                 ${sizes.length ? `
                 <fieldset class="product__option" style="margin:0">
@@ -232,19 +220,26 @@ function renderProductInfo(product) {
                 </div>
             </div>
 
-            <button class="product__preview-btn" id="viewDesignPreviewBtn" style="display:none;" type="button">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-                </svg>
-                View Saved Design
-            </button>
-
+            
+            <p>Product available in Multiple Colors</p>
+            
             <div class="product__customization-card missing" id="custCard">
-                <div class="product__cust-icon" id="custIcon">🎨</div>
-                <div class="product__cust-text">
-                    <p class="product__cust-title" id="custTitle">Design required</p>
-                    <p class="product__cust-desc"  id="custDesc">Open the studio and save your design to enable checkout.</p>
+                <div class="product__cust-preview-wrap">
+                
+                    <img id="custPreviewImg" class="product__cust-preview" alt="Saved design preview" style="display:none;">
+                    <div class="product__cust-icon" id="custIcon">🎨</div>
                 </div>
+                <div class="product__cust-text">
+                <button class="product__preview-btn" id="viewDesignPreviewBtn" style="display:none;" type="button">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Preview
+                </button>
+                    <p class="product__cust-title" id="custTitle">Design required</p>
+                    <p class="product__cust-desc" id="custDesc">Open the studio and save your design to enable checkout.</p>
+                </div>
+                
             </div>
 
             <div class="product__actions">
@@ -391,6 +386,7 @@ function updateCustomizationUI() {
     let outOfStock = Number(product?.stock ?? 0) <= 0;
 
     let cardNode = $('#custCard');
+    let previewNode = $('#custPreviewImg');
     let iconNode = $('#custIcon');
     let titleNode = $('#custTitle');
     let descNode = $('#custDesc');
@@ -403,6 +399,10 @@ function updateCustomizationUI() {
 
     if (outOfStock) {
         cardNode.className = 'product__customization-card missing';
+        if (previewNode) {
+            previewNode.style.display = 'none';
+            previewNode.removeAttribute('src');
+        }
         if (iconNode) iconNode.textContent = '✗';
         if (titleNode) titleNode.textContent = 'Out of stock';
         if (descNode) descNode.textContent = 'This product is currently unavailable.';
@@ -415,35 +415,46 @@ function updateCustomizationUI() {
     if (hasDesign) {
         let savedColorHex = state.customization?.shirtColor;
         let displayColorName = savedColorHex;
+
         if (product?.colors && product?.colorNames) {
             let colorIndex = product.colors.indexOf(savedColorHex);
             if (colorIndex > -1) displayColorName = product.colorNames[colorIndex];
         }
+
         cardNode.className = 'product__customization-card ready';
+
+        if (previewNode && state.customization?.previewImage) {
+            previewNode.src = state.customization.previewImage;
+            previewNode.style.display = 'block';
+            if (iconNode) iconNode.style.display = 'none';
+        } else if (previewNode) {
+            previewNode.style.display = 'none';
+            previewNode.removeAttribute('src');
+            if (iconNode) iconNode.style.display = '';
+        }
+
         if (iconNode) iconNode.textContent = '✓';
         if (titleNode) titleNode.textContent = 'Design saved — ready to order';
         if (descNode) descNode.textContent = `Color: ${displayColorName || 'custom'}  ·  Click "Edit Design" to make changes`;
         if (addBtnNode) addBtnNode.disabled = false;
         if (buyBtnNode) buyBtnNode.disabled = false;
         if (custLabelNode) custLabelNode.textContent = 'Edit Design';
-
-        // Show/refresh the preview button
-        const prevBtn = $('#viewDesignPreviewBtn');
-        if (prevBtn && typeof DesignPreview !== 'undefined' && DesignPreview.exists(product?.id)) {
-            prevBtn.style.display = 'inline-flex';
-        }
     } else {
         cardNode.className = 'product__customization-card missing';
-        if (iconNode) iconNode.textContent = '🎨';
+
+        if (previewNode) {
+            previewNode.style.display = 'none';
+            previewNode.removeAttribute('src');
+        }
+        if (iconNode) {
+            iconNode.style.display = '';
+            iconNode.textContent = '🎨';
+        }
         if (titleNode) titleNode.textContent = 'Design required';
         if (descNode) descNode.textContent = 'Open the studio and save your design to enable checkout.';
         if (addBtnNode) addBtnNode.disabled = true;
         if (buyBtnNode) buyBtnNode.disabled = true;
         if (custLabelNode) custLabelNode.textContent = 'Open Design Studio';
-
-        // Hide the preview button if design was cleared
-        const prevBtn = $('#viewDesignPreviewBtn');
-        if (prevBtn) prevBtn.style.display = 'none';
     }
 }
 
@@ -540,6 +551,14 @@ function bindEvents() {
             state.customization = loadCustomization(state.product.id);
             updateCustomizationUI();
         }
+    });
+
+    window.addEventListener('craftora-design-updated', event => {
+        if (!state.product) return;
+        if (String(event.detail?.productId) !== String(state.product.id)) return;
+        state.customization = loadCustomization(state.product.id);
+        updateCustomizationUI();
+        initDesignPreviewBtn(state.product.id);
     });
 }
 

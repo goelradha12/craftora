@@ -10,30 +10,6 @@
         "A5",
         "A4"
       ],
-      "colors": [
-        "#000000",
-        "#FFFFFF",
-        "#8B4513",
-        "#191970",
-        "#2F4F4F",
-        "#800000",
-        "#556B2F",
-        "#A9A9A9",
-        "#D2B48C",
-        "#483D8D"
-      ],
-      "colorNames": [
-        "Black",
-        "White",
-        "Saddle Brown",
-        "Midnight Blue",
-        "Dark Slate Gray",
-        "Maroon",
-        "Dark Olive Green",
-        "Dark Gray",
-        "Tan",
-        "Dark Slate Blue"
-      ],
       "productDetails": [
         {
           "label": "pages",
@@ -88,30 +64,6 @@
       "description": "Professional calendar diary with monthly planners, weekly schedules, and note sections.",
       "sizes": [
         "A5"
-      ],
-      "colors": [
-        "#000000",
-        "#191970",
-        "#2F4F4F",
-        "#556B2F",
-        "#A9A9A9",
-        "#FFFFFF",
-        "#483D8B",
-        "#708090",
-        "#36454F",
-        "#4B5563"
-      ],
-      "colorNames": [
-        "Black",
-        "Midnight Blue",
-        "Dark Slate Gray",
-        "Dark Olive Green",
-        "Dark Gray",
-        "White",
-        "Dark Slate Blue",
-        "Slate Gray",
-        "Charcoal",
-        "Cool Gray"
       ],
       "productDetails": [
         {
@@ -181,30 +133,6 @@
       "sizes": [
         "A4"
       ],
-      "colors": [
-        "#FF69B4",
-        "#FFD700",
-        "#FF4500",
-        "#00CED1",
-        "#8A2BE2",
-        "#32CD32",
-        "#FF8C00",
-        "#1E90FF",
-        "#FF1493",
-        "#00FA9A"
-      ],
-      "colorNames": [
-        "Hot Pink",
-        "Gold",
-        "Orange Red",
-        "Dark Turquoise",
-        "Blue Violet",
-        "Lime Green",
-        "Dark Orange",
-        "Dodger Blue",
-        "Deep Pink",
-        "Medium Spring Green"
-      ],
       "productDetails": [
         {
           "label": "pages",
@@ -262,30 +190,6 @@
         "500ml",
         "750ml"
       ],
-      "colors": [
-        "#1E90FF",
-        "#000000",
-        "#FFFFFF",
-        "#C0C0C0",
-        "#228B22",
-        "#FF0000",
-        "#4B0082",
-        "#FFD700",
-        "#00FFFF",
-        "#FF69B4"
-      ],
-      "colorNames": [
-        "Dodger Blue",
-        "Black",
-        "White",
-        "Silver",
-        "Forest Green",
-        "Red",
-        "Indigo",
-        "Gold",
-        "Cyan",
-        "Hot Pink"
-      ],
       "productDetails": [
         {
           "label": "material",
@@ -333,30 +237,6 @@
       "description": "Stylish gym bottle for daily hydration.",
       "sizes": [
         "1L"
-      ],
-      "colors": [
-        "#FF4500",
-        "#9400D3",
-        "#00BFFF",
-        "#32CD32",
-        "#FF1493",
-        "#FFD700",
-        "#8A2BE2",
-        "#00FA9A",
-        "#FF8C00",
-        "#1E90FF"
-      ],
-      "colorNames": [
-        "Orange Red",
-        "Dark Violet",
-        "Deep Sky Blue",
-        "Lime Green",
-        "Deep Pink",
-        "Gold",
-        "Blue Violet",
-        "Medium Spring Green",
-        "Dark Orange",
-        "Dodger Blue"
       ],
       "productDetails": [
         {
@@ -406,30 +286,6 @@
       "sizes": [
         "750ML",
         "1L"
-      ],
-      "colors": [
-        "#00BFFF",
-        "#FF69B4",
-        "#32CD32",
-        "#FFFFFF",
-        "#000000",
-        "#FF0000",
-        "#FFFF00",
-        "#800080",
-        "#FFA500",
-        "#808080"
-      ],
-      "colorNames": [
-        "Deep Sky Blue",
-        "Hot Pink",
-        "Lime Green",
-        "White",
-        "Black",
-        "Red",
-        "Yellow",
-        "Purple",
-        "Orange",
-        "Gray"
       ],
       "productDetails": [
         {
@@ -481,30 +337,6 @@
         "M",
         "L",
         "XL"
-      ],
-      "colors": [
-        "#FFFFFF",
-        "#000000",
-        "#D3D3D3",
-        "#191970",
-        "#8B0000",
-        "#556B2F",
-        "#F5F5DC",
-        "#708090",
-        "#A52A2A",
-        "#2F4F4F"
-      ],
-      "colorNames": [
-        "White",
-        "Black",
-        "Light Gray",
-        "Midnight Blue",
-        "Dark Red",
-        "Dark Olive Green",
-        "Beige",
-        "Slate Gray",
-        "Brown",
-        "Dark Slate Gray"
       ],
       "productDetails": [
         {
@@ -560,30 +392,6 @@
         "L",
         "XL"
       ],
-      "colors": [
-        "#0000FF",
-        "#222222",
-        "#FFFFFF",
-        "#FF0000",
-        "#FFFF00",
-        "#008000",
-        "#800080",
-        "#FFA500",
-        "#00FFFF",
-        "#FF1493"
-      ],
-      "colorNames": [
-        "Blue",
-        "Dark Gray",
-        "White",
-        "Red",
-        "Yellow",
-        "Green",
-        "Purple",
-        "Orange",
-        "Cyan",
-        "Deep Pink"
-      ],
       "productDetails": [
         {
           "label": "fabric",
@@ -638,30 +446,6 @@
         "S",
         "M",
         "L"
-      ],
-      "colors": [
-        "#FFFFFF",
-        "#228B22",
-        "#000000",
-        "#000080",
-        "#808080",
-        "#FF0000",
-        "#ADD8E6",
-        "#FFC0CB",
-        "#FFFFE0",
-        "#A52A2A"
-      ],
-      "colorNames": [
-        "White",
-        "Forest Green",
-        "Black",
-        "Navy",
-        "Gray",
-        "Red",
-        "Light Blue",
-        "Pink",
-        "Light Yellow",
-        "Brown"
       ],
       "productDetails": [
         {
@@ -719,30 +503,6 @@
         "L",
         "XL"
       ],
-      "colors": [
-        "#FFFFFF",
-        "#000000",
-        "#808080",
-        "#F5F5DC",
-        "#000080",
-        "#8B0000",
-        "#2F4F4F",
-        "#D3D3D3",
-        "#FFE4C4",
-        "#E6E6FA"
-      ],
-      "colorNames": [
-        "White",
-        "Black",
-        "Gray",
-        "Beige",
-        "Navy",
-        "Dark Red",
-        "Dark Slate Gray",
-        "Light Gray",
-        "Bisque",
-        "Lavender"
-      ],
       "productDetails": [
         {
           "label": "fabric",
@@ -786,7 +546,6 @@
       "featured": true,
       "stock": 200
     },
-    
     {
       "id": "P012",
       "name": "Vibrant Ceramic Coffee Cup",
@@ -796,30 +555,6 @@
       "sizes": [
         "350ml",
         "500ml"
-      ],
-      "colors": [
-        "#FF5733",
-        "#33FF57",
-        "#3357FF",
-        "#F1C40F",
-        "#9B59B6",
-        "#E67E22",
-        "#1ABC9C",
-        "#E74C3C",
-        "#34495E",
-        "#ECF0F1"
-      ],
-      "colorNames": [
-        "Vibrant Orange",
-        "Lime Green",
-        "Royal Blue",
-        "Sunshine Yellow",
-        "Amethyst Purple",
-        "Carrot Orange",
-        "Teal",
-        "Crimson Red",
-        "Navy Blue",
-        "Soft White"
       ],
       "productDetails": [
         {
@@ -876,30 +611,6 @@
       "description": "Ceramic mug with high-quality custom print.",
       "sizes": [
         "300ml"
-      ],
-      "colors": [
-        "#FFFFFF",
-        "#000000",
-        "#FF0000",
-        "#0000FF",
-        "#FFFF00",
-        "#008000",
-        "#FFA500",
-        "#800080",
-        "#FFC0CB",
-        "#A52A2A"
-      ],
-      "colorNames": [
-        "White",
-        "Black",
-        "Red",
-        "Blue",
-        "Yellow",
-        "Green",
-        "Orange",
-        "Purple",
-        "Pink",
-        "Brown"
       ],
       "productDetails": [
         {

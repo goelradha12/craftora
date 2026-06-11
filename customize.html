@@ -73,7 +73,6 @@
             background: var(--surface-2);
             color: var(--ink);
             -webkit-font-smoothing: antialiased;
-            font-family: 'Inter', sans-serif;
         }
 
         #app {
@@ -85,7 +84,7 @@
         }
 
         #topbar {
-            grid-column: 1 / -1;
+            grid-column: 1/-1;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -116,7 +115,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             max-width: 260px;
-            font-family: 'Inter', sans-serif;
         }
 
         .topbar-badge {
@@ -178,7 +176,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-family: 'Inter', sans-serif;
         }
 
         .panel-toggle-label .pill {
@@ -234,7 +231,6 @@
             font-weight: 500;
             color: var(--ink-3);
             letter-spacing: .02em;
-            font-family: 'Inter', sans-serif;
         }
 
         .field-row {
@@ -298,6 +294,7 @@
             flex-shrink: 0;
         }
 
+        /* ── Full palette swatches ── */
         .color-swatches {
             display: flex;
             gap: 5px;
@@ -316,7 +313,7 @@
         }
 
         .cs:hover {
-            transform: scale(1.15);
+            transform: scale(1.18);
         }
 
         .cs.sel {
@@ -324,8 +321,53 @@
             box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ink);
         }
 
-        .cs.white {
+        .cs.light {
             box-shadow: inset 0 0 0 1px var(--border-2);
+        }
+
+        /* Tooltip */
+        .cs-tooltip {
+            position: fixed;
+            background: var(--ink);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 4px 9px;
+            border-radius: 6px;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity .12s;
+            transform: translateX(-50%) translateY(-100%);
+            margin-top: -4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cs-tooltip.show {
+            opacity: 1;
+        }
+
+        /* Selected color name chip */
+        #color-name-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--surface-3);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 4px 12px 4px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ink-2);
+        }
+
+        #color-name-chip .chip-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(0, 0, 0, .14);
+            flex-shrink: 0;
         }
 
         .align-row {
@@ -431,7 +473,7 @@
         }
 
         .tpl-btn.active::after {
-            content: '✓';
+            content: 'checkmark';
             position: absolute;
             top: 4px;
             right: 4px;
@@ -464,7 +506,6 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-family: 'Inter', sans-serif;
         }
 
         .btn {
@@ -671,7 +712,6 @@
             font-size: 11px;
             color: var(--ink-3);
             line-height: 1.5;
-            font-family: 'Inter', sans-serif;
         }
 
         .info-banner strong {
@@ -687,7 +727,6 @@
             font-size: 11px;
             color: var(--ink-3);
             line-height: 1.5;
-            font-family: 'Inter', sans-serif;
         }
 
         .sel-box strong {
@@ -826,7 +865,6 @@
             font-size: 11px;
             color: var(--ink-3);
             gap: 12px;
-            font-family: 'Inter', sans-serif;
         }
 
         #status-dot {
@@ -846,7 +884,6 @@
             background: #f59e0b;
         }
 
-        /* ── Save bar — prominent on desktop ── */
         #save-bar {
             grid-column: 1;
             display: flex;
@@ -864,7 +901,6 @@
             font-weight: 700;
             letter-spacing: .01em;
             border-radius: var(--r-md);
-            font-family: 'Inter', sans-serif;
         }
 
         .modal-backdrop {
@@ -907,12 +943,12 @@
         @keyframes modal-in {
             from {
                 opacity: 0;
-                transform: scale(.94) translateY(8px);
+                transform: scale(.94) translateY(8px)
             }
 
             to {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                transform: scale(1) translateY(0)
             }
         }
 
@@ -937,7 +973,6 @@
             font-weight: 700;
             color: var(--ink);
             margin-bottom: 8px;
-            font-family: 'Inter', sans-serif;
         }
 
         .modal-body {
@@ -945,7 +980,6 @@
             color: var(--ink-3);
             line-height: 1.6;
             margin-bottom: 20px;
-            font-family: 'Inter', sans-serif;
         }
 
         .modal-actions {
@@ -983,7 +1017,6 @@
             transition: opacity .2s, transform .2s;
             z-index: 9999;
             white-space: nowrap;
-            font-family: 'Inter', sans-serif;
         }
 
         #toast.show {
@@ -1007,7 +1040,7 @@
             opacity: 1;
         }
 
-        @media (max-width: 860px) {
+        @media (max-width:860px) {
             #app {
                 display: flex;
                 flex-direction: column;
@@ -1065,22 +1098,14 @@
                 padding: 12px;
             }
 
-            .topbar-right button {
-                font-size: 0;
-                padding: 6px;
-                gap: 0;
-            }
-
-            .topbar-right button svg {
-                margin: 0;
-            }
-
+            .topbar-right button,
             .topbar-left .btn {
                 font-size: 0;
                 padding: 6px;
                 gap: 0;
             }
 
+            .topbar-right button svg,
             .topbar-left .btn svg {
                 margin: 0;
             }
@@ -1101,14 +1126,14 @@
                     </svg>
                     <span>Back to Product</span>
                 </button>
-                <span id="product-name">Loading…</span>
+                <span id="product-name">Loading&#x2026;</span>
                 <span class="topbar-badge" id="category-badge"></span>
                 <span class="unsaved-dot" id="unsaved-dot"></span>
             </div>
             <div class="topbar-right">
-                <button class="btn btn-sm" onclick="alignSel('hc')" title="Center horizontally">⇔ <span>Center
+                <button class="btn btn-sm" onclick="alignSel('hc')" title="Center horizontally">&#x21D4; <span>Center
                         X</span></button>
-                <button class="btn btn-sm" onclick="alignSel('vc')" title="Center vertically">⇕ <span>Center
+                <button class="btn btn-sm" onclick="alignSel('vc')" title="Center vertically">&#x21D5; <span>Center
                         Y</span></button>
                 <button class="btn btn-sm btn-danger" onclick="removeSel()">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1124,9 +1149,10 @@
 
         <aside id="sidebar">
             <div id="side-tabs-wrap"></div>
-            <div class="info-banner" id="info-banner">Loading product settings…</div>
+            <div class="info-banner" id="info-banner">Loading product settings&#x2026;</div>
 
-            <div class="panel-section open" id="panel-color" style="display:none">
+            <!-- COLOR PANEL: open by default, first -->
+            <div class="panel-section" id="panel-color" style="display:none">
                 <div class="panel-toggle" onclick="togglePanel('color')">
                     <span class="panel-toggle-label">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1143,10 +1169,11 @@
                 </div>
                 <div class="panel-body" id="body-color">
                     <div class="field">
-                        <span class="field-label">Choose color</span>
-                        <div class="color-field">
-                            <div class="color-swatches" id="preset-swatches"></div>
+                        <div id="color-name-chip">
+                            <span class="chip-dot" id="chip-dot"></span>
+                            <span id="chip-label">&#x2014;</span>
                         </div>
+                        <div class="color-swatches" id="preset-swatches" style="margin-top:8px;"></div>
                     </div>
                 </div>
             </div>
@@ -1171,10 +1198,8 @@
                 </div>
                 <div class="panel-body" id="body-design">
                     <div class="tpl-grid" id="tpl-grid"></div>
-                    <div class="sel-box" id="design-sel-box">
-                        <strong>No design selected</strong><br>
-                        Pick a template above or drag one onto the canvas.
-                    </div>
+                    <div class="sel-box" id="design-sel-box"><strong>No design selected</strong><br>Pick a template
+                        above or drag one onto the canvas.</div>
                     <div style="display:flex;gap:6px;">
                         <button class="btn btn-sm" style="flex:1" onclick="centerSel()">
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1208,9 +1233,8 @@
                 <div class="panel-body" id="body-text">
                     <div class="field">
                         <label class="field-label" for="txt-content">Content</label>
-                        <textarea id="txt-content" rows="2" placeholder="Your text…">YOUR TEXT</textarea>
+                        <textarea id="txt-content" rows="2" placeholder="Your text&#x2026;">YOUR TEXT</textarea>
                     </div>
-
                     <div class="field-row">
                         <div class="field">
                             <label class="field-label" for="txt-font">Font</label>
@@ -1229,7 +1253,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="field-row">
                         <div class="field">
                             <label class="field-label" for="txt-size">Size (px)</label>
@@ -1240,7 +1263,6 @@
                             <input type="number" id="txt-width" value="160" min="40" max="320" oninput="syncTextSel()">
                         </div>
                     </div>
-
                     <div class="field">
                         <span class="field-label">Alignment</span>
                         <div class="align-row">
@@ -1249,19 +1271,14 @@
                             <button class="align-btn" id="al-right" onclick="setTextAlign('right')">Right</button>
                         </div>
                     </div>
-
                     <div class="field">
-                        <span class="field-label">
-                            Curve
-                            <strong id="curve-val" style="color:var(--ink);margin-left:4px;">0°</strong>
-                        </span>
+                        <span class="field-label">Curve <strong id="curve-val"
+                                style="color:var(--ink);margin-left:4px;">0&#xB0;</strong></span>
                         <input type="range" id="txt-curve" min="-60" max="60" value="0" step="1"
-                            oninput="document.getElementById('curve-val').textContent=this.value+'°'; syncTextSel()">
-                        <div class="range-labels">
-                            <span>Arch ↓</span><span>Flat</span><span>Arch ↑</span>
+                            oninput="document.getElementById('curve-val').textContent=this.value+'&#xB0;'; syncTextSel()">
+                        <div class="range-labels"><span>Arch &#x2193;</span><span>Flat</span><span>Arch &#x2191;</span>
                         </div>
                     </div>
-
                     <div class="field">
                         <span class="field-label">Color</span>
                         <div class="color-field">
@@ -1269,12 +1286,8 @@
                             <span style="font-size:11px;color:var(--ink-3);">Text color</span>
                         </div>
                     </div>
-
-                    <div class="sel-box" id="text-sel-box">
-                        <strong>No text selected</strong><br>
-                        Add text then click a layer to edit it.
-                    </div>
-
+                    <div class="sel-box" id="text-sel-box"><strong>No text selected</strong><br>Add text then click a
+                        layer to edit it.</div>
                     <div style="display:flex;gap:6px;align-items:stretch;">
                         <button class="btn-add-text" onclick="addTextLayer()">
                             <span class="at-icon">+</span>
@@ -1290,9 +1303,8 @@
         <main id="canvas-wrap">
             <div id="canvas-toolbar">
                 <div class="toolbar-cluster">
-                    <span id="side-label" style="font-size:12px;color:var(--ink-3);">
-                        Editing <strong style="color:var(--ink);">front</strong>
-                    </span>
+                    <span id="side-label" style="font-size:12px;color:var(--ink-3);">Editing <strong
+                            style="color:var(--ink);">front</strong></span>
                 </div>
                 <div class="toolbar-cluster">
                     <button class="btn btn-xs btn-danger" onclick="promptResetDesign()">
@@ -1306,7 +1318,6 @@
                     <button class="btn btn-xs" onclick="clearSide()">Clear Side</button>
                 </div>
             </div>
-
             <div id="canvas-stage-area">
                 <div id="stage">
                     <svg id="stage-svg" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -1329,7 +1340,7 @@
         <div id="statusbar">
             <div style="display:flex;align-items:center;gap:6px;">
                 <span id="status-dot"></span>
-                <span id="status-msg">Loading…</span>
+                <span id="status-msg">Loading&#x2026;</span>
             </div>
             <span id="layer-info" style="color:var(--ink-4);"></span>
         </div>
@@ -1353,14 +1364,12 @@
             </div>
         </div>
     </div>
-
     <div class="modal-backdrop" id="reset-modal">
         <div class="modal-card">
-            <div class="modal-icon danger">🗑️</div>
+            <div class="modal-icon danger">&#x1F5D1;&#xFE0F;</div>
             <div class="modal-title">Reset all designs?</div>
             <div class="modal-body">This will clear <strong>all layers on every side</strong> (front, back &amp; wrap)
-                and
-                start fresh. This cannot be undone.</div>
+                and start fresh. This cannot be undone.</div>
             <div class="modal-actions">
                 <button class="btn btn-sm" onclick="closeModal('reset-modal')">Cancel</button>
                 <button class="btn btn-sm btn-danger" onclick="confirmResetDesign()">Yes, reset everything</button>
@@ -1369,41 +1378,64 @@
     </div>
 
     <div id="toast"></div>
-
-    <!-- Hidden canvas used only for snapshot generation -->
+    <div class="cs-tooltip" id="cs-tooltip"></div>
     <canvas id="snapshot-canvas" style="display:none;"></canvas>
 
     <script>
         const TEMPLATE_JSON_URL = './content/templates.json';
         const PRODUCTS_JSON_URL = './content/products.json';
 
+        /* ── Full color palette ── */
+        const colorPalette = {
+            pacificBlue: "#B0DDF7", angelBlue: "#A7BFE5", brightBlue: "#50C6F6",
+            turquoiseBlue: "#22B1C2", happyBlue: "#2C91BF", royalBlue: "#0055B8",
+            blueberry: "#2D2877", navyBlue: "#190850", iceBlue: "#C8E1E6",
+            robinsBlue: "#92D6D3", happySky: "#7ACDE7", aquaBlue: "#54C1C4",
+            aquaMint: "#4EBBAD", teal: "#1FAAAD", mediumTeal: "#2D8E95",
+            darkTeal: "#237C7C", pastelGreen: "#CBE5BE", celeryGreen: "#B0D69A",
+            pistachio: "#A5D49E", seafoam: "#ABC5C1", freshGreen: "#ACC636",
+            greenGrass: "#8ECB3F", emerald: "#6EA864", forestGreen: "#4B7A47",
+            pastelLilac: "#D0CFE7", lilac: "#BFBDE6", lavender: "#C7A2D0",
+            plum: "#7B6AB0", violet: "#6D2B76", orchidPurple: "#94307D",
+            blueViolet: "#4B2C76", eggplant: "#602058", pastelPink: "#F7D8E7",
+            cottonCandy: "#F2B8D1", dustyRose: "#E599AC", sweetPink: "#F49ABB",
+            rose: "#F1719B", hotPink: "#EE4791", mameyPink: "#F05778",
+            fuschia: "#DC126B", palePeach: "#FDE0DA", peach: "#F7BCA4",
+            lightCoral: "#F47B7D", honeysuckle: "#F07761", prettyRed: "#E12D3A",
+            wineRed: "#A91E3E", burgundy: "#8E2D30", happyOrange: "#F79854",
+            tangerine: "#F47F25", tango: "#F15B24", burntOrange: "#DC8720",
+            pumpkin: "#DA5C29", rust: "#BF6227", leather: "#9B5B51",
+            chocolate: "#644245", buttercup: "#FFF546", vanilla: "#FFF481",
+            honey: "#F5E47D", brightYellow: "#FEF200", sunnyYellow: "#FDEB3F",
+            mustardYellow: "#E3C34D", camel: "#D7C15F", sand: "#E1CF85",
+            tan: "#D7CDB4", softTaupe: "#B3A99D", taupe: "#8B7D7D",
+            darkBrown: "#4B3735", softGray: "#D0D2D4", slateGray: "#9A9C9F",
+            charcoal: "#58585A", black: "#231F20"
+        };
+
+        const PALETTE_KEYS = Object.keys(colorPalette);
+        const DEFAULT_COLOR = colorPalette[PALETTE_KEYS[0]];
+
+        function getColorKey(hex) {
+            const h = String(hex).toLowerCase();
+            return PALETTE_KEYS.find(k => colorPalette[k].toLowerCase() === h) || null;
+        }
+        function formatColorName(key) {
+            if (!key) return '';
+            return key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
+        }
+
         const CATEGORY_CONFIG = {
-            tshirt: {
-                label: 'T-Shirt', sides: ['front', 'back'], defaultSide: 'front',
-                stageW: 300, stageH: 340, productShape: 'shirt', showColor: true,
-                colorPresets: ['#111827', '#2563EB', '#DC2626', '#16A34A', '#7C3AED', '#F9FAF8', '#F59E0B', '#0F172A'],
-            },
-            diary: {
-                label: 'Diary', sides: ['front', 'back'], defaultSide: 'front',
-                stageW: 300, stageH: 360, productShape: 'rectBook', showColor: true,
-                colorPresets: ['#111827', '#2563EB', '#DC2626', '#16A34A', '#7C3AED', '#F9FAF8', '#F59E0B', '#0F172A'],
-            },
-            bottle: {
-                label: 'Bottle', sides: ['wrap'], defaultSide: 'wrap',
-                stageW: 280, stageH: 360, productShape: 'rectLabel', showColor: true, colorPresets: [],
-            },
-            cup: {
-                label: 'Cup', sides: ['wrap'], defaultSide: 'wrap',
-                stageW: 280, stageH: 240, productShape: 'rectLabel', showColor: true, colorPresets: [],
-            },
-            default: {
-                label: 'Product', sides: ['wrap'], defaultSide: 'wrap',
-                stageW: 280, stageH: 320, productShape: 'rectLabel', showColor: true, colorPresets: [],
-            },
+            tshirt: { label: 'T-Shirt', sides: ['front', 'back'], defaultSide: 'front', stageW: 300, stageH: 340, productShape: 'shirt', showColor: true },
+            diary: { label: 'Diary', sides: ['front', 'back'], defaultSide: 'front', stageW: 300, stageH: 360, productShape: 'rectBook', showColor: true },
+            bottle: { label: 'Bottle', sides: ['wrap'], defaultSide: 'wrap', stageW: 280, stageH: 360, productShape: 'rectLabel', showColor: true },
+            cup: { label: 'Cup', sides: ['wrap'], defaultSide: 'wrap', stageW: 280, stageH: 240, productShape: 'rectLabel', showColor: true },
+            default: { label: 'Product', sides: ['wrap'], defaultSide: 'wrap', stageW: 280, stageH: 320, productShape: 'rectLabel', showColor: true },
         };
 
         const state = {
-            product: null, category: 'default', side: 'front', shirtColor: '#2563EB',
+            product: null, category: 'default', side: 'front',
+            shirtColor: DEFAULT_COLOR,
             front: [], back: [], wrap: [], sel: null, nid: 1, saved: true,
             templates: [], templatesToShow: [], _colorInitialized: false,
         };
@@ -1415,42 +1447,41 @@
         function layers() { return state[state.side] || []; }
         function stageSize() { const c = getCfg(); return { w: c.stageW, h: c.stageH }; }
 
-        function setStatus(msg, type = 'idle') {
-            const dot = $('#status-dot'), txt = $('#status-msg');
-            if (txt) txt.textContent = msg;
-            if (dot) dot.className = type === 'success' ? 'active' : type === 'warning' ? 'warning' : '';
-        }
+        function setStatus(msg, type = 'idle') { const dot = $('#status-dot'), txt = $('#status-msg'); if (txt) txt.textContent = msg; if (dot) dot.className = type === 'success' ? 'active' : type === 'warning' ? 'warning' : ''; }
         let toastTimer;
-        function showToast(msg) {
-            const t = $('#toast'); if (!t) return;
-            t.textContent = msg; t.classList.add('show');
-            clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
-        }
+        function showToast(msg) { const t = $('#toast'); if (!t) return; t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2200); }
         function markDirty() { state.saved = false; const d = $('#unsaved-dot'); if (d) d.classList.add('show'); }
         function markSaved() { state.saved = true; const d = $('#unsaved-dot'); if (d) d.classList.remove('show'); }
-        function setLayerInfo() { const n = layers().length; $('#layer-info').textContent = n ? `${n} layer${n !== 1 ? 's' : ''}` : ''; }
-
-        function togglePanel(key) { const s = $(`#panel-${key}`); if (s) s.classList.toggle('open'); }
-        function openPanel(key) { const s = $(`#panel-${key}`); if (s && !s.classList.contains('open')) s.classList.add('open'); }
+        function setLayerInfo() { const n = layers().length; $('#layer-info').textContent = n ? n + ' layer' + (n !== 1 ? 's' : '') : ''; }
+        function togglePanel(key) { const s = $('#panel-' + key); if (s) s.classList.toggle('open'); }
+        function openPanel(key) { const s = $('#panel-' + key); if (s && !s.classList.contains('open')) s.classList.add('open'); }
 
         function buildSideTabs() {
-            const cfg = getCfg(), wrap = $('#side-tabs-wrap');
-            if (!wrap) return;
+            const cfg = getCfg(), wrap = $('#side-tabs-wrap'); if (!wrap) return;
             if (cfg.sides.length <= 1) { wrap.innerHTML = ''; return; }
-            wrap.innerHTML = `<div class="side-tabs">${cfg.sides.map(s => `<button class="side-tab${state.side === s ? ' active' : ''}" onclick="switchSide('${s}')">${s === 'wrap' ? 'Wrap' : s.charAt(0).toUpperCase() + s.slice(1)}</button>`).join('')}</div>`;
+            wrap.innerHTML = '<div class="side-tabs">' + cfg.sides.map(s => '<button class="side-tab' + (state.side === s ? ' active' : '') + '" onclick="switchSide(\'' + s + '\')">' + (s === 'wrap' ? 'Wrap' : s.charAt(0).toUpperCase() + s.slice(1)) + '</button>').join('') + '</div>';
         }
         function switchSide(side) {
             if (!getCfg().sides.includes(side)) return;
-            state.side = side; state.sel = null;
-            buildSideTabs();
-            const lbl = $('#side-label'); if (lbl) lbl.innerHTML = `Editing <strong>${side}</strong>`;
-            resetSelBoxes(); renderAll(); setStatus(`Switched to ${side} side.`);
+            state.side = side; state.sel = null; buildSideTabs();
+            const lbl = $('#side-label'); if (lbl) lbl.innerHTML = 'Editing <strong>' + side + '</strong>';
+            resetSelBoxes(); renderAll(); setStatus('Switched to ' + side + ' side.');
         }
 
-        function isLightColor(hex) {
-            const c = hex.replace('#', '');
-            const r = parseInt(c.substr(0, 2), 16), g = parseInt(c.substr(2, 2), 16), b = parseInt(c.substr(4, 2), 16);
-            return (r * 299 + g * 587 + b * 114) / 1000 > 200;
+        function isLightColor(hex) { const c = hex.replace('#', ''); const r = parseInt(c.substr(0, 2), 16), g = parseInt(c.substr(2, 2), 16), b = parseInt(c.substr(4, 2), 16); return (r * 299 + g * 587 + b * 114) / 1000 > 200; }
+
+        /* ── Tooltip ── */
+        const _tip = document.getElementById('cs-tooltip');
+        function showTip(text, x, y) { _tip.textContent = text; _tip.style.left = x + 'px'; _tip.style.top = y + 'px'; _tip.classList.add('show'); }
+        function hideTip() { _tip.classList.remove('show'); }
+
+        /* ── Color name chip ── */
+        function updateColorChip(hex) {
+            const key = getColorKey(hex);
+            const name = key ? formatColorName(key) : hex;
+            const dot = $('#chip-dot'), lbl = $('#chip-label');
+            if (dot) dot.style.background = hex;
+            if (lbl) lbl.textContent = name;
         }
 
         function buildSwatches() {
@@ -1458,635 +1489,307 @@
             if (!colorPanel) return;
             if (!cfg.showColor) { colorPanel.style.display = 'none'; return; }
             colorPanel.style.display = '';
-
-            const wrap = $('#preset-swatches');
-            if (!wrap) return;
+            const wrap = $('#preset-swatches'); if (!wrap) return;
             wrap.innerHTML = '';
+            if (!state._colorInitialized) { state.shirtColor = DEFAULT_COLOR; state._colorInitialized = true; }
 
-            let presets = cfg.colorPresets;
-            if (state.product?.colors && Array.isArray(state.product.colors) && state.product.colors.length) {
-                presets = state.product.colors;
-            }
-
-            if (presets.length && !state._colorInitialized) {
-                state.shirtColor = presets[0];
-                state._colorInitialized = true;
-            }
-
-            presets.forEach(c => {
+            PALETTE_KEYS.forEach(function (key) {
+                const hex = colorPalette[key];
                 const b = document.createElement('button');
-                b.className = 'cs' + (c.toLowerCase() === state.shirtColor.toLowerCase() ? ' sel' : '') + (isLightColor(c) ? ' white' : '');
-                b.style.background = c; b.dataset.c = c; b.title = c;
-                b.onclick = () => setShirtColor(c);
+                b.className = 'cs' + (hex.toLowerCase() === state.shirtColor.toLowerCase() ? ' sel' : '') + (isLightColor(hex) ? ' light' : '');
+                b.style.background = hex;
+                b.dataset.c = hex;
+                b.dataset.name = formatColorName(key);
+                b.title = formatColorName(key);
+
+                b.addEventListener('mouseenter', function (e) {
+                    const r = b.getBoundingClientRect();
+                    showTip(b.dataset.name, r.left + r.width / 2, r.top - 2);
+                });
+                b.addEventListener('mouseleave', hideTip);
+                b.addEventListener('focus', function () {
+                    const r = b.getBoundingClientRect();
+                    showTip(b.dataset.name, r.left + r.width / 2, r.top - 2);
+                });
+                b.addEventListener('blur', hideTip);
+                b.onclick = function () { setShirtColor(hex); };
                 wrap.appendChild(b);
             });
+            updateColorChip(state.shirtColor);
         }
 
         function setShirtColor(v) {
             if (!/^#[0-9a-fA-F]{3,6}$/.test(v)) return;
             markDirty(); state.shirtColor = v;
-            $$('.cs').forEach(s => s.classList.toggle('sel', s.dataset.c.toLowerCase() === v.toLowerCase()));
+            $$('.cs').forEach(function (s) { s.classList.toggle('sel', s.dataset.c.toLowerCase() === v.toLowerCase()); });
+            updateColorChip(v);
             renderStage(); setStatus('Product color updated.', 'success');
         }
 
-        function renderStage() {
-            const cfg = getCfg(), stage = $('#stage'), svg = $('#stage-svg');
-            if (!stage || !svg) return;
-            const areaEl = $('#canvas-stage-area');
-            if (areaEl) {
-                const aW = areaEl.clientWidth - 64, aH = areaEl.clientHeight - 64;
-                const scale = Math.min(1, aW / cfg.stageW, aH / cfg.stageH);
-                stage.style.width = `${cfg.stageW}px`;
-                stage.style.height = `${cfg.stageH}px`;
-                stage.style.transform = `scale(${scale})`;
-                stage.style.transformOrigin = 'center center';
-            } else {
-                stage.style.width = `${cfg.stageW}px`;
-                stage.style.height = `${cfg.stageH}px`;
-            }
-            svg.setAttribute('viewBox', `0 0 ${cfg.stageW} ${cfg.stageH}`);
+        function shade(hex, pct) { const n = parseInt(hex.replace('#', ''), 16); const r = Math.min(255, Math.max(0, (n >> 16) + pct)); const g = Math.min(255, Math.max(0, ((n >> 8) & 0xff) + pct)); const b = Math.min(255, Math.max(0, (n & 0xff) + pct)); return '#' + [r, g, b].map(function (x) { return x.toString(16).padStart(2, '0'); }).join(''); }
 
-            if (cfg.productShape === 'shirt') svg.innerHTML = shirtSVG(cfg.stageW, cfg.stageH, state.shirtColor);
-            else if (cfg.productShape === 'rectBook') svg.innerHTML = bookSVG(cfg.stageW, cfg.stageH, state.shirtColor);
-            else if (cfg.productShape === 'rectLabel') svg.innerHTML = rectSVG(cfg.stageW, cfg.stageH, state.shirtColor);
-            else svg.innerHTML = rectSVG(cfg.stageW, cfg.stageH, state.shirtColor);
-        }
-
-        function shade(hex, pct) {
-            const n = parseInt(hex.replace('#', ''), 16);
-            const r = Math.min(255, Math.max(0, (n >> 16) + pct));
-            const g = Math.min(255, Math.max(0, ((n >> 8) & 0xff) + pct));
-            const b = Math.min(255, Math.max(0, (n & 0xff) + pct));
-            return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
-        }
-
-        function shirtSVGInner(w, h, c) {
-            return `<path d="M55,28 L18,75 L56,94 L52,308 L248,308 L244,94 L282,75 L245,28 Q226,13 208,19 Q190,47 150,52 Q110,47 92,19 Q74,13 55,28 Z" fill="${c}" stroke="black" stroke-width="2"/><path d="M55,28 Q74,13 92,19 Q110,47 150,52 Q190,47 208,19 Q226,13 245,28" fill="none" stroke="black" stroke-width="2"/>`;
-        }
-
-        function rectSVGInner(w, h, c) {
-            return `<rect x="24" y="18" rx="22" ry="22" width="${w - 48}" height="${h - 36}" fill="${c}" stroke="black" stroke-width="2"/><rect x="38" y="32" rx="14" ry="14" width="${w - 76}" height="${h - 64}" fill="none" stroke="black" stroke-width="2" stroke-dasharray="5 4"/>`;
-        }
-
-        function bookSVGInner(w, h, c) {
-            return `<rect x="28" y="16" rx="20" ry="20" width="${w - 56}" height="${h - 32}" fill="${c}" stroke="black" stroke-width="2"/><rect x="44" y="30" rx="12" ry="12" width="${w - 88}" height="${h - 60}" fill="none" stroke="black" stroke-width="2"/>`;
-        }
-
-
-        function bottleSVGInner(w, h, c) {
-            const bodyW = Math.round(w * 0.58);
-            const bodyX = Math.round((w - bodyW) / 2);
-            const neckW = Math.round(w * 0.26);
-            const neckX = Math.round((w - neckW) / 2);
-            const neckH = Math.round(h * 0.12);
-            const labelW = Math.round(w * 0.42);
-            const labelH = Math.round(h * 0.20);
-            const labelX = Math.round((w - labelW) / 2);
-            const labelY = Math.round(h * 0.47);
-            return `<rect x="${neckX}" y="${Math.round(h * 0.03)}" width="${neckW}" height="${neckH}" rx="7" ry="7" fill="${c}" stroke="black" stroke-width="2"/><rect x="${bodyX}" y="40" width="${bodyW}" height="${h - 70}" rx="34" ry="34" fill="${c}" stroke="black" stroke-width="2"/><rect x="${labelX}" y="${labelY}" width="${labelW}" height="${labelH}" rx="14" ry="14" fill="none" stroke="black" stroke-width="2" stroke-dasharray="5 4"/><path d="M${bodyX + 18},74 H${bodyX + bodyW - 18}" fill="none" stroke="black" stroke-width="2" opacity="0.35"/>`;
-        }
-
-        function renderStage() {
-            const cfg = getCfg(), stage = $('#stage'), svg = $('#stage-svg');
-            if (!stage || !svg) return;
-            const areaEl = $('#canvas-stage-area');
-            if (areaEl) {
-                const aW = areaEl.clientWidth - 64, aH = areaEl.clientHeight - 64;
-                const scale = Math.min(1, aW / cfg.stageW, aH / cfg.stageH);
-                stage.style.width = `${cfg.stageW}px`;
-                stage.style.height = `${cfg.stageH}px`;
-                stage.style.transform = `scale(${scale})`;
-                stage.style.transformOrigin = 'center center';
-            } else {
-                stage.style.width = `${cfg.stageW}px`;
-                stage.style.height = `${cfg.stageH}px`;
-            }
-            svg.setAttribute('viewBox', `0 0 ${cfg.stageW} ${cfg.stageH}`);
-
-            if (cfg.productShape === 'shirt') svg.innerHTML = shirtSVG(cfg.stageW, cfg.stageH, state.shirtColor);
-            else if (cfg.productShape === 'rectBook') svg.innerHTML = bookSVG(cfg.stageW, cfg.stageH, state.shirtColor);
-            else if (cfg.productShape === 'rectLabel') svg.innerHTML = rectSVG(cfg.stageW, cfg.stageH, state.shirtColor);
-            else svg.innerHTML = rectSVG(cfg.stageW, cfg.stageH, state.shirtColor);
-        }
+        function shirtSVGInner(w, h, c) { return '<path d="M55,28 L18,75 L56,94 L52,308 L248,308 L244,94 L282,75 L245,28 Q226,13 208,19 Q190,47 150,52 Q110,47 92,19 Q74,13 55,28 Z" fill="' + c + '" stroke="black" stroke-width="2"/><path d="M55,28 Q74,13 92,19 Q110,47 150,52 Q190,47 208,19 Q226,13 245,28" fill="none" stroke="black" stroke-width="2"/>'; }
+        function rectSVGInner(w, h, c) { return '<rect x="24" y="18" rx="22" ry="22" width="' + (w - 48) + '" height="' + (h - 36) + '" fill="' + c + '" stroke="black" stroke-width="2"/><rect x="38" y="32" rx="14" ry="14" width="' + (w - 76) + '" height="' + (h - 64) + '" fill="none" stroke="black" stroke-width="2" stroke-dasharray="5 4"/>'; }
+        function bookSVGInner(w, h, c) { return '<rect x="28" y="16" rx="20" ry="20" width="' + (w - 56) + '" height="' + (h - 32) + '" fill="' + c + '" stroke="black" stroke-width="2"/><rect x="44" y="30" rx="12" ry="12" width="' + (w - 88) + '" height="' + (h - 60) + '" fill="none" stroke="black" stroke-width="2"/>'; }
 
         function productShapeInner(shape, w, h, c) {
             if (shape === 'shirt') return shirtSVGInner(w, h, c);
             if (shape === 'rectBook') return bookSVGInner(w, h, c);
-            if (shape === 'rectLabel') return rectSVGInner(w, h, c);
             return rectSVGInner(w, h, c);
         }
-
         function productShapeSvg(shape, w, h, c) {
-            const inner = productShapeInner(shape, w, h, c);
-            return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">${inner}</svg>`;
+            return '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none">' + productShapeInner(shape, w, h, c) + '</svg>';
         }
-
-        // Backward-compatible wrappers used by renderStage()
         function shirtSVG(w, h, c) { return shirtSVGInner(w, h, c); }
         function rectSVG(w, h, c) { return rectSVGInner(w, h, c); }
         function bookSVG(w, h, c) { return bookSVGInner(w, h, c); }
-        function bottleSVG(w, h, c) { return bottleSVGInner(w, h, c); }
 
-        async function loadTemplates() {
-            try {
-                const res = await fetch(TEMPLATE_JSON_URL, { cache: 'no-store' });
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const data = await res.json();
-                state.templates = Array.isArray(data) ? data : [];
-            } catch { state.templates = []; }
+        function renderStage() {
+            const cfg = getCfg(), stage = $('#stage'), svg = $('#stage-svg'); if (!stage || !svg) return;
+            const areaEl = $('#canvas-stage-area');
+            if (areaEl) { const aW = areaEl.clientWidth - 64, aH = areaEl.clientHeight - 64; const scale = Math.min(1, aW / cfg.stageW, aH / cfg.stageH); stage.style.width = cfg.stageW + 'px'; stage.style.height = cfg.stageH + 'px'; stage.style.transform = 'scale(' + scale + ')'; stage.style.transformOrigin = 'center center'; }
+            else { stage.style.width = cfg.stageW + 'px'; stage.style.height = cfg.stageH + 'px'; }
+            svg.setAttribute('viewBox', '0 0 ' + cfg.stageW + ' ' + cfg.stageH);
+            if (cfg.productShape === 'shirt') svg.innerHTML = shirtSVG(cfg.stageW, cfg.stageH, state.shirtColor);
+            else if (cfg.productShape === 'rectBook') svg.innerHTML = bookSVG(cfg.stageW, cfg.stageH, state.shirtColor);
+            else svg.innerHTML = rectSVG(cfg.stageW, cfg.stageH, state.shirtColor);
         }
 
+        async function loadTemplates() { try { const res = await fetch(TEMPLATE_JSON_URL, { cache: 'no-store' }); if (!res.ok) throw new Error('HTTP ' + res.status); const data = await res.json(); state.templates = Array.isArray(data) ? data : []; } catch (e) { state.templates = []; } }
+
         function renderTemplates() {
-            const grid = $('#tpl-grid'), pill = $('#tpl-count-pill');
-            if (!grid) return;
-            const matching = state.templates.filter(t => String(t.category || '').toLowerCase() === state.category);
-            state.templatesToShow = matching;
-            if (pill) pill.textContent = matching.length;
+            const grid = $('#tpl-grid'), pill = $('#tpl-count-pill'); if (!grid) return;
+            const matching = state.templates.filter(function (t) { return String(t.category || '').toLowerCase() === state.category; });
+            state.templatesToShow = matching; if (pill) pill.textContent = matching.length;
             grid.innerHTML = '';
-            if (!matching.length) { grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="icon">🎨</div>No templates for this category.</div>`; return; }
-            matching.forEach((t, i) => {
-                const b = document.createElement('button');
-                b.className = 'tpl-btn'; b.dataset.index = i; b.title = t.name || 'Template';
-                b.innerHTML = `<img class="tpl-thumb" src="${esc(t.file)}" alt="${esc(t.name || 'Template')}" loading="lazy"><div class="tpl-name">${esc(t.name || 'Template')}</div>`;
-                b.onclick = () => applyTemplate(t);
-                grid.appendChild(b);
+            if (!matching.length) { grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="icon">&#x1F3A8;</div>No templates for this category.</div>'; return; }
+            matching.forEach(function (t, i) {
+                const b = document.createElement('button'); b.className = 'tpl-btn'; b.dataset.index = i; b.title = t.name || 'Template';
+                b.innerHTML = '<img class="tpl-thumb" src="' + esc(t.file) + '" alt="' + esc(t.name || 'Template') + '" loading="lazy"><div class="tpl-name">' + esc(t.name || 'Template') + '</div>';
+                b.onclick = function () { applyTemplate(t); }; grid.appendChild(b);
             });
         }
 
         function applyTemplate(tpl) {
-            markDirty();
-            state[state.side] = state[state.side].filter(l => l.type !== 'image');
-            state.sel = null;
-            const { w: sw, h: sh } = stageSize();
-            const size = Math.min(sw, sh) * 0.55;
-            const layer = { id: state.nid++, type: 'image', x: Math.round((sw - size) / 2), y: Math.round((sh - size) / 2), w: size, h: size, src: tpl.file, name: tpl.name || 'Template' };
-            layers().push(layer);
-            renderAll(); selectLayer(layer.id);
-            setStatus(`Template "${tpl.name || 'Template'}" applied.`, 'success');
+            markDirty(); state[state.side] = state[state.side].filter(function (l) { return l.type !== 'image'; }); state.sel = null;
+            const s = stageSize(); const size = Math.min(s.w, s.h) * .55;
+            const layer = { id: state.nid++, type: 'image', x: Math.round((s.w - size) / 2), y: Math.round((s.h - size) / 2), w: size, h: size, src: tpl.file, name: tpl.name || 'Template' };
+            layers().push(layer); renderAll(); selectLayer(layer.id); setStatus('Template "' + (tpl.name || 'Template') + '" applied.', 'success');
         }
 
         function refreshTemplateHighlight() {
-            const selected = layers().find(l => l.type === 'image');
-            $$('.tpl-btn').forEach(btn => {
-                const idx = Number(btn.dataset.index), tpl = state.templatesToShow[idx];
-                btn.classList.toggle('active', !!selected && !!tpl && selected.src === tpl.file);
-            });
+            const selected = layers().find(function (l) { return l.type === 'image'; });
+            $$('.tpl-btn').forEach(function (btn) { const idx = Number(btn.dataset.index), tpl = state.templatesToShow[idx]; btn.classList.toggle('active', !!selected && !!tpl && selected.src === tpl.file); });
         }
 
         function escXml(s) { return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
         function makeCurvedTextSVG(layer) {
-            const text = layer.text || '';
-            const curve = layer.curve || 0;
-            const fs = layer.fontSize || 30;
-            const fw = layer.fontWeight || '400';
-            const ff = layer.fontFamily || "'Inter', sans-serif";
-            const col = layer.textColor || '#fff';
-            const ta = layer.textAlign || 'center';
-            const lw = layer.w || 160;
-
+            const text = layer.text || '', curve = layer.curve || 0, fs = layer.fontSize || 30, fw = layer.fontWeight || '400';
+            const ff = layer.fontFamily || "'Inter', sans-serif", col = layer.textColor || '#fff', ta = layer.textAlign || 'center', lw = layer.w || 160;
             if (curve === 0) {
-                const lines = text.split('\n');
-                const lineH = fs * 1.3;
-                const totalH = lines.length * lineH;
-                const svgH = Math.max(totalH + fs * 0.7, 40);
-                const startY = (svgH - totalH) / 2 + fs * 0.78;
-                const svgLines = lines.map((line, i) => {
-                    const ax = ta === 'left' ? 4 : ta === 'right' ? lw - 4 : lw / 2;
-                    const anchor = ta === 'left' ? 'start' : ta === 'right' ? 'end' : 'middle';
-                    return `<text x="${ax}" y="${startY + i * lineH}" text-anchor="${anchor}" fill="${col}" font-size="${fs}" font-weight="${fw}" font-family="${ff}">${escXml(line)}</text>`;
-                }).join('');
-                return `<svg xmlns="http://www.w3.org/2000/svg" width="${lw}" height="${svgH}" viewBox="0 0 ${lw} ${svgH}">${svgLines}</svg>`;
+                const lines = text.split('\n'), lineH = fs * 1.3, totalH = lines.length * lineH, svgH = Math.max(totalH + fs * .7, 40), startY = (svgH - totalH) / 2 + fs * .78;
+                const svgLines = lines.map(function (line, i) { const ax = ta === 'left' ? 4 : ta === 'right' ? lw - 4 : lw / 2; const anchor = ta === 'left' ? 'start' : ta === 'right' ? 'end' : 'middle'; return '<text x="' + ax + '" y="' + (startY + i * lineH) + '" text-anchor="' + anchor + '" fill="' + col + '" font-size="' + fs + '" font-weight="' + fw + '" font-family="' + ff + '">' + escXml(line) + '</text>'; }).join('');
+                return '<svg xmlns="http://www.w3.org/2000/svg" width="' + lw + '" height="' + svgH + '" viewBox="0 0 ' + lw + ' ' + svgH + '">' + svgLines + '</svg>';
             }
-
-            const absCurve = Math.abs(curve);
-            const radius = Math.max(lw * 0.5, (lw * 55) / absCurve);
-            const halfAngle = Math.asin(Math.min(0.97, (lw * 0.44) / radius));
-            const sagitta = radius - radius * Math.cos(halfAngle);
-            const svgH = Math.max(sagitta + fs * 2.0, fs * 2.4);
-            const svgW = lw;
-            const pid = `cp${layer.id}_${(Math.random() * 1e6) | 0}`;
-
+            const absCurve = Math.abs(curve), radius = Math.max(lw * .5, (lw * 55) / absCurve), halfAngle = Math.asin(Math.min(.97, (lw * .44) / radius)), sagitta = radius - radius * Math.cos(halfAngle), svgH = Math.max(sagitta + fs * 2.0, fs * 2.4), svgW = lw, pid = 'cp' + layer.id + '_' + ((Math.random() * 1e6) | 0);
             let pathD;
-            if (curve > 0) {
-                const cx = svgW / 2;
-                const cy = svgH + radius - sagitta - fs * 0.5;
-                const startAngle = Math.PI / 2 + halfAngle;
-                const endAngle = Math.PI / 2 - halfAngle;
-                const sx = cx + radius * Math.cos(startAngle);
-                const sy = cy - radius * Math.sin(startAngle);
-                const ex = cx + radius * Math.cos(endAngle);
-                const ey = cy - radius * Math.sin(endAngle);
-                pathD = `M ${sx},${sy} A ${radius},${radius} 0 0,1 ${ex},${ey}`;
-            } else {
-                const cx = svgW / 2;
-                const cy = -(radius - sagitta) + fs * 0.5;
-                const startAngle = Math.PI / 2 + halfAngle;
-                const endAngle = Math.PI / 2 - halfAngle;
-                const sx = cx - radius * Math.cos(endAngle);
-                const sy = cy + radius * Math.sin(endAngle);
-                const ex = cx - radius * Math.cos(startAngle);
-                const ey = cy + radius * Math.sin(startAngle);
-                pathD = `M ${sx},${sy} A ${radius},${radius} 0 0,0 ${ex},${ey}`;
-            }
-
-            return `<svg xmlns="http://www.w3.org/2000/svg" width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}">
-    <defs><path id="${pid}" d="${pathD}"/></defs>
-    <text font-size="${fs}" font-weight="${fw}" font-family="${ff}" fill="${col}">
-      <textPath href="#${pid}" startOffset="50%" text-anchor="middle">${escXml(text.replace(/\n/g, ' '))}</textPath>
-    </text>
-  </svg>`;
+            if (curve > 0) { const cx = svgW / 2, cy = svgH + radius - sagitta - fs * .5, sa = Math.PI / 2 + halfAngle, ea = Math.PI / 2 - halfAngle, sx = cx + radius * Math.cos(sa), sy = cy - radius * Math.sin(sa), ex = cx + radius * Math.cos(ea), ey = cy - radius * Math.sin(ea); pathD = 'M ' + sx + ',' + sy + ' A ' + radius + ',' + radius + ' 0 0,1 ' + ex + ',' + ey; }
+            else { const cx = svgW / 2, cy = -(radius - sagitta) + fs * .5, sa = Math.PI / 2 + halfAngle, ea = Math.PI / 2 - halfAngle, sx = cx - radius * Math.cos(ea), sy = cy + radius * Math.sin(ea), ex = cx - radius * Math.cos(sa), ey = cy + radius * Math.sin(sa); pathD = 'M ' + sx + ',' + sy + ' A ' + radius + ',' + radius + ' 0 0,0 ' + ex + ',' + ey; }
+            return '<svg xmlns="http://www.w3.org/2000/svg" width="' + svgW + '" height="' + svgH + '" viewBox="0 0 ' + svgW + ' ' + svgH + '"><defs><path id="' + pid + '" d="' + pathD + '"/></defs><text font-size="' + fs + '" font-weight="' + fw + '" font-family="' + ff + '" fill="' + col + '"><textPath href="#' + pid + '" startOffset="50%" text-anchor="middle">' + escXml(text.replace(/\n/g, ' ')) + '</textPath></text></svg>';
         }
 
         function renderLayer(layer) {
             const ov = $('#overlay'); if (!ov) return;
-            let el = $(`#lo-${layer.id}`);
+            let el = $('#lo-' + layer.id);
             if (!el) {
-                el = document.createElement('div');
-                el.className = 'lobj'; el.id = `lo-${layer.id}`;
+                el = document.createElement('div'); el.className = 'lobj'; el.id = 'lo-' + layer.id;
                 const frame = document.createElement('div'); frame.className = 'lframe'; el.appendChild(frame);
                 const rh = document.createElement('div'); rh.className = 'resize-handle'; el.appendChild(rh);
-                ov.appendChild(el);
-                setupDrag(el, layer); setupResize(rh, layer);
-                el.addEventListener('pointerdown', e => { if (e.target.closest('.resize-handle')) return; e.stopPropagation(); selectLayer(layer.id); });
+                ov.appendChild(el); setupDrag(el, layer); setupResize(rh, layer);
+                el.addEventListener('pointerdown', function (e) { if (e.target.closest('.resize-handle')) return; e.stopPropagation(); selectLayer(layer.id); });
             }
-            el.style.left = `${layer.x}px`; el.style.top = `${layer.y}px`;
-            el.style.width = `${layer.w}px`; el.style.height = `${layer.h}px`;
+            el.style.left = layer.x + 'px'; el.style.top = layer.y + 'px'; el.style.width = layer.w + 'px'; el.style.height = layer.h + 'px';
             el.classList.toggle('sel', state.sel === layer.id);
-
             const frame = el.querySelector('.lframe');
             if (layer.type === 'image') {
                 const existing = frame.querySelector('img');
-                if (!existing || existing.src !== layer.src) {
-                    frame.innerHTML = '';
-                    const img = document.createElement('img'); img.src = layer.src; img.alt = layer.name || 'Design';
-                    frame.appendChild(img);
-                }
+                if (!existing || existing.src !== layer.src) { frame.innerHTML = ''; const img = document.createElement('img'); img.src = layer.src; img.alt = layer.name || 'Design'; frame.appendChild(img); }
             } else if (layer.type === 'text') {
-                const svgStr = makeCurvedTextSVG(layer);
-                const blob = new Blob([svgStr], { type: 'image/svg+xml' });
-                const url = URL.createObjectURL(blob);
-                const prev = frame.querySelector('img');
-                if (prev && prev.src.startsWith('blob:')) URL.revokeObjectURL(prev.src);
-                frame.innerHTML = '';
-                const img = document.createElement('img'); img.src = url; img.alt = 'Text layer';
-                img.style.cssText = 'width:100%;height:100%;object-fit:contain;';
-                frame.appendChild(img);
+                const svgStr = makeCurvedTextSVG(layer); const blob = new Blob([svgStr], { type: 'image/svg+xml' }); const url = URL.createObjectURL(blob);
+                const prev = frame.querySelector('img'); if (prev && prev.src.startsWith('blob:')) URL.revokeObjectURL(prev.src);
+                frame.innerHTML = ''; const img = document.createElement('img'); img.src = url; img.alt = 'Text layer'; img.style.cssText = 'width:100%;height:100%;object-fit:contain;'; frame.appendChild(img);
             }
         }
 
         function renderAll() {
             const ov = $('#overlay'); if (!ov) return;
-            const ids = new Set(layers().map(l => `lo-${l.id}`));
-            Array.from(ov.children).forEach(el => { if (!ids.has(el.id)) el.remove(); });
-            layers().forEach(renderLayer);
-            setLayerInfo(); refreshSelBoxes(); refreshTemplateHighlight();
+            const ids = new Set(layers().map(function (l) { return 'lo-' + l.id; }));
+            Array.from(ov.children).forEach(function (el) { if (!ids.has(el.id)) el.remove(); });
+            layers().forEach(renderLayer); setLayerInfo(); refreshSelBoxes(); refreshTemplateHighlight();
         }
 
-        document.addEventListener('pointerdown', e => {
+        document.addEventListener('pointerdown', function (e) {
             const stage = $('#stage');
-            if (stage && stage.contains(e.target) && !e.target.closest('.lobj')) {
-                if (state.sel !== null) {
-                    state.sel = null;
-                    renderAll();
-                    resetSelBoxes();
-                    setStatus('');
-                }
-            }
+            if (stage && stage.contains(e.target) && !e.target.closest('.lobj')) { if (state.sel !== null) { state.sel = null; renderAll(); resetSelBoxes(); setStatus(''); } }
         });
 
         function selectLayer(id) {
-            state.sel = id;
-            const layer = layers().find(l => l.id === id);
-            if (layer?.type === 'text') { populateTextControls(layer); openPanel('text'); }
-            else if (layer?.type === 'image') { openPanel('design'); }
-            renderAll();
-            setStatus(layer ? `${layer.type === 'text' ? 'Text' : 'Design'} layer selected — drag to move, corner to resize.` : '', 'idle');
+            state.sel = id; const layer = layers().find(function (l) { return l.id === id; });
+            if (layer && layer.type === 'text') { populateTextControls(layer); openPanel('text'); }
+            else if (layer && layer.type === 'image') { openPanel('design'); }
+            renderAll(); setStatus(layer ? (layer.type === 'text' ? 'Text' : 'Design') + ' layer selected — drag to move, corner to resize.' : '', 'idle');
         }
-
         function populateTextControls(layer) {
-            $('#txt-content').value = layer.text || '';
-            $('#txt-font').value = layer.fontFamily || "'Inter', sans-serif";
-            $('#txt-weight').value = layer.fontWeight || '400';
-            $('#txt-size').value = layer.fontSize || 36;
-            $('#txt-width').value = layer.w || 160;
-            $('#txt-color').value = layer.textColor || '#FFFFFF';
-            $('#txt-curve').value = layer.curve || 0;
-            $('#curve-val').textContent = (layer.curve || 0) + '°';
+            $('#txt-content').value = layer.text || ''; $('#txt-font').value = layer.fontFamily || "'Inter', sans-serif";
+            $('#txt-weight').value = layer.fontWeight || '400'; $('#txt-size').value = layer.fontSize || 36;
+            $('#txt-width').value = layer.w || 160; $('#txt-color').value = layer.textColor || '#FFFFFF';
+            $('#txt-curve').value = layer.curve || 0; $('#curve-val').textContent = (layer.curve || 0) + '°';
             setTextAlignUI(layer.textAlign || 'center');
         }
-
         function refreshSelBoxes() {
-            const layer = layers().find(l => l.id === state.sel);
-            const dbox = $('#design-sel-box'), tbox = $('#text-sel-box');
+            const layer = layers().find(function (l) { return l.id === state.sel; }); const dbox = $('#design-sel-box'), tbox = $('#text-sel-box');
             if (!layer) { resetSelBoxes(); return; }
-            if (layer.type === 'image') {
-                dbox.className = 'sel-box active'; dbox.innerHTML = `<strong>${esc(layer.name || 'Design')}</strong><br>Selected. Drag to reposition, corner to resize.`;
-                tbox.className = 'sel-box'; tbox.innerHTML = '<strong>No text selected</strong><br>Click a text layer to edit it.';
-            } else if (layer.type === 'text') {
-                tbox.className = 'sel-box active';
-                const preview = (layer.text || '').slice(0, 24);
-                tbox.innerHTML = `<strong>Text layer</strong> — ${esc(preview)}${layer.text.length > 24 ? '…' : ''}<br>Editing in the panel above.`;
-                dbox.className = 'sel-box'; dbox.innerHTML = '<strong>No design selected</strong><br>Click a design layer to select it.';
-            }
+            if (layer.type === 'image') { dbox.className = 'sel-box active'; dbox.innerHTML = '<strong>' + esc(layer.name || 'Design') + '</strong><br>Selected. Drag to reposition, corner to resize.'; tbox.className = 'sel-box'; tbox.innerHTML = '<strong>No text selected</strong><br>Click a text layer to edit it.'; }
+            else if (layer.type === 'text') { tbox.className = 'sel-box active'; const preview = (layer.text || '').slice(0, 24); tbox.innerHTML = '<strong>Text layer</strong> — ' + esc(preview) + (layer.text.length > 24 ? '&#x2026;' : '') + '<br>Editing in the panel above.'; dbox.className = 'sel-box'; dbox.innerHTML = '<strong>No design selected</strong><br>Click a design layer to select it.'; }
         }
-
         function resetSelBoxes() {
             const dbox = $('#design-sel-box'), tbox = $('#text-sel-box');
             if (dbox) { dbox.className = 'sel-box'; dbox.innerHTML = '<strong>No design selected</strong><br>Pick a template or drag a design to the canvas.'; }
             if (tbox) { tbox.className = 'sel-box'; tbox.innerHTML = '<strong>No text selected</strong><br>Add text then click a layer to edit it.'; }
         }
-
-        function setTextAlignUI(a) { ['left', 'center', 'right'].forEach(v => $(`#al-${v}`).classList.toggle('active', v === a)); }
-        function setTextAlign(a) {
-            markDirty(); setTextAlignUI(a);
-            const layer = layers().find(l => l.id === state.sel && l.type === 'text');
-            if (layer) { layer.textAlign = a; renderLayer(layer); }
-        }
+        function setTextAlignUI(a) { ['left', 'center', 'right'].forEach(function (v) { $('#al-' + v).classList.toggle('active', v === a); }); }
+        function setTextAlign(a) { markDirty(); setTextAlignUI(a); const layer = layers().find(function (l) { return l.id === state.sel && l.type === 'text'; }); if (layer) { layer.textAlign = a; renderLayer(layer); } }
         function syncTextSel() {
-            markDirty();
-            const layer = layers().find(l => l.id === state.sel && l.type === 'text');
-            if (!layer) return;
-            layer.text = $('#txt-content').value;
-            layer.fontFamily = $('#txt-font').value;
-            layer.fontWeight = $('#txt-weight').value;
-            layer.fontSize = parseInt($('#txt-size').value) || 30;
-            layer.w = parseInt($('#txt-width').value) || 160;
-            layer.textColor = $('#txt-color').value;
-            layer.curve = parseInt($('#txt-curve').value) || 0;
-            layer.textAlign = ['left', 'center', 'right'].find(v => $(`#al-${v}`).classList.contains('active')) || 'center';
+            markDirty(); const layer = layers().find(function (l) { return l.id === state.sel && l.type === 'text'; }); if (!layer) return;
+            layer.text = $('#txt-content').value; layer.fontFamily = $('#txt-font').value; layer.fontWeight = $('#txt-weight').value;
+            layer.fontSize = parseInt($('#txt-size').value) || 30; layer.w = parseInt($('#txt-width').value) || 160;
+            layer.textColor = $('#txt-color').value; layer.curve = parseInt($('#txt-curve').value) || 0;
+            layer.textAlign = ['left', 'center', 'right'].find(function (v) { return $('#al-' + v).classList.contains('active'); }) || 'center';
             renderLayer(layer);
         }
-
         let syncTimer;
-        $('#txt-content')?.addEventListener('input', () => { clearTimeout(syncTimer); syncTimer = setTimeout(syncTextSel, 60); });
+        var txtEl = $('#txt-content'); if (txtEl) txtEl.addEventListener('input', function () { clearTimeout(syncTimer); syncTimer = setTimeout(syncTextSel, 60); });
 
         function addTextLayer() {
-            markDirty();
-            const { w: sw, h: sh } = stageSize();
-            const id = state.nid++;
-            const layer = {
-                id, type: 'text',
-                x: Math.round(sw * 0.2), y: Math.round(sh * 0.4),
-                w: parseInt($('#txt-width').value) || 160, h: 64,
-                text: $('#txt-content').value || 'YOUR TEXT',
-                fontFamily: $('#txt-font').value, fontWeight: $('#txt-weight').value,
-                fontSize: parseInt($('#txt-size').value) || 36,
-                textColor: $('#txt-color').value,
-                textAlign: ['left', 'center', 'right'].find(v => $(`#al-${v}`).classList.contains('active')) || 'center',
-                curve: parseInt($('#txt-curve').value) || 0,
-            };
-            layers().push(layer); renderAll(); selectLayer(id);
-            setStatus('Text layer added.', 'success');
+            markDirty(); const s = stageSize(); const id = state.nid++;
+            const layer = { id: id, type: 'text', x: Math.round(s.w * .2), y: Math.round(s.h * .4), w: parseInt($('#txt-width').value) || 160, h: 64, text: $('#txt-content').value || 'YOUR TEXT', fontFamily: $('#txt-font').value, fontWeight: $('#txt-weight').value, fontSize: parseInt($('#txt-size').value) || 36, textColor: $('#txt-color').value, textAlign: ['left', 'center', 'right'].find(function (v) { return $('#al-' + v).classList.contains('active'); }) || 'center', curve: parseInt($('#txt-curve').value) || 0 };
+            layers().push(layer); renderAll(); selectLayer(id); setStatus('Text layer added.', 'success');
         }
-
         function removeSel(fallback) {
-            const idx = layers().findIndex(l => l.id === state.sel);
+            const idx = layers().findIndex(function (l) { return l.id === state.sel; });
             if (idx < 0) { setStatus(fallback === 'text' ? 'No text layer selected.' : fallback === 'design' ? 'No design layer selected.' : 'No layer selected.', 'warning'); return; }
             markDirty(); layers().splice(idx, 1); state.sel = null; renderAll(); setStatus('Layer removed.');
         }
         function centerSel() {
-            const layer = layers().find(l => l.id === state.sel);
-            if (!layer) { setStatus('Select a layer first.', 'warning'); return; }
-            markDirty();
-            const { w, h } = stageSize(); layer.x = Math.round((w - layer.w) / 2); layer.y = Math.round((h - layer.h) / 2);
-            renderLayer(layer); setStatus('Layer centered.', 'success');
+            const layer = layers().find(function (l) { return l.id === state.sel; }); if (!layer) { setStatus('Select a layer first.', 'warning'); return; }
+            markDirty(); const s = stageSize(); layer.x = Math.round((s.w - layer.w) / 2); layer.y = Math.round((s.h - layer.h) / 2); renderLayer(layer); setStatus('Layer centered.', 'success');
         }
         function alignSel(axis) {
-            const layer = layers().find(l => l.id === state.sel);
-            if (!layer) { setStatus('Select a layer first.', 'warning'); return; }
-            markDirty();
-            const { w, h } = stageSize();
-            if (axis === 'hc') layer.x = Math.round((w - layer.w) / 2); else layer.y = Math.round((h - layer.h) / 2);
-            renderLayer(layer); setStatus('Layer aligned.', 'success');
+            const layer = layers().find(function (l) { return l.id === state.sel; }); if (!layer) { setStatus('Select a layer first.', 'warning'); return; }
+            markDirty(); const s = stageSize(); if (axis === 'hc') layer.x = Math.round((s.w - layer.w) / 2); else layer.y = Math.round((s.h - layer.h) / 2); renderLayer(layer); setStatus('Layer aligned.', 'success');
         }
         function clearSide(silent) {
-            markDirty(); state[state.side] = []; state.sel = null;
-            const ov = $('#overlay'); if (ov) ov.innerHTML = '';
-            renderAll(); if (!silent) { setStatus('Side cleared.'); showToast('Canvas cleared'); }
+            markDirty(); state[state.side] = []; state.sel = null; const ov = $('#overlay'); if (ov) ov.innerHTML = ''; renderAll(); if (!silent) { setStatus('Side cleared.'); showToast('Canvas cleared'); }
         }
-
         function promptResetDesign() { openModal('reset-modal'); }
-        function confirmResetDesign() {
-            closeModal('reset-modal'); markDirty();
-            state.front = []; state.back = []; state.wrap = []; state.sel = null;
-            const ov = $('#overlay'); if (ov) ov.innerHTML = '';
-            renderAll(); setStatus('Design reset.', 'success'); showToast('All designs cleared');
-        }
-
+        function confirmResetDesign() { closeModal('reset-modal'); markDirty(); state.front = []; state.back = []; state.wrap = []; state.sel = null; const ov = $('#overlay'); if (ov) ov.innerHTML = ''; renderAll(); setStatus('Design reset.', 'success'); showToast('All designs cleared'); }
         function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
         function setupDrag(el, layer) {
             let sx, sy, ox, oy;
-            el.addEventListener('pointerdown', e => {
+            el.addEventListener('pointerdown', function (e) {
                 if (e.target.closest('.resize-handle')) return;
-                e.preventDefault(); sx = e.clientX; sy = e.clientY; ox = layer.x; oy = layer.y;
-                el.setPointerCapture(e.pointerId);
-                const { w, h } = stageSize();
-                const mv = ev => { markDirty(); layer.x = clamp(ox + (ev.clientX - sx), 0, w - layer.w); layer.y = clamp(oy + (ev.clientY - sy), 0, h - layer.h); el.style.left = `${layer.x}px`; el.style.top = `${layer.y}px`; };
-                const up = () => { el.removeEventListener('pointermove', mv); el.removeEventListener('pointerup', up); };
+                e.preventDefault(); sx = e.clientX; sy = e.clientY; ox = layer.x; oy = layer.y; el.setPointerCapture(e.pointerId);
+                const s = stageSize();
+                function mv(ev) { markDirty(); layer.x = clamp(ox + (ev.clientX - sx), 0, s.w - layer.w); layer.y = clamp(oy + (ev.clientY - sy), 0, s.h - layer.h); el.style.left = layer.x + 'px'; el.style.top = layer.y + 'px'; }
+                function up() { el.removeEventListener('pointermove', mv); el.removeEventListener('pointerup', up); }
                 el.addEventListener('pointermove', mv); el.addEventListener('pointerup', up);
             });
         }
         function setupResize(rh, layer) {
             let sx, sy, ow, oh;
-            rh.addEventListener('pointerdown', e => {
-                e.preventDefault(); e.stopPropagation(); sx = e.clientX; sy = e.clientY; ow = layer.w; oh = layer.h;
-                rh.setPointerCapture(e.pointerId);
-                const { w } = stageSize();
-                const mv = ev => { markDirty(); layer.w = clamp(ow + (ev.clientX - sx), 30, w - layer.x); if (layer.type === 'image') layer.h = layer.w; else layer.h = Math.max(24, oh + (ev.clientY - sy)); renderLayer(layer); };
-                const up = () => { rh.removeEventListener('pointermove', mv); rh.removeEventListener('pointerup', up); };
+            rh.addEventListener('pointerdown', function (e) {
+                e.preventDefault(); e.stopPropagation(); sx = e.clientX; sy = e.clientY; ow = layer.w; oh = layer.h; rh.setPointerCapture(e.pointerId);
+                const s = stageSize();
+                function mv(ev) { markDirty(); layer.w = clamp(ow + (ev.clientX - sx), 30, s.w - layer.x); if (layer.type === 'image') layer.h = layer.w; else layer.h = Math.max(24, oh + (ev.clientY - sy)); renderLayer(layer); }
+                function up() { rh.removeEventListener('pointermove', mv); rh.removeEventListener('pointerup', up); }
                 rh.addEventListener('pointermove', mv); rh.addEventListener('pointerup', up);
             });
         }
 
-        // ── Snapshot: renders the current side to an offscreen canvas and returns base64 ──
         async function generateSnapshot() {
-            const cfg = getCfg();
-            const { w: sw, h: sh } = stageSize();
-            const canvas = $('#snapshot-canvas');
-            canvas.width = sw;
-            canvas.height = sh;
-
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, sw, sh);
-
-            // 1. Draw the product shape SVG
-            const shapeSvgStr = productShapeSvg(cfg.productShape, sw, sh, state.shirtColor);
-            await drawSvgStringToCanvas(ctx, shapeSvgStr, 0, 0, sw, sh);
-
-            // 2. Draw each layer on the active side
-            const activeLayers = state[state.side] || [];
-            for (const layer of activeLayers) {
-                if (layer.type === 'image') {
-                    await drawImageLayerToCanvas(ctx, layer);
-                } else if (layer.type === 'text') {
-                    const svgStr = makeCurvedTextSVG(layer);
-                    await drawSvgStringToCanvas(ctx, svgStr, layer.x, layer.y, layer.w, null);
-                }
+            const cfg = getCfg(); const s = stageSize(); const canvas = $('#snapshot-canvas'); canvas.width = s.w; canvas.height = s.h;
+            const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, s.w, s.h);
+            await drawSvgStringToCanvas(ctx, productShapeSvg(cfg.productShape, s.w, s.h, state.shirtColor), 0, 0, s.w, s.h);
+            for (const layer of (state[state.side] || [])) {
+                if (layer.type === 'image') await drawImageLayerToCanvas(ctx, layer);
+                else if (layer.type === 'text') await drawSvgStringToCanvas(ctx, makeCurvedTextSVG(layer), layer.x, layer.y, layer.w, null);
             }
-
             return canvas.toDataURL('image/png');
         }
-
-
         function drawSvgStringToCanvas(ctx, svgStr, x, y, w, h) {
-            return new Promise(resolve => {
-                const blob = new Blob([svgStr], { type: 'image/svg+xml' });
-                const url = URL.createObjectURL(blob);
-                const img = new Image();
-                img.onload = () => {
-                    try {
-                        if (h === null) {
-                            // Prefer the SVG's intrinsic size, but fall back to the requested width.
-                            const naturalW = img.naturalWidth || img.width || w;
-                            const naturalH = img.naturalHeight || img.height || w;
-                            const drawH = naturalW > 0 ? (w * naturalH / naturalW) : naturalH;
-                            ctx.drawImage(img, x, y, w, drawH);
-                        } else {
-                            ctx.drawImage(img, x, y, w, h);
-                        }
-                    } finally {
-                        URL.revokeObjectURL(url);
-                        resolve();
-                    }
-                };
-                img.onerror = () => { URL.revokeObjectURL(url); resolve(); };
-                img.src = url;
+            return new Promise(function (resolve) {
+                const blob = new Blob([svgStr], { type: 'image/svg+xml' }); const url = URL.createObjectURL(blob); const img = new Image();
+                img.onload = function () { try { if (h === null) { const nW = img.naturalWidth || img.width || w, nH = img.naturalHeight || img.height || w, drawH = nW > 0 ? (w * nH / nW) : nH; ctx.drawImage(img, x, y, w, drawH); } else { ctx.drawImage(img, x, y, w, h); } } finally { URL.revokeObjectURL(url); resolve(); } };
+                img.onerror = function () { URL.revokeObjectURL(url); resolve(); }; img.src = url;
             });
         }
-
         function drawImageLayerToCanvas(ctx, layer) {
-            return new Promise(resolve => {
-                const img = new Image();
-                img.crossOrigin = 'anonymous';
-                img.onload = () => {
-                    try {
-                        const iw = img.naturalWidth || img.width || layer.w;
-                        const ih = img.naturalHeight || img.height || layer.h;
-                        if (!iw || !ih) {
-                            ctx.drawImage(img, layer.x, layer.y, layer.w, layer.h);
-                            return;
-                        }
-
-                        // Match the on-screen object-fit: contain behavior.
-                        const scale = Math.min(layer.w / iw, layer.h / ih);
-                        const dw = iw * scale;
-                        const dh = ih * scale;
-                        const dx = layer.x + (layer.w - dw) / 2;
-                        const dy = layer.y + (layer.h - dh) / 2;
-                        ctx.drawImage(img, dx, dy, dw, dh);
-                    } finally {
-                        resolve();
-                    }
-                };
-                img.onerror = () => resolve(); // skip cross-origin/missing images silently
-                img.src = layer.src;
+            return new Promise(function (resolve) {
+                const img = new Image(); img.crossOrigin = 'anonymous';
+                img.onload = function () { try { const iw = img.naturalWidth || img.width || layer.w, ih = img.naturalHeight || img.height || layer.h; if (!iw || !ih) { ctx.drawImage(img, layer.x, layer.y, layer.w, layer.h); return; } const scale = Math.min(layer.w / iw, layer.h / ih), dw = iw * scale, dh = ih * scale, dx = layer.x + (layer.w - dw) / 2, dy = layer.y + (layer.h - dh) / 2; ctx.drawImage(img, dx, dy, dw, dh); } finally { resolve(); } };
+                img.onerror = function () { resolve(); }; img.src = layer.src;
             });
         }
-
-        function serializeLayers(ls) {
-            return ls.map(l => {
-                const o = { id: l.id, type: l.type, x: l.x, y: l.y, w: l.w, h: l.h };
-                if (l.type === 'text') Object.assign(o, { text: l.text, fontFamily: l.fontFamily, fontWeight: l.fontWeight, fontSize: l.fontSize, textColor: l.textColor, textAlign: l.textAlign, curve: l.curve });
-                if (l.type === 'image') o.src = l.src;
-                return o;
-            });
-        }
+        function serializeLayers(ls) { return ls.map(function (l) { const o = { id: l.id, type: l.type, x: l.x, y: l.y, w: l.w, h: l.h }; if (l.type === 'text') Object.assign(o, { text: l.text, fontFamily: l.fontFamily, fontWeight: l.fontWeight, fontSize: l.fontSize, textColor: l.textColor, textAlign: l.textAlign, curve: l.curve }); if (l.type === 'image') o.src = l.src; return o; }); }
 
         async function saveDesign() {
-            const pid = state.product?.id;
-            const key = pid ? `designData_${pid}` : 'designData';
-
-            // Generate snapshot before saving
-            let previewImage = null;
-            try {
-                previewImage = await generateSnapshot();
-            } catch (e) {
-                console.warn('Snapshot failed:', e);
-            }
-
-            const data = {
-                productId: pid || null,
-                productCategory: state.category,
-                productName: state.product?.name || null,
-                shirtColor: state.shirtColor,
-                activeSide: state.side,
-                front: serializeLayers(state.front),
-                back: serializeLayers(state.back),
-                wrap: serializeLayers(state.wrap),
-                generatedAt: new Date().toISOString(),
-                previewImage,
-            };
-
+            const pid = state.product && state.product.id; const key = pid ? 'designData_' + pid : 'designData';
+            let previewImage = null; try { previewImage = await generateSnapshot(); } catch (e) { console.warn('Snapshot failed:', e); }
+            const data = { productId: pid || null, productCategory: state.category, productName: state.product && state.product.name || null, shirtColor: state.shirtColor, activeSide: state.side, front: serializeLayers(state.front), back: serializeLayers(state.back), wrap: serializeLayers(state.wrap), generatedAt: new Date().toISOString(), previewImage: previewImage };
             try {
                 localStorage.setItem(key, JSON.stringify(data)); markSaved();
                 const btn = $('#save-btn');
-                if (btn) {
-                    btn.classList.add('saved'); btn.textContent = '✓ Saved!';
-                    setTimeout(() => {
-                        btn.classList.remove('saved');
-                        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save Design`;
-                    }, 2200);
-                }
-                setStatus(`Design saved${pid ? ` for product #${pid}` : '.'}`, 'success');
-                showToast('Design saved successfully!');
+                if (btn) { btn.classList.add('saved'); btn.textContent = 'Saved!'; setTimeout(function () { btn.classList.remove('saved'); btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save Design'; }, 2200); }
+                setStatus('Design saved' + (pid ? ' for product #' + pid : '.'), 'success'); showToast('Design saved successfully!');
             } catch (err) {
-                // If storage quota exceeded (snapshot too large), retry without image
-                try {
-                    data.previewImage = null;
-                    localStorage.setItem(key, JSON.stringify(data)); markSaved();
-                    showToast('Saved (preview skipped — storage full)');
-                } catch {
-                    setStatus('Could not save design data.', 'warning');
-                    showToast('Save failed — storage may be full.');
-                }
+                try { data.previewImage = null; localStorage.setItem(key, JSON.stringify(data)); markSaved(); showToast('Saved (preview skipped - storage full)'); }
+                catch (e2) { setStatus('Could not save design data.', 'warning'); showToast('Save failed - storage may be full.'); }
             }
         }
-
         function handleBack() { if (!state.saved) { openModal('back-modal'); return; } proceedBack(); }
-        function openModal(id) { $(`#${id}`).classList.add('show'); }
-        function closeModal(id) { $(`#${id}`).classList.remove('show'); }
+        function openModal(id) { document.getElementById(id).classList.add('show'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('show'); }
         async function saveAndBack() { await saveDesign(); closeModal('back-modal'); proceedBack(); }
-        function proceedBack() { closeModal('back-modal'); window.location.href = './product.html' + (state.product?.id ? `?id=${state.product.id}` : ''); }
+        function proceedBack() { closeModal('back-modal'); window.location.href = './product.html' + (state.product && state.product.id ? '?id=' + state.product.id : ''); }
 
         function updateMeta() {
             const cfg = getCfg(), p = state.product;
             const nameEl = $('#product-name'), badgeEl = $('#category-badge'), infoEl = $('#info-banner'), sideLbl = $('#side-label');
-            if (nameEl) nameEl.textContent = p?.name || 'Customizer';
-            if (badgeEl) badgeEl.textContent = cfg.label;
-            if (sideLbl) sideLbl.innerHTML = `Editing <strong>${state.side}</strong>`;
-            if (infoEl) { const sd = cfg.sides.length === 1 ? `${cfg.sides[0]} panel` : `${cfg.sides.join(' & ')} panels`; infoEl.innerHTML = `<strong>${cfg.label}</strong> &mdash; ${sd}. Canvas: ${cfg.stageW}×${cfg.stageH}px.`; }
-            document.title = p?.name ? `Customize — ${p.name}` : 'Product Customizer';
+            if (nameEl) nameEl.textContent = p && p.name || 'Customizer'; if (badgeEl) badgeEl.textContent = cfg.label;
+            if (sideLbl) sideLbl.innerHTML = 'Editing <strong>' + state.side + '</strong>';
+            if (infoEl) { const sd = cfg.sides.length === 1 ? cfg.sides[0] + ' panel' : cfg.sides.join(' & ') + ' panels'; infoEl.innerHTML = '<strong>' + cfg.label + '</strong> &mdash; ' + sd + '. Canvas: ' + cfg.stageW + 'x' + cfg.stageH + 'px.'; }
+            document.title = p && p.name ? 'Customize - ' + p.name : 'Product Customizer';
         }
-
-        function observeResize() {
-            if (!window.ResizeObserver) return;
-            const area = $('#canvas-stage-area'); if (!area) return;
-            const ro = new ResizeObserver(() => renderStage()); ro.observe(area);
-        }
+        function observeResize() { if (!window.ResizeObserver) return; const area = $('#canvas-stage-area'); if (!area) return; new ResizeObserver(function () { renderStage(); }).observe(area); }
 
         async function init() {
-            const id = new URLSearchParams(location.search).get('id');
-            setStatus('Loading product…');
+            const id = new URLSearchParams(location.search).get('id'); setStatus('Loading product...');
             try {
-                const res = await fetch(PRODUCTS_JSON_URL);
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const data = await res.json();
-                const products = data.products || [];
-                const product = id ? products.find(p => String(p.id) === String(id).toUpperCase()) : null;
-                if (!product && id) { setStatus('Product not found.', 'warning'); showToast('Product not found — showing default canvas.'); }
-                state.product = product || null;
-                state.category = String(product?.category || 'default').toLowerCase();
-                if (product?.id) {
-                    const saved = localStorage.getItem(`designData_${product.id}`);
-                    if (saved) { try { const d = JSON.parse(saved); if (d.front) state.front = d.front || []; if (d.back) state.back = d.back || []; if (d.wrap) state.wrap = d.wrap || []; if (d.shirtColor) { state.shirtColor = d.shirtColor; state._colorInitialized = true; } const allIds = [...state.front, ...state.back, ...state.wrap].map(l => l.id); if (allIds.length) state.nid = Math.max(...allIds) + 1; state.saved = true; } catch { } }
+                const res = await fetch(PRODUCTS_JSON_URL); if (!res.ok) throw new Error('HTTP ' + res.status);
+                const data = await res.json(); const products = data.products || [];
+                const product = id ? products.find(function (p) { return String(p.id) === String(id).toUpperCase(); }) : null;
+                if (!product && id) { setStatus('Product not found.', 'warning'); showToast('Product not found - showing default canvas.'); }
+                state.product = product || null; state.category = String(product && product.category || 'default').toLowerCase();
+                if (product && product.id) {
+                    const saved = localStorage.getItem('designData_' + product.id);
+                    if (saved) { try { const d = JSON.parse(saved); if (d.front) state.front = d.front || []; if (d.back) state.back = d.back || []; if (d.wrap) state.wrap = d.wrap || []; if (d.shirtColor) { state.shirtColor = d.shirtColor; state._colorInitialized = true; } const allIds = [].concat(state.front, state.back, state.wrap).map(function (l) { return l.id; }); if (allIds.length) state.nid = Math.max.apply(null, allIds) + 1; state.saved = true; } catch (e) { } }
                 }
             } catch (err) { console.error(err); setStatus('Could not load product data.', 'warning'); }
-
             const cfg = getCfg(); state.side = cfg.defaultSide;
             await loadTemplates();
             updateMeta(); buildSwatches(); buildSideTabs(); renderTemplates(); renderStage(); renderAll(); observeResize();
-            setStatus('Ready — pick a template or add text.', 'success');
+            setStatus('Ready - pick a template or add text.', 'success');
         }
 
         window.addEventListener('load', init);

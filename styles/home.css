@@ -349,6 +349,6 @@
 
     .featured-products .product-card {
         /* Fixed width so cards stay consistent; ~4 visible at 1200px container */
-        flex: 0 0 clamp(240px, 26%, 300px);
+        flex: 0 0 clamp(270px, 31.5%, 360px);
     }
 }

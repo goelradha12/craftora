@@ -1,7 +1,7 @@
 const CART_KEY = 'cart';
 
 const $ = (sel, root = document) => root.querySelector(sel);
-const money = n => `Rs ${Number(n || 0).toLocaleString('en-IN')}`;
+const money = n => `₹${Number(n || 0).toLocaleString('en-IN')}`;
 const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 })[m]);
@@ -299,7 +299,7 @@ function renderCart() {
         <div class="cart-item__details">
           <div class="cart-item__header">
             <div>
-              <h3 class="cart-item__name" onclick="window.location.href='./product.html?id=${item.id}'">${esc(item.name)}</h3>
+              <h3 class="cart-item__name cart-item__text" onclick="window.location.href='./product.html?id=${item.id}'">${esc(item.name)}</h3>
               <div class="cart-item__meta">
                 ${item.color ? `
                   <span>
@@ -324,7 +324,7 @@ function renderCart() {
                 </button>` : ''}
               </div>
             </div>
-            <span class="cart-item__price">${money(item.price * item.qty)}</span>
+            <span class="cart-item__price cart-item__text">${money(item.price * item.qty)}</span>
           </div>
 
           <div class="cart-item__actions">

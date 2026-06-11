@@ -131,47 +131,6 @@ const DesignPreview = (() => {
         font-size: 11px;
         color: #b0b0b0;
       }
-      .dp-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        font-size: 12px;
-        font-weight: 600;
-        padding: 7px 14px;
-        border-radius: 8px;
-        border: 1px solid #e2e1dc;
-        background: #ffffff;
-        color: #3a3a3a;
-        cursor: pointer;
-        transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
-        text-decoration: none;
-        white-space: nowrap;
-        font-family: 'Inter', sans-serif;
-      }
-      .dp-btn:hover {
-        background: #f5f5f3;
-        border-color: #ceccc5;
-        color: #0d0d0d;
-      }
-      .dp-btn-primary {
-        background: #0d0d0d;
-        color: #ffffff;
-        border-color: #0d0d0d;
-      }
-      .dp-btn-primary:hover {
-        background: #2a2a2a;
-        border-color: #2a2a2a;
-      }
-      .dp-btn-accent {
-        background: #e84a27;
-        color: #ffffff;
-        border-color: #e84a27;
-      }
-      .dp-btn-accent:hover {
-        background: #d14420;
-        border-color: #d14420;
-      }
     `;
     document.head.appendChild(style);
   }
@@ -205,7 +164,6 @@ const DesignPreview = (() => {
         <div id="dp-footer">
           <span id="dp-meta"></span>
           <div style="display:flex;gap:6px;">
-            <button class="dp-btn" id="dp-edit-btn">Edit design</button>
             <button class="dp-btn dp-btn-accent" id="dp-customize-btn" style="display:none;">Customize again</button>
           </div>
         </div>
@@ -253,7 +211,6 @@ const DesignPreview = (() => {
     const noPreview = document.getElementById('dp-no-preview');
     const subtitle = document.getElementById('dp-subtitle');
     const meta = document.getElementById('dp-meta');
-    const editBtn = document.getElementById('dp-edit-btn');
     const customizeBtn = document.getElementById('dp-customize-btn');
 
     // Subtitle: product name + category
@@ -283,7 +240,6 @@ const DesignPreview = (() => {
 
     // Edit button — links to customize.html
     const customizeUrl = `./customize.html${productId ? `?id=${productId}` : ''}`;
-    editBtn.onclick = () => { window.location.href = customizeUrl; };
 
     // If no preview image, show a "Customize" button as CTA
     if (!data.previewImage) {
