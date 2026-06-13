@@ -3,10 +3,6 @@
    Tokens sourced from tokens.css
    ============================================================ */
 
-.main-content {
-    background-color: var(--color-primary);
-    color: var(--surface-bg);
-}
 
 .topbar {
     display: flex;

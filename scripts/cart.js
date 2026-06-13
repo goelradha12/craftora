@@ -35,7 +35,12 @@ function showCheckoutPopup(user, onConfirm) {
           <p id="popupTitle" class="checkout-modal__title">Confirm delivery details</p>
           <p class="checkout-modal__subtitle">Review your address and phone number before placing the order.</p>
         </div>
-        <button id="popupClose" class="checkout-modal__close" type="button" aria-label="Close">&times;</button>
+        <button id="popupClose" class="checkout-modal__close cart-item__remove" type="button" aria-label="Close">
+        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="Menu / Close_SM">
+        <path id="Vector" d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        </svg></button>
       </div>
 
       <div class="checkout-modal__field">
@@ -62,7 +67,6 @@ function showCheckoutPopup(user, onConfirm) {
 
       <div class="checkout-modal__actions">
         <button id="popupConfirm" class="checkout-btn" type="button">Place order</button>
-        <button id="popupCancel" class="checkout-modal__secondary" type="button">Cancel</button>
       </div>
     </div>
   `;
@@ -104,7 +108,6 @@ function showCheckoutPopup(user, onConfirm) {
   document.addEventListener('keydown', handleEsc);
 
   $('#popupClose', overlay).addEventListener('click', close);
-  $('#popupCancel', overlay).addEventListener('click', close);
   window.CraftoraUI?.bindPhoneInput(phoneEl);
   addressEl.focus();
 
@@ -338,7 +341,11 @@ function renderCart() {
             </div>
 
             <button class="cart-item__remove" type="button" aria-label="Remove ${esc(item.name)} from cart" onclick="removeItem('${esc(item.key)}')">
-              <span aria-hidden="true">&times;</span>
+              <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="Menu / Close_SM">
+              <path id="Vector" d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="#383838" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              </svg>
             </button>
           </div>
         </div>

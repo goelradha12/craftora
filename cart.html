@@ -5,9 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart - Craftora</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2937'/%3E%3Cpath d='M20 24h24l-2 24H22l-2-24Z' fill='%23ffffff'/%3E%3Cpath d='M25 24c0-4 3-8 7-8s7 4 7 8' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M29 34h6' stroke='%231f2937' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M44 16l1.2 2.8L48 20l-2.8 1.2L44 24l-1.2-2.8L40 20l2.8-1.2L44 16Z' fill='%23f59e0b'/%3E%3C/svg%3E">
+
+    <!-- Legacy shortcut icon -->
+    <link rel="shortcut icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2937'/%3E%3Cpath d='M20 24h24l-2 24H22l-2-24Z' fill='%23ffffff'/%3E%3Cpath d='M25 24c0-4 3-8 7-8s7 4 7 8' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M29 34h6' stroke='%231f2937' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M44 16l1.2 2.8L48 20l-2.8 1.2L44 24l-1.2-2.8L40 20l2.8-1.2L44 16Z' fill='%23f59e0b'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./styles/tokens.css">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/cart.css">
@@ -17,45 +26,51 @@
     <div id="header"></div>
 
     <main id="main-content" class="cart-page">
-        <h1 class="cart-title">Your Cart</h1>
-
-        <div class="cart-layout">
-            <div class="cart-items-container" id="cartItemsContainer" aria-live="polite">
+        <div class="hero-content">
+            <div class="container">
+                <h1 class="cart-title">Your Cart</h1>
+                <p>Review your order and proceed to checkout.</p>
             </div>
+        </div>
 
-            <aside class="cart-summary">
-                <h2 class="summary-title cart-item__text">Order Summary</h2>
-
-                <div class="summary-row">
-                    <span>Items (<span id="summaryItemCount">0</span>)</span>
-                    <span id="summarySubtotal">₹0</span>
-                </div>
-                <div class="summary-row">
-                    <span>Shipping</span>
-                    <span>Free</span>
-                </div>
-                <div class="summary-row summary-row--muted">
-                    <span>Discounts</span>
-                    <span id="summaryDiscount">Rs 0</span>
+        <div class="section">
+            <div class="container cart-layout">
+                <div class="cart-items-container" id="cartItemsContainer" aria-live="polite">
                 </div>
 
-                <div class="summary-divider"></div>
+                <aside class="cart-summary">
+                    <h2 class="summary-title cart-item__text">Order Summary</h2>
 
-                <div class="summary-row summary-total">
-                    <span>Total</span>
-                    <span id="summaryTotal">₹0</span>
-                </div>
+                    <div class="summary-row">
+                        <span>Items (<span id="summaryItemCount">0</span>)</span>
+                        <span id="summarySubtotal">₹0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span>Free</span>
+                    </div>
+                    <div class="summary-row summary-row--muted">
+                        <span>Discounts</span>
+                        <span id="summaryDiscount">Rs 0</span>
+                    </div>
 
-                <button class="checkout-btn" id="checkoutBtn" disabled>
-                    Proceed to Checkout
-                </button>
-                <p class="checkout-note" id="checkoutNote">Add products to continue to checkout.</p>
-            </aside>
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-row summary-total">
+                        <span>Total</span>
+                        <span id="summaryTotal">₹0</span>
+                    </div>
+
+                    <button class="checkout-btn" id="checkoutBtn" disabled>
+                        Proceed to Checkout
+                    </button>
+                    <p class="checkout-note" id="checkoutNote">Add products to continue to checkout.</p>
+                </aside>
+            </div>
         </div>
     </main>
 
     <div id="footer"></div>
-    <script src="./scripts/ui.js" defer></script>
     <script src="./scripts/layout.js" defer></script>
     <script src="./scripts/cart.js" defer></script>
     <script src="./scripts/design_preview.js" defer></script>

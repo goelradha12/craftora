@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup - Craftora | Modern Custom Merchandize</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2937'/%3E%3Cpath d='M20 24h24l-2 24H22l-2-24Z' fill='%23ffffff'/%3E%3Cpath d='M25 24c0-4 3-8 7-8s7 4 7 8' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M29 34h6' stroke='%231f2937' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M44 16l1.2 2.8L48 20l-2.8 1.2L44 24l-1.2-2.8L40 20l2.8-1.2L44 16Z' fill='%23f59e0b'/%3E%3C/svg%3E">
+
+    <!-- Legacy shortcut icon -->
+    <link rel="shortcut icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2937'/%3E%3Cpath d='M20 24h24l-2 24H22l-2-24Z' fill='%23ffffff'/%3E%3Cpath d='M25 24c0-4 3-8 7-8s7 4 7 8' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M29 34h6' stroke='%231f2937' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M44 16l1.2 2.8L48 20l-2.8 1.2L44 24l-1.2-2.8L40 20l2.8-1.2L44 16Z' fill='%23f59e0b'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -113,7 +120,6 @@
 
     </main>
 
-    <script defer src="./scripts/ui.js"></script>
     <script defer src="./scripts/auth.js"></script>
     <script>
         const _signupParams = new URLSearchParams(window.location.search);
@@ -154,9 +160,6 @@
             label.style.color = colors[score];
         });
 
-        const phoneInput = document.getElementById('phone');
-        window.CraftoraUI?.bindPhoneInput(phoneInput);
-
         document.getElementById('signupForm').addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -175,16 +178,18 @@
                 document.getElementById(id).textContent = '';
             });
 
-            const phoneValidation = window.CraftoraUI?.validatePhoneNumber(phone) || {
-                valid: !!phone,
-                error: phone ? '' : 'Phone number is required.',
-                digits: phone
-            };
-
             let valid = true;
             if (!name) { document.getElementById('nameError').textContent = 'Full name is required.'; valid = false; }
             if (!email) { document.getElementById('emailError').textContent = 'Email is required.'; valid = false; }
-            if (!phoneValidation.valid) { document.getElementById('phoneError').textContent = phoneValidation.error; valid = false; }
+
+            if (!phone) {
+                document.getElementById('phoneError').textContent = 'Phone number is required.';
+                valid = false;
+            } else if (phone.length < 10) {
+                document.getElementById('phoneError').textContent = 'Please enter a valid 10-digit number.';
+                valid = false;
+            }
+
             if (!password) { document.getElementById('passwordError').textContent = 'Password is required.'; valid = false; }
             else if (password.length < 6) {
                 document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
@@ -199,10 +204,11 @@
                 const result = attemptSignup({
                     name,
                     email,
-                    phone: phoneValidation.digits || phone,
+                    phone,
                     address,
                     password
                 });
+
                 btn.classList.remove('loading');
                 btn.disabled = false;
 

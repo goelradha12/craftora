@@ -84,6 +84,12 @@ p {
     opacity: 0.8;
 }
 
+@media (max-width: 768px) {
+    p {
+        line-height: 1.6rem;
+    }
+}
+
 button,
 li {
     cursor: pointer;
@@ -942,5 +948,37 @@ body.nav-open {
         top: calc(var(--nav-height-mobile) + var(--space-3));
         width: min(92vw, 360px);
         transform: translateX(-50%);
+    }
+}
+
+
+/* Main section of each page */
+.hero-content {
+    background-color: var(--color-primary);
+    color: var(--surface-bg);
+    padding-block: 4rem;
+}
+
+.hero-content h1 {
+    font-size: var(--text-2xl);
+    line-height: var(--leading-tight);
+    color: var(--bg);
+    margin-bottom: var(--space-6);
+}
+.hero-content p {
+    max-width: 50ch;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        padding-block: var(--space-12);
+    }
+    .hero-content h1 {
+        font-size: var(--text-xl);
+        margin-bottom: var(--space-4);
+    }
+    .hero-content p {
+        max-width: 100%;
     }
 }

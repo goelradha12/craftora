@@ -5,22 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Craftora</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2937'/%3E%3Cpath d='M20 24h24l-2 24H22l-2-24Z' fill='%23ffffff'/%3E%3Cpath d='M25 24c0-4 3-8 7-8s7 4 7 8' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M29 34h6' stroke='%231f2937' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M44 16l1.2 2.8L48 20l-2.8 1.2L44 24l-1.2-2.8L40 20l2.8-1.2L44 16Z' fill='%23f59e0b'/%3E%3C/svg%3E">
+
+    <!-- Legacy shortcut icon -->
+    <link rel="shortcut icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2937'/%3E%3Cpath d='M20 24h24l-2 24H22l-2-24Z' fill='%23ffffff'/%3E%3Cpath d='M25 24c0-4 3-8 7-8s7 4 7 8' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M29 34h6' stroke='%231f2937' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M44 16l1.2 2.8L48 20l-2.8 1.2L44 24l-1.2-2.8L40 20l2.8-1.2L44 16Z' fill='%23f59e0b'/%3E%3C/svg%3E">
+    <!-- keep only one font family and fewer weights -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- keep the CSS order, but remove anything unused from inline styles -->
     <link rel="stylesheet" href="./styles/tokens.css">
     <link rel="stylesheet" href="./styles/style.css">
     <style>
-        /* ── Page Hero ── */
-        .about-hero {
-            background: var(--primary);
-            color: var(--bg);
-            padding: 5rem 0 4rem;
-        }
-
-        .about-hero p {
-            max-width: 46ch;
-        }
         /* ── Mission ── */
         .mission-grid {
             display: grid;
@@ -43,27 +43,11 @@
         }
 
         .mission-text h2 {
-            display: block;
             text-align: left;
-            margin-bottom: 1.25rem;
-            font-size: 2rem;
-        }
-
-        .mission-text h2::after,
-        .mission-text h2::before {
-            display: none;
         }
 
         .mission-text p {
-            margin-bottom: 1rem;
-            opacity: 1;
-            color: var(--color-text);
-            font-size: 1rem;
-            line-height: 1.75;
-        }
-
-        .mission-text p:last-child {
-            margin-bottom: 0;
+            margin-bottom: 1.25rem;
         }
 
         .accent-bar {
@@ -150,133 +134,17 @@
         }
 
         .value-card p {
-            font-size: 0.95rem;
-            line-height: 1.65;
-            color: var(--color-muted);
-        }
-
-        /* ── Team ── */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .team-card {
-            text-align: center;
-            background: #fff;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 8px 24px hsl(from var(--primary) h s l / 0.08);
-            transition: transform 0.25s ease;
-        }
-
-        .team-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .team-avatar {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            background: hsl(from var(--primary) h s l / 0.06);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .team-avatar-placeholder {
-            width: 100%;
-            height: 220px;
-            background: linear-gradient(135deg, hsl(from var(--primary) h s l / 0.08), hsl(from var(--accent) h s l / 0.12));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-        }
-
-        .team-info {
-            padding: 1.25rem 1rem;
-        }
-
-        .team-info h3 {
-            font-size: 1.05rem;
-            color: var(--primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .team-info p {
             font-size: 0.9rem;
-            color: var(--color-muted);
-            opacity: 1;
-        }
-
-        /* ── CTA Banner ── */
-        .cta-section {
-            background: var(--accent);
-            padding-block: 5rem;
-            text-align: center;
-            color: #fff;
-        }
-
-        .cta-section h2 {
-            display: block;
-            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
-            margin-bottom: 1rem;
-            color: #fff;
-        }
-
-        .cta-section h2::after,
-        .cta-section h2::before {
-            display: none;
-        }
-
-        .cta-section p {
-            color: hsl(0 0% 100% / 0.88);
-            max-width: 48ch;
-            margin: 0 auto 2rem;
-            font-size: 1.05rem;
-            line-height: 1.7;
-        }
-
-        .cta-btn {
-            display: inline-block;
-            padding: 1rem 2.25rem;
-            background: #fff;
-            color: var(--accent);
-            text-decoration: none;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            font-weight: 700;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px hsl(0 0% 0% / 0.15);
+            line-height: 1.6;
         }
 
         /* ── Section titles ── */
         .section-title {
             text-align: center;
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            color: var(--primary);
-            display: block;
-        }
-
-        .section-title::after,
-        .section-title::before {
-            display: none;
         }
 
         .section-subtitle {
             text-align: center;
-            color: var(--color-muted);
-            max-width: 50ch;
-            margin: 0.75rem auto 0;
-            font-size: 1rem;
-            line-height: 1.7;
         }
 
         /* ── Responsive ── */
@@ -299,10 +167,9 @@
     <main id="main-content">
 
         <!-- Hero -->
-        <section class="about-hero" aria-labelledby="about-heading">
+        <section class="hero-content" aria-labelledby="about-heading">
             <div class="container">
-                <h1 id="about-heading">We Make Your Ideas Wearable</h1>
-                <br/>
+                <h1 id="about-heading">Who Are We?</h1>
                 <p>
                     Craftora is a custom merchandise brand born from the belief that
                     everyone deserves products as unique as they are. From tees to
@@ -316,10 +183,8 @@
             <div class="container">
                 <div class="mission-grid">
                     <div class="mission-img">
-                        <img
-                            src="./assets/t-shirt_blue_person.jpg"
-                            alt="A person wearing a custom Craftora printed t-shirt"
-                        />
+                        <img src="./assets/factory.webp"
+                            alt="A person wearing a custom Craftora printed t-shirt" />
                     </div>
                     <div class="mission-text">
                         <div class="accent-bar" aria-hidden="true"></div>
@@ -371,7 +236,7 @@
         <!-- Values -->
         <section class="section" aria-labelledby="values-heading">
             <div class="container">
-                <h2 class="section-title" id="values-heading">What We Stand For</h2>
+                <h2 class="section-title" id="values-heading">What we Stand for</h2>
                 <p class="section-subtitle">
                     These aren't slogans — they're the principles behind every
                     decision we make.
@@ -380,47 +245,55 @@
 
                     <div class="value-card">
                         <div class="value-icon" aria-hidden="true">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
                             </svg>
                         </div>
                         <h3>Quality First</h3>
-                        <p>We never cut corners. From material sourcing to final packaging, every step meets our high standard before it leaves our hands.</p>
+                        <p>We never cut corners. From material sourcing to final packaging, every step meets our high
+                            standard before it leaves our hands.</p>
                     </div>
 
                     <div class="value-card">
                         <div class="value-icon" aria-hidden="true">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                                <line x1="9" y1="9" x2="9.01" y2="9"/>
-                                <line x1="15" y1="9" x2="15.01" y2="9"/>
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                                <line x1="9" y1="9" x2="9.01" y2="9" />
+                                <line x1="15" y1="9" x2="15.01" y2="9" />
                             </svg>
                         </div>
                         <h3>Customer Happiness</h3>
-                        <p>Your satisfaction drives everything. We offer hassle-free returns, fast support, and a design process built around your vision.</p>
+                        <p>Your satisfaction drives everything. We offer hassle-free returns, fast support, and a design
+                            process built around your vision.</p>
                     </div>
 
                     <div class="value-card">
                         <div class="value-icon" aria-hidden="true">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 20h9"/>
-                                <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 20h9" />
+                                <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
                             </svg>
                         </div>
                         <h3>Creative Freedom</h3>
-                        <p>Your ideas, your rules. Our platform and team are here to help you realize exactly what you have in mind — no compromises.</p>
+                        <p>Your ideas, your rules. Our platform and team are here to help you realize exactly what you
+                            have in mind — no compromises.</p>
                     </div>
 
                     <div class="value-card">
                         <div class="value-icon" aria-hidden="true">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                <polyline points="9 22 9 12 15 12 15 22"/>
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                <polyline points="9 22 9 12 15 12 15 22" />
                             </svg>
                         </div>
                         <h3>Local Roots</h3>
-                        <p>We're a homegrown brand that understands its community. That local perspective shapes how we design, produce, and deliver.</p>
+                        <p>We're a homegrown brand that understands its community. That local perspective shapes how we
+                            design, produce, and deliver.</p>
                     </div>
 
                 </div>
