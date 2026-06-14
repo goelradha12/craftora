@@ -119,10 +119,10 @@ function renderBreadcrumbs(product) {
     return `
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <ol class="breadcrumb__list">
-                <li class="breadcrumb__item"><a class="breadcrumb__link" href="./index.html">Home</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
-                <li class="breadcrumb__item"><a class="breadcrumb__link" href="./products.html">Shop</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
-                <li class="breadcrumb__item"><a class="breadcrumb__link" href="./products.html?category=${encodeURIComponent(product.category)}">${escapeHTML(product.category)}</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
-                <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">${escapeHTML(product.name)}</li>
+                <li><a class="breadcrumb__link" href="./index.html">Home</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
+                <li><a class="breadcrumb__link" href="./products.html">Shop</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
+                <li><a class="breadcrumb__link" href="./products.html?category=${encodeURIComponent(product.category)}">${escapeHTML(product.category)}</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
+                <li aria-current="page">${escapeHTML(product.name)}</li>
             </ol>
         </nav>`;
 }

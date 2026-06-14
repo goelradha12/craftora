@@ -114,13 +114,10 @@ function renderProducts(productsToRender) {
         grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">No products found matching your criteria.</p>';
         return;
     }
-
+    
     productsToRender.forEach(product => {
         const card = document.createElement('div');
         card.className = 'product-card';
-
-        // Check if product is marked as new in the JSON
-        const badgeHTML = product.isNew ? `<div class="product-card__badge">New Arrival</div>` : '';
 
         card.innerHTML = `
             <div class="product-card__badge">${product.badges[0]}</div>

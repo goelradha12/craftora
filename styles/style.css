@@ -146,8 +146,6 @@ body.nav-open {
 }
 
 .nav__logo img {
-    height: 26px;
-    width: auto;
     display: block;
 }
 
@@ -497,11 +495,6 @@ body.nav-open {
     padding-inline: var(--space-5);
 }
 
-.nav__phone-logo img {
-    height: 24px;
-    width: auto;
-}
-
 .nav__phone-actions {
     display: flex;
     align-items: center;
@@ -819,8 +812,6 @@ body.nav-open {
 }
 
 .footer-logo {
-    height: 26px;
-    width: auto;
     margin-bottom: var(--space-4);
 }
 

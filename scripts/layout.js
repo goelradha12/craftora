@@ -192,7 +192,7 @@ function buildHeader(user) {
             <div class="nav--desktop container">
 
                 <a class="nav__logo" href="./index.html" aria-label="Craftora – go to homepage">
-                    <img width="200" height="40" src="./assets/logo.webp" alt="Craftora">
+                    <img width="116" height="26" src="./assets/logo.webp" alt="Craftora">
                 </a>
 
                 <ul class="nav__links" role="list">
@@ -216,7 +216,7 @@ function buildHeader(user) {
             <div class="nav__phone">
 
                 <a class="nav__phone-logo" href="./index.html" aria-label="Craftora – go to homepage">
-                    <img width="100" height="20" src="./assets/logo.webp" alt="Craftora">
+                    <img width="107" height="24" src="./assets/logo.webp" alt="Craftora">
                 </a>
 
                 <div class="nav__phone-actions">
@@ -262,7 +262,7 @@ const FOOTER_HTML = /* html */`
     <div class="footer-top">
         <div class="footer-brand">
             <a href="./index.html">
-                <img width="100" height="20" src="./assets/dark_logo.webp" alt="Craftora" class="footer-logo">
+                <img width="115" height="26" src="./assets/dark_logo.webp" alt="Craftora" class="footer-logo">
             </a>
             <p class="footer-tagline">Modern custom merchandise designed to bring your ideas to life.</p>
         </div>
