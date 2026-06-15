@@ -270,14 +270,14 @@
 
 .checkout-btn {
     width: 100%;
-    padding: var(--space-4);
-    background: var(--color-primary);
-    color: var(--text-on-dark);
+    padding: 0.88rem 1.5rem;
+    background: var(--accent);
+    color: #fff;
     border: none;
-    border-radius: var(--radius-md);
-    font-weight: var(--weight-semibold);
-    font-size: var(--text-base);
-    font-family: var(--font-heading);
+    border-radius: 0.6rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
     cursor: pointer;
     margin-top: var(--space-6);
     transition: opacity var(--transition-base);
@@ -433,7 +433,7 @@
     margin: 0;
 }
 
-.checkout-modal__user p + p {
+.checkout-modal__user p+p {
     color: var(--text-muted);
     font-size: var(--text-sm);
 }

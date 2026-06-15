@@ -1,5 +1,5 @@
 # craftora
-A cutomized merchandize seller
+A cutomized merchandise seller
 
 # Product
 id

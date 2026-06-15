@@ -176,6 +176,7 @@ function renderProducts(productsToRender) {
                     try { return JSON.parse(localStorage.getItem('craftora_user') || 'null'); } catch { return null; }
                 })();
                 if (!user) {
+                    alert('You must be signed in to add items to your wishlist.');
                     window.location.href = './login.html';
                     return;
                 }

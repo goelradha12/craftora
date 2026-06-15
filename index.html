@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Craftora | Modern Custom Merchandize</title>
+    <title>Craftora | Modern Custom Merchandise</title>
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml"
         href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2937'/%3E%3Cpath d='M20 24h24l-2 24H22l-2-24Z' fill='%23ffffff'/%3E%3Cpath d='M25 24c0-4 3-8 7-8s7 4 7 8' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M29 34h6' stroke='%231f2937' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M44 16l1.2 2.8L48 20l-2.8 1.2L44 24l-1.2-2.8L40 20l2.8-1.2L44 16Z' fill='%23f59e0b'/%3E%3C/svg%3E">
@@ -14,8 +14,10 @@
         href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2937'/%3E%3Cpath d='M20 24h24l-2 24H22l-2-24Z' fill='%23ffffff'/%3E%3Cpath d='M25 24c0-4 3-8 7-8s7 4 7 8' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M29 34h6' stroke='%231f2937' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M44 16l1.2 2.8L48 20l-2.8 1.2L44 24l-1.2-2.8L40 20l2.8-1.2L44 16Z' fill='%23f59e0b'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lato:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    
+    <link rel="stylesheet" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lato:wght@400;700&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+
     <link rel="stylesheet" href="./styles/tokens.css">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/home.css">
@@ -26,7 +28,7 @@
 
     <div id="header"></div>
     <main id="main-content">
-        <div class="hero section">
+        <div class="hero">
 
             <div class="container">
 
@@ -34,16 +36,14 @@
 
                     <div class="hero--reviews">
 
-                        <div class="reviews--track js_reviews_track">
-
-                        </div>
+                        <img src="./assets/hero-img-products.webp" width="350" height="350" alt="">
 
                     </div>
                     <!-- LEFT -->
                     <div class="hero--content">
 
                         <h1>
-                            Best quality Merchandizes in your favorite design.
+                            Best quality Merchandise in your favorite design.
                         </h1>
 
                         <p>
@@ -62,37 +62,6 @@
             </div>
 
         </div>
-<!-- 
-        <div class="section section-featured">
-            <div class="container">
-                <div class="featured-heading">
-                    <h2 class="section-heading">Featured</h2>
-                </div>
-                <div class="featured-row">
-                    <button class="featured-nav" id="featuredPrev" type="button"
-                        aria-label="Scroll featured products left">
-                        <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M15.7071 4.29289C16.0976 4.68342 16.0976 5.31658 15.7071 5.70711L9.41421 12L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071C15.3166 20.0976 14.6834 20.0976 14.2929 19.7071L7.29289 12.7071C7.10536 12.5196 7 12.2652 7 12C7 11.7348 7.10536 11.4804 7.29289 11.2929L14.2929 4.29289C14.6834 3.90237 15.3166 3.90237 15.7071 4.29289Z"
-                                fill="#000000" />
-                        </svg>
-                    </button>
-                    <div class="featured-products" id="featuredProducts" aria-live="polite">
-                        <div class="featured-products__placeholder">Loading featured products...</div>
-                    </div>
-                    <button class="featured-nav" id="featuredNext" type="button"
-                        aria-label="Scroll featured products right">
-                        <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M8.29289 4.29289C8.68342 3.90237 9.31658 3.90237 9.70711 4.29289L16.7071 11.2929C17.0976 11.6834 17.0976 12.3166 16.7071 12.7071L9.70711 19.7071C9.31658 20.0976 8.68342 20.0976 8.29289 19.7071C7.90237 19.3166 7.90237 18.6834 8.29289 18.2929L14.5858 12L8.29289 5.70711C7.90237 5.31658 7.90237 4.68342 8.29289 4.29289Z"
-                                fill="#000000" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div> -->
 
         <div class="section">
             <div class="container">
@@ -140,6 +109,8 @@
                 </div>
             </div>
         </div>
+
+
     </main>
     <div id="footer"></div>
     <script src="./scripts/wishlist.js" defer></script>

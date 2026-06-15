@@ -16,20 +16,6 @@ const escapeHTML = str => String(str ?? '').replace(/[&<>"']/g, match =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[match]);
 const formatMoney = num => `₹${Number(num || 0).toLocaleString('en-IN')}`;
 
-// --- IMAGE OPTIMIZATION HELPER ---
-const getOptImg = (src, width) => {
-    try {
-        const url = new URL(src);
-        url.searchParams.set('w', width);
-        url.searchParams.set('fm', 'webp');
-        url.searchParams.set('q', '75');
-        url.searchParams.set('fit', 'crop');
-        return url.toString();
-    } catch (e) {
-        return src;
-    }
-};
-
 const getCart = () => { try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch { return []; } };
 const getWishlist = () => { try { return JSON.parse(localStorage.getItem(WISHLIST_KEY) || '[]'); } catch { return []; } };
 const isWishlisted = id => getWishlist().some(item => item.id === id);
@@ -64,8 +50,6 @@ function initProductPage() {
     let productId = new URLSearchParams(location.search).get('id');
     if (!productId) { mountNode.innerHTML = renderError('No product specified.'); mountNode.setAttribute('aria-busy', 'false'); return; }
 
-    mountNode.innerHTML = renderSkeleton();
-
     fetch('./content/products.json', { priority: 'high' })
         .then(res => res.json())
         .then(data => {
@@ -83,7 +67,7 @@ function initProductPage() {
                 const preload = document.createElement('link');
                 preload.rel = 'preload';
                 preload.as = 'image';
-                preload.href = getOptImg(mainImgSrc, 800);
+                preload.href = mainImgSrc;
                 preload.fetchPriority = 'high';
                 document.head.appendChild(preload);
             }
@@ -119,7 +103,6 @@ function renderBreadcrumbs(product) {
     return `
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <ol class="breadcrumb__list">
-                <li><a class="breadcrumb__link" href="./index.html">Home</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
                 <li><a class="breadcrumb__link" href="./products.html">Shop</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
                 <li><a class="breadcrumb__link" href="./products.html?category=${encodeURIComponent(product.category)}">${escapeHTML(product.category)}</a><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
                 <li aria-current="page">${escapeHTML(product.name)}</li>
@@ -151,11 +134,7 @@ function renderGallery(product) {
                 </button>
 
                 <img class="product__main-img" id="productMainImg"
-                     src="${getOptImg(images[0], 800)}"
-                     srcset="${getOptImg(images[0], 400)} 400w, 
-                             ${getOptImg(images[0], 800)} 800w, 
-                             ${getOptImg(images[0], 1200)} 1200w"
-                     sizes="(max-width: 960px) 100vw, 52vw"
+                     src="${images[0]}"
                      alt="${escapeHTML(product.name)}" 
                      width="800" height="1000" 
                      fetchpriority="high"
@@ -166,10 +145,10 @@ function renderGallery(product) {
                 <ul class="product__thumbs" aria-label="Product images">
                     ${images.map((src, idx) => `
                         <li><button class="product__thumb${idx === 0 ? ' product__thumb--active' : ''}"
-                                    type="button" data-src="${getOptImg(src, 800)}"
+                                    type="button" data-src="${src}"
                                     aria-label="View image ${idx + 1}" aria-pressed="${idx === 0}">
                             <img class="product__thumb-img" 
-                                 src="${getOptImg(src, 128)}" 
+                                 src="${src}" 
                                  alt="" loading="lazy" width="64" height="64">
                         </button></li>`).join('')}
                 </ul>` : ''}
@@ -194,7 +173,7 @@ function renderProductInfo(product) {
                 <span class="product__price">${formatMoney(product.basePrice)}</span>
                 <span class="product__price-note">base price</span>
             </div>
-
+            <hr/>
             <p class="product__description">${escapeHTML(product.description)}</p>
 
             <div class="product__meta-row">
@@ -220,8 +199,6 @@ function renderProductInfo(product) {
                 </div>
             </div>
 
-            
-            <p>Product available in Multiple Colors</p>
             
             <div class="product__customization-card missing" id="custCard">
                 <div class="product__cust-preview-wrap">
@@ -327,7 +304,7 @@ function renderRelatedProducts(product) {
                     <li>
                         <a class="related__card" href="./product.html?id=${encodeURIComponent(item.id)}">
                             <div class="related__img-wrap">
-                                <img class="related__img" src="${getOptImg(item.images?.default, 400)}"
+                                <img class="related__img" src="${item.images?.default}"
                                      alt="${escapeHTML(item.name)}" loading="lazy" width="273" height="273">
                             </div>
                             <div class="related__body">
@@ -339,26 +316,6 @@ function renderRelatedProducts(product) {
                     </li>`).join('')}
             </ul>
         </section>`;
-}
-
-function renderSkeleton() {
-    return `
-        <nav aria-hidden="true" style="margin-bottom: 2.75rem;">
-            <div class="skeleton-block" style="height: 1rem; width: 40%; border-radius: 4px;"></div>
-        </nav>
-        <div class="product__skeleton">
-            <div class="skeleton-block" style="aspect-ratio:4/5;border-radius:1.5rem"></div>
-            <div style="display:flex;flex-direction:column;gap:1rem;padding-top:0.5rem;min-height:650px">
-                <div class="skeleton-block" style="height:0.8rem;width:30%;border-radius:4px"></div>
-                <div class="skeleton-block" style="height:2.4rem;width:72%;border-radius:6px"></div>
-                <div class="skeleton-block" style="height:2rem;width:26%;border-radius:4px;margin-top:0.5rem"></div>
-                <div class="skeleton-block" style="height:4.5rem;border-radius:10px;margin-top:0.75rem"></div>
-                <div class="skeleton-block" style="height:2.4rem;border-radius:8px"></div>
-                <div class="skeleton-block" style="height:3.5rem;border-radius:10px"></div>
-                <div class="skeleton-block" style="height:2.8rem;border-radius:8px"></div>
-                <div class="skeleton-block" style="height:2.8rem;border-radius:8px"></div>
-            </div>
-        </div>`;
 }
 
 function renderError(message) {

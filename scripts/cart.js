@@ -1,4 +1,5 @@
 const CART_KEY = 'cart';
+const ORDERS_KEY = 'craftora_orders';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const money = n => `₹${Number(n || 0).toLocaleString('en-IN')}`;
@@ -17,6 +18,22 @@ function openDesignPreview(event, productKey) {
   if (typeof DesignPreview !== 'undefined') {
     DesignPreview.showCartCustomization(productKey);
   }
+}
+
+
+function getOrders() {
+  try {
+    return JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]');
+  } catch {
+    return [];
+  }
+}
+
+function addOrder(order) {
+  const orders = getOrders();
+
+  orders.unshift(order);
+  localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
 }
 
 function showCheckoutPopup(user, onConfirm) {
@@ -219,7 +236,7 @@ function bindCheckoutButton() {
       const subtotal = cartData.reduce((sum, item) => sum + (item.price * item.qty), 0);
       const itemsCount = cartData.reduce((sum, item) => sum + item.qty, 0);
 
-      window.CraftoraUI?.addOrder({
+      addOrder({
         id: orderId,
         date: new Date().toISOString(),
         status: 'Processing',
@@ -296,7 +313,7 @@ function renderCart() {
     return `
       <article class="cart-item">
         <div class="cart-item__img-wrap">
-          <img class="cart-item__img" src="${esc(item.image)}" alt="${esc(item.name)}">
+          <img class="cart-item__img" src="${esc(item.image)}" alt="${esc(item.name)}" width="120" height="120" fetchpriority="high">
         </div>
 
         <div class="cart-item__details">

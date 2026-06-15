@@ -45,9 +45,9 @@
         }
       ],
       "images": {
-        "default": "https://images.unsplash.com/photo-1644030692585-5cacde03d84a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZGFpbHklMjBkaWFyeXxlbnwwfHwwfHx8MA%3D%3D",
+        "default": "./assets/products/P001/default.webp",
         "others": [
-          "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80"
+          "./assets/products/P001/alt_1.webp"
         ]
       },
       "badges": [
@@ -112,10 +112,10 @@
         }
       ],
       "images": {
-        "default": "https://images.unsplash.com/photo-1562217180-021f74991332?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "default": "./assets/products/P002/default.webp",
         "others": [
-          "https://images.unsplash.com/photo-1562217282-11ea832b619f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "https://images.unsplash.com/photo-1558478551-be297c7bb253?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          "./assets/products/P002/alt_1.webp",
+          "./assets/products/P002/alt_2.webp"
         ]
       },
       "badges": [
@@ -168,10 +168,10 @@
         }
       ],
       "images": {
-        "default": "https://images.unsplash.com/photo-1658078874992-ac23fa54cae9?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "default": "./assets/products/P003/default.webp",
         "others": [
-          "https://media.istockphoto.com/id/1301619843/photo/colorful-dairies-stock-image-with-various-background.webp?a=1&b=1&s=612x612&w=0&k=20&c=W2wHVuh6Tzl420n4n3I_G1hcf8UyvjRGZdRPajpHjZA=",
-          "https://images.unsplash.com/photo-1501618669935-18b6ecb13d6d?q=80&w=1149&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          "./assets/products/P003/alt_1.webp",
+          "./assets/products/P003/alt_2.webp"
         ]
       },
       "badges": [
@@ -217,10 +217,10 @@
         }
       ],
       "images": {
-        "default": "https://images.unsplash.com/photo-1625708458528-802ec79b1ed8?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "default": "./assets/products/P004/default.webp",
         "others": [
-          "https://images.unsplash.com/photo-1596629095282-0c899c48b6b2?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "https://images.unsplash.com/photo-1660033572283-aab71d121c32?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGNvbG9yZnVsJTIwcGxhc3RpYyUyMHdhdGVyJTIwYm90dGxlc3xlbnwwfHwwfHx8MA%3D%3D"
+          "./assets/products/P004/alt_1.webp",
+          "./assets/products/P004/alt_2.webp"
         ]
       },
       "badges": [
@@ -265,10 +265,10 @@
         }
       ],
       "images": {
-        "default": "https://images.unsplash.com/photo-1642539088032-41a1fb000bc5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDMwfHx8ZW58MHx8fHx8",
+        "default": "./assets/products/P005/default.webp",
         "others": [
-          "https://media.istockphoto.com/id/1395714937/photo/top-view-flat-lay-of-hand-holding-a-a-protein-shaker-on-a-pinky-purple-background-for-health.webp?a=1&b=1&s=612x612&w=0&k=20&c=IIHmISs8drXueZrbJLCJHniz-blC9SDcd1Uz3Pic2Pk=",
-          "https://images.unsplash.com/photo-1604594765798-862ca7e40196?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          "./assets/products/P005/alt_1.webp",
+          "./assets/products/P005/alt_2.webp"
         ]
       },
       "badges": [
@@ -314,9 +314,9 @@
         }
       ],
       "images": {
-        "default": "https://media.istockphoto.com/id/1299896407/photo/thermos-bottle-for-hot-and-cold-drink.jpg?s=612x612&w=0&k=20&c=ROKfdJFZDdDBAviiuoD9_bqRQP_ognw5mVMjwafyavQ=",
+        "default": "./assets/products/P006/default.webp",
         "others": [
-          "https://media.istockphoto.com/id/1299896467/photo/thermos-bottles-for-hot-and-cold-drink-for-hot-and-cold-drink.jpg?s=612x612&w=0&k=20&c=BLhpJB-N-0WoIT_qJQh5gRaMvIsm_B8KmrZfWZIb8VU="
+          "./assets/products/P006/alt_1.webp"
         ]
       },
       "badges": [
@@ -369,9 +369,9 @@
         }
       ],
       "images": {
-        "default": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80",
+        "default": "./assets/products/P007/default.webp",
         "others": [
-          "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=80"
+          "./assets/products/P007/alt_1.webp"
         ]
       },
       "badges": [
@@ -423,10 +423,9 @@
         }
       ],
       "images": {
-        "default": "https://plus.unsplash.com/premium_photo-1689629728927-16f5306e3935?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "default": "./assets/products/P009/default.webp",
         "others": [
-          "https://plus.unsplash.com/premium_photo-1689629728966-0d248b5aeda2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZnVsbCUyMHNsZWV2ZXMlMjB0ZWVzfGVufDB8fDB8fHww",
-          "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZnVsbCUyMHNsZWV2ZXMlMjB0ZWVzfGVufDB8fDB8fHww"
+          "./assets/products/P009/alt_1.webp"
         ]
       },
       "badges": [
@@ -478,10 +477,10 @@
         }
       ],
       "images": {
-        "default": "https://images.unsplash.com/photo-1600714751142-c80263ce437f?q=80&w=685&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "default": "./assets/products/P010/default.webp",
         "others": [
-          "https://plus.unsplash.com/premium_photo-1690034978626-06974bf371e3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHYlMjBuZWNrJTIwdGVlc3xlbnwwfHwwfHx8MA%3D%3D",
-          "https://images.unsplash.com/photo-1587350749839-be8d372008b6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fHYlMjBuZWNrJTIwdGVlc3xlbnwwfHwwfHx8MA%3D%3D"
+          "./assets/products/P010/alt_1.webp",
+          "./assets/products/P010/alt_2.webp"
         ]
       },
       "badges": [
@@ -534,10 +533,10 @@
         }
       ],
       "images": {
-        "default": "https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=800&q=80",
+        "default": "./assets/products/P011/default.webp",
         "others": [
-          "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?auto=format&fit=crop&w=800&q=80"
+          "./assets/products/P011/alt_1.webp",
+          "./assets/products/P011/alt_2.webp"
         ]
       },
       "badges": [
@@ -591,9 +590,9 @@
         }
       ],
       "images": {
-        "default": "https://images.unsplash.com/photo-1503481766315-7a586b20f66d?q=80&w=1153&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "default": "./assets/products/P012/default.webp",
         "others": [
-          "https://plus.unsplash.com/premium_photo-1749043321339-663c86ab3416?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzV8fGJpZyUyMGNvZmZlZSUyMGN1cCUyMGNvbG9yZnVsfGVufDB8fDB8fHww"
+          "./assets/products/P012/alt_1.webp"
         ]
       },
       "badges": [
@@ -639,10 +638,10 @@
         }
       ],
       "images": {
-        "default": "https://images.unsplash.com/photo-1616241673111-508b4662c707?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGNvZmZlZSUyMG11Z3xlbnwwfHwwfHx8MA%3D%3D",
+        "default": "./assets/products/P013/default.webp",
         "others": [
-          "https://media.istockphoto.com/id/1209789271/photo/empty-cup-of-coffee-or-mug-on-the-round-table.webp?a=1&b=1&s=612x612&w=0&k=20&c=-fI3VCjYi3upPwrbYPFNnsl99PNrXKssD2fh5hL_tRQ=",
-          "https://images.unsplash.com/photo-1585068485610-8309185d1c49?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8"
+          "./assets/products/P013/alt_1.webp",
+          "./assets/products/P013/alt_2.webp"
         ]
       },
       "badges": [

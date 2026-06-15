@@ -216,7 +216,7 @@ function buildHeader(user) {
             <div class="nav__phone">
 
                 <a class="nav__phone-logo" href="./index.html" aria-label="Craftora – go to homepage">
-                    <img width="107" height="24" src="./assets/logo.webp" alt="Craftora">
+                    <img width="116" height="26" src="./assets/logo.webp" alt="Craftora">
                 </a>
 
                 <div class="nav__phone-actions">
@@ -262,7 +262,7 @@ const FOOTER_HTML = /* html */`
     <div class="footer-top">
         <div class="footer-brand">
             <a href="./index.html">
-                <img width="115" height="26" src="./assets/dark_logo.webp" alt="Craftora" class="footer-logo">
+                <img loading="lazy" src="./assets/dark_logo.webp" alt="Craftora" class="footer-logo" width="116" height="26">
             </a>
             <p class="footer-tagline">Modern custom merchandise designed to bring your ideas to life.</p>
         </div>
