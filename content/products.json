@@ -7,8 +7,10 @@
       "basePrice": 399,
       "description": "Premium hardcover diary with smooth pages for daily journaling.",
       "sizes": [
+        "A6",
         "A5",
-        "A4"
+        "A4",
+        "B5"
       ],
       "productDetails": [
         {
@@ -33,7 +35,7 @@
         },
         {
           "label": "size",
-          "value": "A5 / A4"
+          "value": "A6 / A5 / A4 / B5"
         },
         {
           "label": "paperColor",
@@ -63,7 +65,9 @@
       "basePrice": 549,
       "description": "Professional calendar diary with monthly planners, weekly schedules, and note sections.",
       "sizes": [
-        "A5"
+        "A6",
+        "A5",
+        "A4"
       ],
       "productDetails": [
         {
@@ -88,7 +92,7 @@
         },
         {
           "label": "size",
-          "value": "A5"
+          "value": "A6 / A5 / A4"
         },
         {
           "label": "paperColor",
@@ -131,7 +135,9 @@
       "basePrice": 449,
       "description": "Sketch-friendly diary with artistic cover designs.",
       "sizes": [
-        "A4"
+        "A5",
+        "A4",
+        "A3"
       ],
       "productDetails": [
         {
@@ -156,7 +162,7 @@
         },
         {
           "label": "size",
-          "value": "A4"
+          "value": "A5 / A4 / A3"
         },
         {
           "label": "paperColor",
@@ -188,7 +194,8 @@
       "description": "Insulated stainless steel bottle with logo customization.",
       "sizes": [
         "500ml",
-        "750ml"
+        "750ml",
+        "1L"
       ],
       "productDetails": [
         {
@@ -197,7 +204,7 @@
         },
         {
           "label": "capacity",
-          "value": "500 ml / 750 ml"
+          "value": "500 ml / 750 ml / 1 L"
         },
         {
           "label": "insulation",
@@ -236,7 +243,10 @@
       "basePrice": 799,
       "description": "Stylish gym bottle for daily hydration.",
       "sizes": [
-        "1L"
+        "500ml",
+        "750ml",
+        "1L",
+        "1.5L"
       ],
       "productDetails": [
         {
@@ -245,7 +255,7 @@
         },
         {
           "label": "capacity",
-          "value": "1 L"
+          "value": "500 ml / 750 ml / 1 L / 1.5 L"
         },
         {
           "label": "lidType",
@@ -284,8 +294,10 @@
       "basePrice": 499,
       "description": "Lightweight reusable plastic bottle perfect for school, office, and workouts.",
       "sizes": [
-        "750ML",
-        "1L"
+        "500ml",
+        "750ml",
+        "1L",
+        "2L"
       ],
       "productDetails": [
         {
@@ -294,7 +306,7 @@
         },
         {
           "label": "capacity",
-          "value": "750 ml / 1 L"
+          "value": "500 ml / 750 ml / 1 L / 2 L"
         },
         {
           "label": "lidType",
@@ -333,10 +345,13 @@
       "basePrice": 999,
       "description": "Comfortable oversized cotton t-shirt with streetwear vibes.",
       "sizes": [
+        "XS",
         "S",
         "M",
         "L",
-        "XL"
+        "XL",
+        "XXL",
+        "3XL"
       ],
       "productDetails": [
         {
@@ -388,9 +403,13 @@
       "basePrice": 899,
       "description": "Polyester sports t-shirt designed for active wear.",
       "sizes": [
+        "XS",
+        "S",
         "M",
         "L",
-        "XL"
+        "XL",
+        "XXL",
+        "3XL"
       ],
       "productDetails": [
         {
@@ -425,7 +444,8 @@
       "images": {
         "default": "./assets/products/P009/default.webp",
         "others": [
-          "./assets/products/P009/alt_1.webp"
+          "./assets/products/P009/alt_1.webp",
+          "./assets/products/P009/alt_2.webp"
         ]
       },
       "badges": [
@@ -442,9 +462,13 @@
       "basePrice": 749,
       "description": "Classic V-neck t-shirt with side print customization.",
       "sizes": [
+        "XS",
         "S",
         "M",
-        "L"
+        "L",
+        "XL",
+        "XXL",
+        "3XL"
       ],
       "productDetails": [
         {
@@ -497,10 +521,13 @@
       "basePrice": 699,
       "description": "Soft cotton t-shirt with minimalist aesthetics.",
       "sizes": [
+        "XS",
         "S",
         "M",
         "L",
-        "XL"
+        "XL",
+        "XXL",
+        "3XL"
       ],
       "productDetails": [
         {
@@ -552,6 +579,7 @@
       "basePrice": 349,
       "description": "A large, colorful ceramic coffee cup perfect for your morning brew. Features a comfortable ergonomic handle and a thick, heat-retaining wall.",
       "sizes": [
+        "250ml",
         "350ml",
         "500ml"
       ],
@@ -562,7 +590,7 @@
         },
         {
           "label": "capacity",
-          "value": "350ml / 500ml"
+          "value": "250ml / 350ml / 500ml"
         },
         {
           "label": "microwaveSafe",
@@ -609,7 +637,9 @@
       "basePrice": 349,
       "description": "Ceramic mug with high-quality custom print.",
       "sizes": [
-        "300ml"
+        "200ml",
+        "300ml",
+        "450ml"
       ],
       "productDetails": [
         {
@@ -618,7 +648,7 @@
         },
         {
           "label": "capacity",
-          "value": "300 ml"
+          "value": "200 ml / 300 ml / 450 ml"
         },
         {
           "label": "finish",

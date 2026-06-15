@@ -69,15 +69,15 @@ function attemptLogin(email, password) {
 /**
  * Registers a new account. Returns { ok: true } or { ok: false, error: string }.
  */
-function attemptSignup({ name, email, phone, address, password }) {
+function attemptSignup({ name, email, phone, address, addressObj, password }) {
     const accounts = getAccounts();
-    if (accounts.find(a => a.email === email)) {
+    if (email && accounts.find(a => a.email === email)) {
         return { ok: false, error: 'An account with this email already exists.' };
     }
     const normalizedPhone = window.CraftoraUI?.normalizePhoneInput
         ? window.CraftoraUI.normalizePhoneInput(phone)
         : String(phone ?? '').replace(/\D/g, '').slice(0, 10);
-    const user = { name, email, phone: normalizedPhone, address, password, joinedAt: new Date().toISOString() };
+    const user = { name, email, phone: normalizedPhone, address, addressObj, password, joinedAt: new Date().toISOString() };
     saveAccount(user);
 
     // Auto-login

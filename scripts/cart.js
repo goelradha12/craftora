@@ -38,52 +38,86 @@ function addOrder(order) {
 
 function showCheckoutPopup(user, onConfirm) {
   const userData = typeof user === 'string' ? JSON.parse(user) : user;
+  const addr = typeof userData.addressObj === 'object' ? userData.addressObj : {};
 
   const overlay = document.createElement('div');
   overlay.id = 'checkoutOverlay';
   overlay.className = 'checkout-modal';
   overlay.innerHTML = `
-    <div class="checkout-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <div class="checkout-modal__dialog checkout-modal__dialog--large" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
       <div class="checkout-modal__header">
         <div class="checkout-modal__icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>
         </div>
         <div>
-          <p id="popupTitle" class="checkout-modal__title">Confirm delivery details</p>
-          <p class="checkout-modal__subtitle">Review your address and phone number before placing the order.</p>
+          <p id="popupTitle" class="checkout-modal__title">Delivery Details</p>
+          <p class="checkout-modal__subtitle">Please fill in your delivery address and contact details.</p>
         </div>
         <button id="popupClose" class="checkout-modal__close cart-item__remove" type="button" aria-label="Close">
         <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g id="Menu / Close_SM">
-        <path id="Vector" d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </g>
+        <path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg></button>
       </div>
 
-      <div class="checkout-modal__field">
-        <label class="checkout-modal__label" for="popupAddress">Delivery address</label>
-        <input id="popupAddress" class="checkout-modal__input" type="text" value="${esc(userData.address || '')}"
-          placeholder="Enter your full delivery address" autocomplete="street-address">
-        <p class="checkout-modal__error" id="popupAddressError" aria-live="polite"></p>
-      </div>
-
-      <div class="checkout-modal__field">
-        <label class="checkout-modal__label" for="popupPhone">Phone number</label>
-        <input id="popupPhone" class="checkout-modal__input" type="tel" value="${esc(userData.phone || '')}"
-          placeholder="Enter your phone number" inputmode="numeric" maxlength="10" autocomplete="tel">
-        <p class="checkout-modal__error" id="popupPhoneError" aria-live="polite"></p>
-      </div>
-
-      <div class="checkout-modal__user">
-        <div class="checkout-modal__avatar" aria-hidden="true">${esc(userData.name?.charAt(0).toUpperCase() || '?')}</div>
-        <div>
-          <p>${esc(userData.name || '')}</p>
-          <p>${esc(userData.email || '')}</p>
+      <div class="checkout-modal__section">
+        <h3 class="checkout-modal__section-title">Contact Information</h3>
+        <div class="checkout-modal__grid">
+          <div class="checkout-modal__field">
+            <label class="checkout-modal__label" for="popupName">Full Name *</label>
+            <input id="popupName" class="checkout-modal__input" type="text" value="${esc(userData.name || '')}" placeholder="John Doe" autocomplete="name">
+            <p class="checkout-modal__error" id="popupNameError" aria-live="polite"></p>
+          </div>
+          <div class="checkout-modal__field">
+            <label class="checkout-modal__label" for="popupPhone">Phone Number *</label>
+            <input id="popupPhone" class="checkout-modal__input" type="tel" value="${esc(userData.phone || '')}" placeholder="10-digit number" inputmode="numeric" maxlength="10" autocomplete="tel">
+            <p class="checkout-modal__error" id="popupPhoneError" aria-live="polite"></p>
+          </div>
         </div>
       </div>
 
-      <div class="checkout-modal__actions">
-        <button id="popupConfirm" class="checkout-btn" type="button">Place order</button>
+      <div class="checkout-modal__section">
+        <h3 class="checkout-modal__section-title">Delivery Address</h3>
+        <div class="checkout-modal__grid">
+          <div class="checkout-modal__field">
+            <label class="checkout-modal__label" for="popupHouse">Apartment / House Number *</label>
+            <input id="popupHouse" class="checkout-modal__input" type="text" value="${esc(addr.house || '')}" placeholder="Flat 101, Building Name">
+            <p class="checkout-modal__error" id="popupHouseError" aria-live="polite"></p>
+          </div>
+          <div class="checkout-modal__field">
+            <label class="checkout-modal__label" for="popupStreet">Street / Area / Locality *</label>
+            <input id="popupStreet" class="checkout-modal__input" type="text" value="${esc(addr.street || '')}" placeholder="Main Street, Area">
+            <p class="checkout-modal__error" id="popupStreetError" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="checkout-modal__field">
+          <label class="checkout-modal__label" for="popupLandmark">Landmark (Optional)</label>
+          <input id="popupLandmark" class="checkout-modal__input" type="text" value="${esc(addr.landmark || '')}" placeholder="Near park, Behind school">
+        </div>
+      </div>
+
+      <div class="checkout-modal__section">
+        <h3 class="checkout-modal__section-title">Location Details</h3>
+        <div class="checkout-modal__grid checkout-modal__grid-3">
+          <div class="checkout-modal__field">
+            <label class="checkout-modal__label" for="popupCity">City *</label>
+            <input id="popupCity" class="checkout-modal__input" type="text" value="${esc(addr.city || '')}" placeholder="City name">
+            <p class="checkout-modal__error" id="popupCityError" aria-live="polite"></p>
+          </div>
+          <div class="checkout-modal__field">
+            <label class="checkout-modal__label" for="popupState">State *</label>
+            <input id="popupState" class="checkout-modal__input" type="text" value="${esc(addr.state || '')}" placeholder="State name">
+            <p class="checkout-modal__error" id="popupStateError" aria-live="polite"></p>
+          </div>
+          <div class="checkout-modal__field">
+            <label class="checkout-modal__label" for="popupPincode">Pincode *</label>
+            <input id="popupPincode" class="checkout-modal__input" type="text" value="${esc(addr.pincode || '')}" placeholder="6-digit pincode" inputmode="numeric" maxlength="6">
+            <p class="checkout-modal__error" id="popupPincodeError" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkout-modal__actions" style="margin-top: var(--space-4);">
+        <button id="popupConfirm" class="checkout-btn" type="button" disabled style="margin-top: 0;">Place order</button>
       </div>
     </div>
   `;
@@ -91,16 +125,74 @@ function showCheckoutPopup(user, onConfirm) {
   document.body.appendChild(overlay);
   document.body.style.overflow = 'hidden';
 
-  const addressEl = $('#popupAddress', overlay);
-  const phoneEl = $('#popupPhone', overlay);
-  const addressErrorEl = $('#popupAddressError', overlay);
-  const phoneErrorEl = $('#popupPhoneError', overlay);
+  const fields = {
+    name: { el: $('#popupName', overlay), err: $('#popupNameError', overlay), req: true },
+    phone: { el: $('#popupPhone', overlay), err: $('#popupPhoneError', overlay), req: true },
+    house: { el: $('#popupHouse', overlay), err: $('#popupHouseError', overlay), req: true },
+    street: { el: $('#popupStreet', overlay), err: $('#popupStreetError', overlay), req: true },
+    city: { el: $('#popupCity', overlay), err: $('#popupCityError', overlay), req: true },
+    state: { el: $('#popupState', overlay), err: $('#popupStateError', overlay), req: true },
+    pincode: { el: $('#popupPincode', overlay), err: $('#popupPincodeError', overlay), req: true },
+    landmark: { el: $('#popupLandmark', overlay), err: null, req: false },
+  };
+
+  const confirmBtn = $('#popupConfirm', overlay);
 
   function setFieldError(input, errorNode, message) {
     input.classList.toggle('is-invalid', Boolean(message));
     input.setAttribute('aria-invalid', message ? 'true' : 'false');
-    errorNode.textContent = message || '';
-    errorNode.classList.toggle('is-visible', Boolean(message));
+    if (errorNode) {
+        errorNode.textContent = message || '';
+        errorNode.classList.toggle('is-visible', Boolean(message));
+    }
+  }
+
+  function validateField(key) {
+    const f = fields[key];
+    const val = f.el.value.trim();
+    let error = '';
+
+    if (f.req && !val) {
+      error = 'This field is required.';
+    } else if (key === 'phone') {
+      const digits = val.replace(/\D/g, '');
+      if (digits.length < 10) error = 'Enter a valid 10-digit phone number.';
+    } else if (key === 'pincode') {
+      if (!/^\d{6}$/.test(val)) error = 'Please enter a valid 6-digit pincode.';
+    }
+
+    setFieldError(f.el, f.err, error);
+    return error === '';
+  }
+
+  function checkAllValid() {
+    let allValid = true;
+    for (const key in fields) {
+      if (fields[key].req) {
+        const val = fields[key].el.value.trim();
+        if (!val) allValid = false;
+        if (key === 'phone' && val.replace(/\D/g, '').length < 10) allValid = false;
+        if (key === 'pincode' && !/^\d{6}$/.test(val)) allValid = false;
+      }
+    }
+    confirmBtn.disabled = !allValid;
+  }
+
+  // Bind events
+  for (const key in fields) {
+    fields[key].el.addEventListener('input', () => {
+      if (key === 'phone') fields[key].el.value = fields[key].el.value.replace(/\D/g, '').slice(0, 10);
+      if (key === 'pincode') fields[key].el.value = fields[key].el.value.replace(/\D/g, '').slice(0, 6);
+      
+      // Clear error on type, but check overall validity
+      setFieldError(fields[key].el, fields[key].err, '');
+      checkAllValid();
+    });
+
+    fields[key].el.addEventListener('blur', () => {
+      validateField(key);
+      checkAllValid();
+    });
   }
 
   function close() {
@@ -113,63 +205,58 @@ function showCheckoutPopup(user, onConfirm) {
     if (event.key === 'Escape') close();
   }
 
-  addressEl.addEventListener('input', () => setFieldError(addressEl, addressErrorEl, ''));
-  phoneEl.addEventListener('input', () => {
-    phoneEl.value = window.CraftoraUI?.normalizePhoneInput(phoneEl.value) || phoneEl.value;
-    setFieldError(phoneEl, phoneErrorEl, '');
-  });
-
   overlay.addEventListener('click', event => {
     if (event.target === overlay) close();
   });
   document.addEventListener('keydown', handleEsc);
 
   $('#popupClose', overlay).addEventListener('click', close);
-  window.CraftoraUI?.bindPhoneInput(phoneEl);
-  addressEl.focus();
+  
+  checkAllValid();
+  fields.name.el.focus();
 
-  $('#popupConfirm', overlay).addEventListener('click', () => {
-    const address = addressEl.value.trim();
-    const phone = phoneEl.value.trim();
-    const phoneValidation = window.CraftoraUI?.validatePhoneNumber(phone) || {
-      valid: !!phone,
-      error: phone ? '' : 'Phone number is required.',
-      digits: phone
-    };
-
+  confirmBtn.addEventListener('click', () => {
     let valid = true;
+    let firstInvalid = null;
 
-    if (!address) {
-      setFieldError(addressEl, addressErrorEl, 'Delivery address is required.');
-      valid = false;
-    } else {
-      setFieldError(addressEl, addressErrorEl, '');
-    }
-
-    if (!phoneValidation.valid) {
-      setFieldError(phoneEl, phoneErrorEl, phoneValidation.error);
-      valid = false;
-    } else {
-      setFieldError(phoneEl, phoneErrorEl, '');
+    for (const key in fields) {
+      if (!validateField(key)) {
+        valid = false;
+        if (!firstInvalid) firstInvalid = fields[key].el;
+      }
     }
 
     if (!valid) {
-      (addressErrorEl.textContent ? addressEl : phoneEl).focus();
+      if (firstInvalid) firstInvalid.focus();
       return;
     }
 
-    const updated = { ...userData, address, phone: phoneValidation.digits };
+    const addressObj = {
+      house: fields.house.el.value.trim(),
+      street: fields.street.el.value.trim(),
+      landmark: fields.landmark.el.value.trim(),
+      city: fields.city.el.value.trim(),
+      state: fields.state.el.value.trim(),
+      pincode: fields.pincode.el.value.trim()
+    };
+
+    const landmarkStr = addressObj.landmark ? `${addressObj.landmark}, ` : '';
+    const formattedAddress = `${addressObj.house}, ${addressObj.street}, ${landmarkStr}${addressObj.city}, ${addressObj.state} - ${addressObj.pincode}`;
+    const phoneDigits = fields.phone.el.value.trim();
+    const updatedName = fields.name.el.value.trim();
+
+    const updated = { ...userData, name: updatedName, address: formattedAddress, addressObj, phone: phoneDigits };
     localStorage.setItem('craftora_user', JSON.stringify(updated));
     try {
       const accounts = JSON.parse(localStorage.getItem('craftora_accounts') || '[]');
       const nextAccounts = accounts.map(account => account.email === updated.email
-        ? { ...account, address, phone: phoneValidation.digits }
+        ? { ...account, name: updatedName, address: formattedAddress, addressObj, phone: phoneDigits }
         : account);
       localStorage.setItem('craftora_accounts', JSON.stringify(nextAccounts));
     } catch { }
 
     close();
-    onConfirm({ address, phone: phoneValidation.digits });
+    onConfirm({ address: addressObj, phone: phoneDigits, name: updatedName });
   });
 }
 
@@ -230,7 +317,7 @@ function bindCheckoutButton() {
       return;
     }
 
-    showCheckoutPopup(raw, ({ address, phone }) => {
+    showCheckoutPopup(raw, ({ address, phone, name }) => {
       const orderId = generateOrderId();
       const user = JSON.parse(raw);
       const subtotal = cartData.reduce((sum, item) => sum + (item.price * item.qty), 0);
@@ -262,7 +349,7 @@ function bindCheckoutButton() {
           phone
         },
         customer: {
-          name: user.name || '',
+          name: name || user.name || '',
           email: user.email || ''
         }
       });

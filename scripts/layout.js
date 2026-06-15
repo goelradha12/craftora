@@ -261,10 +261,27 @@ const FOOTER_HTML = /* html */`
 <footer class="footer">
     <div class="footer-top">
         <div class="footer-brand">
-            <a href="./index.html">
+            <a href="./index.html" aria-label="Craftora Home">
                 <img loading="lazy" src="./assets/dark_logo.webp" alt="Craftora" class="footer-logo" width="116" height="26">
             </a>
             <p class="footer-tagline">Modern custom merchandise designed to bring your ideas to life.</p>
+            <div class="footer-socials">
+                <a href="#" aria-label="Instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+                <a href="#" aria-label="Facebook">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                </a>
+                <a href="#" aria-label="X (Twitter)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
+                </a>
+                <a href="#" aria-label="Pinterest">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="12" x2="12" y2="22"></line><path d="M12 2a8 8 0 0 0-8 8c0 2.8 1.5 5.2 3.8 6.5"></path><path d="M8 16.5c1.5-3.5 3-7 3-7"></path><path d="M11 9.5a2.5 2.5 0 0 1 5 0c0 3.5-2 6.5-5 6.5-1.5 0-2.5-1-2.5-2.5"></path></svg>
+                </a>
+                <a href="#" aria-label="YouTube">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                </a>
+            </div>
         </div>
         <div class="footer-links">
             <h3>Quick Links</h3>

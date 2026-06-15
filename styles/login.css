@@ -266,3 +266,48 @@ label.required::after {
         display: none;
     }
 }
+
+/* ── Accordion Dropdown for Signup ── */
+.accordion-section {
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: var(--space-4);
+    background: var(--surface-bg);
+}
+
+.accordion-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: var(--space-4);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--color-primary);
+    transition: background var(--transition-base);
+}
+
+.accordion-toggle:hover {
+    background: hsl(from var(--primary) h s l / 0.03);
+}
+
+.accordion-icon {
+    transition: transform var(--transition-base);
+    color: var(--text-icon-muted);
+}
+
+.accordion-toggle[aria-expanded="true"] .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    display: none;
+    padding: 0 var(--space-4) var(--space-4) var(--space-4);
+}
+
+.accordion-content.show {
+    display: block;
+}

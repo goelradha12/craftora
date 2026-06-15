@@ -43,68 +43,123 @@
             </div>
 
             <form id="signupForm" novalidate>
-                <div class="form-row-2">
-                    <div class="form-group">
-                        <label for="fullname" class="required">Full Name</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-user" aria-hidden="true"></i>
-                            <input type="text" id="fullname" name="fullname" class="form-control"
-                                placeholder="Your full name" autocomplete="name" required>
+                <div class="signup-section">
+                    <h3 class="checkout-modal__section-title">Account Information</h3>
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="fullname" class="required">Full Name</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-user" aria-hidden="true"></i>
+                                <input type="text" id="fullname" name="fullname" class="form-control"
+                                    placeholder="Your full name" autocomplete="name" required>
+                            </div>
+                            <span class="field-error" id="nameError"></span>
                         </div>
-                        <span class="field-error" id="nameError"></span>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="phone" class="required">Phone Number</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-phone" aria-hidden="true"></i>
-                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone number"
-                                autocomplete="tel" inputmode="numeric" maxlength="10" required>
+                        <div class="form-group">
+                            <label for="phone" class="required">Phone Number</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-phone" aria-hidden="true"></i>
+                                <input type="tel" id="phone" name="phone" class="form-control" placeholder="10-digit number"
+                                    autocomplete="tel" inputmode="numeric" maxlength="10" required>
+                            </div>
+                            <span class="field-error" id="phoneError"></span>
                         </div>
-                        <span class="field-error" id="phoneError"></span>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email"
+                                    autocomplete="email">
+                            </div>
+                            <span class="field-error" id="emailError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="required">Password</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock" aria-hidden="true"></i>
+                                <input type="password" id="password" name="password" class="form-control"
+                                    placeholder="Min. 6 characters" autocomplete="new-password" required>
+                                <button type="button" class="eye-toggle" id="togglePassword" aria-label="Show password">
+                                    <i class="fas fa-eye" id="eyeIcon" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <span class="field-error" id="passwordError"></span>
+                        </div>
+                    </div>
+
+                    <div class="pw-strength" aria-live="polite">
+                        <div class="pw-strength__bar">
+                            <div class="pw-strength__fill" id="pwFill"></div>
+                        </div>
+                        <span class="pw-strength__label" id="pwLabel"></span>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="email" class="required">Email Address</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-envelope" aria-hidden="true"></i>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email"
-                            autocomplete="email" required>
+                <div class="signup-section accordion-section">
+                    <button type="button" class="accordion-toggle" id="deliveryToggle" aria-expanded="false">
+                        <h3 class="checkout-modal__section-title" style="margin: 0;">Delivery Information</h3>
+                        <i class="fas fa-chevron-down accordion-icon" aria-hidden="true"></i>
+                    </button>
+                    
+                    <div class="accordion-content" id="deliveryContent">
+                        <div class="form-row-2">
+                            <div class="form-group">
+                                <label for="house">Apartment / House Number</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-home" aria-hidden="true"></i>
+                                    <input type="text" id="house" name="house" class="form-control" placeholder="Flat 101, Building Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="street">Street / Area</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-road" aria-hidden="true"></i>
+                                    <input type="text" id="street" name="street" class="form-control" placeholder="Main Street, Area">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="landmark">Landmark</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                                <input type="text" id="landmark" name="landmark" class="form-control" placeholder="Near park, Behind school">
+                            </div>
+                        </div>
+
+                        <div class="form-row-3">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-city" aria-hidden="true"></i>
+                                    <input type="text" id="city" name="city" class="form-control" placeholder="City name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-map" aria-hidden="true"></i>
+                                    <input type="text" id="state" name="state" class="form-control" placeholder="State name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pincode">Pincode</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-thumbtack" aria-hidden="true"></i>
+                                    <input type="text" id="pincode" name="pincode" class="form-control" placeholder="6-digit pincode" inputmode="numeric" maxlength="6">
+                                </div>
+                                <span class="field-error" id="pincodeError"></span>
+                            </div>
+                        </div>
                     </div>
-                    <span class="field-error" id="emailError"></span>
                 </div>
 
-                <div class="form-group">
-                    <label for="address">Delivery Address</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-location-dot" aria-hidden="true"></i>
-                        <input type="text" id="address" name="address" class="form-control"
-                            placeholder="Default delivery address (optional)" autocomplete="street-address">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="password" class="required">Password</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-lock" aria-hidden="true"></i>
-                        <input type="password" id="password" name="password" class="form-control"
-                            placeholder="Min. 6 characters" autocomplete="new-password" required>
-                        <button type="button" class="eye-toggle" id="togglePassword" aria-label="Show password">
-                            <i class="fas fa-eye" id="eyeIcon" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <span class="field-error" id="passwordError"></span>
-                </div>
-
-                <div class="pw-strength" aria-live="polite">
-                    <div class="pw-strength__bar">
-                        <div class="pw-strength__fill" id="pwFill"></div>
-                    </div>
-                    <span class="pw-strength__label" id="pwLabel"></span>
-                </div>
-
-                <button type="submit" class="submit-btn hero--btn" id="signupBtn">
+                <button type="submit" class="submit-btn hero--btn" id="signupBtn" style="margin-top: var(--space-4);">
                     <span class="btn-text">Sign Up</span>
                     <i class="fas fa-spinner fa-spin btn-spinner" aria-hidden="true"></i>
                 </button>
@@ -159,32 +214,59 @@
             label.style.color = colors[score];
         });
 
+        const deliveryToggle = document.getElementById('deliveryToggle');
+        const deliveryContent = document.getElementById('deliveryContent');
+        if (deliveryToggle && deliveryContent) {
+            deliveryToggle.addEventListener('click', () => {
+                const isExpanded = deliveryToggle.getAttribute('aria-expanded') === 'true';
+                deliveryToggle.setAttribute('aria-expanded', !isExpanded);
+                if (!isExpanded) {
+                    deliveryContent.classList.add('show');
+                } else {
+                    deliveryContent.classList.remove('show');
+                }
+            });
+        }
+
         document.getElementById('signupForm').addEventListener('submit', (e) => {
             e.preventDefault();
 
             const name = document.getElementById('fullname').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
-            const address = document.getElementById('address').value.trim();
             const password = document.getElementById('password').value;
+            
+            const house = document.getElementById('house').value.trim();
+            const street = document.getElementById('street').value.trim();
+            const landmark = document.getElementById('landmark').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const state = document.getElementById('state').value.trim();
+            const pincode = document.getElementById('pincode').value.trim();
 
             const errorDiv = document.getElementById('signupError');
             const errorMsg = document.getElementById('signupErrorMsg');
             const btn = document.getElementById('signupBtn');
 
             errorDiv.hidden = true;
-            ['nameError', 'emailError', 'phoneError', 'passwordError'].forEach(id => {
-                document.getElementById(id).textContent = '';
+            ['nameError', 'emailError', 'phoneError', 'passwordError', 'pincodeError'].forEach(id => {
+                if (document.getElementById(id)) document.getElementById(id).textContent = '';
             });
 
             let valid = true;
             if (!name) { document.getElementById('nameError').textContent = 'Full name is required.'; valid = false; }
-            if (!email) { document.getElementById('emailError').textContent = 'Email is required.'; valid = false; }
+            
+            if (email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    document.getElementById('emailError').textContent = 'Please enter a valid email format.';
+                    valid = false;
+                }
+            }
 
             if (!phone) {
                 document.getElementById('phoneError').textContent = 'Phone number is required.';
                 valid = false;
-            } else if (phone.length < 10) {
+            } else if (phone.replace(/\\D/g, '').length < 10) {
                 document.getElementById('phoneError').textContent = 'Please enter a valid 10-digit number.';
                 valid = false;
             }
@@ -194,17 +276,35 @@
                 document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
                 valid = false;
             }
+            
+            if (pincode && !/^\\d{6}$/.test(pincode)) {
+                document.getElementById('pincodeError').textContent = 'Please enter a valid 6-digit pincode.';
+                valid = false;
+            }
+
             if (!valid) return;
 
             btn.classList.add('loading');
             btn.disabled = true;
+
+            const addressObj = { house, street, landmark, city, state, pincode };
+            const landmarkStr = landmark ? `${landmark}, ` : '';
+            // Only generate formatted address if at least some required fields are provided
+            let formattedAddress = '';
+            if (house || street || city) {
+                formattedAddress = [house, street].filter(Boolean).join(', ') + 
+                    (landmarkStr ? `, ${landmarkStr}` : (house || street ? ', ' : '')) +
+                    [city, state].filter(Boolean).join(', ') + 
+                    (pincode ? ` - ${pincode}` : '');
+            }
 
             setTimeout(() => {
                 const result = attemptSignup({
                     name,
                     email,
                     phone,
-                    address,
+                    address: formattedAddress,
+                    addressObj,
                     password
                 });
 

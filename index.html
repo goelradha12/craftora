@@ -32,29 +32,22 @@
 
             <div class="container">
 
-                <div class="hero--wrapper">
+                <div class="hero--content">
 
-                    <div class="hero--reviews">
+                    <h1>
+                        Best quality Merchandise in your favorite design.
+                    </h1>
 
-                        <img src="./assets/hero-img-products.webp" width="350" height="350" alt="">
+                    <p>
+                        Discover unique handcrafted products loved by thousands
+                        of happy customers worldwide.
+                    </p>
 
-                    </div>
-                    <!-- LEFT -->
-                    <div class="hero--content">
-
-                        <h1>
-                            Best quality Merchandise in your favorite design.
-                        </h1>
-
-                        <p>
-                            Discover unique handcrafted products loved by thousands
-                            of happy customers worldwide.
-                        </p>
-
-                        <button class="hero--btn" type="button">
-                            Shop Now!
-                        </button>
-
+                    <div class="home-search-container" style="position: relative;">
+                        <input id="homeSearchInput" type="text" placeholder="Search products by name..."
+                            autocomplete="off" />
+                        <button id="homeSearchBtn" type="button">Search</button>
+                        <div id="homeSearchDropdown" class="search-dropdown" style="display: none;"></div>
                     </div>
 
                 </div>
@@ -110,7 +103,129 @@
             </div>
         </div>
 
+        <!-- ═══════════════════════════════════════════════
+             FEATURED PRODUCTS — Carousel
+        ════════════════════════════════════════════════ -->
+        <div class="section featured-products-section">
+            <div class="container">
+                <p class="section-label">Top Picks</p>
+                <h2 class="section-heading">Try Our Featured Products</h2>
+                <p class="section-subheading info-text">Hand-selected favorites for your next creation.</p>
 
+                <div class="featured-carousel-wrapper">
+                    <!-- Carousel Track -->
+                    <div class="featured-track" id="featuredTrack" aria-live="polite">
+                        <!-- JS injects product cards here -->
+                    </div>
+
+                    <!-- Empty state -->
+                    <div id="featuredEmptyState" class="featured-empty-state" style="display: none;">
+                        No featured products available at the moment.
+                    </div>
+                </div>
+
+                <!-- Navigation Dots -->
+                <div class="featured-nav-dots" id="featuredDots" aria-label="Carousel navigation"></div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════
+             HOW IT WORKS — Interactive two-column layout
+             Left: clickable steps  |  Right: step image
+        ════════════════════════════════════════════════ -->
+        <div class="section hiw">
+            <div class="container">
+                <div class="hiw-block">
+                    <p class="section-label">How it works</p>
+                    <h2 class="section-heading">Four simple steps to your perfect product</h2>
+
+                    <div class="hiw-interactive">
+                        <!-- LEFT: step buttons -->
+                        <div class="hiw-steps-list" role="tablist" aria-label="How it works steps">
+
+                            <button class="hiw-step hiw-step--active" role="tab" id="hiw-tab-1" aria-selected="true"
+                                aria-controls="hiw-panel" data-step="1" data-img="./assets/process/find_product.webp"
+                                data-img-alt="Browsing the Craftora product catalogue to pick a product">
+                                <div class="hiw-step__top">
+                                    <span class="hiw-step__num">01</span>
+                                    <h3 class="hiw-step__title">Pick a product</h3>
+                                </div>
+                                <p class="info-text">Choose from t-shirts, diaries, bottles, or mugs — all made for
+                                    gifting and everyday use.</p>
+                                <span class="hiw-step__arrow" aria-hidden="true">→</span>
+                            </button>
+
+                            <button class="hiw-step" role="tab" id="hiw-tab-2" aria-selected="false"
+                                aria-controls="hiw-panel" data-step="2" data-img="./assets/process/design.webp"
+                                data-img-alt="Using the Craftora design studio to add text and artwork">
+                                <div class="hiw-step__top">
+                                    <span class="hiw-step__num">02</span>
+                                    <h3 class="hiw-step__title">Design it</h3>
+                                </div>
+                                <p class="info-text">Use our studio to add text, artwork, and colours. Make it
+                                    truly
+                                    yours in minutes.</p>
+                                <span class="hiw-step__arrow" aria-hidden="true">→</span>
+                            </button>
+
+                            <button class="hiw-step" role="tab" id="hiw-tab-3" aria-selected="false"
+                                aria-controls="hiw-panel" data-step="3" data-img="./assets/process/add_cart.webp"
+                                data-img-alt="Placing a secure order on Craftora checkout">
+                                <div class="hiw-step__top">
+                                    <span class="hiw-step__num">03</span>
+                                    <h3 class="hiw-step__title">Place your order</h3>
+                                </div>
+                                <p class="info-text">Checkout securely in seconds. We accept all major payment
+                                    methods.</p>
+                                <span class="hiw-step__arrow" aria-hidden="true">→</span>
+                            </button>
+
+                            <button class="hiw-step" role="tab" id="hiw-tab-4" aria-selected="false"
+                                aria-controls="hiw-panel" data-step="4" data-img="./assets/process/deliever.webp"
+                                data-img-alt="Craftora delivering a custom printed product to the customer's door">
+                                <div class="hiw-step__top">
+                                    <span class="hiw-step__num">04</span>
+                                    <h3 class="hiw-step__title">We deliver</h3>
+                                </div>
+                                <p class="info-text">Your custom product is printed, packed, and delivered fresh to
+                                    your door.</p>
+                                <span class="hiw-step__arrow" aria-hidden="true">→</span>
+                            </button>
+
+                        </div>
+
+                        <!-- RIGHT: fixed-size image panel — no layout shift -->
+                        <div class="hiw-visual" id="hiw-panel" role="tabpanel" aria-labelledby="hiw-tab-1">
+                            <div class="hiw-img-frame">
+                                <img id="hiw-active-img" src="./assets/process/find_product.webp"
+                                    alt="Browsing the Craftora product catalogue to pick a product" class="hiw-img"
+                                    width="480" height="400" loading="eager">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════
+             REVIEWS — Fully functional carousel
+        ════════════════════════════════════════════════ -->
+        <div class="section reviews">
+            <div class="container">
+                <p class="section-label">Customer reviews</p>
+                <h2 class="section-heading">What our customers are saying</h2>
+
+                <div class="reviews-carousel" id="reviewsCarousel" aria-label="Customer testimonials"
+                    aria-roledescription="carousel">
+                    <!-- Track — JS injects review cards -->
+                    <div class="reviews-track" id="reviewsTrack" aria-live="polite"></div>
+                    <!-- Navigation -->
+                    <div class="reviews-nav" aria-label="Carousel navigation">
+                        <div class="reviews-nav__dots" id="reviewsDots" aria-label="Slide indicators"></div>
+                    </div>
+                </div>
+            </div>
     </main>
     <div id="footer"></div>
     <script src="./scripts/wishlist.js" defer></script>

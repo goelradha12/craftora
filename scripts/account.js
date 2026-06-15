@@ -9,9 +9,15 @@ function getJSON(k, fb) {
     }
 }
 
-function getOrdersForUser(e) {
-    if (!e) return [];
-    return getJSON(ORDERS_KEY, []).filter(o => o.customer?.email === e);
+function getOrdersForUser(u) {
+    if (!u || !u.phone) return [];
+    const normalizedCurrentUserPhone = String(u.phone).trim();
+    console.log(`Filtering orders for phone: ${normalizedCurrentUserPhone}`);
+    
+    return getJSON(ORDERS_KEY, []).filter(o => {
+        const orderPhone = String(o.delivery?.phone || '').trim();
+        return orderPhone === normalizedCurrentUserPhone;
+    });
 }
 
 function esc(v) {
@@ -36,7 +42,7 @@ function fmtDate(v) {
 }
 
 function money(v) {
-    return `Rs ${Number(v || 0).toLocaleString('en-IN')}`;
+    return `₹${Number(v || 0).toLocaleString('en-IN')}`;
 }
 
 function empVal(v) {
@@ -51,6 +57,27 @@ function runIdle(cb) {
         return;
     }
     window.setTimeout(cb, 120);
+}
+
+function formatAddress(addressObj) {
+    if (!addressObj) return '';
+    const house = addressObj.house || '';
+    const street = addressObj.street || '';
+    const landmark = addressObj.landmark || '';
+    const city = addressObj.city || '';
+    const state = addressObj.state || '';
+    const pincode = addressObj.pincode || '';
+
+    const lines = [];
+    if (house) lines.push(house);
+    if (street) lines.push(street);
+    if (landmark) lines.push(landmark);
+    
+    const cityState = [city, state].filter(Boolean).join(', ');
+    const lastLine = cityState + (pincode ? ` - ${pincode}` : '');
+    if (lastLine) lines.push(lastLine);
+
+    return lines.map(l => `<p>${esc(l)}</p>`).join('');
 }
 
 function renderOrders(ords) {
@@ -69,49 +96,89 @@ function renderOrders(ords) {
         return;
     }
 
-    const cards = ords.map(o => `
-        <article class="order-card">
-            <div class="order-card__top">
-                <div>
-                    <p class="order-card__id">Order ${esc(o.id)}</p>
-                    <p class="order-card__meta">Placed on ${fmtDate(o.date)}</p>
-                </div>
-                <span class="order-status">${esc(o.status || 'Processing')}</span>
-            </div>
-            <div class="order-card__grid">
-                <div class="order-items">
-                    ${(o.items || []).map(i => `
-                        <div class="order-item">
-                            <div>
-                                <p class="order-item__name">${esc(i.name)}</p>
-                                <p class="order-item__meta">
-                                    Qty: ${i.qty}
-                                    ${i.size ? ` · Size: ${esc(i.size)}` : ''}
-                                    ${i.color ? ` · Color: ${esc(i.color)}` : ''}
-                                </p>
-                            </div>
-                            <div class="order-item__price">${money((i.price || 0) * (i.qty || 0))}</div>
-                        </div>
-                    `).join('')}
-                </div>
-                <div class="order-side">
-                    <div class="order-summary">
-                        <h3>Price breakdown</h3>
-                        <div class="order-summary__row"><span>Items</span><span>${o.summary?.items || 0}</span></div>
-                        <div class="order-summary__row"><span>Subtotal</span><span>${money(o.summary?.subtotal || 0)}</span></div>
-                        <div class="order-summary__row"><span>Shipping</span><span>${money(o.summary?.shipping || 0)}</span></div>
-                        <div class="order-summary__row"><span>Total</span><span>${money(o.summary?.total || 0)}</span></div>
+    // Sort newest first
+    ords.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    const cards = ords.map((o, idx) => {
+        let addressHtml = '';
+        if (typeof o.delivery?.address === 'object' && o.delivery.address !== null) {
+            addressHtml = formatAddress(o.delivery.address);
+        } else {
+            addressHtml = `<p>${esc(o.delivery?.address || 'Address not available')}</p>`;
+        }
+
+        const orderStatus = o.status || 'Processing';
+        const itemCount = o.summary?.items || 0;
+        const totalAmt = money(o.summary?.total || 0);
+        
+        return `
+        <details class="order-accordion">
+            <summary class="order-summary-header">
+                <div class="order-summary-content">
+                    <div class="order-summary-main">
+                        <span class="order-id">Order #${esc(o.id || 'N/A')}</span>
+                        <span class="order-date">${fmtDate(o.date)}</span>
                     </div>
+                    <div class="order-summary-meta">
+                        <span class="order-items-count">${itemCount} Items</span>
+                        <span class="order-total-amt">${totalAmt}</span>
+                    </div>
+                </div>
+                <div class="order-summary-status">
+                    <span class="order-status-badge">${esc(orderStatus)}</span>
+                    <svg class="accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+            </summary>
+            
+            <div class="order-accordion-body">
+                <div class="order-details-grid">
                     <div class="delivery-card">
-                        <h3>Delivery information</h3>
-                        <p>${esc(o.delivery?.address || 'Address not available')}</p>
-                        <p>Phone: ${esc(o.delivery?.phone || 'Not available')}</p>
-                        ${o.customer?.name ? `<p>Recipient: ${esc(o.customer.name)}</p>` : ''}
+                        <h3>Customer</h3>
+                        <p>${esc(o.customer?.name || 'Not provided')}</p>
+                        <p>${esc(o.delivery?.phone || 'Not available')}</p>
+                        ${o.customer?.email ? `<p>${esc(o.customer.email)}</p>` : ''}
+                    </div>
+                    
+                    <div class="delivery-card">
+                        <h3>Delivery Address</h3>
+                        ${addressHtml}
+                    </div>
+                    
+                    <div class="order-summary-card">
+                        <h3>Order Information</h3>
+                        <div class="order-summary__row"><span>Order ID</span><span>#${esc(o.id || 'N/A')}</span></div>
+                        <div class="order-summary__row"><span>Date</span><span>${fmtDate(o.date)}</span></div>
+                        <div class="order-summary__row"><span>Status</span><span>${esc(orderStatus)}</span></div>
+                        <div class="order-summary__row"><span>Payment</span><span>${esc(o.payment || 'Cash on Delivery')}</span></div>
+                        <div class="order-summary__row"><span>Order Total</span><span>${totalAmt}</span></div>
+                    </div>
+                </div>
+
+                <div class="order-items-section">
+                    <h3>Products</h3>
+                    <div class="order-items-list">
+                        ${(o.items || []).map(i => `
+                            <div class="order-item">
+                                <img src="${esc(i.image || './assets/placeholder.webp')}" alt="${esc(i.name)}" class="order-item__img" width="60" height="60" loading="lazy" />
+                                <div class="order-item__info">
+                                    <p class="order-item__name">${esc(i.name)}</p>
+                                    <p class="order-item__meta">
+                                        Qty: ${i.qty}
+                                        ${i.size ? ` · Size: ${esc(i.size)}` : ''}
+                                        ${i.color ? ` · Color: ${esc(i.color)}` : ''}
+                                        ${i.customized ? ` · Customized` : ''}
+                                    </p>
+                                </div>
+                                <div class="order-item__price">${money((i.price || 0) * (i.qty || 0))}</div>
+                            </div>
+                        `).join('')}
                     </div>
                 </div>
             </div>
-        </article>
-    `).join('');
+        </details>
+    `}).join('');
 
     root.innerHTML = `<div class="orders-list">${cards}</div>`;
 }
@@ -143,7 +210,7 @@ function initAcct() {
     document.getElementById('infoAddress').innerHTML = empVal(u.address);
     document.getElementById('infoJoined').innerHTML = `<span>${fmtDate(u.joinedAt)}</span>`;
 
-    const ords = getOrdersForUser(u.email);
+    const ords = getOrdersForUser(u);
     runIdle(() => renderOrders(ords));
 }
 

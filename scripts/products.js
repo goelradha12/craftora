@@ -1,7 +1,5 @@
-// Global variables to store the state
 let allProducts = [];
 let currentCategory = 'All Category';
-let searchQuery = '';
 
 /**
  * Fetches products from the local JSON file.
@@ -28,7 +26,7 @@ function handleUrlParams() {
 
     if (categoryParam) {
         currentCategory = categoryParam;
-        
+
         // Update the active class on the buttons based on the URL parameter
         const categoryBtns = document.querySelectorAll('.category-btn');
         let matched = false;
@@ -55,14 +53,7 @@ function handleUrlParams() {
  * Attaches event listeners to the search input and category buttons.
  */
 function setupEventListeners() {
-    const searchInput = document.getElementById('searchInput');
     const categoryBtns = document.querySelectorAll('.category-btn');
-
-    // Listen for typing in the search bar
-    searchInput.addEventListener('input', (e) => {
-        searchQuery = e.target.value.toLowerCase();
-        applyFilters();
-    });
 
     // Listen for clicks on category buttons
     categoryBtns.forEach(btn => {
@@ -86,17 +77,8 @@ function applyFilters() {
 
     // 1. Filter by Category
     if (currentCategory !== 'All Category') {
-        filteredProducts = filteredProducts.filter(product => 
+        filteredProducts = filteredProducts.filter(product =>
             product.category.toLowerCase() === currentCategory.toLowerCase()
-        );
-    }
-
-    // 2. Filter by Search Query
-    if (searchQuery) {
-        filteredProducts = filteredProducts.filter(product => 
-            product.name.toLowerCase().includes(searchQuery) ||
-            product.description.toLowerCase().includes(searchQuery) ||
-            product.category.toLowerCase().includes(searchQuery)
         );
     }
 
@@ -108,13 +90,16 @@ function applyFilters() {
  */
 function renderProducts(productsToRender) {
     const grid = document.getElementById('productGrid');
+    
+    if (!grid) return;
+
     grid.innerHTML = ''; // Clear current products
 
     if (productsToRender.length === 0) {
         grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">No products found matching your criteria.</p>';
         return;
     }
-    
+
     productsToRender.forEach(product => {
         const card = document.createElement('div');
         card.className = 'product-card';
@@ -131,7 +116,7 @@ function renderProducts(productsToRender) {
                     ${product.name}
                 </h4>
                 
-                <p class="product-card__description">
+                <p class="product-card__description info-text">
                     ${product.description}
                 </p>
 
@@ -157,7 +142,7 @@ function renderProducts(productsToRender) {
                 </div>
             </div>
         `;
-        
+
         // Wire wishlist button
         const wishBtn = card.querySelector('.product-card__wishlist');
         if (wishBtn) {
@@ -181,11 +166,11 @@ function renderProducts(productsToRender) {
                     return;
                 }
                 const now = toggleWishlist({
-                    id:       product.id,
-                    name:     product.name,
+                    id: product.id,
+                    name: product.name,
                     category: product.category,
-                    price:    product.basePrice,
-                    image:    product.images.default,
+                    price: product.basePrice,
+                    image: product.images.default,
                 });
                 wishBtn.classList.toggle('wishlisted', now);
             });
@@ -202,10 +187,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 1. Setup events and check URL params first
     setupEventListeners();
     handleUrlParams();
-    
+
     // 2. Fetch the data
     allProducts = await getProducts();
-    
+
     // 3. Render items (applies any initial URL filters automatically)
     applyFilters();
 });

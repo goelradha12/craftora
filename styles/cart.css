@@ -453,6 +453,45 @@
     font: inherit;
 }
 
+/* ── Checkout Modal Layout Extensions ── */
+.checkout-modal__dialog--large {
+    width: min(100%, 680px);
+}
+
+.checkout-modal__section {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border-default);
+}
+
+.checkout-modal__section:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.checkout-modal__section-title {
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-primary);
+    margin: 0 0 var(--space-4);
+}
+
+.checkout-modal__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--space-4);
+}
+
+/* Remove bottom margin if inside grid since we manage gaps/margins differently now */
+.checkout-modal__grid .checkout-modal__field {
+    margin-bottom: var(--space-4);
+}
+
+.checkout-modal__grid-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
 
 /* ── Mobile Layout ─────────────────────────────────────── */
 
@@ -518,6 +557,11 @@
     .checkout-modal__dialog {
         padding: var(--space-6);
         border-radius: var(--radius-lg);
+    }
+
+    .checkout-modal__grid,
+    .checkout-modal__grid-3 {
+        grid-template-columns: 1fr;
     }
 }
 

@@ -484,12 +484,6 @@ function bindEvents() {
             try { return JSON.parse(localStorage.getItem('craftora_user') || 'null'); } catch { return null; }
         })();
         let targetUrl = `./customize.html?id=${encodeURIComponent(state.product.id)}`;
-        if (!userAuth) {
-            let redirectUrl = encodeURIComponent(targetUrl);
-            alert('You must be signed in to open the design studio.');
-            location.href = `./login.html?redirect=${redirectUrl}`;
-            return;
-        }
         location.href = targetUrl;
     });
 
