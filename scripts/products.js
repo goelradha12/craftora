@@ -160,11 +160,6 @@ function renderProducts(productsToRender) {
                 const user = (() => {
                     try { return JSON.parse(localStorage.getItem('craftora_user') || 'null'); } catch { return null; }
                 })();
-                if (!user) {
-                    alert('You must be signed in to add items to your wishlist.');
-                    window.location.href = './login.html';
-                    return;
-                }
                 const now = toggleWishlist({
                     id: product.id,
                     name: product.name,

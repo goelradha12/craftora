@@ -259,7 +259,7 @@ async function initFeaturedProducts() {
                     <div class="product-card__content">
                         <div class="product-card__category">${escapeHTML(product.category || 'Product')}</div>
                         <h3 class="product-card__title">${escapeHTML(product.name || 'Unnamed')}</h3>
-                        <p class="info-text">${escapeHTML(product.description || 'No description available.')}</p>
+                        <p class="info-text product-card__description">${escapeHTML(product.description || 'No description available.')}</p>
                     </div>
                     <div class="product-card__footer">
                         <div class="product-card__price">${priceStr}</div>

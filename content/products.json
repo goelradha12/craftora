@@ -55,7 +55,7 @@
       "badges": [
         "Best Seller"
       ],
-      "featured": true,
+      "featured": false,
       "stock": 120
     },
     {
@@ -284,7 +284,7 @@
       "badges": [
         "Trending"
       ],
-      "featured": true,
+      "featured": false,
       "stock": 70
     },
     {
@@ -334,7 +334,7 @@
       "badges": [
         "Popular"
       ],
-      "featured": true,
+      "featured": false,
       "stock": 120
     },
     {
@@ -569,7 +569,7 @@
       "badges": [
         "Daily Wear"
       ],
-      "featured": true,
+      "featured": false,
       "stock": 200
     },
     {
