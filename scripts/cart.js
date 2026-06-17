@@ -307,13 +307,7 @@ function bindCheckoutButton() {
 
     const raw = localStorage.getItem('craftora_user');
     if (!raw) {
-      window.CraftoraUI?.showToast({
-        id: 'checkout-auth',
-        variant: 'warning',
-        title: 'Sign in required',
-        message: 'Please log in first to place your order.'
-      });
-      window.location.href = './login.html';
+      showGuestLoginPrompt();
       return;
     }
 
@@ -321,37 +315,49 @@ function bindCheckoutButton() {
       const orderId = generateOrderId();
       const user = JSON.parse(raw);
       const subtotal = cartData.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const designFeesTotal = cartData.reduce((sum, item) => sum + ((item.designFee || 0) * item.qty), 0);
       const itemsCount = cartData.reduce((sum, item) => sum + item.qty, 0);
 
       addOrder({
         id: orderId,
         date: new Date().toISOString(),
         status: 'Processing',
+        version: 2,
+        customer: {
+          name: name || user.name || '',
+          phone: phone,
+          email: user.email || ''
+        },
+        shipping: {
+          ...address,
+          formatted: `${address.house}, ${address.street}${address.landmark ? ', ' + address.landmark : ''}, ${address.city}, ${address.state} - ${address.pincode}`
+        },
         items: cartData.map(item => ({
           id: item.id,
           key: item.key,
           name: item.name,
           image: item.image,
-          price: item.price,
+          category: item.category || '',
+          basePrice: item.basePrice || item.price || 0,
+          designFee: item.designFee || 0,
+          price: item.price || 0,
           qty: item.qty,
           size: item.size || '',
           color: item.color || '',
-          customized: !!item.customized
+          colorName: item.colorName || '',
+          customized: !!item.customized,
+          designRequired: !!item.designRequired || !!item.customized
         })),
         summary: {
           items: itemsCount,
           subtotal,
+          designFees: designFeesTotal,
           shipping: 0,
           total: subtotal
         },
-        delivery: {
-          address,
-          phone
-        },
-        customer: {
-          name: name || user.name || '',
-          email: user.email || ''
-        }
+        // Legacy compatibility fields
+        delivery: { address, phone },
+        payment: 'Cash on Delivery'
       });
 
       localStorage.setItem('lastOrderId', orderId);
@@ -409,15 +415,13 @@ function renderCart() {
               <h3 class="cart-item__name cart-item__text" onclick="window.location.href='./product.html?id=${item.id}'">${esc(item.name)}</h3>
               <div class="cart-item__meta">
                 ${item.color ? `
-                  <span>
-                    Color
-                    <span
-                      style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${esc(item.color)};border:1px solid #d1d5db;"
-                      title="${esc(item.color)}"
-                    ></span>
+                  <span class="cart-item__color-tag">
+                    <span class="cart-item__color-dot" style="background:${esc(item.color)}" title="${esc(item.colorName || item.color)}"></span>
+                    ${esc(item.colorName || '')}
                   </span>
                 ` : ''}
                 ${item.size ? `<span>Size ${esc(item.size)}</span>` : ''}
+                ${item.customized ? `<span class="cart-item__badge-custom">Designed</span>` : ''}
                 ${item.customized && item.customization?.previewImage ? `
                 <button class="cart-item__preview-btn" type="button"
                         aria-label="View saved design for ${esc(item.name)}"
@@ -430,6 +434,7 @@ function renderCart() {
                   View design
                 </button>` : ''}
               </div>
+              ${item.designFee ? `<p class="cart-item__design-fee">Incl. design fee ${money(item.designFee)}</p>` : ''}
             </div>
             <span class="cart-item__price cart-item__text">${money(item.price * item.qty)}</span>
           </div>
@@ -476,6 +481,51 @@ function updateSummary(totalItems, subtotal) {
       ? 'Secure checkout with free shipping on every order.'
       : 'Add products to continue to checkout.';
   }
+}
+
+function showGuestLoginPrompt() {
+  const overlay = document.createElement('div');
+  overlay.className = 'checkout-modal';
+  overlay.innerHTML = `
+    <div class="checkout-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="guestTitle">
+      <div class="checkout-modal__header">
+        <div class="checkout-modal__icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div>
+          <p id="guestTitle" class="checkout-modal__title">Sign in required</p>
+          <p class="checkout-modal__subtitle">You need to sign in before placing an order. Would you like to continue to the login page?</p>
+        </div>
+        <button class="checkout-modal__close cart-item__remove" type="button" aria-label="Close" id="guestClose">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="checkout-modal__actions" style="display:flex;gap:var(--space-3);margin-top:var(--space-5);">
+        <button class="checkout-btn checkout-btn--secondary" type="button" id="guestCancel">Cancel</button>
+        <button class="checkout-btn" type="button" id="guestConfirm">Sign In</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+
+  function close() {
+    overlay.remove();
+    document.body.style.overflow = '';
+  }
+
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  $('#guestClose', overlay).addEventListener('click', close);
+  $('#guestCancel', overlay).addEventListener('click', close);
+  $('#guestConfirm', overlay).addEventListener('click', () => {
+    close();
+    window.location.href = './login.html';
+  });
+
+  document.addEventListener('keydown', function escHandler(e) {
+    if (e.key === 'Escape') { close(); document.removeEventListener('keydown', escHandler); }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', initCart);

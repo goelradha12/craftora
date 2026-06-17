@@ -113,6 +113,55 @@
     font-size: 0.82rem;
 }
 
+.cart-item__color-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.cart-item__color-dot {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid #d1d5db;
+    flex-shrink: 0;
+}
+
+.cart-item__badge-custom {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-full);
+    background: var(--color-accent-subtle);
+    color: var(--color-accent);
+    font-size: 0.7rem;
+    font-weight: var(--weight-bold);
+    font-family: var(--font-ui);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.cart-item__design-fee {
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    margin-top: var(--space-1);
+    opacity: 0.9;
+}
+
+.checkout-btn--secondary {
+    background: var(--surface-page);
+    color: var(--text-primary);
+    border: 1.5px solid var(--border-default);
+}
+
+.checkout-btn--secondary:hover {
+    background: var(--surface-warm);
+    border-color: var(--text-primary);
+}
+
 .cart-item__preview-btn {
     display: inline-flex;
     align-items: center;

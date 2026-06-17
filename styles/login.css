@@ -190,6 +190,60 @@ h2 {
     text-align: right;
 }
 
+/* ── Live password requirements checklist ── */
+.pw-requirements {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4) 0;
+    display: grid;
+    gap: var(--space-1);
+}
+
+.pw-requirements li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-family: var(--font-body);
+    color: var(--text-muted);
+    transition: color var(--transition-base);
+}
+
+.pw-requirements li.passed {
+    color: var(--color-success);
+}
+
+.pw-req__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    font-size: 0.7rem;
+    font-weight: var(--weight-bold);
+    border-radius: 50%;
+    border: 1.5px solid var(--border-default);
+    transition: all var(--transition-base);
+    flex-shrink: 0;
+}
+
+.pw-requirements li.passed .pw-req__icon {
+    background: var(--color-success);
+    color: #fff;
+    border-color: var(--color-success);
+}
+
+.pw-requirements.all-passed {
+    opacity: 0.7;
+}
+
+/* ── Optional label styling ── */
+.label-optional {
+    font-weight: var(--weight-normal);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+}
+
 /* ── Submit button ── */
 .submit-btn {
     padding: var(--space-4) var(--space-8);

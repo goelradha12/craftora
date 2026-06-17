@@ -1,17 +1,70 @@
+/* ============================================================
+   product.js — Craftora Product Detail Page
+   Requires: pricing.js (loaded before this script)
+   ============================================================ */
+
 const CART_KEY = 'cart';
 const WISHLIST_KEY = 'craftora_wishlist';
 const CUSTOM_PREFIX = 'designData_';
 
+/* ── Color Palette (same as customize.html) ── */
+const COLOR_PALETTE = {
+    pacificBlue: "#B0DDF7", angelBlue: "#A7BFE5", brightBlue: "#50C6F6",
+    turquoiseBlue: "#22B1C2", happyBlue: "#2C91BF", royalBlue: "#0055B8",
+    blueberry: "#2D2877", navyBlue: "#190850", iceBlue: "#C8E1E6",
+    robinsBlue: "#92D6D3", happySky: "#7ACDE7", aquaBlue: "#54C1C4",
+    aquaMint: "#4EBBAD", teal: "#1FAAAD", mediumTeal: "#2D8E95",
+    darkTeal: "#237C7C", pastelGreen: "#CBE5BE", celeryGreen: "#B0D69A",
+    pistachio: "#A5D49E", seafoam: "#ABC5C1", freshGreen: "#ACC636",
+    greenGrass: "#8ECB3F", emerald: "#6EA864", forestGreen: "#4B7A47",
+    pastelLilac: "#D0CFE7", lilac: "#BFBDE6", lavender: "#C7A2D0",
+    plum: "#7B6AB0", violet: "#6D2B76", orchidPurple: "#94307D",
+    blueViolet: "#4B2C76", eggplant: "#602058", pastelPink: "#F7D8E7",
+    cottonCandy: "#F2B8D1", dustyRose: "#E599AC", sweetPink: "#F49ABB",
+    rose: "#F1719B", hotPink: "#EE4791", mameyPink: "#F05778",
+    fuschia: "#DC126B", palePeach: "#FDE0DA", peach: "#F7BCA4",
+    lightCoral: "#F47B7D", honeysuckle: "#F07761", prettyRed: "#E12D3A",
+    wineRed: "#A91E3E", burgundy: "#8E2D30", happyOrange: "#F79854",
+    tangerine: "#F47F25", tango: "#F15B24", burntOrange: "#DC8720",
+    pumpkin: "#DA5C29", rust: "#BF6227", leather: "#9B5B51",
+    chocolate: "#644245", buttercup: "#FFF546", vanilla: "#FFF481",
+    honey: "#F5E47D", brightYellow: "#FEF200", sunnyYellow: "#FDEB3F",
+    mustardYellow: "#E3C34D", camel: "#D7C15F", sand: "#E1CF85",
+    tan: "#D7CDB4", softTaupe: "#B3A99D", taupe: "#8B7D7D",
+    darkBrown: "#4B3735", softGray: "#D0D2D4", slateGray: "#9A9C9F",
+    charcoal: "#58585A", black: "#231F20"
+};
+
+const PALETTE_KEYS = Object.keys(COLOR_PALETTE);
+const INITIAL_COLORS_SHOWN = 14;
+
+function getColorName(hex) {
+    const h = String(hex).toLowerCase();
+    const key = PALETTE_KEYS.find(k => COLOR_PALETTE[k].toLowerCase() === h);
+    if (!key) return hex;
+    return key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
+}
+
+function isLightColor(hex) {
+    const c = hex.replace('#', '');
+    const r = parseInt(c.substr(0, 2), 16), g = parseInt(c.substr(2, 2), 16), b = parseInt(c.substr(4, 2), 16);
+    return (r * 299 + g * 587 + b * 114) / 1000 > 200;
+}
+
+/* ── State ── */
 const state = {
     product: null,
     products: [],
     qty: 1,
     customization: null,
+    designRequired: false,
+    selectedColor: null,
+    colorsExpanded: false,
 };
 
+/* ── Utilities ── */
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-
 const escapeHTML = str => String(str ?? '').replace(/[&<>"']/g, match =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[match]);
 const formatMoney = num => `₹${Number(num || 0).toLocaleString('en-IN')}`;
@@ -43,6 +96,7 @@ function loadCustomization(id) {
     } catch { return null; }
 }
 
+/* ── Init ── */
 function initProductPage() {
     let mountNode = $('#product');
     if (!mountNode) return;
@@ -74,11 +128,17 @@ function initProductPage() {
 
             document.title = `${state.product.name} — Craftora`;
             state.customization = loadCustomization(productId);
+            state.selectedColor = state.customization?.shirtColor || COLOR_PALETTE[PALETTE_KEYS[0]];
+            state.designRequired = !!state.customization;
+            // Check if active color requires expanded palette
+            const hiddenKeys = PALETTE_KEYS.slice(INITIAL_COLORS_SHOWN);
+            state.colorsExpanded = hiddenKeys.some(k => COLOR_PALETTE[k].toLowerCase() === state.selectedColor.toLowerCase());
 
             mountNode.innerHTML = renderPage(state.product);
             mountNode.setAttribute('aria-busy', 'false');
             bindEvents();
-            updateCustomizationUI();
+            if (state.designRequired) setDesignRadio(true);
+            updateUI();
             initDesignPreviewBtn(productId);
         })
         .catch(err => {
@@ -88,6 +148,7 @@ function initProductPage() {
         });
 }
 
+/* ── Render: Full Page ── */
 function renderPage(product) {
     return `
         ${renderBreadcrumbs(product)}
@@ -122,7 +183,6 @@ function renderGallery(product) {
                     <div class="product__badges">
                         ${badges.map((badge, idx) => `<span class="product__badge${idx > 0 ? ' product__badge--accent' : ''}">${escapeHTML(badge)}</span>`).join('')}
                     </div>` : ''}
-
                 <button class="product__wishlist-btn${isSaved ? ' wishlisted' : ''}"
                         id="wishlistBtn"
                         aria-label="${isSaved ? 'Remove from wishlist' : 'Save to wishlist'}">
@@ -132,49 +192,47 @@ function renderGallery(product) {
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                     </svg>
                 </button>
-
                 <img class="product__main-img" id="productMainImg"
-                     src="${images[0]}"
-                     alt="${escapeHTML(product.name)}" 
-                     width="800" height="1000" 
-                     fetchpriority="high"
-                     decoding="sync">
+                     src="${images[0]}" alt="${escapeHTML(product.name)}" 
+                     width="800" height="1000" fetchpriority="high" decoding="sync">
             </div>
-
             ${images.length > 1 ? `
                 <ul class="product__thumbs" aria-label="Product images">
                     ${images.map((src, idx) => `
                         <li><button class="product__thumb${idx === 0 ? ' product__thumb--active' : ''}"
                                     type="button" data-src="${src}"
                                     aria-label="View image ${idx + 1}" aria-pressed="${idx === 0}">
-                            <img class="product__thumb-img" 
-                                 src="${src}" 
-                                 alt="" loading="lazy" width="64" height="64">
+                            <img class="product__thumb-img" src="${src}" alt="" loading="lazy" width="64" height="64">
                         </button></li>`).join('')}
                 </ul>` : ''}
         </div>`;
 }
 
+/* ── Render: Product Info (right column) ── */
 function renderProductInfo(product) {
     let outOfStock = Number(product.stock) <= 0;
-    let colors = Array.isArray(product.colors) ? product.colors : [];
-    let colorNames = Array.isArray(product.colorNames) ? product.colorNames : [];
     let sizes = Array.isArray(product.sizes) ? product.sizes : [];
+    let designFee = getDesignFee(product.category);
 
     return `
         <div class="product__info">
-
             <div class="product__header">
                 <span class="product__category">${escapeHTML(product.category)}</span>
                 <h1 class="product__name">${escapeHTML(product.name)}</h1>
             </div>
 
-            <div class="product__pricing">
-                <span class="product__price">${formatMoney(product.basePrice)}</span>
-                <span class="product__price-note">base price</span>
+            <div class="product__pricing" id="pricingBlock">
+                <span class="product__price" id="displayPrice">${formatMoney(product.basePrice)}</span>
+                <span class="product__price-note" id="priceNote">base price</span>
+            </div>
+            <div class="product__fee-breakdown" id="feeBreakdown" hidden>
+                <span class="product__fee-line">Base: ${formatMoney(product.basePrice)}</span>
+                <span class="product__fee-line product__fee-line--accent">+ Design fee: ${formatMoney(designFee)}</span>
             </div>
             <hr/>
             <p class="product__description">${escapeHTML(product.description)}</p>
+
+            ${renderColorPicker()}
 
             <div class="product__meta-row">
                 ${sizes.length ? `
@@ -194,30 +252,13 @@ function renderProductInfo(product) {
                     <div class="product__qty" role="group" aria-label="Quantity">
                         <button class="product__qty-btn" id="qtyMinus" type="button" aria-label="Decrease" disabled>−</button>
                         <output class="product__qty-val" id="qtyVal">1</output>
-                        <button class="product__qty-btn" id="qtyPlus"  type="button" aria-label="Increase">+</button>
+                        <button class="product__qty-btn" id="qtyPlus" type="button" aria-label="Increase">+</button>
                     </div>
                 </div>
             </div>
 
-            
-            <div class="product__customization-card missing" id="custCard">
-                <div class="product__cust-preview-wrap">
-                
-                    <img id="custPreviewImg" class="product__cust-preview" alt="Saved design preview" style="display:none;">
-                    <div class="product__cust-icon" id="custIcon">🎨</div>
-                </div>
-                <div class="product__cust-text">
-                <button class="product__preview-btn" id="viewDesignPreviewBtn" style="display:none;" type="button">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-                    </svg>
-                    Preview
-                </button>
-                    <p class="product__cust-title" id="custTitle">Design required</p>
-                    <p class="product__cust-desc" id="custDesc">Open the studio and save your design to enable checkout.</p>
-                </div>
-                
-            </div>
+            ${renderDesignToggle(outOfStock)}
+            ${renderCustomizationCard()}
 
             <div class="product__actions">
                 <button class="product__customize-btn" id="customizeProductBtn" ${outOfStock ? 'disabled' : ''}>
@@ -227,10 +268,9 @@ function renderProductInfo(product) {
                     </svg>
                     <span id="custBtnLabel">Open Design Studio</span>
                 </button>
-
                 <div class="product__btn-row">
-                    <button class="product__add-btn" id="addToCartBtn" disabled>Add to Cart</button>
-                    <button class="product__buy-btn" id="buyNowBtn"    disabled>Buy Now</button>
+                    <button class="product__add-btn" id="addToCartBtn" ${outOfStock ? 'disabled' : ''}>Add to Cart</button>
+                    <button class="product__buy-btn" id="buyNowBtn" ${outOfStock ? 'disabled' : ''}>Buy Now</button>
                 </div>
             </div>
 
@@ -249,25 +289,101 @@ function renderProductInfo(product) {
                 </div>
             </div>
             ${renderProductDetails(product)}
-
         </div>`;
 }
 
+/* ── Render: Color Picker ── */
+function renderColorPicker() {
+    const visibleKeys = PALETTE_KEYS.slice(0, INITIAL_COLORS_SHOWN);
+    const hiddenKeys = PALETTE_KEYS.slice(INITIAL_COLORS_SHOWN);
+    const activeColor = state.selectedColor || COLOR_PALETTE[PALETTE_KEYS[0]];
+
+    // Check if activeColor is in hidden set (need to auto-expand)
+    const activeInHidden = hiddenKeys.some(k => COLOR_PALETTE[k].toLowerCase() === activeColor.toLowerCase());
+
+    return `
+        <div class="product__color-section">
+            <div class="product__color-header">
+                <span class="product__option-label">Color</span>
+                <span class="product__color-selected" id="colorSelectedName">${getColorName(activeColor)}</span>
+            </div>
+            <div class="product__color-swatches" id="colorSwatches">
+                ${visibleKeys.map(key => {
+                    const hex = COLOR_PALETTE[key];
+                    const isSelected = hex.toLowerCase() === activeColor.toLowerCase();
+                    return `<button class="product__color-swatch${isSelected ? ' selected' : ''}${isLightColor(hex) ? ' light' : ''}" 
+                            type="button" data-color="${hex}" data-name="${getColorName(hex)}"
+                            title="${getColorName(hex)}" aria-label="Select color ${getColorName(hex)}"
+                            style="background:${hex}"></button>`;
+                }).join('')}
+                ${hiddenKeys.map(key => {
+                    const hex = COLOR_PALETTE[key];
+                    const isSelected = hex.toLowerCase() === activeColor.toLowerCase();
+                    return `<button class="product__color-swatch product__color-swatch--hidden${isSelected ? ' selected' : ''}${isLightColor(hex) ? ' light' : ''}" 
+                            type="button" data-color="${hex}" data-name="${getColorName(hex)}"
+                            title="${getColorName(hex)}" aria-label="Select color ${getColorName(hex)}"
+                            style="background:${hex}" ${activeInHidden ? '' : 'hidden'}></button>`;
+                }).join('')}
+            </div>
+            ${hiddenKeys.length ? `<button class="product__color-toggle" id="colorToggleBtn" type="button">${activeInHidden ? 'Show fewer colors' : 'Show more colors'}</button>` : ''}
+        </div>`;
+}
+
+/* ── Render: Design Toggle ── */
+function renderDesignToggle(outOfStock) {
+    return `
+        <div class="product__design-toggle" id="designToggleSection">
+            <span class="product__option-label">Custom Design?</span>
+            <div class="product__design-options">
+                <label class="product__design-option">
+                    <input type="radio" name="design-required" value="no" checked ${outOfStock ? 'disabled' : ''}>
+                    <span class="product__design-option-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                        No, plain product
+                    </span>
+                </label>
+                <label class="product__design-option">
+                    <input type="radio" name="design-required" value="yes" ${outOfStock ? 'disabled' : ''}>
+                    <span class="product__design-option-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                        Yes, customize
+                    </span>
+                </label>
+            </div>
+        </div>`;
+}
+
+/* ── Render: Customization Card ── */
+function renderCustomizationCard() {
+    return `
+        <div class="product__customization-card missing" id="custCard" hidden>
+            <div class="product__cust-preview-wrap">
+                <img id="custPreviewImg" class="product__cust-preview" alt="Saved design preview" style="display:none;">
+                <div class="product__cust-icon" id="custIcon">🎨</div>
+            </div>
+            <div class="product__cust-text">
+                <button class="product__preview-btn" id="viewDesignPreviewBtn" style="display:none;" type="button">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Preview
+                </button>
+                <p class="product__cust-title" id="custTitle">Design required</p>
+                <p class="product__cust-desc" id="custDesc">Open the studio and save your design to enable checkout.</p>
+            </div>
+        </div>`;
+}
+
+/* ── Render: Product Details ── */
 function renderProductDetails(product) {
     let detailsArray = Array.isArray(product.productDetails) ? product.productDetails : [];
     if (!detailsArray.length) return '';
 
     let labelMap = {
-        material: 'Material',
-        capacity: 'Capacity',
-        finish: 'Finish',
-        microwaveSafe: 'Microwave Safe',
-        dishwasherSafe: 'Dishwasher Safe',
-        washCare: 'Wash Care',
-        dimensions: 'Dimensions',
-        weight: 'Weight',
-        warranty: 'Warranty',
-        countryOfOrigin: 'Origin',
+        material: 'Material', capacity: 'Capacity', finish: 'Finish',
+        microwaveSafe: 'Microwave Safe', dishwasherSafe: 'Dishwasher Safe',
+        washCare: 'Wash Care', dimensions: 'Dimensions', weight: 'Weight',
+        warranty: 'Warranty', countryOfOrigin: 'Origin',
     };
 
     return `
@@ -292,6 +408,7 @@ function renderProductDetails(product) {
         </div>`;
 }
 
+/* ── Render: Related Products ── */
 function renderRelatedProducts(product) {
     let relatedArray = state.products.filter(item => item.category === product.category && item.id !== product.id).slice(0, 4);
     if (!relatedArray.length) return '';
@@ -326,14 +443,65 @@ function renderError(message) {
         </div>`;
 }
 
-function initDesignPreviewBtn(productId) {
-    const btn = $('#viewDesignPreviewBtn');
-    if (!btn) return;
-    if (typeof DesignPreview === 'undefined') return;
+/* ── UI Update Logic ── */
+function updateUI() {
+    updatePriceDisplay();
+    updateDesignSection();
+    updateCartButtons();
+}
 
-    if (DesignPreview.exists(productId)) {
-        btn.style.display = 'inline-flex';
-        btn.addEventListener('click', () => DesignPreview.show(productId));
+function updatePriceDisplay() {
+    let product = state.product;
+    if (!product) return;
+    let total = calculateItemPrice(product.basePrice, product.category, state.designRequired);
+    let priceEl = $('#displayPrice');
+    let noteEl = $('#priceNote');
+    let breakdownEl = $('#feeBreakdown');
+
+    if (priceEl) priceEl.textContent = formatMoney(total);
+    if (state.designRequired) {
+        if (noteEl) noteEl.textContent = 'incl. design fee';
+        if (breakdownEl) breakdownEl.hidden = false;
+    } else {
+        if (noteEl) noteEl.textContent = 'base price';
+        if (breakdownEl) breakdownEl.hidden = true;
+    }
+}
+
+function updateDesignSection() {
+    let custCard = $('#custCard');
+    let custBtn = $('#customizeProductBtn');
+
+    if (state.designRequired) {
+        if (custCard) custCard.hidden = false;
+        if (custBtn) custBtn.hidden = false;
+        updateCustomizationUI();
+    } else {
+        if (custCard) custCard.hidden = true;
+        if (custBtn) custBtn.hidden = true;
+    }
+}
+
+function updateCartButtons() {
+    let product = state.product;
+    if (!product) return;
+    let outOfStock = Number(product.stock) <= 0;
+    let addBtn = $('#addToCartBtn');
+    let buyBtn = $('#buyNowBtn');
+
+    if (outOfStock) {
+        if (addBtn) addBtn.disabled = true;
+        if (buyBtn) buyBtn.disabled = true;
+        return;
+    }
+
+    if (state.designRequired) {
+        let hasDesign = !!state.customization;
+        if (addBtn) addBtn.disabled = !hasDesign;
+        if (buyBtn) buyBtn.disabled = !hasDesign;
+    } else {
+        if (addBtn) addBtn.disabled = false;
+        if (buyBtn) buyBtn.disabled = false;
     }
 }
 
@@ -347,160 +515,137 @@ function updateCustomizationUI() {
     let iconNode = $('#custIcon');
     let titleNode = $('#custTitle');
     let descNode = $('#custDesc');
-    let addBtnNode = $('#addToCartBtn');
-    let buyBtnNode = $('#buyNowBtn');
-    let custBtnNode = $('#customizeProductBtn');
     let custLabelNode = $('#custBtnLabel');
 
     if (!cardNode) return;
 
     if (outOfStock) {
         cardNode.className = 'product__customization-card missing';
-        if (previewNode) {
-            previewNode.style.display = 'none';
-            previewNode.removeAttribute('src');
-        }
+        if (previewNode) { previewNode.style.display = 'none'; previewNode.removeAttribute('src'); }
         if (iconNode) iconNode.textContent = '✗';
         if (titleNode) titleNode.textContent = 'Out of stock';
         if (descNode) descNode.textContent = 'This product is currently unavailable.';
-        if (addBtnNode) addBtnNode.disabled = true;
-        if (buyBtnNode) buyBtnNode.disabled = true;
-        if (custBtnNode) custBtnNode.disabled = true;
         return;
     }
 
     if (hasDesign) {
         let savedColorHex = state.customization?.shirtColor;
-        let displayColorName = savedColorHex;
-
-        if (product?.colors && product?.colorNames) {
-            let colorIndex = product.colors.indexOf(savedColorHex);
-            if (colorIndex > -1) displayColorName = product.colorNames[colorIndex];
-        }
+        let displayColorName = getColorName(savedColorHex);
 
         cardNode.className = 'product__customization-card ready';
-
         if (previewNode && state.customization?.previewImage) {
             previewNode.src = state.customization.previewImage;
             previewNode.style.display = 'block';
             if (iconNode) iconNode.style.display = 'none';
         } else if (previewNode) {
             previewNode.style.display = 'none';
-            previewNode.removeAttribute('src');
             if (iconNode) iconNode.style.display = '';
         }
-
         if (iconNode) iconNode.textContent = '✓';
         if (titleNode) titleNode.textContent = 'Design saved — ready to order';
         if (descNode) descNode.textContent = `Color: ${displayColorName || 'custom'}  ·  Click "Edit Design" to make changes`;
-        if (addBtnNode) addBtnNode.disabled = false;
-        if (buyBtnNode) buyBtnNode.disabled = false;
         if (custLabelNode) custLabelNode.textContent = 'Edit Design';
     } else {
         cardNode.className = 'product__customization-card missing';
-
-        if (previewNode) {
-            previewNode.style.display = 'none';
-            previewNode.removeAttribute('src');
-        }
-        if (iconNode) {
-            iconNode.style.display = '';
-            iconNode.textContent = '🎨';
-        }
+        if (previewNode) { previewNode.style.display = 'none'; previewNode.removeAttribute('src'); }
+        if (iconNode) { iconNode.style.display = ''; iconNode.textContent = '🎨'; }
         if (titleNode) titleNode.textContent = 'Design required';
         if (descNode) descNode.textContent = 'Open the studio and save your design to enable checkout.';
-        if (addBtnNode) addBtnNode.disabled = true;
-        if (buyBtnNode) buyBtnNode.disabled = true;
         if (custLabelNode) custLabelNode.textContent = 'Open Design Studio';
     }
 }
 
+/* ── Event Binding ── */
 function bindEvents() {
     let mainImgNode = $('#productMainImg');
     $$('.product__thumb').forEach(thumbBtn => {
         thumbBtn.addEventListener('click', () => {
-            if (mainImgNode) {
-                mainImgNode.removeAttribute('srcset');
-                mainImgNode.src = thumbBtn.dataset.src || '';
-            }
-            $$('.product__thumb').forEach(btn => {
-                btn.classList.remove('product__thumb--active');
-                btn.setAttribute('aria-pressed', 'false');
-            });
+            if (mainImgNode) { mainImgNode.removeAttribute('srcset'); mainImgNode.src = thumbBtn.dataset.src || ''; }
+            $$('.product__thumb').forEach(btn => { btn.classList.remove('product__thumb--active'); btn.setAttribute('aria-pressed', 'false'); });
             thumbBtn.classList.add('product__thumb--active');
             thumbBtn.setAttribute('aria-pressed', 'true');
         });
     });
 
-    let valNode = $('#qtyVal');
-    let minusBtn = $('#qtyMinus');
-    let plusBtn = $('#qtyPlus');
-
+    // Quantity
+    let valNode = $('#qtyVal'), minusBtn = $('#qtyMinus'), plusBtn = $('#qtyPlus');
     if (valNode && minusBtn && plusBtn) {
-        minusBtn.addEventListener('click', () => {
-            if (state.qty <= 1) return;
-            valNode.textContent = --state.qty;
-            minusBtn.disabled = state.qty <= 1;
-        });
-        plusBtn.addEventListener('click', () => {
-            if (state.qty >= 99) return;
-            valNode.textContent = ++state.qty;
-            minusBtn.disabled = false;
-        });
+        minusBtn.addEventListener('click', () => { if (state.qty <= 1) return; valNode.textContent = --state.qty; minusBtn.disabled = state.qty <= 1; });
+        plusBtn.addEventListener('click', () => { if (state.qty >= 99) return; valNode.textContent = ++state.qty; minusBtn.disabled = false; });
     }
 
+    // Wishlist
     $('#wishlistBtn')?.addEventListener('click', () => {
-        let product = state.product;
-        if (!product) return;
+        let product = state.product; if (!product) return;
         let isNowSaved = toggleWishlist(product);
         let wishBtn = $('#wishlistBtn');
         let svgPath = wishBtn?.querySelector('path');
-
         wishBtn?.classList.toggle('wishlisted', isNowSaved);
         wishBtn?.setAttribute('aria-label', isNowSaved ? 'Remove from wishlist' : 'Save to wishlist');
-
-        if (svgPath) {
-            svgPath.setAttribute('fill', isNowSaved ? '#e11d48' : 'none');
-            svgPath.setAttribute('stroke', isNowSaved ? '#e11d48' : 'currentColor');
-        }
-        if (wishBtn) {
-            wishBtn.style.transform = 'scale(1.3)';
-            setTimeout(() => { wishBtn.style.transform = ''; }, 200);
-        }
+        if (svgPath) { svgPath.setAttribute('fill', isNowSaved ? '#e11d48' : 'none'); svgPath.setAttribute('stroke', isNowSaved ? '#e11d48' : 'currentColor'); }
+        if (wishBtn) { wishBtn.style.transform = 'scale(1.3)'; setTimeout(() => { wishBtn.style.transform = ''; }, 200); }
     });
 
+    // Details toggle
     $('#detailsToggle')?.addEventListener('click', () => {
-        let toggleBtn = $('#detailsToggle');
-        let contentBody = $('#detailsBody');
+        let toggleBtn = $('#detailsToggle'), contentBody = $('#detailsBody');
         if (!toggleBtn || !contentBody) return;
         let isOpen = toggleBtn.getAttribute('aria-expanded') === 'true';
         toggleBtn.setAttribute('aria-expanded', String(!isOpen));
         if (isOpen) { contentBody.hidden = true; } else { contentBody.hidden = false; }
     });
 
-    $('#customizeProductBtn')?.addEventListener('click', () => {
-        if (!state.product) return;
-        let userAuth = (() => {
-            try { return JSON.parse(localStorage.getItem('craftora_user') || 'null'); } catch { return null; }
-        })();
-        let targetUrl = `./customize.html?id=${encodeURIComponent(state.product.id)}`;
-        location.href = targetUrl;
+    // Design toggle (Yes/No)
+    $$('input[name="design-required"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            state.designRequired = radio.value === 'yes';
+            updateUI();
+        });
     });
 
+    // Color swatches
+    $('#colorSwatches')?.addEventListener('click', (e) => {
+        let swatch = e.target.closest('.product__color-swatch');
+        if (!swatch) return;
+        state.selectedColor = swatch.dataset.color;
+        $$('.product__color-swatch').forEach(s => s.classList.remove('selected'));
+        swatch.classList.add('selected');
+        let nameEl = $('#colorSelectedName');
+        if (nameEl) nameEl.textContent = swatch.dataset.name;
+    });
+
+    // Show more colors
+    $('#colorToggleBtn')?.addEventListener('click', () => {
+        state.colorsExpanded = !state.colorsExpanded;
+        let btn = $('#colorToggleBtn');
+        $$('.product__color-swatch--hidden').forEach(s => { s.hidden = !state.colorsExpanded; });
+        if (btn) btn.textContent = state.colorsExpanded ? 'Show fewer colors' : 'Show more colors';
+    });
+
+    // Customize button
+    $('#customizeProductBtn')?.addEventListener('click', () => {
+        if (!state.product) return;
+        location.href = `./customize.html?id=${encodeURIComponent(state.product.id)}`;
+    });
+
+    // Add to cart / Buy now
     $('#addToCartBtn')?.addEventListener('click', () => handleAddToCart(false));
     $('#buyNowBtn')?.addEventListener('click', () => handleAddToCart(true));
 
+    // Listen for design updates
     window.addEventListener('pageshow', () => {
         if (!state.product) return;
         state.customization = loadCustomization(state.product.id);
-        updateCustomizationUI();
+        if (state.customization) { state.designRequired = true; setDesignRadio(true); }
+        updateUI();
         initDesignPreviewBtn(state.product.id);
     });
 
     window.addEventListener('storage', event => {
         if (state.product && event.key === `${CUSTOM_PREFIX}${state.product.id}`) {
             state.customization = loadCustomization(state.product.id);
-            updateCustomizationUI();
+            if (state.customization) { state.designRequired = true; setDesignRadio(true); }
+            updateUI();
         }
     });
 
@@ -508,33 +653,46 @@ function bindEvents() {
         if (!state.product) return;
         if (String(event.detail?.productId) !== String(state.product.id)) return;
         state.customization = loadCustomization(state.product.id);
-        updateCustomizationUI();
+        if (state.customization) { state.designRequired = true; setDesignRadio(true); }
+        updateUI();
         initDesignPreviewBtn(state.product.id);
     });
 }
 
+function setDesignRadio(yes) {
+    const radios = $$('input[name="design-required"]');
+    radios.forEach(r => { r.checked = (r.value === (yes ? 'yes' : 'no')); });
+}
+
+/* ── Add to Cart ── */
 function handleAddToCart(shouldRedirect) {
     let product = state.product;
-    if (!product || !state.customization) return;
+    if (!product) return;
+
+    if (state.designRequired && !state.customization) return;
 
     let selectedSize = $('.product__size-input:checked')?.value || product.sizes?.[0] || '';
-    let selectedColor = state.customization.shirtColor || product.colors?.[0] || '';
+    let selectedColor = state.selectedColor || COLOR_PALETTE[PALETTE_KEYS[0]];
+    let colorName = getColorName(selectedColor);
+    let designFee = state.designRequired ? getDesignFee(product.category) : 0;
+    let totalPrice = calculateItemPrice(product.basePrice, product.category, state.designRequired);
 
-    let customString = JSON.stringify(state.customization);
-    let hash = 0;
-    for (let i = 0; i < customString.length; i++) {
-        hash = ((hash << 5) - hash) + customString.charCodeAt(i);
-        hash |= 0;
+    let uniqueKey;
+    if (state.designRequired && state.customization) {
+        let customString = JSON.stringify(state.customization);
+        let hash = 0;
+        for (let i = 0; i < customString.length; i++) { hash = ((hash << 5) - hash) + customString.charCodeAt(i); hash |= 0; }
+        uniqueKey = `${product.id}__${selectedSize}__${selectedColor}__${hash}`;
+    } else {
+        uniqueKey = `${product.id}__${selectedSize}__${selectedColor}__plain`;
     }
-
-    let uniqueKey = `${product.id}__${selectedSize}__${selectedColor}__${hash}`;
 
     let currentCart = getCart();
     let existingItem = currentCart.find(item => item.key === uniqueKey);
 
     if (existingItem) {
         existingItem.qty += state.qty;
-        existingItem.customization = state.customization;
+        if (state.designRequired) existingItem.customization = state.customization;
     } else {
         currentCart.push({
             key: uniqueKey,
@@ -542,12 +700,16 @@ function handleAddToCart(shouldRedirect) {
             name: product.name,
             image: product.images?.default || '',
             category: product.category,
-            price: product.basePrice,
+            basePrice: product.basePrice,
+            designFee: designFee,
+            price: totalPrice,
             color: selectedColor,
+            colorName: colorName,
             size: selectedSize,
             qty: state.qty,
-            customized: true,
-            customization: state.customization
+            customized: state.designRequired,
+            designRequired: state.designRequired,
+            customization: state.designRequired ? state.customization : null
         });
     }
 
@@ -563,4 +725,16 @@ function handleAddToCart(shouldRedirect) {
     setTimeout(() => { addBtnNode.textContent = originalText; addBtnNode.disabled = false; }, 1400);
 }
 
+/* ── Design Preview ── */
+function initDesignPreviewBtn(productId) {
+    const btn = $('#viewDesignPreviewBtn');
+    if (!btn) return;
+    if (typeof DesignPreview === 'undefined') return;
+    if (DesignPreview.exists(productId)) {
+        btn.style.display = 'inline-flex';
+        btn.addEventListener('click', () => DesignPreview.show(productId));
+    }
+}
+
+/* ── Start ── */
 initProductPage();

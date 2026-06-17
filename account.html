@@ -578,6 +578,52 @@
             font-size: 1rem;
         }
 
+        .order-item__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-top: 0.3rem;
+        }
+
+        .order-item__tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.15rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.68rem;
+            font-weight: 700;
+            font-family: var(--font-ui);
+            background: var(--surface-warm);
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .order-item__tag--designed {
+            background: var(--color-accent-subtle);
+            color: var(--color-accent);
+        }
+
+        .order-item__tag--fee {
+            background: hsl(from var(--secondary) h s l / 0.08);
+            color: var(--color-secondary);
+        }
+
+        .order-item__color-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid #d1d5db;
+            vertical-align: middle;
+        }
+
+        .order-summary__row--total {
+            font-weight: 800;
+            border-top: 1px solid var(--border-default);
+            padding-top: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
         @media (max-width: 900px) {
 
             .account-grid,

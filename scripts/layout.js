@@ -33,14 +33,14 @@ function getCartCount() {
 /* ── Profile menu HTML builders ── */
 
 function buildProfileMenuHTML(user) {
-    const initials = (user.name || user.email || '?')
+    const initials = (user.name || user.phone || '?')
         .split(' ')
         .map(w => w[0])
         .join('')
         .slice(0, 2)
         .toUpperCase();
 
-    const displayName = user.name || user.email || 'My Account';
+    const displayName = user.name || user.phone || 'My Account';
 
     return /* html */`
         <div class="dropdown" id="profileDropdown">
@@ -55,7 +55,7 @@ function buildProfileMenuHTML(user) {
             <ul class="dropdown__menu" id="profileMenu" role="menu">
                 <li class="dropdown__user-info" role="none">
                     <span class="dropdown__user-name">${escHTML(displayName)}</span>
-                    <span class="dropdown__user-email">${escHTML(user.email || '')}</span>
+                    <span class="dropdown__user-email">${escHTML(user.phone || '')}</span>
                 </li>
                 <li class="dropdown__divider" role="none"></li>
                 <li role="none">
@@ -98,8 +98,7 @@ function buildProfileMenuHTML(user) {
 function buildGuestHTML() {
     return /* html */`
         <div class="nav__auth-links">
-            <a class="nav__btn-ghost" href="./login.html">Sign In</a>
-            <a class="nav__btn-solid" href="./signup.html">Sign Up</a>
+            <a class="nav__btn-solid" href="./login.html">Sign In</a>
         </div>
     `;
 }
@@ -107,7 +106,7 @@ function buildGuestHTML() {
 /** Mobile profile list items */
 function buildMobileProfileHTML(user) {
     if (user) {
-        const displayName = user.name || user.email || 'My Account';
+        const displayName = user.name || user.phone || 'My Account';
         return /* html */`
             <li>
                 <div class="dropdown" id="profileDropdownMobile">
@@ -118,7 +117,7 @@ function buildMobileProfileHTML(user) {
                     <ul class="dropdown__menu" id="profileMenuMobile" role="menu">
                         <li class="dropdown__user-info" role="none">
                             <span class="dropdown__user-name">${escHTML(displayName)}</span>
-                            <span class="dropdown__user-email">${escHTML(user.email || '')}</span>
+                            <span class="dropdown__user-email">${escHTML(user.phone || '')}</span>
                         </li>
                         <li class="dropdown__divider" role="none"></li>
                         <li><a href="./account.html" role="menuitem">My Account</a></li>
@@ -134,7 +133,6 @@ function buildMobileProfileHTML(user) {
     }
     return /* html */`
         <li><a class="nav--link" href="./login.html">Sign In</a></li>
-        <li><a class="nav--link" href="./signup.html">Sign Up</a></li>
     `;
 }
 
@@ -202,6 +200,16 @@ function buildHeader(user) {
                     <li><a class="nav--link" href="./contact.html">Contact</a></li>
                 </ul>
 
+                <div class="nav__search" role="search" aria-label="Product search">
+                    <div class="nav__search-wrap">
+                        <svg class="nav__search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input class="nav__search-input js-global-search" type="search" placeholder="Search products..." autocomplete="off" aria-label="Search products">
+                        <div class="nav__search-dropdown js-search-dropdown" role="listbox" aria-label="Search results" hidden></div>
+                    </div>
+                </div>
+
                 <div class="nav__actions">
                     ${user ? buildProfileMenuHTML(user) : buildGuestHTML()}
 
@@ -220,6 +228,12 @@ function buildHeader(user) {
                 </a>
 
                 <div class="nav__phone-actions">
+                    <button class="nav__icon-btn js-mobile-search-toggle" aria-label="Search products">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                    </button>
+
                     <a href="./cart.html" class="nav__icon-btn" aria-label="View cart">
                         ${CART_SVG}
                         <span class="cart-badge cart-badge--hidden" aria-live="polite" aria-label="items in cart">0</span>
@@ -233,6 +247,22 @@ function buildHeader(user) {
                 </div>
             </div>
 
+            <!-- Mobile search bar (slides down when search icon tapped) -->
+            <div class="nav__mobile-search-bar js-mobile-search-bar" hidden>
+                <div class="nav__search-wrap">
+                    <svg class="nav__search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <input class="nav__search-input js-global-search" type="search" placeholder="Search products..." autocomplete="off" aria-label="Search products">
+                    <button class="nav__mobile-search-close js-mobile-search-close" aria-label="Close search" type="button">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                    <div class="nav__search-dropdown js-search-dropdown" role="listbox" aria-label="Search results" hidden></div>
+                </div>
+            </div>
+
             <div class="nav__drawer js_nav_list" id="mobileNavMenu" aria-label="Mobile navigation" hidden>
                 <div class="nav__drawer-header">
                     <div>
@@ -243,6 +273,15 @@ function buildHeader(user) {
                             <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                         </svg>
                     </button>
+                </div>
+                <div class="nav__mobile-search" role="search" aria-label="Product search">
+                    <div class="nav__search-wrap">
+                        <svg class="nav__search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input class="nav__search-input js-global-search" type="search" placeholder="Search products..." autocomplete="off" aria-label="Search products">
+                        <div class="nav__search-dropdown js-search-dropdown" role="listbox" aria-label="Search results" hidden></div>
+                    </div>
                 </div>
                 <ul class="nav--list" role="list">
                     <li><a class="nav--link" href="./index.html">Home</a></li>
@@ -265,6 +304,11 @@ const FOOTER_HTML = /* html */`
                 <img loading="lazy" src="./assets/dark_logo.webp" alt="Craftora" class="footer-logo" width="116" height="26">
             </a>
             <p class="footer-tagline">Modern custom merchandise designed to bring your ideas to life.</p>
+            <address class="footer-address">
+                <p>Address: Craftora HQ</p>
+                <p>42, Linking Road, Bandra West</p>
+                <p>Mumbai, Maharashtra 400050, India</p>
+            </address>
             <div class="footer-socials">
                 <a href="#" aria-label="Instagram">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -499,4 +543,166 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
+    /* ── Global Header Search ── */
+    initGlobalSearch();
+
+    /* ── Mobile search toggle ── */
+    const mobileSearchToggle = document.querySelector('.js-mobile-search-toggle');
+    const mobileSearchBar = document.querySelector('.js-mobile-search-bar');
+    const mobileSearchClose = document.querySelector('.js-mobile-search-close');
+
+    if (mobileSearchToggle && mobileSearchBar) {
+        mobileSearchToggle.addEventListener('click', () => {
+            mobileSearchBar.hidden = false;
+            requestAnimationFrame(() => {
+                mobileSearchBar.classList.add('active');
+                mobileSearchBar.querySelector('.js-global-search')?.focus();
+            });
+        });
+
+        mobileSearchClose?.addEventListener('click', () => {
+            mobileSearchBar.classList.remove('active');
+            setTimeout(() => { mobileSearchBar.hidden = true; }, 200);
+        });
+
+        // Close on ESC
+        mobileSearchBar.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                mobileSearchBar.classList.remove('active');
+                setTimeout(() => { mobileSearchBar.hidden = true; }, 200);
+                mobileSearchToggle.focus();
+            }
+        });
+    }
+
 });
+
+
+/* ══════════════════════════════════════════════════════════
+   GLOBAL HEADER SEARCH
+══════════════════════════════════════════════════════════ */
+
+function initGlobalSearch() {
+    const inputs = document.querySelectorAll('.js-global-search');
+    if (!inputs.length) return;
+
+    let products = null; // cached
+    let debounceTimer = null;
+
+    async function loadProducts() {
+        if (products) return products;
+        try {
+            const response = await fetch('./content/products.json');
+            if (!response.ok) throw new Error('Network error');
+            const data = await response.json();
+            products = data.products || [];
+        } catch (e) {
+            console.error('Search: failed to load products', e);
+            products = [];
+        }
+        return products;
+    }
+
+    function renderResults(dropdown, query) {
+        if (!query) {
+            dropdown.hidden = true;
+            dropdown.innerHTML = '';
+            return;
+        }
+
+        const filtered = (products || [])
+            .filter(p => p.name && p.name.toLowerCase().includes(query.toLowerCase()))
+            .slice(0, 6);
+
+        if (filtered.length === 0) {
+            dropdown.innerHTML = '<div class="search-dd__empty" role="option">No products found</div>';
+        } else {
+            dropdown.innerHTML = filtered.map((p, i) => {
+                const imgUrl = (p.images && p.images.default) ? p.images.default : './assets/placeholder.webp';
+                const category = p.category || '';
+                return `<a class="search-dd__item" href="./product.html?id=${encodeURIComponent(p.id)}" role="option" data-index="${i}">
+                    <img class="search-dd__img" src="${escHTML(imgUrl)}" alt="" loading="lazy">
+                    <div class="search-dd__info">
+                        <span class="search-dd__name">${escHTML(p.name)}</span>
+                        ${category ? `<span class="search-dd__cat">${escHTML(category)}</span>` : ''}
+                    </div>
+                </a>`;
+            }).join('');
+        }
+        dropdown.hidden = false;
+    }
+
+    function closeAllDropdowns() {
+        document.querySelectorAll('.js-search-dropdown').forEach(d => {
+            d.hidden = true;
+            d.innerHTML = '';
+        });
+    }
+
+    inputs.forEach(input => {
+        const dropdown = input.parentElement.querySelector('.js-search-dropdown');
+        if (!dropdown) return;
+
+        let activeIndex = -1;
+
+        input.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(async () => {
+                await loadProducts();
+                activeIndex = -1;
+                renderResults(dropdown, input.value.trim());
+            }, 200);
+        });
+
+        input.addEventListener('focus', async () => {
+            const q = input.value.trim();
+            if (q) {
+                await loadProducts();
+                renderResults(dropdown, q);
+            }
+        });
+
+        input.addEventListener('keydown', (e) => {
+            const items = dropdown.querySelectorAll('.search-dd__item');
+
+            if (e.key === 'Escape') {
+                dropdown.hidden = true;
+                input.blur();
+                return;
+            }
+
+            if (!items.length) return;
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                activeIndex = (activeIndex + 1) % items.length;
+                highlightItem(items, activeIndex);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                activeIndex = (activeIndex - 1 + items.length) % items.length;
+                highlightItem(items, activeIndex);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (activeIndex >= 0 && items[activeIndex]) {
+                    window.location.href = items[activeIndex].href;
+                } else if (items.length > 0) {
+                    window.location.href = items[0].href;
+                }
+            }
+        });
+    });
+
+    function highlightItem(items, index) {
+        items.forEach((item, i) => {
+            item.classList.toggle('search-dd__item--active', i === index);
+            if (i === index) item.scrollIntoView({ block: 'nearest' });
+        });
+    }
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav__search-wrap')) {
+            closeAllDropdowns();
+        }
+    });
+}

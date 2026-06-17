@@ -970,3 +970,205 @@
         transform: none;
     }
 }
+
+
+/* ══════════════════════════════════════════════════════════
+   16. COLOR PICKER
+══════════════════════════════════════════════════════════ */
+
+.product__color-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.product__color-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.product__color-selected {
+    font-size: var(--text-sm);
+    font-family: var(--font-body);
+    color: var(--text-body);
+    font-weight: var(--weight-medium);
+}
+
+.product__color-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.product__color-swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    outline: none;
+    padding: 0;
+    position: relative;
+}
+
+.product__color-swatch.light {
+    border-color: var(--border-default);
+}
+
+.product__color-swatch:hover {
+    transform: scale(1.2);
+    box-shadow: var(--shadow-sm);
+}
+
+.product__color-swatch.selected {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--surface-page), 0 0 0 4px var(--color-primary);
+    transform: scale(1.1);
+}
+
+.product__color-swatch:focus-visible {
+    box-shadow: 0 0 0 2px var(--surface-page), 0 0 0 4px var(--color-accent);
+}
+
+.product__color-toggle {
+    align-self: flex-start;
+    background: none;
+    border: none;
+    padding: var(--space-1) 0;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    font-family: var(--font-ui);
+    color: var(--color-secondary);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.product__color-toggle:hover {
+    color: var(--color-accent);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   17. DESIGN TOGGLE
+══════════════════════════════════════════════════════════ */
+
+.product__design-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.product__design-options {
+    display: flex;
+    gap: var(--space-3);
+}
+
+.product__design-option {
+    flex: 1;
+    cursor: pointer;
+}
+
+.product__design-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.product__design-option-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    border: 1.5px solid var(--border-default);
+    background: var(--surface-page);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    font-family: var(--font-ui);
+    color: var(--text-body);
+    transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+    user-select: none;
+}
+
+.product__design-option-btn svg {
+    flex-shrink: 0;
+}
+
+.product__design-option input:checked + .product__design-option-btn {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--text-on-dark);
+    box-shadow: var(--shadow-sm);
+}
+
+.product__design-option:hover .product__design-option-btn {
+    border-color: var(--color-primary);
+}
+
+.product__design-option input:focus-visible + .product__design-option-btn {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   18. FEE BREAKDOWN
+══════════════════════════════════════════════════════════ */
+
+.product__fee-breakdown {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-accent-subtle);
+    border-radius: var(--radius-md);
+    margin-top: calc(-1 * var(--space-3));
+}
+
+.product__fee-breakdown[hidden] {
+    display: none;
+}
+
+.product__fee-line {
+    font-size: var(--text-sm);
+    font-family: var(--font-ui);
+    color: var(--text-muted);
+    font-weight: var(--weight-medium);
+}
+
+.product__fee-line--accent {
+    color: var(--color-accent);
+    font-weight: var(--weight-bold);
+}
+
+.product__price-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    font-family: var(--font-body);
+}
+
+/* Hidden customize button */
+.product__customize-btn[hidden] {
+    display: none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   19. RESPONSIVE ADDITIONS
+══════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+    .product__design-options {
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+
+    .product__color-swatch {
+        width: 26px;
+        height: 26px;
+    }
+}

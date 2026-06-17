@@ -4,22 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup - Craftora | Modern Custom Merchandise</title>
-    <!-- Favicon -->
+    <title>Sign Up - Craftora | Modern Custom Merchandise</title>
     <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2937'/%3E%3Cpath d='M20 24h24l-2 24H22l-2-24Z' fill='%23ffffff'/%3E%3Cpath d='M25 24c0-4 3-8 7-8s7 4 7 8' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M29 34h6' stroke='%231f2937' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M44 16l1.2 2.8L48 20l-2.8 1.2L44 24l-1.2-2.8L40 20l2.8-1.2L44 16Z' fill='%23f59e0b'/%3E%3C/svg%3E">
-
-    <!-- Legacy shortcut icon -->
-    <link rel="shortcut icon"
         href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2937'/%3E%3Cpath d='M20 24h24l-2 24H22l-2-24Z' fill='%23ffffff'/%3E%3Cpath d='M25 24c0-4 3-8 7-8s7 4 7 8' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M29 34h6' stroke='%231f2937' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M44 16l1.2 2.8L48 20l-2.8 1.2L44 24l-1.2-2.8L40 20l2.8-1.2L44 16Z' fill='%23f59e0b'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lato:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    
     <link rel="stylesheet" href="./styles/tokens.css">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/login.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -35,133 +28,129 @@
                 <img src="./assets/logo.webp" alt="Craftora Logo" class="logo-loginPage" width="116" height="24">
             </a>
 
-            <h2 class="section-heading">Signup</h2>
+            <h2 class="section-heading">Create Account</h2>
 
             <div class="form-error-banner" id="signupError" role="alert" hidden>
-                <i class="fas fa-circle-exclamation" aria-hidden="true"></i>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 <span id="signupErrorMsg"></span>
             </div>
 
             <form id="signupForm" novalidate>
-                <div class="signup-section">
-                    <h3 class="checkout-modal__section-title">Account Information</h3>
-                    <div class="form-row-2">
-                        <div class="form-group">
-                            <label for="fullname" class="required">Full Name</label>
-                            <div class="input-with-icon">
-                                <i class="fas fa-user" aria-hidden="true"></i>
-                                <input type="text" id="fullname" name="fullname" class="form-control"
-                                    placeholder="Your full name" autocomplete="name" required>
-                            </div>
-                            <span class="field-error" id="nameError"></span>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="phone" class="required">Phone Number</label>
-                            <div class="input-with-icon">
-                                <i class="fas fa-phone" aria-hidden="true"></i>
-                                <input type="tel" id="phone" name="phone" class="form-control" placeholder="10-digit number"
-                                    autocomplete="tel" inputmode="numeric" maxlength="10" required>
-                            </div>
-                            <span class="field-error" id="phoneError"></span>
+                <!-- Name + Phone -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="fullname" class="required">Full Name</label>
+                        <div class="input-with-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-icon-muted)"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                            <input type="text" id="fullname" name="fullname" class="form-control"
+                                   placeholder="Your full name" autocomplete="name" required>
                         </div>
+                        <span class="field-error" id="nameError"></span>
                     </div>
 
-                    <div class="form-row-2">
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <div class="input-with-icon">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email"
-                                    autocomplete="email">
-                            </div>
-                            <span class="field-error" id="emailError"></span>
+                    <div class="form-group">
+                        <label for="phone" class="required">Phone Number</label>
+                        <div class="input-with-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-icon-muted)"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.61 5.61l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <input type="tel" id="phone" name="phone" class="form-control"
+                                   placeholder="10-digit mobile number"
+                                   autocomplete="tel" inputmode="numeric"
+                                   minlength="10" maxlength="10" pattern="[0-9]{10}" required>
                         </div>
-
-                        <div class="form-group">
-                            <label for="password" class="required">Password</label>
-                            <div class="input-with-icon">
-                                <i class="fas fa-lock" aria-hidden="true"></i>
-                                <input type="password" id="password" name="password" class="form-control"
-                                    placeholder="Min. 6 characters" autocomplete="new-password" required>
-                                <button type="button" class="eye-toggle" id="togglePassword" aria-label="Show password">
-                                    <i class="fas fa-eye" id="eyeIcon" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                            <span class="field-error" id="passwordError"></span>
-                        </div>
-                    </div>
-
-                    <div class="pw-strength" aria-live="polite">
-                        <div class="pw-strength__bar">
-                            <div class="pw-strength__fill" id="pwFill"></div>
-                        </div>
-                        <span class="pw-strength__label" id="pwLabel"></span>
+                        <span class="field-error" id="phoneError"></span>
                     </div>
                 </div>
 
+                <!-- Email (optional) + Password -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="email">Email <span class="label-optional">(optional)</span></label>
+                        <div class="input-with-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-icon-muted)"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            <input type="email" id="email" name="email" class="form-control"
+                                   placeholder="you@example.com" autocomplete="email">
+                        </div>
+                        <span class="field-error" id="emailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="required">Password</label>
+                        <div class="input-with-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-icon-muted)"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            <input type="password" id="password" name="password" class="form-control"
+                                   placeholder="Create a password" autocomplete="new-password" required>
+                            <button type="button" class="eye-toggle" id="togglePassword" aria-label="Show password">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="eyeIcon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
+                        </div>
+                        <span class="field-error" id="passwordError"></span>
+                    </div>
+                </div>
+
+                <!-- Live password requirements -->
+                <ul class="pw-requirements" id="pwRequirements" aria-live="polite" aria-label="Password requirements">
+                    <li data-rule="length"><span class="pw-req__icon">○</span> Minimum 8 characters</li>
+                    <li data-rule="upper"><span class="pw-req__icon">○</span> At least one uppercase letter</li>
+                    <li data-rule="lower"><span class="pw-req__icon">○</span> At least one lowercase letter</li>
+                    <li data-rule="number"><span class="pw-req__icon">○</span> At least one number</li>
+                    <li data-rule="special"><span class="pw-req__icon">○</span> At least one special character</li>
+                </ul>
+
+                <!-- Delivery address (collapsible) -->
                 <div class="signup-section accordion-section">
                     <button type="button" class="accordion-toggle" id="deliveryToggle" aria-expanded="false">
-                        <h3 class="checkout-modal__section-title" style="margin: 0;">Delivery Information</h3>
-                        <i class="fas fa-chevron-down accordion-icon" aria-hidden="true"></i>
+                        <h3 class="checkout-modal__section-title" style="margin:0">Delivery Address</h3>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="accordion-icon" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
-                    
                     <div class="accordion-content" id="deliveryContent">
                         <div class="form-row-2">
                             <div class="form-group">
-                                <label for="house">Apartment / House Number</label>
+                                <label for="house">Apartment / House</label>
                                 <div class="input-with-icon">
-                                    <i class="fas fa-home" aria-hidden="true"></i>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-icon-muted)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                                     <input type="text" id="house" name="house" class="form-control" placeholder="Flat 101, Building Name">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="street">Street / Area</label>
                                 <div class="input-with-icon">
-                                    <i class="fas fa-road" aria-hidden="true"></i>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-icon-muted)"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                                     <input type="text" id="street" name="street" class="form-control" placeholder="Main Street, Area">
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="landmark">Landmark</label>
-                            <div class="input-with-icon">
-                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                                <input type="text" id="landmark" name="landmark" class="form-control" placeholder="Near park, Behind school">
-                            </div>
-                        </div>
-
-                        <div class="form-row-3">
+                        <div class="form-row-2">
                             <div class="form-group">
                                 <label for="city">City</label>
                                 <div class="input-with-icon">
-                                    <i class="fas fa-city" aria-hidden="true"></i>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-icon-muted)"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="9" y1="6" x2="9.01" y2="6"/><line x1="15" y1="6" x2="15.01" y2="6"/><line x1="9" y1="10" x2="9.01" y2="10"/><line x1="15" y1="10" x2="15.01" y2="10"/><line x1="9" y1="14" x2="9.01" y2="14"/><line x1="15" y1="14" x2="15.01" y2="14"/><path d="M9 22v-4h6v4"/></svg>
                                     <input type="text" id="city" name="city" class="form-control" placeholder="City name">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="state">State</label>
                                 <div class="input-with-icon">
-                                    <i class="fas fa-map" aria-hidden="true"></i>
-                                    <input type="text" id="state" name="state" class="form-control" placeholder="State name">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-icon-muted)"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    <input type="text" id="state" name="state" class="form-control" placeholder="State">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="pincode">Pincode</label>
-                                <div class="input-with-icon">
-                                    <i class="fas fa-thumbtack" aria-hidden="true"></i>
-                                    <input type="text" id="pincode" name="pincode" class="form-control" placeholder="6-digit pincode" inputmode="numeric" maxlength="6">
-                                </div>
-                                <span class="field-error" id="pincodeError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="pincode">Pincode</label>
+                            <div class="input-with-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-icon-muted)"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                <input type="text" id="pincode" name="pincode" class="form-control"
+                                       placeholder="6-digit pincode" inputmode="numeric" maxlength="6">
                             </div>
+                            <span class="field-error" id="pincodeError"></span>
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn hero--btn" id="signupBtn" style="margin-top: var(--space-4);">
-                    <span class="btn-text">Sign Up</span>
-                    <i class="fas fa-spinner fa-spin btn-spinner" aria-hidden="true"></i>
+                <button type="submit" class="submit-btn" id="signupBtn">
+                    <span class="btn-text">Create Account</span>
+                    <svg class="btn-spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
                 </button>
 
                 <div class="signup-link">
@@ -176,6 +165,7 @@
 
     <script defer src="./scripts/auth.js"></script>
     <script>
+        /* ── Redirect params ── */
         const _signupParams = new URLSearchParams(window.location.search);
         const _signupRedirect = _signupParams.get('redirect') || './index.html';
 
@@ -184,61 +174,63 @@
             _loginLink.href = `./login.html?redirect=${encodeURIComponent(_signupParams.get('redirect'))}`;
         }
 
+        /* ── Toggle password visibility ── */
         document.getElementById('togglePassword').addEventListener('click', () => {
             const input = document.getElementById('password');
             const icon = document.getElementById('eyeIcon');
             const show = input.type === 'password';
             input.type = show ? 'text' : 'password';
-            icon.className = show ? 'fas fa-eye-slash' : 'fas fa-eye';
+            icon.innerHTML = show
+                ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/>'
+                : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
             document.getElementById('togglePassword').setAttribute('aria-label', show ? 'Hide password' : 'Show password');
         });
 
+        /* ── Live password requirements ── */
         document.getElementById('password').addEventListener('input', () => {
-            const val = document.getElementById('password').value;
-            const fill = document.getElementById('pwFill');
-            const label = document.getElementById('pwLabel');
-            let score = 0;
-            if (val.length >= 6) score++;
-            if (val.length >= 10) score++;
-            if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
-            if (/\d/.test(val)) score++;
-            if (/[^A-Za-z0-9]/.test(val)) score++;
+            const pw = document.getElementById('password').value;
+            const { results } = validatePassword(pw);
+            const list = document.getElementById('pwRequirements');
 
-            const levels = ['', 'Weak', 'Fair', 'Good', 'Strong', 'Very strong'];
-            const colors = ['', '#ef4444', '#f97316', '#eab308', '#22c55e', '#10b981'];
-            const widths = ['0%', '20%', '40%', '60%', '80%', '100%'];
+            results.forEach(r => {
+                const li = list.querySelector(`[data-rule="${r.id}"]`);
+                if (!li) return;
+                const icon = li.querySelector('.pw-req__icon');
+                if (r.passed) {
+                    li.classList.add('passed');
+                    icon.textContent = '✓';
+                } else {
+                    li.classList.remove('passed');
+                    icon.textContent = '○';
+                }
+            });
 
-            fill.style.width = val.length ? widths[score] : '0%';
-            fill.style.background = colors[score];
-            label.textContent = val.length ? levels[score] : '';
-            label.style.color = colors[score];
+            // Show overall status
+            const allPassed = results.every(r => r.passed);
+            list.classList.toggle('all-passed', allPassed);
         });
 
+        /* ── Accordion toggle ── */
         const deliveryToggle = document.getElementById('deliveryToggle');
         const deliveryContent = document.getElementById('deliveryContent');
         if (deliveryToggle && deliveryContent) {
             deliveryToggle.addEventListener('click', () => {
-                const isExpanded = deliveryToggle.getAttribute('aria-expanded') === 'true';
-                deliveryToggle.setAttribute('aria-expanded', !isExpanded);
-                if (!isExpanded) {
-                    deliveryContent.classList.add('show');
-                } else {
-                    deliveryContent.classList.remove('show');
-                }
+                const expanded = deliveryToggle.getAttribute('aria-expanded') === 'true';
+                deliveryToggle.setAttribute('aria-expanded', !expanded);
+                deliveryContent.classList.toggle('show', !expanded);
             });
         }
 
+        /* ── Form submit ── */
         document.getElementById('signupForm').addEventListener('submit', (e) => {
             e.preventDefault();
 
             const name = document.getElementById('fullname').value.trim();
-            const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
-            
             const house = document.getElementById('house').value.trim();
             const street = document.getElementById('street').value.trim();
-            const landmark = document.getElementById('landmark').value.trim();
             const city = document.getElementById('city').value.trim();
             const state = document.getElementById('state').value.trim();
             const pincode = document.getElementById('pincode').value.trim();
@@ -248,37 +240,41 @@
             const btn = document.getElementById('signupBtn');
 
             errorDiv.hidden = true;
-            ['nameError', 'emailError', 'phoneError', 'passwordError', 'pincodeError'].forEach(id => {
-                if (document.getElementById(id)) document.getElementById(id).textContent = '';
+            ['nameError', 'phoneError', 'emailError', 'passwordError', 'pincodeError'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = '';
             });
 
             let valid = true;
-            if (!name) { document.getElementById('nameError').textContent = 'Full name is required.'; valid = false; }
-            
-            if (email) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    document.getElementById('emailError').textContent = 'Please enter a valid email format.';
-                    valid = false;
-                }
+
+            if (!name) {
+                document.getElementById('nameError').textContent = 'Full name is required.';
+                valid = false;
             }
 
             if (!phone) {
                 document.getElementById('phoneError').textContent = 'Phone number is required.';
                 valid = false;
-            } else if (phone.replace(/\\D/g, '').length < 10) {
-                document.getElementById('phoneError').textContent = 'Please enter a valid 10-digit number.';
+            } else if (!isValidPhone(phone)) {
+                document.getElementById('phoneError').textContent = 'Enter a valid 10-digit mobile number starting with 6-9.';
                 valid = false;
             }
 
-            if (!password) { document.getElementById('passwordError').textContent = 'Password is required.'; valid = false; }
-            else if (password.length < 6) {
-                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('emailError').textContent = 'Enter a valid email address.';
                 valid = false;
             }
-            
-            if (pincode && !/^\\d{6}$/.test(pincode)) {
-                document.getElementById('pincodeError').textContent = 'Please enter a valid 6-digit pincode.';
+
+            if (!password) {
+                document.getElementById('passwordError').textContent = 'Password is required.';
+                valid = false;
+            } else if (!validatePassword(password).valid) {
+                document.getElementById('passwordError').textContent = 'Password does not meet all requirements.';
+                valid = false;
+            }
+
+            if (pincode && !/^\d{6}$/.test(pincode)) {
+                document.getElementById('pincodeError').textContent = 'Enter a valid 6-digit pincode.';
                 valid = false;
             }
 
@@ -287,25 +283,21 @@
             btn.classList.add('loading');
             btn.disabled = true;
 
-            const addressObj = { house, street, landmark, city, state, pincode };
-            const landmarkStr = landmark ? `${landmark}, ` : '';
-            // Only generate formatted address if at least some required fields are provided
+            // Build address string
             let formattedAddress = '';
             if (house || street || city) {
-                formattedAddress = [house, street].filter(Boolean).join(', ') + 
-                    (landmarkStr ? `, ${landmarkStr}` : (house || street ? ', ' : '')) +
-                    [city, state].filter(Boolean).join(', ') + 
+                formattedAddress = [house, street, city, state].filter(Boolean).join(', ') +
                     (pincode ? ` - ${pincode}` : '');
             }
 
             setTimeout(() => {
                 const result = attemptSignup({
                     name,
-                    email,
                     phone,
+                    email,
                     address: formattedAddress,
-                    addressObj,
-                    password
+                    addressObj: { house, street, city, state, pincode },
+                    password,
                 });
 
                 btn.classList.remove('loading');
@@ -322,5 +314,4 @@
     </script>
 
 </body>
-
 </html>

@@ -57,6 +57,89 @@
             margin-bottom: 1.25rem;
         }
 
+        /* ── Contact Info ── */
+        .contact-section {
+            text-align: center;
+        }
+
+        .contact-address {
+            font-style: normal;
+            line-height: var(--leading-relaxed);
+            color: var(--text-primary);
+            margin-top: var(--space-8);
+        }
+
+        .contact-address p {
+            margin: 0;
+        }
+
+        .contact-address p:first-child {
+            font-weight: var(--weight-semibold);
+            margin-bottom: var(--space-2);
+        }
+
+        /* ── Contact Layout with Map ── */
+        .contact-with-map {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-16);
+            align-items: center;
+            margin-top: var(--space-8);
+        }
+
+        .contact-map-wrapper {
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            box-shadow: 0 12px 32px hsl(from var(--primary) h s l / 0.12);
+            height: 380px;
+        }
+
+        .contact-map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .contact-address-block {
+            text-align: left;
+        }
+
+        .contact-address-block .contact-address {
+            margin-top: var(--space-4);
+            text-align: left;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .contact-with-map {
+                grid-template-columns: 1fr;
+                gap: var(--space-8);
+            }
+
+            .contact-map-wrapper {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-with-map {
+                gap: var(--space-6);
+            }
+
+            .contact-map-wrapper {
+                height: 250px;
+            }
+
+            .contact-address-block {
+                text-align: center;
+            }
+
+            .contact-address-block .contact-address {
+                text-align: center;
+            }
+        }
+
         /* ── Stats ── */
         .stats-section {
             background: var(--primary);
@@ -295,6 +378,28 @@
                             design, produce, and deliver.</p>
                     </div>
 
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Info -->
+        <section class="section" aria-labelledby="contact-heading">
+            <div class="container">
+                <h2 class="section-title" id="contact-heading">Get in Touch</h2>
+                <p class="section-subtitle">
+                    Visit us or reach out anytime. We'd love to hear from you.
+                </p>
+                <div class="contact-with-map">
+                    <div class="contact-address-block">
+                        <address class="contact-address">
+                            <p>Craftora HQ</p>
+                            <p>42, Linking Road, Bandra West</p>
+                            <p>Mumbai, Maharashtra 400050, India</p>
+                        </address>
+                    </div>
+                    <div class="contact-map-wrapper">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.8295698309927!2d72.82801!3d19.0596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9f0e8c8c8c9%3A0x8c8c8c8c8c8c8c8c!2s42%20Linking%20Road%2C%20Bandra%20West%2C%20Mumbai%2C%20Maharashtra%20400050!5e0!3m2!1sen!2sin!4v1687359000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" aria-label="Craftora HQ location on Google Maps"></iframe>
+                    </div>
                 </div>
             </div>
         </section>
