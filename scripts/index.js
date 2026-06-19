@@ -127,7 +127,6 @@ function initReviewsCarousel() {
             </div>
             <p class="review__text info-text">"${escapeHTML(r.text)}"</p>
             <div class="review__author-row">
-                <div class="review__avatar" style="background-color: ${r.color}" aria-hidden="true">${r.avatar}</div>
                 <div>
                     <div class="review__name">${escapeHTML(r.name)}</div>
                     <div class="review__location">${escapeHTML(r.location)}</div>
@@ -262,11 +261,6 @@ async function initFeaturedProducts() {
                     </div>
                     <div class="product-card__footer">
                         <div class="product-card__price">${priceStr}</div>
-                        <div class="product-card__actions">
-                            <a href="./product.html?id=${product.id}" class="shop-btn">
-                                Customize Now
-                            </a>
-                        </div>
                     </div>
                 </div>
             `;

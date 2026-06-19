@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="./styles/tokens.css">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/home.css">
-    <link rel="stylesheet" href="./styles/products.css">
 </head>
 
 <body>
@@ -30,74 +29,61 @@
     <main id="main-content">
         <div class="hero">
 
-            <div class="container">
+                <div class="hero--wrapper">
+                    <div class="hero--content">
 
-                <div class="hero--content">
+                        <h1>
+                            Where your ideas meet <span class="hero--highlight">#Design</span>
+                        </h1>
 
-                    <h1>
-                        Best quality Merchandise in your favorite design.
-                    </h1>
+                        <p>
+                            Upload artwork, pick templates, or add text. Create your custom merchandise at Craftora.
+                        </p>
 
-                    <p>
-                        Discover unique handcrafted products loved by thousands
-                        of happy customers worldwide.
-                    </p>
+                        <button class="hero--btn" onclick="window.location.href='./products.html'">Explore Products</button>
+                        
 
-                    <button class="hero--btn" onclick="window.location.href='./products.html'">Shop</button>
-                    <!-- <div class="home-search-container" style="position: relative;">
-                        <input id="homeSearchInput" type="text" placeholder="Search products by name..."
-                            autocomplete="off" />
-                        <button id="homeSearchBtn" type="button">Search</button>
-                        <div id="homeSearchDropdown" class="search-dropdown" style="display: none;"></div>
-                    </div> -->
-
+                    </div>
+                    <div class="hero--image">
+                        <img src="./assets/backgrounds/hero-products.jpg" alt="Woman holding a printed bottle" />
+                    </div>
                 </div>
-
-            </div>
 
         </div>
 
-        <div class="section">
-            <div class="container">
-                <h2 class="section-heading">Our Products</h2>
+        <div class="section products-category">
+            <div class="">
+                <h2>Search our catalogue</h2>
                 <div class="products">
                     <div class="home-category-card">
-                        <img class="product--image" src="./assets/products (1).webp"
+                        <img class="product--image" src="./assets/product-diary.jpg"
                             alt="Printed black diary with a custom design on the cover" />
                         <div class="product-content">
                             <h3>Diary</h3>
-                            <p>Elegant printed diary for notes, planning, and daily journaling.</p>
-                            <a href="./products.html?category=Diary" class="shop-btn">Shop Diary</a>
                         </div>
                     </div>
 
                     <div class="home-category-card">
-                        <img class="product--image" src="./assets/products (2).webp"
+                        <img class="product--image" src="./assets/product-bottle.jpg"
                             alt="Printed white bottle with a custom design" />
                         <div class="product-content">
                             <h3>Bottle</h3>
-                            <p>Stylish printed bottle made for everyday use and gifting.</p>
-                            <a href="./products.html?category=Bottle" class="shop-btn">Shop Bottle</a>
                         </div>
                     </div>
 
                     <div class="home-category-card">
-                        <img class="product--image" src="./assets/products (3).webp"
+                        <img class="product--image" src="./assets/product-tshirt.jpg"
                             alt="Printed t-shirt with a custom graphic design" />
                         <div class="product-content">
                             <h3>T-shirt</h3>
-                            <p>Comfortable printed t-shirt with a bold custom look.</p>
-                            <a href="./products.html?category=Tshirt" class="shop-btn">Shop T-shirt</a>
                         </div>
                     </div>
 
                     <div class="home-category-card">
-                        <img class="product--image" src="./assets/products (4).webp"
+                        <img class="product--image" src="./assets/product-mug.jpg"
                             alt="Printed cup with a custom design" />
                         <div class="product-content">
                             <h3>Cup</h3>
-                            <p>Custom printed cup perfect for coffee, tea, or gifting.</p>
-                            <a href="./products.html?category=Cup" class="shop-btn">Shop Cup</a>
                         </div>
                     </div>
                 </div>
@@ -109,9 +95,8 @@
         ════════════════════════════════════════════════ -->
         <div class="section featured-products-section">
             <div class="container">
-                <p class="section-label">Top Picks</p>
-                <h2 class="section-heading">Try Our Featured Products</h2>
-                
+                <h2 class="">Try Our Featured Products</h2>
+
                 <div class="featured-carousel-wrapper">
                     <!-- Carousel Track -->
                     <div class="featured-track" id="featuredTrack" aria-live="polite">
@@ -136,69 +121,34 @@
         <div class="section hiw">
             <div class="container">
                 <div class="hiw-block">
-                    <p class="section-label">How it works</p>
-                    <h2 class="section-heading">Four simple steps to your perfect product</h2>
+                    <h2 class="">Four simple steps to your perfect product</h2>
 
-                    <div class="hiw-interactive">
-                        <!-- LEFT: step buttons -->
-                        <div class="hiw-steps-list" role="tablist" aria-label="How it works steps">
-
-                            <button class="hiw-step hiw-step--active" role="tab" id="hiw-tab-1" aria-selected="true"
-                                aria-controls="hiw-panel" data-step="1" data-img="./assets/process/find_product.webp"
-                                data-img-alt="Browsing the Craftora product catalogue to pick a product">
-                                <div class="hiw-step__top">
-                                    <span class="hiw-step__num">01</span>
-                                    <h3 class="hiw-step__title">Pick a product</h3>
-                                </div>
-                                <p class="info-text">Choose from t-shirts, diaries, bottles, or mugs.</p>
-                                <span class="hiw-step__arrow" aria-hidden="true">→</span>
-                            </button>
-
-                            <button class="hiw-step" role="tab" id="hiw-tab-2" aria-selected="false"
-                                aria-controls="hiw-panel" data-step="2" data-img="./assets/process/design.webp"
-                                data-img-alt="Using the Craftora design studio to add text and artwork">
-                                <div class="hiw-step__top">
-                                    <span class="hiw-step__num">02</span>
-                                    <h3 class="hiw-step__title">Design it</h3>
-                                </div>
-                                <p class="info-text">Use our studio to add your design, text, artwork, and colours.</p>
-                                <span class="hiw-step__arrow" aria-hidden="true">→</span>
-                            </button>
-
-                            <button class="hiw-step" role="tab" id="hiw-tab-3" aria-selected="false"
-                                aria-controls="hiw-panel" data-step="3" data-img="./assets/process/add_cart.webp"
-                                data-img-alt="Placing a secure order on Craftora checkout">
-                                <div class="hiw-step__top">
-                                    <span class="hiw-step__num">03</span>
-                                    <h3 class="hiw-step__title">Place your order</h3>
-                                </div>
-                                <p class="info-text">Add products to cart and checkout securely.</p>
-                                <span class="hiw-step__arrow" aria-hidden="true">→</span>
-                            </button>
-
-                            <button class="hiw-step" role="tab" id="hiw-tab-4" aria-selected="false"
-                                aria-controls="hiw-panel" data-step="4" data-img="./assets/process/deliever.webp"
-                                data-img-alt="Craftora delivering a custom printed product to the customer's door">
-                                <div class="hiw-step__top">
-                                    <span class="hiw-step__num">04</span>
-                                    <h3 class="hiw-step__title">We deliver</h3>
-                                </div>
-                                <p class="info-text">Your custom product is printed, packed, and deliver.</p>
-                                <span class="hiw-step__arrow" aria-hidden="true">→</span>
-                            </button>
-
+                    <div class="process-grid">
+                        <div class="process">
+                            <img src="./assets/process/find_product.webp" alt="process--img" class="process--img">
+                            <div class="process-content">
+                                <h3>Pick a Product</h3>
+                            </div>
                         </div>
-
-                        <!-- RIGHT: fixed-size image panel — no layout shift -->
-                        <div class="hiw-visual" id="hiw-panel" role="tabpanel" aria-labelledby="hiw-tab-1">
-                            <div class="hiw-img-frame">
-                                <img id="hiw-active-img" src="./assets/process/find_product.webp"
-                                    alt="Browsing the Craftora product catalogue to pick a product" class="hiw-img"
-                                    width="480" height="400" loading="eager">
+                        <div class="process">
+                            <img src="./assets/process/design.webp" alt="process--img" class="process--img">
+                            <div class="process-content">
+                                <h3>Design it   </h3>
+                            </div>
+                        </div>
+                        <div class="process">
+                            <img src="./assets/process/add_cart.webp" alt="process--img" class="process--img">
+                            <div class="process-content">
+                                <h3>Place your order</h3>
+                            </div>
+                        </div>
+                        <div class="process">
+                            <img src="./assets/process/deliever.webp" alt="process--img" class="process--img">
+                            <div class="process-content">
+                                <h3>We deliver</h3>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -208,9 +158,14 @@
         ════════════════════════════════════════════════ -->
         <div class="section reviews">
             <div class="container">
-                <p class="section-label">Customer reviews</p>
-                <h2 class="section-heading">What our customers are saying</h2>
-
+                <div class="content--review">
+                    <h2 class="">That's what you said...</h2>
+                
+                    <div class="change-button">
+                        <div class="change-btn"><</div>
+                        <div class="change-btn">></div>
+                    </div>
+                </div>
                 <div class="reviews-carousel" id="reviewsCarousel" aria-label="Customer testimonials"
                     aria-roledescription="carousel">
                     <!-- Track — JS injects review cards -->
@@ -225,12 +180,19 @@
 
         <div class="section">
             <div class="container">
-            <div class="cta-section">
-                <h2>Ready to get started?</h2>
-                <button class="shop-btn" onclick="window.location.href='./products.html'">Shop now</button>
-            </div>    
+                <div class="section cta-section">
+            <div class="container">
+                <div class="">
+                    <h2>Ready to get started?</h2>
+                    
+                    <button class="hero--btn" onclick="window.location.href='./products.html'">Shop now</button>
+                </div>
             </div>
         </div>
+            </div>
+        </div>
+
+        
     </main>
     <div id="footer"></div>
     <script src="./scripts/wishlist.js" defer></script>

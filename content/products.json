@@ -392,7 +392,7 @@
       "badges": [
         "Trending"
       ],
-      "featured": true,
+      "featured": false,
       "stock": 140
     },
     {
@@ -569,7 +569,7 @@
       "badges": [
         "Daily Wear"
       ],
-      "featured": false,
+      "featured": true,
       "stock": 200
     },
     {

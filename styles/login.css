@@ -3,40 +3,86 @@
    Tokens sourced from tokens.css
    ============================================================ */
 
-/* ── Layout ── */
+/* ── Layout ──
+   Full-bleed illustrated background with a single floating
+   card centered on top — form lives entirely inside the card. */
 .login {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-height: 100vh;
+    padding: var(--space-8) var(--space-4);
+    
+    /* 
+      Shorthand syntax:
+      background: [image] [position] / [size] [repeat] [color (last layer only)];
+    */
+    background: 
+        url('../assets/backgrounds/background_login.avif') center bottom / contain no-repeat,
+        url('https://static.milanote.com/2163657f29ccad92.png') top left / 12px repeat #faf7f0;
 }
 
-/* ── Left image ── */
-.login--image img {
-    object-fit: cover;
-    width: 100%;
-    height: 100vh;
-    position: sticky;
-    top: 0;
-    object-position: top center;
+/* Old side-image panel is replaced by the full-bleed background above */
+.login--image {
+    display: none;
 }
 
-/* ── Right form panel ── */
+/* ── Floating card ── */
 .login--form {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-    padding: var(--space-12) var(--space-16);
-    justify-content: center;
+    width: 100%;
+    max-width: 560px;
+    max-height: calc(100vh - var(--space-16));
     overflow-y: auto;
+    padding: var(--space-10) var(--space-10);
+    background: var(--surface-page);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
 }
 
 h2 {
     text-align: center;
 }
 
+/* ── Card heading block ── */
+.login-heading {
+    text-align: center;
+    margin-bottom: var(--space-2);
+}
+
+.login-heading h2 {
+    margin-bottom: var(--space-2);
+}
+
+.login-subtitle {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
+}
 
 .logo-link {
     align-self: center;
+}
+
+/* ── Field icon (shared by every .input-with-icon) ── */
+.input-icon {
+    position: absolute;
+    left: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-icon-muted);
+    pointer-events: none;
+    transition: color var(--transition-base);
+}
+
+.input-with-icon:focus-within .input-icon {
+    color: var(--color-accent);
 }
 
 /* ── Error banner ── */
@@ -190,13 +236,34 @@ h2 {
     text-align: right;
 }
 
-/* ── Live password requirements checklist ── */
+/* ── Live password requirements checklist ──
+   Hidden by default; revealed only while the password field is focused. */
 .pw-requirements {
     list-style: none;
-    padding: 0;
+    padding: var(--space-3) var(--space-4);
     margin: 0 0 var(--space-4) 0;
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2) var(--space-3);
+    background: var(--surface-bg);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+}
+
+.pw-requirements.active {
     display: grid;
-    gap: var(--space-1);
+    animation: pw-requirements-in var(--transition-slow) ease;
+}
+
+@keyframes pw-requirements-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 520px) {
+    .pw-requirements {
+        grid-template-columns: 1fr;
+    }
 }
 
 .pw-requirements li {
@@ -280,6 +347,20 @@ h2 {
 .submit-btn.loading .btn-text    { display: none; }
 .submit-btn.loading .btn-spinner { display: inline-block !important; }
 
+.btn-text {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.btn-text svg {
+    transition: transform var(--transition-base);
+}
+
+.submit-btn:hover:not(:disabled) .btn-text svg {
+    transform: translateX(3px);
+}
+
 /* ── Signup / login switch link ── */
 .signup-link {
     text-align: center;
@@ -306,18 +387,21 @@ label.required::after {
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
+    .login {
+        padding: var(--space-4);
+    }
+
     .login--form {
-        padding: var(--space-8);
+        max-width: 480px;
+        padding: var(--space-8) var(--space-6);
     }
 }
 
 @media (max-width: 520px) {
-    .login {
-        grid-template-columns: 1fr;
-    }
-
-    .login--image {
-        display: none;
+    .login--form {
+        max-height: calc(100vh - var(--space-8));
+        border-radius: var(--radius-xl);
+        padding: var(--space-6) var(--space-5);
     }
 }
 
@@ -342,6 +426,28 @@ label.required::after {
     text-align: left;
     color: var(--color-primary);
     transition: background var(--transition-base);
+}
+
+.accordion-toggle__label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    min-width: 0;
+    color: var(--text-icon-muted);
+}
+
+.accordion-toggle__label svg {
+    flex-shrink: 0;
+}
+
+.accordion-toggle__label h3 {
+    color: var(--color-primary);
+}
+
+.accordion-toggle[aria-expanded="true"] .accordion-toggle__label,
+.accordion-toggle:hover .accordion-toggle__label {
+    color: var(--color-accent);
 }
 
 .accordion-toggle:hover {

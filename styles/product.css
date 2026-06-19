@@ -62,7 +62,7 @@
 
 .product__gallery {
     position: sticky;
-    top: calc(var(--nav-height) + var(--space-6));
+    top: 1rem;
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
@@ -70,11 +70,10 @@
 
 .product__main-wrap {
     position: relative;
-    border-radius: var(--radius-2xl);
     overflow: hidden;
     background: var(--surface-warm);
     border: 1px solid var(--border-warm);
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 1/1;
 }
 
 .product__main-img {

@@ -124,10 +124,10 @@ img {
 
 .nav {
     background: var(--surface-page);
-    border-bottom: 2px solid var(--color-accent);
     position: sticky;
     top: 0;
     z-index: var(--z-nav);
+    box-shadow: var(--shadow-sm);
 }
 
 .nav--menu-open {
@@ -221,9 +221,6 @@ body.nav-open {
 }
 
 /* active / current page indicator */
-.nav--link.active {
-    color: var(--color-accent);
-}
 
 .nav--link.active::after {
     content: "";
@@ -1213,15 +1210,18 @@ body.nav-open {
 
 /* Main section of each page */
 .hero-content {
-    background-color: var(--color-primary);
-    color: var(--surface-bg);
+    background-color: rgb(170, 231, 255);
+    background-image: url(../assets/backgrounds/bg.svg);
+    background-size: contain;
+    background-position: bottom right;
+    background-repeat: no-repeat;
     padding-block: 4rem;
 }
 
 .hero-content h1 {
     font-size: var(--text-2xl);
     line-height: var(--leading-tight);
-    color: var(--bg);
+    color: var(--color-primary);
     margin-bottom: var(--space-6);
 }
 
