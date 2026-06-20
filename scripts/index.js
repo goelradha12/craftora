@@ -115,7 +115,8 @@ const mockReviews = [
 
 function initReviewsCarousel() {
     const track = document.getElementById('reviewsTrack');
-    const dotsContainer = document.getElementById('reviewsDots');
+    const prevBtn = document.getElementById('reviewsPrev');
+    const nextBtn = document.getElementById('reviewsNext');
 
     if (!track) return;
 
@@ -139,32 +140,17 @@ function initReviewsCarousel() {
     const cards = track.querySelectorAll('.review');
     const totalCards = cards.length;
 
-    // Calculate visible cards based on screen width
     function getVisibleCards() {
         if (window.innerWidth <= 600) return 1;
         if (window.innerWidth <= 960) return 2;
         return 3;
     }
 
-    // Render pagination dots
-    function updateDots() {
+    function updateNavButtons() {
         const visible = getVisibleCards();
-        const numDots = Math.max(1, totalCards - visible + 1);
-
-        dotsContainer.innerHTML = Array.from({ length: numDots }).map((_, i) => `
-            <button class="reviews-nav__dot ${i === currentIndex ? 'reviews-nav__dot--active' : ''}"
-                    aria-label="Go to slide ${i + 1}"
-                    data-index="${i}">
-            </button>
-        `).join('');
-
-        // Bind dot clicks
-        dotsContainer.querySelectorAll('.reviews-nav__dot').forEach(dot => {
-            dot.addEventListener('click', (e) => {
-                currentIndex = parseInt(e.target.getAttribute('data-index'));
-                updateCarousel();
-            });
-        });
+        const maxIndex = Math.max(0, totalCards - visible);
+        if (prevBtn) prevBtn.disabled = currentIndex <= 0;
+        if (nextBtn) nextBtn.disabled = currentIndex >= maxIndex;
     }
 
     function updateCarousel() {
@@ -177,25 +163,23 @@ function initReviewsCarousel() {
         // Calculate offset (card width + gap)
         if (totalCards > 0) {
             const cardWidth = cards[0].offsetWidth;
-            // Gap is 24px (var(--space-6))
-            const gap = 24;
+            const gap = 24; // var(--space-6)
             const offset = currentIndex * (cardWidth + gap);
             track.style.transform = `translateX(-${offset}px)`;
         }
 
-        // Update active dot
-        const allDots = dotsContainer.querySelectorAll('.reviews-nav__dot');
-        allDots.forEach((dot, i) => {
-            dot.classList.toggle('reviews-nav__dot--active', i === currentIndex);
-        });
+        updateNavButtons();
     }
+
+    // Arrow button handlers
+    if (prevBtn) prevBtn.addEventListener('click', () => { currentIndex--; updateCarousel(); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { currentIndex++; updateCarousel(); });
 
     // Handle resize
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            updateDots();
             updateCarousel();
         }, 100);
     });
@@ -210,11 +194,17 @@ function initReviewsCarousel() {
 
     track.addEventListener('touchend', e => {
         touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
+        const threshold = 50;
+        if (touchEndX < touchStartX - threshold) {
+            currentIndex++;
+            updateCarousel();
+        } else if (touchEndX > touchStartX + threshold) {
+            currentIndex--;
+            updateCarousel();
+        }
     }, { passive: true });
 
     // Initialize
-    updateDots();
     updateCarousel();
 }
 
@@ -224,10 +214,9 @@ function initReviewsCarousel() {
 ══════════════════════════════════════════════════════════ */
 async function initFeaturedProducts() {
     const track = document.getElementById('featuredTrack');
-    const dotsContainer = document.getElementById('featuredDots');
     const emptyState = document.getElementById('featuredEmptyState');
 
-    if (!track || !dotsContainer || !emptyState) return;
+    if (!track || !emptyState) return;
 
     try {
         const response = await fetch('./content/products.json');
@@ -241,7 +230,6 @@ async function initFeaturedProducts() {
             emptyState.style.display = 'block';
             return;
         }
-
         // Render Cards
         track.innerHTML = featuredProducts.map(product => {
             const priceStr = product.basePrice ? money(product.basePrice) : 'Price unavailable';
@@ -258,9 +246,9 @@ async function initFeaturedProducts() {
                         <div class="product-card__category">${escapeHTML(product.category || 'Product')}</div>
                         <h3 class="product-card__title">${escapeHTML(product.name || 'Unnamed')}</h3>
                         <p class="info-text product-card__description">${escapeHTML(product.description || 'No description available.')}</p>
-                    </div>
-                    <div class="product-card__footer">
-                        <div class="product-card__price">${priceStr}</div>
+                        <div class="product-card__footer">
+                            <div class="product-card__price">${priceStr}<small style="font-weight:lighter"> base price</small></div>
+                        </div>
                     </div>
                 </div>
             `;
@@ -270,6 +258,8 @@ async function initFeaturedProducts() {
         let currentIndex = 0;
         const cards = track.querySelectorAll('.product-card');
         const totalCards = cards.length;
+        const prevBtn = document.getElementById('featuredPrev');
+        const nextBtn = document.getElementById('featuredNext');
 
         function getVisibleCards() {
             if (window.innerWidth <= 600) return 1;
@@ -277,23 +267,11 @@ async function initFeaturedProducts() {
             return 3;
         }
 
-        function updateDots() {
+        function updateNavButtons() {
             const visible = getVisibleCards();
-            const numDots = Math.max(1, totalCards - visible + 1);
-
-            dotsContainer.innerHTML = Array.from({ length: numDots }).map((_, i) => `
-                <button class="dot ${i === currentIndex ? 'dot--active' : ''}"
-                        aria-label="Go to slide ${i + 1}"
-                        data-index="${i}">
-                </button>
-            `).join('');
-
-            dotsContainer.querySelectorAll('.dot').forEach(dot => {
-                dot.addEventListener('click', (e) => {
-                    currentIndex = parseInt(e.target.getAttribute('data-index'));
-                    updateCarousel();
-                });
-            });
+            const maxIndex = Math.max(0, totalCards - visible);
+            if (prevBtn) prevBtn.disabled = currentIndex <= 0;
+            if (nextBtn) nextBtn.disabled = currentIndex >= maxIndex;
         }
 
         function updateCarousel() {
@@ -304,22 +282,31 @@ async function initFeaturedProducts() {
 
             if (totalCards > 0) {
                 const cardWidth = cards[0].offsetWidth;
-                const gap = 24; // var(--space-6)
+                const gap = 32; // var(--space-8)
                 const offset = currentIndex * (cardWidth + gap);
                 track.style.transform = `translateX(-${offset}px)`;
             }
 
-            const allDots = dotsContainer.querySelectorAll('.dot');
-            allDots.forEach((dot, i) => {
-                dot.classList.toggle('dot--active', i === currentIndex);
-            });
+            updateNavButtons();
         }
+
+        // Prev/Next button handlers
+        if (prevBtn) prevBtn.addEventListener('click', () => { currentIndex--; updateCarousel(); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { currentIndex++; updateCarousel(); });
+
+        // Product card click navigation
+        cards.forEach((card, i) => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('button')) return;
+                const product = featuredProducts[i];
+                if (product) window.location.href = `./product.html?id=${encodeURIComponent(product.id)}`;
+            });
+        });
 
         let resizeTimer;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
-                updateDots();
                 updateCarousel();
             }, 100);
         });
@@ -350,7 +337,6 @@ async function initFeaturedProducts() {
             }
         }
 
-        updateDots();
         updateCarousel();
 
     } catch (error) {

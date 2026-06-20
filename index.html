@@ -19,6 +19,8 @@
         onload="this.onload=null;this.rel='stylesheet'">
 
     <link rel="stylesheet" href="./styles/tokens.css">
+    <link rel="stylesheet" href="./styles/typography.css">
+    <link rel="stylesheet" href="./styles/components.css">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/home.css">
 </head>
@@ -33,7 +35,7 @@
                     <div class="hero--content">
 
                         <h1>
-                            Where your ideas meet <span class="hero--highlight">#Design</span>
+                            Where your ideas <br>meet <span class="hero--highlight">#Design</span>
                         </h1>
 
                         <p>
@@ -52,40 +54,40 @@
         </div>
 
         <div class="section products-category">
-            <div class="">
+            <div class="container">
                 <h2>Search our catalogue</h2>
                 <div class="products">
-                    <div class="home-category-card">
+                    <a href="./products.html?category=Diary" class="home-category-card">
                         <img class="product--image" src="./assets/product-diary.jpg"
                             alt="Printed black diary with a custom design on the cover" />
                         <div class="product-content">
                             <h3>Diary</h3>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="home-category-card">
+                    <a href="./products.html?category=Bottle" class="home-category-card">
                         <img class="product--image" src="./assets/product-bottle.jpg"
                             alt="Printed white bottle with a custom design" />
                         <div class="product-content">
                             <h3>Bottle</h3>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="home-category-card">
+                    <a href="./products.html?category=Tshirt" class="home-category-card">
                         <img class="product--image" src="./assets/product-tshirt.jpg"
                             alt="Printed t-shirt with a custom graphic design" />
                         <div class="product-content">
                             <h3>T-shirt</h3>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="home-category-card">
+                    <a href="./products.html?category=Cup" class="home-category-card">
                         <img class="product--image" src="./assets/product-mug.jpg"
                             alt="Printed cup with a custom design" />
                         <div class="product-content">
                             <h3>Cup</h3>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -95,7 +97,17 @@
         ════════════════════════════════════════════════ -->
         <div class="section featured-products-section">
             <div class="container">
-                <h2 class="">Try Our Featured Products</h2>
+                <div class="featured-header">
+                    <h2>Try Our Featured Products</h2>
+                    <div class="featured-nav-btns" id="featuredNavBtns">
+                        <button class="carousel-btn carousel-btn--prev" id="featuredPrev" aria-label="Previous products" type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <button class="carousel-btn carousel-btn--next" id="featuredNext" aria-label="Next products" type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
+                </div>
 
                 <div class="featured-carousel-wrapper">
                     <!-- Carousel Track -->
@@ -108,9 +120,6 @@
                         No featured products available at the moment.
                     </div>
                 </div>
-
-                <!-- Navigation Dots -->
-                <div class="featured-nav-dots" id="featuredDots" aria-label="Carousel navigation"></div>
             </div>
         </div>
 
@@ -121,7 +130,8 @@
         <div class="section hiw">
             <div class="container">
                 <div class="hiw-block">
-                    <h2 class="">Four simple steps to your perfect product</h2>
+                    <h2>Four simple steps to your perfect product</h2>
+                    <p class="hiw-subtitle">From browsing to doorstep — we make customization simple.</p>
 
                     <div class="process-grid">
                         <div class="process">
@@ -154,41 +164,36 @@
         </div>
 
         <!-- ═══════════════════════════════════════════════
-             REVIEWS — Fully functional carousel
+             REVIEWS — Carousel with arrow navigation
         ════════════════════════════════════════════════ -->
         <div class="section reviews">
             <div class="container">
                 <div class="content--review">
-                    <h2 class="">That's what you said...</h2>
+                    <h2>That's what you said...</h2>
                 
                     <div class="change-button">
-                        <div class="change-btn"><</div>
-                        <div class="change-btn">></div>
+                        <button class="carousel-btn" id="reviewsPrev" aria-label="Previous review" type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <button class="carousel-btn" id="reviewsNext" aria-label="Next review" type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
                     </div>
                 </div>
                 <div class="reviews-carousel" id="reviewsCarousel" aria-label="Customer testimonials"
                     aria-roledescription="carousel">
-                    <!-- Track — JS injects review cards -->
                     <div class="reviews-track" id="reviewsTrack" aria-live="polite"></div>
-                    <!-- Navigation -->
-                    <div class="reviews-nav" aria-label="Carousel navigation">
-                        <div class="reviews-nav__dots" id="reviewsDots" aria-label="Slide indicators"></div>
-                    </div>
                 </div>
             </div>
         </div>
 
         <div class="section">
             <div class="container">
-                <div class="section cta-section">
-            <div class="container">
-                <div class="">
+                <div class="cta-section">
                     <h2>Ready to get started?</h2>
-                    
-                    <button class="hero--btn" onclick="window.location.href='./products.html'">Shop now</button>
+                    <p>No signups required to start. Open the studio, play around, only pay when you love it.</p>
+                    <button class="hero--btn" onclick="window.location.href='./products.html'">Start Designing - It's free</button>
                 </div>
-            </div>
-        </div>
             </div>
         </div>
 

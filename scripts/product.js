@@ -334,20 +334,14 @@ function renderDesignToggle(outOfStock) {
     return `
         <div class="product__design-toggle" id="designToggleSection">
             <span class="product__option-label">Custom Design?</span>
-            <div class="product__design-options">
-                <label class="product__design-option">
+            <div class="product__design-radios">
+                <label class="product__radio-label">
                     <input type="radio" name="design-required" value="no" checked ${outOfStock ? 'disabled' : ''}>
-                    <span class="product__design-option-btn">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-                        No, plain product
-                    </span>
+                    <span class="product__radio-text">No</span>
                 </label>
-                <label class="product__design-option">
+                <label class="product__radio-label">
                     <input type="radio" name="design-required" value="yes" ${outOfStock ? 'disabled' : ''}>
-                    <span class="product__design-option-btn">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-                        Yes, customize
-                    </span>
+                    <span class="product__radio-text">Yes, customize</span>
                 </label>
             </div>
         </div>`;
@@ -471,14 +465,16 @@ function updatePriceDisplay() {
 function updateDesignSection() {
     let custCard = $('#custCard');
     let custBtn = $('#customizeProductBtn');
+    let previewBtn = $('#viewDesignPreviewBtn');
 
     if (state.designRequired) {
-        if (custCard) custCard.hidden = false;
-        if (custBtn) custBtn.hidden = false;
+        if (custCard) { custCard.hidden = false; custCard.style.display = ''; }
+        if (custBtn) { custBtn.hidden = false; custBtn.style.display = ''; }
         updateCustomizationUI();
     } else {
-        if (custCard) custCard.hidden = true;
-        if (custBtn) custBtn.hidden = true;
+        if (custCard) { custCard.hidden = true; custCard.style.display = 'none'; }
+        if (custBtn) { custBtn.hidden = true; custBtn.style.display = 'none'; }
+        if (previewBtn) previewBtn.style.display = 'none';
     }
 }
 

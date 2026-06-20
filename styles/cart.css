@@ -3,9 +3,11 @@
    Tokens sourced from tokens.css
    ============================================================ */
 .cart-title {
+    font-family: var(--font-display);
+    font-weight: var(--weight-normal);
     font-size: var(--text-2xl);
     margin-bottom: var(--space-3);
-    color: var(--color-primary);
+    color: var(--text-primary);
 }
 
 .cart-layout {
@@ -319,21 +321,27 @@
 
 .checkout-btn {
     width: 100%;
-    padding: 0.88rem 1.5rem;
-    background: var(--accent);
+    padding: 1rem 1.5rem;
+    background: var(--color-accent);
     color: #fff;
     border: none;
-    border-radius: 0.6rem;
-    font-size: 0.95rem;
-    font-weight: 700;
-    font-family: 'Inter', sans-serif;
+    border-radius: var(--radius-lg);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    font-family: var(--font-heading);
     cursor: pointer;
     margin-top: var(--space-6);
-    transition: opacity var(--transition-base);
+    transition: all var(--transition-smooth);
 }
 
 .checkout-btn:hover:not(:disabled) {
-    opacity: 0.9;
+    background: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-accent);
+}
+
+.checkout-btn:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .checkout-btn:disabled {

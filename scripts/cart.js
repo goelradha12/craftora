@@ -276,13 +276,13 @@ function updateQuantity(key, delta) {
   const item = cartData.find(i => i.key === key);
   if (!item) return;
 
-  item.qty += delta;
+  const newQty = item.qty + delta;
 
-  if (item.qty <= 0) {
-    removeItem(key);
-  } else {
-    saveCart();
-  }
+  // Prevent quantity below 1
+  if (newQty < 1) return;
+
+  item.qty = newQty;
+  saveCart();
 }
 
 function removeItem(key) {
@@ -442,7 +442,7 @@ function renderCart() {
           <div class="cart-item__actions">
             <div class="cart-item__controls">
               <div class="product__qty" role="group" aria-label="Quantity selector for ${esc(item.name)}">
-                <button class="product__qty-btn" type="button" aria-label="Decrease quantity" onclick="updateQuantity('${esc(item.key)}', -1)">−</button>
+                <button class="product__qty-btn" type="button" aria-label="Decrease quantity" onclick="updateQuantity('${esc(item.key)}', -1)" ${item.qty <= 1 ? 'disabled' : ''}>−</button>
                 <output class="product__qty-val">${item.qty}</output>
                 <button class="product__qty-btn" type="button" aria-label="Increase quantity" onclick="updateQuantity('${esc(item.key)}', 1)">+</button>
               </div>

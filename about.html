@@ -5,239 +5,207 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Craftora</title>
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml"
         href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2937'/%3E%3Cpath d='M20 24h24l-2 24H22l-2-24Z' fill='%23ffffff'/%3E%3Cpath d='M25 24c0-4 3-8 7-8s7 4 7 8' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M29 34h6' stroke='%231f2937' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M44 16l1.2 2.8L48 20l-2.8 1.2L44 24l-1.2-2.8L40 20l2.8-1.2L44 16Z' fill='%23f59e0b'/%3E%3C/svg%3E">
-
-    <!-- Legacy shortcut icon -->
     <link rel="shortcut icon"
         href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2937'/%3E%3Cpath d='M20 24h24l-2 24H22l-2-24Z' fill='%23ffffff'/%3E%3Cpath d='M25 24c0-4 3-8 7-8s7 4 7 8' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M29 34h6' stroke='%231f2937' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M44 16l1.2 2.8L48 20l-2.8 1.2L44 24l-1.2-2.8L40 20l2.8-1.2L44 16Z' fill='%23f59e0b'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lato:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     
-    <!-- keep the CSS order, but remove anything unused from inline styles -->
     <link rel="stylesheet" href="./styles/tokens.css">
+    <link rel="stylesheet" href="./styles/typography.css">
+    <link rel="stylesheet" href="./styles/components.css">
     <link rel="stylesheet" href="./styles/style.css">
     <style>
-        /* ── Mission ── */
-        .mission-grid {
+        /* ── About Page Styles ── */
+
+        /* Mission */
+        .about-mission {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: var(--space-16);
             align-items: center;
         }
 
-        .mission-img {
-            border-radius: 1rem;
+        .about-mission__img {
+            border-radius: var(--radius-2xl);
             overflow: hidden;
-            box-shadow: 0 20px 50px hsl(from var(--primary) h s l / 0.15);
         }
 
-        .mission-img img {
+        .about-mission__img img {
             width: 100%;
             height: 420px;
             object-fit: cover;
             display: block;
         }
 
-        .mission-text h2 {
+        .about-mission__text h2 {
             text-align: left;
+            margin-bottom: var(--space-4);
         }
 
-        .mission-text p {
-            margin-bottom: 1.25rem;
+        .about-mission__text p {
+            margin-bottom: var(--space-4);
+            max-width: 52ch;
         }
 
         .accent-bar {
-            width: 56px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 2px;
-            margin-bottom: 1.25rem;
+            width: 48px;
+            height: 3px;
+            background: var(--color-accent);
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-5);
         }
 
-        /* ── Contact Info ── */
-        .contact-section {
+        /* Stats */
+        .about-stats {
+            background: var(--color-primary);
+            color: var(--text-on-dark);
+            padding-block: var(--space-16);
+        }
+
+        .about-stats__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: var(--space-8);
             text-align: center;
         }
 
-        .contact-address {
-            font-style: normal;
-            line-height: var(--leading-relaxed);
-            color: var(--text-primary);
-            margin-top: var(--space-8);
+        .about-stats__item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
         }
 
-        .contact-address p {
+        .about-stats__number {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: var(--weight-normal);
+            color: var(--color-accent);
+            line-height: var(--leading-none);
+        }
+
+        .about-stats__label {
+            font-family: var(--font-body);
+            font-size: var(--text-sm);
+            color: hsl(from var(--bg) h s l / 0.7);
+        }
+
+        /* Values */
+        .about-values {
+            background: var(--color-secondary-subtle);
+        }
+
+        .about-values__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-10);
+        }
+
+        .about-values__card {
+            background: var(--surface-page);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8) var(--space-6);
+        }
+
+        .about-values__icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-accent-subtle);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-5);
+            color: var(--color-accent);
+        }
+
+        .about-values__card h3 {
+            font-family: var(--font-heading);
+            font-size: var(--text-base);
+            font-weight: var(--weight-bold);
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+
+        .about-values__card p {
+            font-size: var(--text-sm);
+            line-height: var(--leading-relaxed);
+            color: var(--text-muted);
+        }
+
+        /* Contact / Map */
+        .about-contact {
+            background: var(--surface-warm);
+        }
+
+        .about-contact__grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: var(--space-12);
+            align-items: center;
+        }
+
+        .about-contact__info h2 {
+            text-align: left;
+            margin-bottom: var(--space-4);
+        }
+
+        .about-contact__address {
+            font-style: normal;
+            line-height: var(--leading-loose);
+            color: var(--text-body);
+            font-size: var(--text-md);
+        }
+
+        .about-contact__address p {
             margin: 0;
         }
 
-        .contact-address p:first-child {
-            font-weight: var(--weight-semibold);
-            margin-bottom: var(--space-2);
+        .about-contact__address p:first-child {
+            font-weight: var(--weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
         }
 
-        /* ── Contact Layout with Map ── */
-        .contact-with-map {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-16);
-            align-items: center;
-            margin-top: var(--space-8);
-        }
-
-        .contact-map-wrapper {
+        .about-contact__map {
             border-radius: var(--radius-2xl);
             overflow: hidden;
-            box-shadow: 0 12px 32px hsl(from var(--primary) h s l / 0.12);
-            height: 380px;
+            height: 360px;
         }
 
-        .contact-map-wrapper iframe {
+        .about-contact__map iframe {
             width: 100%;
             height: 100%;
             border: none;
             display: block;
         }
 
-        .contact-address-block {
-            text-align: left;
-        }
-
-        .contact-address-block .contact-address {
-            margin-top: var(--space-4);
-            text-align: left;
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 1024px) {
-            .contact-with-map {
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-mission {
                 grid-template-columns: 1fr;
                 gap: var(--space-8);
             }
 
-            .contact-map-wrapper {
-                height: 300px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .contact-with-map {
-                gap: var(--space-6);
+            .about-mission__img img {
+                height: 260px;
             }
 
-            .contact-map-wrapper {
-                height: 250px;
-            }
-
-            .contact-address-block {
-                text-align: center;
-            }
-
-            .contact-address-block .contact-address {
-                text-align: center;
-            }
-        }
-
-        /* ── Stats ── */
-        .stats-section {
-            background: var(--primary);
-            color: var(--bg);
-            padding-block: 4rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .stat-number {
-            font-size: clamp(2.2rem, 4vw, 3rem);
-            font-weight: 800;
-            color: var(--accent);
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-family: 'Lato', sans-serif;
-            font-size: 0.95rem;
-            color: hsl(from var(--bg) h s l / 0.75);
-        }
-
-        /* ── Values ── */
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .value-card {
-            background: #fff;
-            border-radius: 1rem;
-            padding: 2rem 1.5rem;
-            box-shadow: 0 8px 24px hsl(from var(--primary) h s l / 0.08);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .value-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 14px 36px hsl(from var(--primary) h s l / 0.14);
-        }
-
-        .value-icon {
-            width: 52px;
-            height: 52px;
-            background: hsl(from var(--accent) h s l / 0.12);
-            border-radius: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.25rem;
-        }
-
-        .value-icon svg {
-            color: var(--accent);
-        }
-
-        .value-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.6rem;
-            color: var(--primary);
-        }
-
-        .value-card p {
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        /* ── Section titles ── */
-        .section-title {
-            text-align: center;
-        }
-
-        .section-subtitle {
-            text-align: center;
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 768px) {
-            .mission-grid {
+            .about-contact__grid {
                 grid-template-columns: 1fr;
-                gap: 2.5rem;
+                gap: var(--space-8);
             }
 
-            .mission-img img {
-                height: 280px;
+            .about-contact__map {
+                height: 260px;
+            }
+
+            .about-contact__info h2,
+            .about-contact__address {
+                text-align: center;
             }
         }
     </style>
@@ -254,8 +222,7 @@
                 <h1 id="about-heading">Who Are We?</h1>
                 <p>
                     Craftora is a custom merchandise brand born from the belief that
-                    everyone deserves products as unique as they are. From tees to
-                    diaries, we bring your vision to life.
+                    everyone deserves products as unique as they are.
                 </p>
             </div>
         </section>
@@ -263,12 +230,12 @@
         <!-- Mission -->
         <section class="section" aria-labelledby="mission-heading">
             <div class="container">
-                <div class="mission-grid">
-                    <div class="mission-img">
+                <div class="about-mission">
+                    <div class="about-mission__img">
                         <img src="./assets/factory.webp"
                             alt="A person wearing a custom Craftora printed t-shirt" />
                     </div>
-                    <div class="mission-text">
+                    <div class="about-mission__text">
                         <div class="accent-bar" aria-hidden="true"></div>
                         <h2 id="mission-heading">Our Mission</h2>
                         <p>
@@ -279,7 +246,7 @@
                         <p>
                             Every product we ship is crafted with care. We use premium
                             materials, vibrant inks, and a process that treats your design
-                            with the respect it deserves — because the details matter.
+                            with the respect it deserves.
                         </p>
                         <p>
                             Our in-house design studio means faster turnaround, tighter
@@ -292,112 +259,84 @@
         </section>
 
         <!-- Stats -->
-        <section class="stats-section" aria-label="Craftora by the numbers">
+        <section class="about-stats" aria-label="Craftora by the numbers">
             <div class="container">
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-number">12K+</span>
-                        <span class="stat-label">Happy Customers</span>
+                <div class="about-stats__grid">
+                    <div class="about-stats__item">
+                        <span class="about-stats__number">12K+</span>
+                        <span class="about-stats__label">Happy Customers</span>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">50K+</span>
-                        <span class="stat-label">Products Shipped</span>
+                    <div class="about-stats__item">
+                        <span class="about-stats__number">50K+</span>
+                        <span class="about-stats__label">Products Shipped</span>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">98%</span>
-                        <span class="stat-label">Satisfaction Rate</span>
+                    <div class="about-stats__item">
+                        <span class="about-stats__number">98%</span>
+                        <span class="about-stats__label">Satisfaction Rate</span>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">4+</span>
-                        <span class="stat-label">Years in Business</span>
+                    <div class="about-stats__item">
+                        <span class="about-stats__number">4+</span>
+                        <span class="about-stats__label">Years in Business</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Values -->
-        <section class="section" aria-labelledby="values-heading">
+        <section class="section about-values" aria-labelledby="values-heading">
             <div class="container">
                 <h2 class="section-title" id="values-heading">What we Stand for</h2>
                 <p class="section-subtitle">
                     These aren't slogans — they're the principles behind every
                     decision we make.
                 </p>
-                <div class="values-grid">
-
-                    <div class="value-card">
-                        <div class="value-icon" aria-hidden="true">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
-                            </svg>
+                <div class="about-values__grid">
+                    <div class="about-values__card">
+                        <div class="about-values__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
                         </div>
                         <h3>Quality First</h3>
-                        <p>We never cut corners. From material sourcing to final packaging, every step meets our high
-                            standard before it leaves our hands.</p>
+                        <p>We never cut corners. From material sourcing to final packaging, every step meets our high standard.</p>
                     </div>
-
-                    <div class="value-card">
-                        <div class="value-icon" aria-hidden="true">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-                                <line x1="9" y1="9" x2="9.01" y2="9" />
-                                <line x1="15" y1="9" x2="15.01" y2="9" />
-                            </svg>
+                    <div class="about-values__card">
+                        <div class="about-values__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
                         </div>
                         <h3>Customer Happiness</h3>
-                        <p>Your satisfaction drives everything. We offer hassle-free returns, fast support, and a design
-                            process built around your vision.</p>
+                        <p>Your satisfaction drives everything. Hassle-free returns, fast support, and a design process built around you.</p>
                     </div>
-
-                    <div class="value-card">
-                        <div class="value-icon" aria-hidden="true">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 20h9" />
-                                <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
-                            </svg>
+                    <div class="about-values__card">
+                        <div class="about-values__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                         </div>
                         <h3>Creative Freedom</h3>
-                        <p>Your ideas, your rules. Our platform and team are here to help you realize exactly what you
-                            have in mind — no compromises.</p>
+                        <p>Your ideas, your rules. Our platform helps you realize exactly what you have in mind — no compromises.</p>
                     </div>
-
-                    <div class="value-card">
-                        <div class="value-icon" aria-hidden="true">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                                <polyline points="9 22 9 12 15 12 15 22" />
-                            </svg>
+                    <div class="about-values__card">
+                        <div class="about-values__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                         </div>
                         <h3>Local Roots</h3>
-                        <p>We're a homegrown brand that understands its community. That local perspective shapes how we
-                            design, produce, and deliver.</p>
+                        <p>A homegrown brand that understands its community. That local perspective shapes how we design and deliver.</p>
                     </div>
-
                 </div>
             </div>
         </section>
 
-        <!-- Contact Info -->
-        <section class="section" aria-labelledby="contact-heading">
+        <!-- Contact -->
+        <section class="section about-contact" aria-labelledby="contact-heading">
             <div class="container">
-                <h2 class="section-title" id="contact-heading">Get in Touch</h2>
-                <p class="section-subtitle">
-                    Visit us or reach out anytime. We'd love to hear from you.
-                </p>
-                <div class="contact-with-map">
-                    <div class="contact-address-block">
-                        <address class="contact-address">
+                <div class="about-contact__grid">
+                    <div class="about-contact__info">
+                        <h2 id="contact-heading">Get in Touch</h2>
+                        <p style="margin-bottom: var(--space-6); color: var(--text-muted);">Visit us or reach out anytime. We'd love to hear from you.</p>
+                        <address class="about-contact__address">
                             <p>Craftora HQ</p>
                             <p>42, Linking Road, Bandra West</p>
                             <p>Mumbai, Maharashtra 400050, India</p>
                         </address>
                     </div>
-                    <div class="contact-map-wrapper">
+                    <div class="about-contact__map">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.8295698309927!2d72.82801!3d19.0596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9f0e8c8c8c9%3A0x8c8c8c8c8c8c8c8c!2s42%20Linking%20Road%2C%20Bandra%20West%2C%20Mumbai%2C%20Maharashtra%20400050!5e0!3m2!1sen!2sin!4v1687359000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" aria-label="Craftora HQ location on Google Maps"></iframe>
                     </div>
                 </div>

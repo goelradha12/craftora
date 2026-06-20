@@ -298,7 +298,7 @@ function buildHeader(user) {
 
 const FOOTER_HTML = /* html */`
 <footer class="footer">
-    <div class="footer-top">
+    <div class="footer-top container">
         <div class="footer-brand">
             <a href="./index.html" aria-label="Craftora Home">
                 <img loading="lazy" src="./assets/dark_logo.webp" alt="Craftora" class="footer-logo" width="116" height="26">
@@ -355,7 +355,7 @@ const FOOTER_HTML = /* html */`
             </ul>
         </div>
     </div>
-    <div class="footer-bottom">
+    <div class="footer-bottom container">
         <p>© 2026 Craftora. All rights reserved.</p>
         <div class="footer-bottom-links">
             <a href="./return-policy.html">Return Policy</a>
