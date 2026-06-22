@@ -36,7 +36,6 @@ const COLOR_PALETTE = {
 };
 
 const PALETTE_KEYS = Object.keys(COLOR_PALETTE);
-const INITIAL_COLORS_SHOWN = 14;
 
 function getColorName(hex) {
     const h = String(hex).toLowerCase();
@@ -59,7 +58,6 @@ const state = {
     customization: null,
     designRequired: false,
     selectedColor: null,
-    colorsExpanded: false,
 };
 
 /* ── Utilities ── */
@@ -130,9 +128,6 @@ function initProductPage() {
             state.customization = loadCustomization(productId);
             state.selectedColor = state.customization?.shirtColor || COLOR_PALETTE[PALETTE_KEYS[0]];
             state.designRequired = !!state.customization;
-            // Check if active color requires expanded palette
-            const hiddenKeys = PALETTE_KEYS.slice(INITIAL_COLORS_SHOWN);
-            state.colorsExpanded = hiddenKeys.some(k => COLOR_PALETTE[k].toLowerCase() === state.selectedColor.toLowerCase());
 
             mountNode.innerHTML = renderPage(state.product);
             mountNode.setAttribute('aria-busy', 'false');
@@ -294,38 +289,31 @@ function renderProductInfo(product) {
 
 /* ── Render: Color Picker ── */
 function renderColorPicker() {
-    const visibleKeys = PALETTE_KEYS.slice(0, INITIAL_COLORS_SHOWN);
-    const hiddenKeys = PALETTE_KEYS.slice(INITIAL_COLORS_SHOWN);
     const activeColor = state.selectedColor || COLOR_PALETTE[PALETTE_KEYS[0]];
-
-    // Check if activeColor is in hidden set (need to auto-expand)
-    const activeInHidden = hiddenKeys.some(k => COLOR_PALETTE[k].toLowerCase() === activeColor.toLowerCase());
+    const activeColorName = getColorName(activeColor);
 
     return `
         <div class="product__color-section">
-            <div class="product__color-header">
-                <span class="product__option-label">Color</span>
-                <span class="product__color-selected" id="colorSelectedName">${getColorName(activeColor)}</span>
+            <span class="product__option-label">Color</span>
+            <button class="product__color-dropdown-trigger" id="colorDropdownTrigger" type="button" aria-expanded="false" aria-controls="colorDropdownPanel">
+                <span class="product__color-dropdown-preview">
+                    <span class="product__color-dropdown-dot" id="colorDot" style="background:${activeColor}"></span>
+                    <span class="product__color-dropdown-name" id="colorSelectedName">${activeColorName}</span>
+                </span>
+                <svg class="product__color-dropdown-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="product__color-dropdown-panel" id="colorDropdownPanel" hidden>
+                <div class="product__color-swatches" id="colorSwatches">
+                    ${PALETTE_KEYS.map(key => {
+                        const hex = COLOR_PALETTE[key];
+                        const isSelected = hex.toLowerCase() === activeColor.toLowerCase();
+                        return `<button class="product__color-swatch${isSelected ? ' selected' : ''}${isLightColor(hex) ? ' light' : ''}" 
+                                type="button" data-color="${hex}" data-name="${getColorName(hex)}"
+                                title="${getColorName(hex)}" aria-label="Select color ${getColorName(hex)}"
+                                style="background:${hex}"></button>`;
+                    }).join('')}
+                </div>
             </div>
-            <div class="product__color-swatches" id="colorSwatches">
-                ${visibleKeys.map(key => {
-                    const hex = COLOR_PALETTE[key];
-                    const isSelected = hex.toLowerCase() === activeColor.toLowerCase();
-                    return `<button class="product__color-swatch${isSelected ? ' selected' : ''}${isLightColor(hex) ? ' light' : ''}" 
-                            type="button" data-color="${hex}" data-name="${getColorName(hex)}"
-                            title="${getColorName(hex)}" aria-label="Select color ${getColorName(hex)}"
-                            style="background:${hex}"></button>`;
-                }).join('')}
-                ${hiddenKeys.map(key => {
-                    const hex = COLOR_PALETTE[key];
-                    const isSelected = hex.toLowerCase() === activeColor.toLowerCase();
-                    return `<button class="product__color-swatch product__color-swatch--hidden${isSelected ? ' selected' : ''}${isLightColor(hex) ? ' light' : ''}" 
-                            type="button" data-color="${hex}" data-name="${getColorName(hex)}"
-                            title="${getColorName(hex)}" aria-label="Select color ${getColorName(hex)}"
-                            style="background:${hex}" ${activeInHidden ? '' : 'hidden'}></button>`;
-                }).join('')}
-            </div>
-            ${hiddenKeys.length ? `<button class="product__color-toggle" id="colorToggleBtn" type="button">${activeInHidden ? 'Show fewer colors' : 'Show more colors'}</button>` : ''}
         </div>`;
 }
 
@@ -599,6 +587,16 @@ function bindEvents() {
         });
     });
 
+    // Color dropdown trigger
+    $('#colorDropdownTrigger')?.addEventListener('click', () => {
+        let panel = $('#colorDropdownPanel');
+        let trigger = $('#colorDropdownTrigger');
+        if (!panel || !trigger) return;
+        let isOpen = !panel.hidden;
+        panel.hidden = isOpen;
+        trigger.setAttribute('aria-expanded', String(!isOpen));
+    });
+
     // Color swatches
     $('#colorSwatches')?.addEventListener('click', (e) => {
         let swatch = e.target.closest('.product__color-swatch');
@@ -607,15 +605,14 @@ function bindEvents() {
         $$('.product__color-swatch').forEach(s => s.classList.remove('selected'));
         swatch.classList.add('selected');
         let nameEl = $('#colorSelectedName');
+        let dotEl = $('#colorDot');
         if (nameEl) nameEl.textContent = swatch.dataset.name;
-    });
-
-    // Show more colors
-    $('#colorToggleBtn')?.addEventListener('click', () => {
-        state.colorsExpanded = !state.colorsExpanded;
-        let btn = $('#colorToggleBtn');
-        $$('.product__color-swatch--hidden').forEach(s => { s.hidden = !state.colorsExpanded; });
-        if (btn) btn.textContent = state.colorsExpanded ? 'Show fewer colors' : 'Show more colors';
+        if (dotEl) dotEl.style.background = swatch.dataset.color;
+        // Close dropdown after selection
+        let panel = $('#colorDropdownPanel');
+        let trigger = $('#colorDropdownTrigger');
+        if (panel) panel.hidden = true;
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
     });
 
     // Customize button
@@ -676,7 +673,8 @@ function handleAddToCart(shouldRedirect) {
 
     let uniqueKey;
     if (state.designRequired && state.customization) {
-        let customString = JSON.stringify(state.customization);
+        let { previewImage, generatedAt, ...designData } = state.customization;
+        let customString = JSON.stringify(designData);
         let hash = 0;
         for (let i = 0; i < customString.length; i++) { hash = ((hash << 5) - hash) + customString.charCodeAt(i); hash |= 0; }
         uniqueKey = `${product.id}__${selectedSize}__${selectedColor}__${hash}`;
@@ -684,35 +682,51 @@ function handleAddToCart(shouldRedirect) {
         uniqueKey = `${product.id}__${selectedSize}__${selectedColor}__plain`;
     }
 
+    let itemData = {
+        key: uniqueKey,
+        id: product.id,
+        name: product.name,
+        image: (state.designRequired && state.customization && state.customization.previewImage)
+            ? state.customization.previewImage
+            : (product.images?.default || ''),
+        category: product.category,
+        basePrice: product.basePrice,
+        designFee: designFee,
+        price: totalPrice,
+        color: selectedColor,
+        colorName: colorName,
+        size: selectedSize,
+        qty: state.qty,
+        customized: state.designRequired,
+        designRequired: state.designRequired,
+        customization: state.designRequired ? state.customization : null
+    };
+
+    if (shouldRedirect) {
+        // Buy Now: create checkout session and go directly to checkout
+        sessionStorage.setItem('craftora_checkout', JSON.stringify({
+            source: 'buy-now',
+            items: [itemData]
+        }));
+        location.href = './checkout.html';
+        return;
+    }
+
+    // Add to Cart flow
     let currentCart = getCart();
     let existingItem = currentCart.find(item => item.key === uniqueKey);
 
     if (existingItem) {
         existingItem.qty += state.qty;
-        if (state.designRequired) existingItem.customization = state.customization;
+        if (state.designRequired) {
+            existingItem.customization = state.customization;
+            existingItem.image = itemData.image;
+        }
     } else {
-        currentCart.push({
-            key: uniqueKey,
-            id: product.id,
-            name: product.name,
-            image: product.images?.default || '',
-            category: product.category,
-            basePrice: product.basePrice,
-            designFee: designFee,
-            price: totalPrice,
-            color: selectedColor,
-            colorName: colorName,
-            size: selectedSize,
-            qty: state.qty,
-            customized: state.designRequired,
-            designRequired: state.designRequired,
-            customization: state.designRequired ? state.customization : null
-        });
+        currentCart.push(itemData);
     }
 
     saveCart(currentCart);
-
-    if (shouldRedirect) { location.href = './cart.html'; return; }
 
     // Scroll to top smoothly
     window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -769,6 +769,7 @@
     aspect-ratio: 1 / 1;
     overflow: hidden;
     background: var(--surface-warm);
+    border-radius: var(--radius-lg);
 }
 
 .related__img {
@@ -979,21 +980,82 @@
 .product__color-section {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-2);
+    position: relative;
 }
 
-.product__color-header {
+/* ── Color Dropdown Trigger ── */
+.product__color-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1.5px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    background: var(--surface-page);
+    cursor: pointer;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.product__color-dropdown-trigger:hover {
+    border-color: var(--border-warm);
+}
+
+.product__color-dropdown-trigger[aria-expanded="true"] {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px hsl(from var(--primary) h s l / 0.06);
+}
+
+.product__color-dropdown-trigger:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.product__color-dropdown-preview {
     display: flex;
     align-items: center;
     gap: var(--space-3);
 }
 
-.product__color-selected {
+.product__color-dropdown-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--border-default);
+    flex-shrink: 0;
+}
+
+.product__color-dropdown-name {
     font-size: var(--text-sm);
-    font-family: var(--font-body);
-    color: var(--text-body);
-    font-weight: var(--weight-medium);
-    margin-bottom: var(--space-2);
+    font-weight: var(--weight-semibold);
+    font-family: var(--font-ui);
+    color: var(--text-primary);
+}
+
+.product__color-dropdown-chevron {
+    color: var(--text-muted);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.product__color-dropdown-trigger[aria-expanded="true"] .product__color-dropdown-chevron {
+    transform: rotate(180deg);
+}
+
+/* ── Color Dropdown Panel ── */
+.product__color-dropdown-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: var(--space-4);
+    border: 1.5px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-md);
+    margin-top: var(--space-2);
 }
 
 .product__color-swatches {
@@ -1033,23 +1095,6 @@
     box-shadow: 0 0 0 2px var(--surface-page), 0 0 0 4px var(--color-accent);
 }
 
-.product__color-toggle {
-    align-self: flex-start;
-    background: none;
-    border: none;
-    padding: var(--space-1) 0;
-    font-size: var(--text-sm);
-    font-weight: var(--weight-semibold);
-    font-family: var(--font-ui);
-    color: var(--color-secondary);
-    cursor: pointer;
-    transition: color var(--transition-fast);
-}
-
-.product__color-toggle:hover {
-    color: var(--color-accent);
-}
-
 
 /* ══════════════════════════════════════════════════════════
    17. DESIGN TOGGLE — Compact inline radios
@@ -1057,8 +1102,8 @@
 
 .product__design-toggle {
     display: flex;
-    align-items: center;
-    gap: var(--space-4);
+    align-items: flex-start;
+    flex-direction: column;
 }
 
 .product__design-radios {

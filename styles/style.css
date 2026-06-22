@@ -70,20 +70,6 @@ h4 {
     line-height: var(--leading-snug);
 }
 
-/* ── Section heading with decorative divider lines ── */
-.section-heading {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 1em;
-}
-
-.section-heading::after,
-.section-heading::before {
-    content: "";
-    border-top: 0.1em double hsl(from var(--primary) h s l / 0.4);
-    align-self: center;
-}
-
 
 p {
     font-family: var(--font-body);
@@ -908,7 +894,7 @@ body.nav-open {
 .footer-links h3 {
     font-family: var(--font-heading);
     font-weight: var(--weight-semibold);
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-3);
     font-size: var(--text-sm);
     color: var(--text-on-dark);
     letter-spacing: 0.03em;

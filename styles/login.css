@@ -26,7 +26,7 @@
     z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    gap: var(--space-3);
     width: 100%;
     max-width: 540px;
     max-height: calc(100dvh - var(--space-12));
@@ -46,10 +46,6 @@
 /* ── Card heading block ── */
 .login-heading {
     text-align: center;
-}
-
-.login-heading h2 {
-    margin-bottom: var(--space-2);
 }
 
 .login-subtitle {
@@ -227,7 +223,7 @@
 }
 
 .form-group {
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-2);
 }
 
 .form-group label {
