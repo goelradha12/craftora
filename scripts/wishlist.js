@@ -70,16 +70,7 @@ function renderWishlistPage() {
     const clearBtn   = document.getElementById('clearAllBtn');
     if (!grid) return; // not on the wishlist page
 
-    const user = (() => {
-        try { return JSON.parse(localStorage.getItem('craftora_user') || 'null'); } catch { return null; }
-    })();
-
-    if (!user) {
-        document.getElementById('guestState').hidden  = false;
-        document.getElementById('wishlistState').hidden = true;
-        return;
-    }
-
+    // Always show wishlist — no sign-in required
     document.getElementById('guestState').hidden  = true;
     document.getElementById('wishlistState').hidden = false;
 

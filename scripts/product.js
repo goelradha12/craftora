@@ -621,7 +621,8 @@ function bindEvents() {
     // Customize button
     $('#customizeProductBtn')?.addEventListener('click', () => {
         if (!state.product) return;
-        location.href = `./customize.html?id=${encodeURIComponent(state.product.id)}`;
+        let selectedSize = $('.product__size-input:checked')?.value || state.product.sizes?.[0] || '';
+        location.href = `./customize.html?id=${encodeURIComponent(state.product.id)}&size=${encodeURIComponent(selectedSize)}`;
     });
 
     // Add to cart / Buy now
@@ -713,12 +714,133 @@ function handleAddToCart(shouldRedirect) {
 
     if (shouldRedirect) { location.href = './cart.html'; return; }
 
-    let addBtnNode = $('#addToCartBtn');
-    if (!addBtnNode) return;
-    let originalText = addBtnNode.textContent;
-    addBtnNode.textContent = 'Added ✓';
-    addBtnNode.disabled = true;
-    setTimeout(() => { addBtnNode.textContent = originalText; addBtnNode.disabled = false; }, 1400);
+    // Scroll to top smoothly
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Show toast notification with "Go to Cart" CTA
+    showAddToCartToast();
+}
+
+/* ── Add-to-Cart Toast ── */
+function showAddToCartToast() {
+    // Remove any existing add-to-cart toast
+    const existing = document.getElementById('atc-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'atc-toast';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    toast.innerHTML = `
+        <div class="atc-toast__content">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            <span class="atc-toast__msg">Added to cart</span>
+            <a href="./cart.html" class="atc-toast__cta">Go to Cart</a>
+            <button class="atc-toast__close" type="button" aria-label="Dismiss notification">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+    `;
+    document.body.appendChild(toast);
+
+    // Inject styles if not already present
+    if (!document.getElementById('atc-toast-style')) {
+        const style = document.createElement('style');
+        style.id = 'atc-toast-style';
+        style.textContent = `
+            #atc-toast {
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%) translateY(-10px);
+                z-index: 1200;
+                opacity: 0;
+                transition: opacity 0.25s ease, transform 0.25s ease;
+                pointer-events: none;
+            }
+            #atc-toast.show {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+                pointer-events: auto;
+            }
+            .atc-toast__content {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 12px 16px;
+                background: var(--surface-page, #fff);
+                border: 1.5px solid var(--border-default, #e5e7eb);
+                border-radius: var(--radius-lg, 12px);
+                box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+                font-family: var(--font-ui, 'Inter', sans-serif);
+                font-size: 0.9rem;
+                white-space: nowrap;
+            }
+            .atc-toast__msg {
+                font-weight: 600;
+                color: var(--text-primary, #111827);
+            }
+            .atc-toast__cta {
+                font-weight: 700;
+                font-size: 0.85rem;
+                color: var(--color-accent, #FF6609);
+                text-decoration: none;
+                padding: 4px 10px;
+                border-radius: var(--radius-sm, 6px);
+                transition: background 0.15s ease;
+            }
+            .atc-toast__cta:hover {
+                background: var(--color-accent-subtle, rgba(255,102,9,0.07));
+            }
+            .atc-toast__close {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 28px;
+                height: 28px;
+                border: none;
+                background: transparent;
+                border-radius: 50%;
+                color: var(--text-muted, #6B7280);
+                cursor: pointer;
+                transition: background 0.15s ease, color 0.15s ease;
+            }
+            .atc-toast__close:hover {
+                background: var(--surface-alt, #f3f4f6);
+                color: var(--text-primary, #111827);
+            }
+            @media (max-width: 480px) {
+                #atc-toast {
+                    top: 70px;
+                    width: calc(100% - 2rem);
+                }
+                .atc-toast__content {
+                    width: 100%;
+                    justify-content: center;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // Animate in
+    requestAnimationFrame(() => {
+        toast.classList.add('show');
+    });
+
+    // Close button
+    toast.querySelector('.atc-toast__close').addEventListener('click', () => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 250);
+    });
+
+    // Auto-dismiss after 4 seconds
+    setTimeout(() => {
+        if (toast.parentNode) {
+            toast.classList.remove('show');
+            setTimeout(() => { if (toast.parentNode) toast.remove(); }, 250);
+        }
+    }, 4000);
 }
 
 /* ── Design Preview ── */

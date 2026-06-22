@@ -302,6 +302,17 @@ body.nav-open {
     color: var(--color-accent);
 }
 
+/* Wishlist icon active state (when on wishlist page) */
+.nav__icon-btn[aria-label="View wishlist"]:hover {
+    color: var(--color-wish, #e11d48);
+    background: hsl(from var(--color-wish, #e11d48) h s l / 0.06);
+}
+
+.nav__icon-btn--active {
+    color: var(--color-wish, #e11d48);
+    background: hsl(from var(--color-wish, #e11d48) h s l / 0.06);
+}
+
 /* Cart badge */
 .cart-badge {
     position: absolute;

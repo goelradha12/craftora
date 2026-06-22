@@ -993,6 +993,7 @@
     font-family: var(--font-body);
     color: var(--text-body);
     font-weight: var(--weight-medium);
+    margin-bottom: var(--space-2);
 }
 
 .product__color-swatches {

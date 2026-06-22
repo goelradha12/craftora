@@ -10,11 +10,7 @@ const AUTH_KEY = 'craftora_user';
 ══════════════════════════════════════════════════════════ */
 
 const PASSWORD_RULES = [
-    { id: 'length',  label: 'Minimum 8 characters',          test: pw => pw.length >= 8 },
-    { id: 'upper',   label: 'At least one uppercase letter',  test: pw => /[A-Z]/.test(pw) },
-    { id: 'lower',   label: 'At least one lowercase letter',  test: pw => /[a-z]/.test(pw) },
-    { id: 'number',  label: 'At least one number',            test: pw => /\d/.test(pw) },
-    { id: 'special', label: 'At least one special character',  test: pw => /[^A-Za-z0-9]/.test(pw) },
+    { id: 'length',  label: 'Minimum 6 characters',          test: pw => pw.length >= 6 },
 ];
 
 /** Returns { valid: boolean, results: [{id, label, passed}] } */

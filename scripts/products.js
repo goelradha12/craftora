@@ -145,10 +145,6 @@ function renderProducts(productsToRender) {
                     window.location.href = './login.html';
                     return;
                 }
-                // Check login
-                const user = (() => {
-                    try { return JSON.parse(localStorage.getItem('craftora_user') || 'null'); } catch { return null; }
-                })();
                 const now = toggleWishlist({
                     id: product.id,
                     name: product.name,

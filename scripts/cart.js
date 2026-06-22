@@ -489,19 +489,14 @@ function showGuestLoginPrompt() {
   overlay.innerHTML = `
     <div class="checkout-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="guestTitle">
       <div class="checkout-modal__header">
-        <div class="checkout-modal__icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        </div>
         <div>
           <p id="guestTitle" class="checkout-modal__title">Sign in required</p>
-          <p class="checkout-modal__subtitle">You need to sign in before placing an order. Would you like to continue to the login page?</p>
         </div>
         <button class="checkout-modal__close cart-item__remove" type="button" aria-label="Close" id="guestClose">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
-      <div class="checkout-modal__actions" style="display:flex;gap:var(--space-3);margin-top:var(--space-5);">
-        <button class="checkout-btn checkout-btn--secondary" type="button" id="guestCancel">Cancel</button>
+      <div class="checkout-modal__actions">
         <button class="checkout-btn" type="button" id="guestConfirm">Sign In</button>
       </div>
     </div>

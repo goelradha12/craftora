@@ -98,7 +98,7 @@
                         <div class="input-with-icon">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" class="input-icon"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                             <input type="password" id="password" name="password" class="form-control"
-                                   placeholder="Create a password" autocomplete="new-password" required>
+                                   placeholder="Min. 6 characters" autocomplete="new-password" required minlength="6">
                             <button type="button" class="eye-toggle" id="togglePassword" aria-label="Show password">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="eyeIcon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                             </button>
@@ -107,13 +107,19 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="confirmPassword" class="required">Confirm Password</label>
+                    <div class="input-with-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" class="input-icon"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
+                               placeholder="Re-enter your password" autocomplete="new-password" required minlength="6">
+                    </div>
+                    <span class="field-error" id="confirmPasswordError"></span>
+                </div>
+
                 <!-- Live password requirements -->
                 <ul class="pw-requirements" id="pwRequirements" aria-live="polite" aria-label="Password requirements">
-                    <li data-rule="length"><span class="pw-req__icon">○</span> Minimum 8 characters</li>
-                    <li data-rule="upper"><span class="pw-req__icon">○</span> At least one uppercase letter</li>
-                    <li data-rule="lower"><span class="pw-req__icon">○</span> At least one lowercase letter</li>
-                    <li data-rule="number"><span class="pw-req__icon">○</span> At least one number</li>
-                    <li data-rule="special"><span class="pw-req__icon">○</span> At least one special character</li>
+                    <li data-rule="length"><span class="pw-req__icon">○</span> Minimum 6 characters</li>
                 </ul>
 
                 <div class="form-step__actions">
@@ -243,8 +249,9 @@
             const phone = document.getElementById('phone').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
 
-            ['nameError', 'phoneError', 'emailError', 'passwordError'].forEach(id => {
+            ['nameError', 'phoneError', 'emailError', 'passwordError', 'confirmPasswordError'].forEach(id => {
                 document.getElementById(id).textContent = '';
             });
 
@@ -271,8 +278,16 @@
             if (!password) {
                 document.getElementById('passwordError').textContent = 'Password is required.';
                 valid = false;
-            } else if (!validatePassword(password).valid) {
-                document.getElementById('passwordError').textContent = 'Password does not meet all requirements.';
+            } else if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+                valid = false;
+            }
+
+            if (!confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'Please confirm your password.';
+                valid = false;
+            } else if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
                 valid = false;
             }
 
@@ -301,6 +316,7 @@
 
         /* ── Live password requirements ── */
         const pwInput = document.getElementById('password');
+        const confirmPwInput = document.getElementById('confirmPassword');
         const pwReqList = document.getElementById('pwRequirements');
         const pwWrapper = pwInput.closest('.input-with-icon');
 
@@ -334,6 +350,21 @@
             // Show overall status
             const allPassed = results.every(r => r.passed);
             list.classList.toggle('all-passed', allPassed);
+
+            // Clear confirm password error if it matches now
+            if (confirmPwInput.value && confirmPwInput.value === pw) {
+                document.getElementById('confirmPasswordError').textContent = '';
+            }
+        });
+
+        // Live confirm password validation
+        confirmPwInput.addEventListener('input', () => {
+            const errEl = document.getElementById('confirmPasswordError');
+            if (confirmPwInput.value && confirmPwInput.value !== pwInput.value) {
+                errEl.textContent = 'Passwords do not match.';
+            } else {
+                errEl.textContent = '';
+            }
         });
 
         /* ── Form submit ── */

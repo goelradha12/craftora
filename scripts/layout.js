@@ -53,10 +53,6 @@ function buildProfileMenuHTML(user) {
                 </svg>
             </button>
             <ul class="dropdown__menu" id="profileMenu" role="menu">
-                <li class="dropdown__user-info" role="none">
-                    <span class="dropdown__user-name">${escHTML(displayName)}</span>
-                    <span class="dropdown__user-email">${escHTML(user.phone || '')}</span>
-                </li>
                 <li class="dropdown__divider" role="none"></li>
                 <li role="none">
                     <a href="./account.html" role="menuitem">
@@ -115,10 +111,6 @@ function buildMobileProfileHTML(user) {
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
                     </button>
                     <ul class="dropdown__menu" id="profileMenuMobile" role="menu">
-                        <li class="dropdown__user-info" role="none">
-                            <span class="dropdown__user-name">${escHTML(displayName)}</span>
-                            <span class="dropdown__user-email">${escHTML(user.phone || '')}</span>
-                        </li>
                         <li class="dropdown__divider" role="none"></li>
                         <li><a href="./account.html" role="menuitem">My Account</a></li>
                         <li><a href="./account.html#my-orders" role="menuitem">My Orders</a></li>
@@ -151,6 +143,12 @@ function markActiveLink() {
         const href = (link.getAttribute('href') || '').split('/').pop();
         link.classList.toggle('active', href === path);
     });
+    // Highlight wishlist icon when on wishlist page
+    if (path === 'wishlist.html') {
+        document.querySelectorAll('.nav__icon-btn[aria-label="View wishlist"]').forEach(btn => {
+            btn.classList.add('nav__icon-btn--active');
+        });
+    }
 }
 
 
@@ -212,6 +210,13 @@ function buildHeader(user) {
 
                 <div class="nav__actions">
                     ${user ? buildProfileMenuHTML(user) : buildGuestHTML()}
+
+                    <a href="./wishlist.html" class="nav__icon-btn" aria-label="View wishlist">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
 
                     <a href="./cart.html" class="nav__icon-btn" aria-label="View cart">
                         ${CART_SVG}
@@ -296,7 +301,18 @@ function buildHeader(user) {
     `;
 }
 
-const FOOTER_HTML = /* html */`
+function buildFooterHTML() {
+    const user = getUser();
+    const accountLinks = user
+        ? `<li><a href="./account.html#my-orders">My Orders</a></li>
+                <li><a href="./cart.html">Cart</a></li>
+                <li><a href="./wishlist.html">Wishlist</a></li>`
+        : `<li><a href="./login.html">Sign In</a></li>
+                <li><a href="./signup.html">Sign Up</a></li>
+                <li><a href="./cart.html">Cart</a></li>
+                <li><a href="./wishlist.html">Wishlist</a></li>`;
+
+    return /* html */`
 <footer class="footer">
     <div class="footer-top container">
         <div class="footer-brand">
@@ -348,10 +364,7 @@ const FOOTER_HTML = /* html */`
         <div class="footer-links">
             <h3>Account</h3>
             <ul>
-                <li><a href="./login.html">Sign In</a></li>
-                <li><a href="./signup.html">Sign Up</a></li>
-                <li><a href="./cart.html">Cart</a></li>
-                <li><a href="./wishlist.html">Wishlist</a></li>
+                ${accountLinks}
             </ul>
         </div>
     </div>
@@ -364,6 +377,7 @@ const FOOTER_HTML = /* html */`
         </div>
     </div>
 </footer>`;
+}
 
 
 /* ══════════════════════════════════════════════════════════
@@ -376,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const footerEl = document.getElementById('footer');
 
     /* ── Inject footer ── */
-    if (footerEl) footerEl.innerHTML = FOOTER_HTML;
+    if (footerEl) footerEl.innerHTML = buildFooterHTML();
 
     /* ── Inject header ── */
     if (headerEl) {
