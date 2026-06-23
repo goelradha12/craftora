@@ -296,7 +296,6 @@
 
     .checkout-summary {
         position: static;
-        order: -1;
         border-radius: var(--radius-xl);
     }
 

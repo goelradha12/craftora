@@ -658,12 +658,31 @@ function setDesignRadio(yes) {
     radios.forEach(r => { r.checked = (r.value === (yes ? 'yes' : 'no')); });
 }
 
+function isLoggedIn() {
+    try {
+        const raw = localStorage.getItem('craftora_user');
+        if (!raw) return false;
+
+        const user = JSON.parse(raw);
+        return !!(user && user.phone);
+    } catch {
+        return false;
+    }
+}
+
 /* ── Add to Cart ── */
 function handleAddToCart(shouldRedirect) {
     let product = state.product;
     if (!product) return;
 
     if (state.designRequired && !state.customization) return;
+
+    // Buy Now requires login before anything else happens
+    if (shouldRedirect && !isLoggedIn()) {
+        alert('You are not logged in. Please log in to continue.');
+        window.location.href = './login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
+        return;
+    }
 
     let selectedSize = $('.product__size-input:checked')?.value || product.sizes?.[0] || '';
     let selectedColor = state.selectedColor || COLOR_PALETTE[PALETTE_KEYS[0]];

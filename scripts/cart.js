@@ -63,12 +63,34 @@ function removeItem(key) {
   saveCart();
 }
 
+/** Returns true if a user is currently logged in. */
+function isLoggedIn() {
+    try {
+        const raw = localStorage.getItem('craftora_user');
+        if (!raw) return false;
+
+        const user = JSON.parse(raw);
+        return !!(user && user.phone);
+    } catch {
+        return false;
+    }
+}
+
 function bindCheckoutButton() {
   const checkoutBtn = $('#checkoutBtn');
   if (!checkoutBtn) return;
 
   checkoutBtn.addEventListener('click', () => {
     if (cartData.length === 0) return;
+
+    if (!isLoggedIn()) {
+      alert(
+        'Login to checkout.'
+      );
+      window.location.href = './login.html?redirect=checkout.html';
+      return;
+    }
+
     // Create checkout session from cart items and navigate
     sessionStorage.setItem('craftora_checkout', JSON.stringify({
       source: 'cart',
