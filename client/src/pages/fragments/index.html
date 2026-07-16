@@ -1,0 +1,171 @@
+<main id="main-content">
+        <div class="hero">
+
+                <div class="hero--wrapper">
+                    <div class="hero--content">
+
+                        <h1>
+                            Where your ideas <br>meet <span class="hero--highlight">#Design</span>
+                        </h1>
+
+                        <p>
+                            Upload artwork, pick templates, or add text. Create your custom merchandise at Craftora.
+                        </p>
+
+                        <button class="hero--btn" onclick="window.location.href='/products'">Explore Products</button>
+                        
+
+                    </div>
+                    <div class="hero--image">
+                        <img src="/assets/backgrounds/hero-products.jpg" alt="Woman holding a printed bottle" />
+                    </div>
+                </div>
+
+        </div>
+
+        <div class="section products-category">
+            <div class="container">
+                <h2>Search our catalogue</h2>
+                <div class="products">
+                    <a href="/products?category=Diary" class="home-category-card">
+                        <img class="product--image" src="/assets/product-diary.jpg"
+                            alt="Printed black diary with a custom design on the cover" />
+                        <div class="product-content">
+                            <h3>Diary</h3>
+                        </div>
+                    </a>
+
+                    <a href="/products?category=Bottle" class="home-category-card">
+                        <img class="product--image" src="/assets/product-bottle.jpg"
+                            alt="Printed white bottle with a custom design" />
+                        <div class="product-content">
+                            <h3>Bottle</h3>
+                        </div>
+                    </a>
+
+                    <a href="/products?category=Tshirt" class="home-category-card">
+                        <img class="product--image" src="/assets/product-tshirt.jpg"
+                            alt="Printed t-shirt with a custom graphic design" />
+                        <div class="product-content">
+                            <h3>T-shirt</h3>
+                        </div>
+                    </a>
+
+                    <a href="/products?category=Cup" class="home-category-card">
+                        <img class="product--image" src="/assets/product-mug.jpg"
+                            alt="Printed cup with a custom design" />
+                        <div class="product-content">
+                            <h3>Cup</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════
+             FEATURED PRODUCTS — Carousel
+        ════════════════════════════════════════════════ -->
+        <div class="section featured-products-section">
+            <div class="container">
+                <div class="featured-header">
+                    <h2>Try Our Featured Products</h2>
+                    <div class="featured-nav-btns" id="featuredNavBtns">
+                        <button class="carousel-btn carousel-btn--prev" id="featuredPrev" aria-label="Previous products" type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <button class="carousel-btn carousel-btn--next" id="featuredNext" aria-label="Next products" type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="featured-carousel-wrapper">
+                    <!-- Carousel Track -->
+                    <div class="featured-track" id="featuredTrack" aria-live="polite">
+                        <!-- JS injects product cards here -->
+                    </div>
+
+                    <!-- Empty state -->
+                    <div id="featuredEmptyState" class="featured-empty-state" style="display: none;">
+                        No featured products available at the moment.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════
+             HOW IT WORKS — Interactive two-column layout
+             Left: clickable steps  |  Right: step image
+        ════════════════════════════════════════════════ -->
+        <div class="section hiw">
+            <div class="container">
+                <div class="hiw-block">
+                    <h2>Four simple steps to your perfect product</h2>
+                    <p class="hiw-subtitle">From browsing to doorstep — we make customization simple.</p>
+
+                    <div class="process-grid">
+                        <div class="process">
+                            <img src="/assets/process/find_product.webp" alt="process--img" class="process--img">
+                            <div class="process-content">
+                                <h3>Pick a Product</h3>
+                            </div>
+                        </div>
+                        <div class="process">
+                            <img src="/assets/process/design.webp" alt="process--img" class="process--img">
+                            <div class="process-content">
+                                <h3>Design it   </h3>
+                            </div>
+                        </div>
+                        <div class="process">
+                            <img src="/assets/process/add_cart.webp" alt="process--img" class="process--img">
+                            <div class="process-content">
+                                <h3>Place your order</h3>
+                            </div>
+                        </div>
+                        <div class="process">
+                            <img src="/assets/process/deliever.webp" alt="process--img" class="process--img">
+                            <div class="process-content">
+                                <h3>We deliver</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════
+             REVIEWS — Carousel with arrow navigation
+        ════════════════════════════════════════════════ -->
+        <div class="section reviews">
+            <div class="container">
+                <div class="content--review">
+                    <h2>That's what you said...</h2>
+                
+                    <div class="change-button">
+                        <button class="carousel-btn" id="reviewsPrev" aria-label="Previous review" type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <button class="carousel-btn" id="reviewsNext" aria-label="Next review" type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="reviews-carousel" id="reviewsCarousel" aria-label="Customer testimonials"
+                    aria-roledescription="carousel">
+                    <div class="reviews-track" id="reviewsTrack" aria-live="polite"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="container">
+                <div class="cta-section">
+                    <h2>Ready to get started?</h2>
+                    <p>No signups required to start. Open the studio, play around, only pay when you love it.</p>
+                    <button class="hero--btn" onclick="window.location.href='/products'">Start Designing - It's free</button>
+                </div>
+            </div>
+        </div>
+
+        
+    </main>

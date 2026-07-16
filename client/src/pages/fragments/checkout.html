@@ -1,0 +1,122 @@
+<main id="main-content" class="checkout-page">
+        <div class="container">
+            <h1 style="font-family:var(--font-display);font-size:var(--text-2xl);font-weight:var(--weight-normal);margin-bottom:var(--space-8);">Checkout</h1>
+
+            <div class="checkout-layout">
+                <!-- Left: Forms -->
+                <div class="checkout-forms" id="checkoutForms">
+
+                    <!-- Contact Information -->
+                    <div class="checkout-section">
+                        <h2 class="checkout-section__title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                            Contact Information
+                        </h2>
+                        <div class="checkout-form__row">
+                            <div class="checkout-form__group">
+                                <label class="checkout-form__label" for="co-name">Full Name *</label>
+                                <input class="checkout-form__input" type="text" id="co-name" placeholder="John Doe" autocomplete="name">
+                                <p class="checkout-form__error" id="co-name-err"></p>
+                            </div>
+                            <div class="checkout-form__group">
+                                <label class="checkout-form__label" for="co-phone">Phone Number *</label>
+                                <input class="checkout-form__input" type="tel" id="co-phone" placeholder="10-digit number" inputmode="numeric" maxlength="10" autocomplete="tel">
+                                <p class="checkout-form__error" id="co-phone-err"></p>
+                            </div>
+                        </div>
+                        <div class="checkout-form__group">
+                            <label class="checkout-form__label" for="co-email">Email</label>
+                            <input class="checkout-form__input" type="email" id="co-email" placeholder="you@example.com" autocomplete="email">
+                            <p class="checkout-form__error" id="co-email-err"></p>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Address -->
+                    <div class="checkout-section">
+                        <h2 class="checkout-section__title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Shipping Address
+                        </h2>
+                        <div class="checkout-form__group">
+                            <label class="checkout-form__label" for="co-addr1">Address Line 1 *</label>
+                            <input class="checkout-form__input" type="text" id="co-addr1" placeholder="Flat / House No., Building" autocomplete="address-line1">
+                            <p class="checkout-form__error" id="co-addr1-err"></p>
+                        </div>
+                        <div class="checkout-form__group">
+                            <label class="checkout-form__label" for="co-addr2">Address Line 2</label>
+                            <input class="checkout-form__input" type="text" id="co-addr2" placeholder="Street, Area, Landmark" autocomplete="address-line2">
+                        </div>
+                        <div class="checkout-form__row">
+                            <div class="checkout-form__group">
+                                <label class="checkout-form__label" for="co-city">City *</label>
+                                <input class="checkout-form__input" type="text" id="co-city" placeholder="City" autocomplete="address-level2">
+                                <p class="checkout-form__error" id="co-city-err"></p>
+                            </div>
+                            <div class="checkout-form__group">
+                                <label class="checkout-form__label" for="co-state">State *</label>
+                                <input class="checkout-form__input" type="text" id="co-state" placeholder="State" autocomplete="address-level1">
+                                <p class="checkout-form__error" id="co-state-err"></p>
+                            </div>
+                        </div>
+                        <div class="checkout-form__row">
+                            <div class="checkout-form__group">
+                                <label class="checkout-form__label" for="co-pin">PIN Code *</label>
+                                <input class="checkout-form__input" type="text" id="co-pin" placeholder="6-digit PIN" inputmode="numeric" maxlength="6" autocomplete="postal-code">
+                                <p class="checkout-form__error" id="co-pin-err"></p>
+                            </div>
+                            <div class="checkout-form__group">
+                                <label class="checkout-form__label" for="co-country">Country</label>
+                                <input class="checkout-form__input" type="text" id="co-country" value="India" autocomplete="country-name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="checkout-section">
+                        <h2 class="checkout-section__title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                            Payment Method
+                        </h2>
+                        <div class="checkout-payment__options" id="paymentOptions">
+                            <label class="checkout-payment__option">
+                                <input type="radio" name="payment" value="cod">
+                                <span class="checkout-payment__label">Cash on Delivery</span>
+                            </label>
+                            <label class="checkout-payment__option">
+                                <input type="radio" name="payment" value="card">
+                                <span class="checkout-payment__label">Credit / Debit Card</span>
+                            </label>
+                            <label class="checkout-payment__option">
+                                <input type="radio" name="payment" value="upi">
+                                <span class="checkout-payment__label">UPI</span>
+                            </label>
+                            <label class="checkout-payment__option">
+                                <input type="radio" name="payment" value="netbanking">
+                                <span class="checkout-payment__label">Net Banking</span>
+                            </label>
+                        </div>
+                        <p class="checkout-form__error" id="co-payment-err" style="margin-top:0.5rem;"></p>
+                    </div>
+
+                </div>
+
+                <!-- Right: Order Summary -->
+                <aside class="checkout-summary" id="checkoutSummary">
+                    <h2 class="checkout-summary__title">Order Summary</h2>
+                    <div class="checkout-summary__items" id="summaryItems"></div>
+                    <div class="checkout-summary__row"><span>Subtotal</span><span id="coSubtotal">&#x20B9;0</span></div>
+                    <div class="checkout-summary__row checkout-summary__row--muted"><span>Shipping</span><span>Free</span></div>
+                    <div class="checkout-summary__row checkout-summary__row--muted"><span>Tax</span><span>Included</span></div>
+                    <div class="checkout-summary__divider"></div>
+                    <div class="checkout-summary__total"><span>Total</span><span id="coTotal">&#x20B9;0</span></div>
+
+                    <button class="checkout-place-btn" id="placeOrderBtn" type="button">Place Order</button>
+                    <div class="checkout-trust">
+                        <span>&#x2713; Secure</span>
+                        <span>&#x2713; Free Shipping</span>
+                        <span>&#x2713; Easy Returns</span>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>

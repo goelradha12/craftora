@@ -1,0 +1,492 @@
+<div id="app">
+
+        <header id="topbar">
+            <div class="topbar-left">
+                <button class="btn btn-sm" id="back-btn" onclick="handleBack()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                    <span>Back to Product</span>
+                </button>
+                <span id="product-name">Loading&#x2026;</span>
+                <span class="topbar-badge" id="category-badge"></span>
+                <span class="unsaved-dot" id="unsaved-dot"></span>
+            </div>
+            <div class="topbar-right">
+                <button class="btn btn-sm btn-danger" onclick="promptResetDesign()" title="Reset all designs">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                        <path d="M3 3v5h5" />
+                    </svg>
+                    <span>Reset All</span>
+                </button>
+                <button class="btn btn-sm" onclick="clearSide()" title="Clear current side">
+                    <span>Clear Side</span>
+                </button>
+                <button class="btn btn-sm topbar-save-btn" id="topbar-save-btn" onclick="saveDesign()" title="Save design">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+                        <polyline points="17 21 17 13 7 13 7 21" />
+                        <polyline points="7 3 7 8 15 8" />
+                    </svg>
+                    <span>Save</span>
+                </button>
+                <button class="btn btn-sm" id="tb-cart" onclick="handleToolbarCart()" title="Add to cart" style="position:relative;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M14 2C14 1.44772 13.5523 1 13 1C12.4477 1 12 1.44772 12 2V8.58579L9.70711 6.29289C9.31658 5.90237 8.68342 5.90237 8.29289 6.29289C7.90237 6.68342 7.90237 7.31658 8.29289 7.70711L12.2929 11.7071C12.6834 12.0976 13.3166 12.0976 13.7071 11.7071L17.7071 7.70711C18.0976 7.31658 18.0976 6.68342 17.7071 6.29289C17.3166 5.90237 16.6834 5.90237 16.2929 6.29289L14 8.58579V2ZM1 3C1 2.44772 1.44772 2 2 2H2.47241C3.82526 2 5.01074 2.90547 5.3667 4.21065L5.78295 5.73688L7.7638 13H18.236L20.2152 5.73709C20.3604 5.20423 20.9101 4.88998 21.4429 5.03518C21.9758 5.18038 22.29 5.73006 22.1448 6.26291L20.1657 13.5258C19.9285 14.3962 19.1381 15 18.236 15H8V16C8 16.5523 8.44772 17 9 17H16.5H18C18.5523 17 19 17.4477 19 18C19 18.212 18.934 18.4086 18.8215 18.5704C18.9366 18.8578 19 19.1715 19 19.5C19 20.8807 17.8807 22 16.5 22C15.1193 22 14 20.8807 14 19.5C14 19.3288 14.0172 19.1616 14.05 19H10.95C10.9828 19.1616 11 19.3288 11 19.5C11 20.8807 9.88071 22 8.5 22C7.11929 22 6 20.8807 6 19.5C6 18.863 6.23824 18.2816 6.63048 17.8402C6.23533 17.3321 6 16.6935 6 16V14.1339L3.85342 6.26312L3.43717 4.73688C3.31852 4.30182 2.92336 4 2.47241 4H2C1.44772 4 1 3.55228 1 3ZM16 19.5C16 19.2239 16.2239 19 16.5 19C16.7761 19 17 19.2239 17 19.5C17 19.7761 16.7761 20 16.5 20C16.2239 20 16 19.7761 16 19.5ZM8 19.5C8 19.2239 8.22386 19 8.5 19C8.77614 19 9 19.2239 9 19.5C9 19.7761 8.77614 20 8.5 20C8.22386 20 8 19.7761 8 19.5Z" fill="currentColor"/></svg>
+                    <span>Cart</span>
+                    <span class="tb-cart-badge" id="tb-cart-badge" style="display:none;">0</span>
+                </button>
+            </div>
+        </header>
+
+        <aside id="sidebar">
+            <div id="side-tabs-wrap"></div>
+            <div class="info-banner" id="info-banner">Loading product settings&#x2026;</div>
+
+            <!-- COLOR PANEL -->
+            <div class="panel-section" id="panel-color" style="display:none">
+                <div class="panel-toggle" onclick="togglePanel('color')">
+                    <span class="panel-toggle-label">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M8 12h8M12 8v8" />
+                        </svg>
+                        Product color
+                    </span>
+                    <span class="panel-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg></span>
+                </div>
+                <div class="panel-body" id="body-color">
+                    <div class="field">
+                        <div id="color-name-chip">
+                            <span class="chip-dot" id="chip-dot"></span>
+                            <span id="chip-label">&#x2014;</span>
+                        </div>
+                        <div class="color-swatches" id="preset-swatches" style="margin-top:8px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DESIGN / UPLOAD / TEMPLATES PANEL -->
+            <div class="panel-section" id="panel-design">
+                <div class="panel-toggle" onclick="togglePanel('design')">
+                    <span class="panel-toggle-label">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7" />
+                            <rect x="14" y="3" width="7" height="7" />
+                            <rect x="14" y="14" width="7" height="7" />
+                            <rect x="3" y="14" width="7" height="7" />
+                        </svg>
+                        Design &amp; Templates
+                        <span class="pill" id="tpl-count-pill">0</span>
+                    </span>
+                    <span class="panel-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg></span>
+                </div>
+                <div class="panel-body" id="body-design">
+
+                    <!-- ── Upload your image ── -->
+                    <div class="field">
+                        <span class="field-label">Upload your image</span>
+                        <label class="upload-area" id="upload-area" tabindex="0" role="button" aria-label="Upload image"
+                            aria-describedby="upload-error-text">
+                            <input type="file" id="img-upload" accept="image/png,image/jpeg,image/webp"
+                                style="display:none">
+                            <div class="upload-area__idle" id="upload-idle">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                    aria-hidden="true">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                                <span>Click or drag to upload</span>
+                                <span class="upload-area__hint">JPG, PNG, WEBP &middot; Max 50 KB</span>
+                            </div>
+                            <div class="upload-area__loading" id="upload-loading" style="display:none">
+                                <div class="upload-spinner" aria-hidden="true"></div>
+                                <span>Processing image&hellip;</span>
+                            </div>
+                            <div class="upload-area__preview" id="upload-preview" style="display:none">
+                                <img id="upload-thumb" src="" alt="Uploaded image preview">
+                                <button class="upload-area__remove" id="upload-remove" type="button"
+                                    title="Remove uploaded image" aria-label="Remove uploaded image">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5">
+                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                    </svg>
+                                </button>
+                                <span class="upload-area__name" id="upload-name"></span>
+                            </div>
+                        </label>
+                        <!-- Error banner — replaces the old upload-note <p> -->
+                        <div class="upload-error" id="upload-error" role="alert" aria-live="assertive"
+                            aria-atomic="true">
+                            <svg class="upload-error__icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0zm-7-4a1 1 0 1 1 2 0v4a1 1 0 1 1-2 0V6zm1 8a1.25 1.25 0 1 0 0-2.5A1.25 1.25 0 0 0 12 14z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span class="upload-error__text" id="upload-error-text">
+                                <strong class="upload-error__title" id="upload-error-title"></strong>
+                                <span class="upload-error__detail" id="upload-error-detail"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="upload-divider"><span>or choose a template</span></div>
+
+                    <!-- ── Templates ── -->
+                    <div class="tpl-grid" id="tpl-grid"></div>
+
+                    <div class="sel-box" id="design-sel-box">
+                        <strong>No design selected</strong><br>Upload an image or pick a template above.
+                    </div>
+
+                    <div style="display:flex;gap:6px;">
+                        <button class="btn btn-sm" style="flex:1" onclick="centerSel()">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <line x1="12" y1="2" x2="12" y2="22" />
+                                <line x1="2" y1="12" x2="22" y2="12" />
+                            </svg>
+                            Center
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="removeSel('design')">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI DESIGN ASSISTANT PANEL -->
+            <div class="panel-section" id="panel-ai">
+                <div class="panel-toggle" onclick="togglePanel('ai')">
+                    <span class="panel-toggle-label">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" />
+                        </svg>
+                        AI Design Assistant
+                    </span>
+                    <span class="panel-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg></span>
+                </div>
+                <div class="panel-body" id="body-ai">
+
+                    <div class="field">
+                        <span class="field-label">Describe your design</span>
+                        <textarea id="ai-prompt-input" rows="3"
+                            placeholder="e.g. Minimal mountain landscape, Cute panda drinking coffee, Blue floral pattern"></textarea>
+                    </div>
+
+                    <div class="field">
+                        <span class="field-label">Style</span>
+                        <select id="ai-style-select">
+                            <option value="Minimal">Minimal</option>
+                            <option value="Watercolor">Watercolor</option>
+                            <option value="Cartoon">Cartoon</option>
+                            <option value="Vintage">Vintage</option>
+                            <option value="Floral">Floral</option>
+                            <option value="Geometric">Geometric</option>
+                            <option value="Anime">Anime</option>
+                            <option value="Abstract">Abstract</option>
+                            <option value="Pop Art">Pop Art</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="field" id="ai-style-other-field" style="display:none">
+                        <span class="field-label">Describe your style</span>
+                        <input type="text" id="ai-style-other-input" placeholder="e.g. Cyberpunk neon">
+                    </div>
+
+                    <div class="field">
+                        <span class="field-label">Primary Colors</span>
+                        <input type="text" id="ai-colors-input" placeholder="e.g. Blue White, Pastel, Warm colors">
+                    </div>
+
+                    <button class="btn btn-primary btn-full" id="ai-generate-btn" type="button">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" />
+                        </svg>
+                        Generate Design
+                    </button>
+
+                    <div class="ai-loading" id="ai-loading" style="display:none">
+                        <div class="upload-spinner" aria-hidden="true"></div>
+                        <span>Generating design&hellip;</span>
+                    </div>
+
+                    <div class="upload-error" id="ai-error" role="alert" aria-live="assertive" aria-atomic="true">
+                        <svg class="upload-error__icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0zm-7-4a1 1 0 1 1 2 0v4a1 1 0 1 1-2 0V6zm1 8a1.25 1.25 0 1 0 0-2.5A1.25 1.25 0 0 0 12 14z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="upload-error__text">
+                            <strong class="upload-error__title" id="ai-error-title"></strong>
+                            <span class="upload-error__detail" id="ai-error-detail"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TEXT PANEL -->
+            <div class="panel-section" id="panel-text">
+                <div class="panel-toggle" onclick="togglePanel('text')">
+                    <span class="panel-toggle-label">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="4 7 4 4 20 4 20 7" />
+                            <line x1="9" y1="20" x2="15" y2="20" />
+                            <line x1="12" y1="4" x2="12" y2="20" />
+                        </svg>
+                        Text
+                    </span>
+                    <span class="panel-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg></span>
+                </div>
+                <div class="panel-body" id="body-text">
+                    <div class="field">
+                        <label class="field-label" for="txt-content">Content</label>
+                        <textarea id="txt-content" rows="2" placeholder="Your text&#x2026;">YOUR TEXT</textarea>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label class="field-label" for="txt-font">Font</label>
+                            <select id="txt-font" onchange="syncTextSel()">
+                                <option value="'Inter', sans-serif">Inter</option>
+                                <option value="'Lato', sans-serif">Lato</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="txt-weight">Weight</label>
+                            <select id="txt-weight" onchange="syncTextSel()">
+                                <option value="400" selected>Regular</option>
+                                <option value="600">Semibold</option>
+                                <option value="700">Bold</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label class="field-label" for="txt-size">Size (px)</label>
+                            <input type="number" id="txt-size" value="36" min="8" max="120" oninput="syncTextSel()">
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="txt-width">Width (px)</label>
+                            <input type="number" id="txt-width" value="160" min="40" max="320" oninput="syncTextSel()">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <span class="field-label">Alignment</span>
+                        <div class="align-row">
+                            <button class="align-btn active" id="al-left" onclick="setTextAlign('left')">Left</button>
+                            <button class="align-btn" id="al-center" onclick="setTextAlign('center')">Center</button>
+                            <button class="align-btn" id="al-right" onclick="setTextAlign('right')">Right</button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <span class="field-label">Curve <strong id="curve-val"
+                                style="color:var(--ink);margin-left:4px;">0&#xB0;</strong></span>
+                        <input type="range" id="txt-curve" min="-60" max="60" value="0" step="1"
+                            oninput="document.getElementById('curve-val').textContent=this.value+'°'; syncTextSel()">
+                        <div class="range-labels"><span>Arch &#x2193;</span><span>Flat</span><span>Arch &#x2191;</span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <span class="field-label">Color</span>
+                        <div class="color-field">
+                            <input type="color" id="txt-color" value="#FFFFFF" oninput="syncTextSel()">
+                            <span style="font-size:11px;color:var(--ink-3);">Text color</span>
+                        </div>
+                    </div>
+                    <div class="sel-box" id="text-sel-box"><strong>No text selected</strong><br>Add text then click a
+                        layer to edit it.</div>
+                    <div style="display:flex;gap:6px;align-items:stretch;">
+                        <button class="btn-add-text" onclick="addTextLayer()">
+                            <span class="at-icon">+</span>
+                            <span class="at-label">Add Text to Canvas</span>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="removeSel('text')"
+                            style="flex-shrink:0;">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+        <main id="canvas-wrap">
+            <div id="canvas-toolbar">
+                <div class="toolbar-cluster">
+                    <span id="side-label" style="font-size:12px;color:var(--ink-3);">Editing <strong
+                            style="color:var(--ink);">front</strong></span>
+                </div>
+                <div class="toolbar-cluster">
+                    <button class="btn btn-xs" id="tb-center-x" onclick="alignSel('hc')" title="Center horizontally">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="12" y1="2" x2="12" y2="22" />
+                        </svg>
+                        Center X
+                    </button>
+                    <button class="btn btn-xs" id="tb-center-y" onclick="alignSel('vc')" title="Center vertically">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="2" y1="12" x2="22" y2="12" />
+                        </svg>
+                        Center Y
+                    </button>
+                </div>
+            </div>
+            <div id="canvas-stage-area">
+                <div id="stage">
+                    <svg id="stage-svg" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
+                    <div id="overlay"></div>
+                </div>
+            </div>
+        </main>
+
+        <div id="save-bar">
+            <button class="btn btn-accent btn-sm" style="flex:1" id="save-btn" onclick="saveDesign()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+                    <polyline points="17 21 17 13 7 13 7 21" />
+                    <polyline points="7 3 7 8 15 8" />
+                </svg>
+                Save Design
+            </button>
+        </div>
+
+        <div id="statusbar">
+            <div style="display:flex;align-items:center;gap:6px;">
+                <span id="status-dot"></span>
+                <span id="status-msg">Loading&#x2026;</span>
+            </div>
+            <span id="layer-info" style="color:var(--ink-4);"></span>
+        </div>
+    </div>
+
+    <!-- FLOATING PURCHASE CARD -->
+    <div class="purchase-float" id="purchaseFloat" onclick="document.getElementById('purchaseDrawer').classList.add('open'); document.getElementById('purchaseDrawerOverlay').classList.add('open')">
+        <div class="purchase-float__row">
+            <span class="purchase-float__label">Total</span>
+            <span class="purchase-float__price" id="cs-total-price">—</span>
+        </div>
+        <span class="purchase-float__sub" id="cs-price-breakdown"></span>
+        <span class="purchase-float__cta">View Options & Checkout →</span>
+    </div>
+
+    <!-- PURCHASE DRAWER -->
+    <div class="purchase-drawer-overlay" id="purchaseDrawerOverlay" onclick="document.getElementById('purchaseDrawer').classList.remove('open'); this.classList.remove('open')"></div>
+    <aside class="purchase-drawer" id="purchaseDrawer">
+        <div class="purchase-drawer__header">
+            <h3>Your Order</h3>
+            <button class="btn btn-sm btn-icon" onclick="document.getElementById('purchaseDrawer').classList.remove('open'); document.getElementById('purchaseDrawerOverlay').classList.remove('open')" type="button" aria-label="Close">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="purchase-drawer__body" id="body-purchase">
+            <div class="purchase-drawer__card">
+                <h4>Product Options</h4>
+                <div class="field">
+                    <span class="field-label">Size</span>
+                    <select id="cs-size-select" style="width:100%"></select>
+                </div>
+                <div class="field">
+                    <span class="field-label">Quantity</span>
+                    <div class="cs-qty-row">
+                        <button class="btn btn-sm btn-icon" id="cs-qty-minus" type="button">−</button>
+                        <span class="cs-qty-val" id="cs-qty-val">1</span>
+                        <button class="btn btn-sm btn-icon" id="cs-qty-plus" type="button">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="purchase-drawer__card">
+                <h4>Price Details</h4>
+                <div class="purchase-drawer__price-row"><span>Base Price</span><span id="cs-base-price">—</span></div>
+                <div class="purchase-drawer__price-row"><span>Customization Fee</span><span id="cs-design-fee">—</span></div>
+                <div class="purchase-drawer__price-row"><span>Quantity</span><span id="cs-qty-display">×1</span></div>
+                <div class="purchase-drawer__divider"></div>
+                <div class="purchase-drawer__price-row purchase-drawer__price-total"><span>Total</span><span id="cs-drawer-total">—</span></div>
+            </div>
+            <div class="purchase-drawer__card purchase-drawer__trust">
+                <div>✓ High Quality Printing</div>
+                <div>✓ Secure Payment</div>
+                <div>✓ Easy Returns</div>
+            </div>
+            <button class="btn btn-accent btn-full" id="cs-add-to-cart" type="button" style="padding:14px 20px;font-size:14px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                Add to Cart
+            </button>
+        </div>
+    </aside>
+
+    <!-- MODALS -->
+    <div class="modal-backdrop" id="back-modal">
+        <div class="modal-card">
+            <div class="modal-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <circle cx="12" cy="12" r="10" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5" />
+                    <path d="M12 7V13" stroke="#D97706" stroke-width="2" stroke-linecap="round" />
+                    <circle cx="12" cy="17" r="1.3" fill="#D97706" />
+                </svg>
+            </div>
+            <div class="modal-title">Unsaved design</div>
+            <div class="modal-body">You have unsaved changes. If you leave now, your design will be lost.</div>
+            <div class="modal-actions">
+                <button class="btn btn-sm" id="modal-card-close" onclick="closeModal('back-modal')">X</button>
+                <button class="btn btn-sm btn-danger" onclick="proceedBack()">Leave anyway</button>
+                <button class="btn btn-sm btn-accent" onclick="saveAndBack()">Save &amp; go back</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="reset-modal">
+        <div class="modal-card">
+            <div class="modal-icon danger">&#x1F5D1;&#xFE0F;</div>
+            <div class="modal-title">Reset all designs?</div>
+            <div class="modal-body">This will clear <strong>all layers on every side</strong> (front, back &amp; wrap)
+                and start fresh. This cannot be undone.</div>
+            <div class="modal-actions">
+                <button class="btn btn-sm" onclick="closeModal('reset-modal')">Cancel</button>
+                <button class="btn btn-sm btn-danger" onclick="confirmResetDesign()">Yes, reset everything</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+    <div class="cs-tooltip" id="cs-tooltip"></div>
+    <canvas id="snapshot-canvas" style="display:none;"></canvas>
+
+    <!-- Cart confirmation modal -->
+    <div class="modal-backdrop" id="cart-modal">
+        <div class="modal-card" style="position:relative;">
+            <button class="cart-modal-close" id="cart-modal-close-btn" type="button" aria-label="Close">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="modal-icon" style="background:#dcfce7;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="modal-title">Added to cart!</div>
+            <div class="modal-body" id="cart-modal-body">Your customized product has been added to your cart.</div>
+            <div class="modal-actions" style="flex-direction:column;gap:8px;">
+                <button class="btn btn-sm btn-accent" style="width:100%;justify-content:center;" onclick="proceedBack()">Go to Product</button>
+                <a href="/cart" class="btn btn-sm" style="width:100%;justify-content:center;text-decoration:none;gap:6px;">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                    Go to Cart
+                    <svg class="cart-modal-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>

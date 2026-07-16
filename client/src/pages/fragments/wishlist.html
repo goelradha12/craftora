@@ -1,0 +1,40 @@
+<main id="main-content" class="wishlist-page">
+        <div class="container">
+
+            <!-- Guest state -->
+            <div class="wishlist-guest" id="guestState" hidden>
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    aria-hidden="true">
+                    <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+                <h2>Sign in to see your wishlist</h2>
+                <p>Save your favourite products and come back to them anytime.</p>
+                <div class="wishlist-guest__actions">
+                    <a href="/login" class="btn-primary">Sign In</a>
+                    <a href="/products" class="btn-secondary">Browse Products</a>
+                </div>
+            </div>
+
+            <!-- Logged in state -->
+            <div id="wishlistState" hidden>
+                <div class="wishlist-header">
+                    <h1 class="wishlist-title">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" aria-hidden="true">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        </svg>
+                        My Wishlist
+                        <span class="wishlist-count" id="wishlistCount"></span>
+                    </h1>
+                    <button class="wishlist-clear-btn" id="clearAllBtn" aria-label="Clear all wishlist items">
+                        Clear All
+                    </button>
+                </div>
+
+                <div class="wishlist-grid" id="wishlistGrid" aria-live="polite"></div>
+            </div>
+
+        </div>
+    </main>

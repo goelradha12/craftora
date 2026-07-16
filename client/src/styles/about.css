@@ -1,0 +1,186 @@
+/* ── About Page Styles ── */
+
+        /* Mission */
+        .about-mission {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-16);
+            align-items: center;
+        }
+
+        .about-mission__img {
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+        }
+
+        .about-mission__img img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-mission__text h2 {
+            text-align: left;
+            margin-bottom: var(--space-4);
+        }
+
+        .about-mission__text p {
+            margin-bottom: var(--space-4);
+            max-width: 52ch;
+        }
+
+        .accent-bar {
+            width: 48px;
+            height: 3px;
+            background: var(--color-accent);
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-5);
+        }
+
+        /* Stats */
+        .about-stats {
+            background: var(--color-primary);
+            color: var(--text-on-dark);
+            padding-block: var(--space-16);
+        }
+
+        .about-stats__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: var(--space-8);
+            text-align: center;
+        }
+
+        .about-stats__item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .about-stats__number {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: var(--weight-normal);
+            color: var(--color-accent);
+            line-height: var(--leading-none);
+        }
+
+        .about-stats__label {
+            font-family: var(--font-body);
+            font-size: var(--text-sm);
+            color: hsl(from var(--bg) h s l / 0.7);
+        }
+
+        /* Values */
+        .about-values {
+            background: var(--color-secondary-subtle);
+        }
+
+        .about-values__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-10);
+        }
+
+        .about-values__card {
+            background: var(--surface-page);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8) var(--space-6);
+        }
+
+        .about-values__icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-accent-subtle);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-5);
+            color: var(--color-accent);
+        }
+
+        .about-values__card h3 {
+            font-family: var(--font-heading);
+            font-size: var(--text-base);
+            font-weight: var(--weight-bold);
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+
+        .about-values__card p {
+            font-size: var(--text-sm);
+            line-height: var(--leading-relaxed);
+            color: var(--text-muted);
+        }
+
+        /* Contact / Map */
+        .about-contact {
+            background: var(--surface-warm);
+        }
+
+        .about-contact__grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: var(--space-12);
+            align-items: center;
+        }
+
+        .about-contact__info h2 {
+            text-align: left;
+            margin-bottom: var(--space-4);
+        }
+
+        .about-contact__address {
+            font-style: normal;
+            line-height: var(--leading-loose);
+            color: var(--text-body);
+            font-size: var(--text-md);
+        }
+
+        .about-contact__address p {
+            margin: 0;
+        }
+
+        .about-contact__address p:first-child {
+            font-weight: var(--weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+
+        .about-contact__map {
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            height: 360px;
+        }
+
+        .about-contact__map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-mission {
+                grid-template-columns: 1fr;
+                gap: var(--space-8);
+            }
+
+            .about-mission__img img {
+                height: 260px;
+            }
+
+            .about-contact__grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-8);
+            }
+
+            .about-contact__map {
+                height: 260px;
+            }
+
+        }
