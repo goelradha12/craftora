@@ -23,6 +23,7 @@ Rules:
 const ORIENTATION_BY_PRODUCT = {
   bottle: 'horizontal wrap layout',
   mug: 'horizontal wrap layout',
+  cup: 'horizontal wrap layout',
   diary: 'portrait layout',
   't-shirt': 'portrait chest layout',
   tshirt: 'portrait chest layout',
