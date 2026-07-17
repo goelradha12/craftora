@@ -3,13 +3,14 @@ const express = require('express');
 const cors = require('cors');
 const { generateOptimizedPrompt } = require('./services/groqService');
 const { generateImage } = require('./services/huggingfaceService');
+const { removeBackground } = require('./services/rmbgService');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 app.post('/api/ai/prompt', async (req, res) => {
-  const { product, prompt, style, styleOther, colors } = req.body || {};
+  const { product, prompt, style, styleOther, colors, outputType } = req.body || {};
   if (!prompt || !String(prompt).trim()) {
     return res.status(400).json({ error: 'A design description is required' });
   }
@@ -21,6 +22,7 @@ app.post('/api/ai/prompt', async (req, res) => {
       style,
       styleOther,
       colors,
+      outputType,
     });
     res.json({ optimizedPrompt });
   } catch (err) {
@@ -29,13 +31,17 @@ app.post('/api/ai/prompt', async (req, res) => {
 });
 
 app.post('/api/ai/image', async (req, res) => {
-  const { prompt } = req.body || {};
+  const { prompt, removeBackground: shouldRemoveBackground, backgroundTolerance } = req.body || {};
   if (!prompt || !String(prompt).trim()) {
     return res.status(400).json({ error: 'A prompt is required' });
   }
 
   try {
-    const image = await generateImage(prompt);
+    let image = await generateImage(prompt);
+    if (shouldRemoveBackground) {
+      const tolerance = Number.isFinite(backgroundTolerance) ? backgroundTolerance : undefined;
+      image = await removeBackground(image, tolerance);
+    }
     res.json({ image });
   } catch (err) {
     res.status(err.status || 500).json({ error: err.message, detail: err.detail });

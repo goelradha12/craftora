@@ -7,11 +7,11 @@
 
 const API_BASE = import.meta.env.VITE_AI_API_URL || 'http://localhost:3001';
 
-export async function generateOptimizedPrompt({ product, prompt, style, styleOther, colors }) {
+export async function generateOptimizedPrompt({ product, prompt, style, styleOther, colors, outputType }) {
     const res = await fetch(`${API_BASE}/api/ai/prompt`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ product, prompt, style, styleOther, colors }),
+        body: JSON.stringify({ product, prompt, style, styleOther, colors, outputType }),
     });
 
     const data = await res.json().catch(() => ({}));

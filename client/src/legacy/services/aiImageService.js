@@ -7,11 +7,11 @@
 
 const API_BASE = import.meta.env.VITE_AI_API_URL || 'http://localhost:3001';
 
-export async function generateImage(prompt) {
+export async function generateImage(prompt, { removeBackground = false, backgroundTolerance } = {}) {
     const res = await fetch(`${API_BASE}/api/ai/image`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({ prompt, removeBackground, backgroundTolerance }),
     });
 
     const data = await res.json().catch(() => ({}));

@@ -16,6 +16,7 @@
 
 import { generateOptimizedPrompt } from './services/aiPromptService.js';
 import { generateImage } from './services/aiImageService.js';
+import { getAllHistory, putHistoryEntry, deleteHistoryEntry, clearHistory as clearHistoryStore } from './services/designHistoryStore.js';
 
 export function initCustomize() {
 
@@ -657,13 +658,87 @@ export function initCustomize() {
             const styleOtherFieldEl = $('#ai-style-other-field');
             const styleOtherInputEl = $('#ai-style-other-input');
             const colorsEl = $('#ai-colors-input');
+            const removeBgToggleEl = $('#ai-remove-bg-toggle');
+            const BACKGROUND_TOLERANCE = 100;
             const generateBtn = $('#ai-generate-btn');
             const loadingEl = $('#ai-loading');
             const errorEl = $('#ai-error');
             const errTitle = $('#ai-error-title');
             const errDetail = $('#ai-error-detail');
+            const historyBarEl = $('#ai-history-bar');
+            const historyThumbsEl = $('#ai-history-thumbs');
+            const historyClearBtn = $('#ai-history-clear');
 
             if (!generateBtn) return;
+
+            const MAX_HISTORY = 30;
+
+            // Shared across every product — a design generated while customizing
+            // one item stays available when customizing another. Backed by
+            // IndexedDB (not localStorage — its ~5-10MB quota can't reliably
+            // hold more than one or two generated PNGs).
+            let history = []; // [{ id, dataUrl, createdAt }] — newest first
+            let activeHistoryId = null;
+
+            function renderHistory() {
+                if (!historyBarEl || !historyThumbsEl) return;
+                historyBarEl.style.display = history.length ? 'block' : 'none';
+                historyThumbsEl.innerHTML = history.map(function (entry) {
+                    return '<button type="button" class="ai-history-bar__thumb' +
+                        (entry.id === activeHistoryId ? ' active' : '') + '" data-history-id="' + entry.id + '" title="Use this design">' +
+                        '<img src="' + entry.dataUrl + '" alt="Generated design option">' +
+                        '<span class="ai-history-bar__thumb-remove" data-remove-id="' + entry.id + '" title="Remove">&times;</span>' +
+                        '</button>';
+                }).join('');
+            }
+
+            getAllHistory().then(function (items) {
+                history = items;
+                renderHistory();
+            }).catch(function () { /* IndexedDB unavailable — history just starts empty */ });
+
+            function addToHistory(dataUrl) {
+                const id = 'ai-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
+                const entry = { id: id, dataUrl: dataUrl, createdAt: Date.now() };
+                history.unshift(entry);
+                putHistoryEntry(entry).catch(function () { /* best-effort */ });
+                if (history.length > MAX_HISTORY) {
+                    const dropped = history.slice(MAX_HISTORY);
+                    history = history.slice(0, MAX_HISTORY);
+                    dropped.forEach(function (h) { deleteHistoryEntry(h.id).catch(function () { }); });
+                }
+                activeHistoryId = id;
+                renderHistory();
+            }
+
+            historyThumbsEl?.addEventListener('click', function (e) {
+                const removeBtn = e.target.closest('[data-remove-id]');
+                if (removeBtn) {
+                    e.stopPropagation();
+                    const removeId = removeBtn.dataset.removeId;
+                    history = history.filter(function (h) { return h.id !== removeId; });
+                    if (activeHistoryId === removeId) activeHistoryId = null;
+                    deleteHistoryEntry(removeId).catch(function () { });
+                    renderHistory();
+                    return;
+                }
+                const thumbBtn = e.target.closest('[data-history-id]');
+                if (!thumbBtn) return;
+                const entry = history.find(function (h) { return h.id === thumbBtn.dataset.historyId; });
+                if (!entry) return;
+                activeHistoryId = entry.id;
+                renderHistory();
+                if (typeof window._placeOnCanvas === 'function') {
+                    window._placeOnCanvas(entry.dataUrl, 'AI Design');
+                }
+            });
+
+            historyClearBtn?.addEventListener('click', function () {
+                history = [];
+                activeHistoryId = null;
+                clearHistoryStore().catch(function () { });
+                renderHistory();
+            });
 
             styleSelectEl?.addEventListener('change', function () {
                 styleOtherFieldEl.style.display = styleSelectEl.value === 'Other' ? 'flex' : 'none';
@@ -701,6 +776,8 @@ export function initCustomize() {
                 const style = styleSelectEl?.value || 'Minimal';
                 const styleOther = styleOtherInputEl?.value || '';
                 const colors = (colorsEl?.value || '').trim();
+                const removeBackground = !!removeBgToggleEl?.checked;
+                const outputType = removeBackground ? 'design' : 'photo';
 
                 showLoading();
                 try {
@@ -710,9 +787,11 @@ export function initCustomize() {
                         style,
                         styleOther,
                         colors,
+                        outputType,
                     });
-                    const imageDataUrl = await generateImage(optimizedPrompt);
+                    const imageDataUrl = await generateImage(optimizedPrompt, { removeBackground, backgroundTolerance: BACKGROUND_TOLERANCE });
                     hideLoading();
+                    addToHistory(imageDataUrl);
                     if (typeof window._placeOnCanvas === 'function') {
                         window._placeOnCanvas(imageDataUrl, 'AI Design');
                     }

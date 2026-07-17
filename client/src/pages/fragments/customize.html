@@ -214,6 +214,14 @@
                         <input type="text" id="ai-colors-input" placeholder="e.g. Blue White, Pastel, Warm colors">
                     </div>
 
+                    <label class="ai-toggle-field" for="ai-remove-bg-toggle">
+                        <span class="field-label" style="margin:0;">No background (transparent PNG)</span>
+                        <span class="ai-toggle">
+                            <input type="checkbox" id="ai-remove-bg-toggle">
+                            <span class="ai-toggle-track"><span class="ai-toggle-thumb"></span></span>
+                        </span>
+                    </label>
+
                     <button class="btn btn-primary btn-full" id="ai-generate-btn" type="button">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -354,6 +362,13 @@
                     <svg id="stage-svg" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
                     <div id="overlay"></div>
                 </div>
+            </div>
+            <div id="ai-history-bar" style="display:none">
+                <div class="ai-history-bar__header">
+                    <span class="ai-history-bar__label">AI Designs — click to try on canvas</span>
+                    <button class="ai-history-bar__clear" id="ai-history-clear" type="button">Clear</button>
+                </div>
+                <div class="ai-history-bar__thumbs" id="ai-history-thumbs"></div>
             </div>
         </main>
 

@@ -1,24 +1,36 @@
-const SYSTEM_PROMPT = `You are an expert prompt engineer for AI image generation focused on printable merchandise.
-
-Convert the user's idea into a professional image-generation prompt.
-
-Rules:
-
-- Produce artwork only.
-- Never create product mockups.
+const SHARED_RULES = `- Never create product mockups.
 - Never mention mugs, bottles, t-shirts or diaries.
 - Create centered printable artwork.
 - Respect the printable orientation of the selected product.
 - Respect the requested artistic style.
 - Respect requested colors.
-- Prefer flat vector illustrations unless another style is requested.
-- Transparent or white background.
 - No watermark.
 - No signature.
 - No frame.
 - High resolution.
 - Keep under 120 words.
 - Return ONLY the optimized prompt.`;
+
+const OUTPUT_TYPE_RULES = {
+  design: `- Produce artwork only, not a photograph.
+- Prefer flat vector illustrations unless another style is requested.
+- Solid, flat, pure white (#FFFFFF) background — no gradients, shadows, textures or objects behind the subject.`,
+  photo: `- Produce a photorealistic, photographic-style image.
+- Include a natural, contextual background appropriate to the subject.
+- Use realistic lighting, depth of field, and detail.`,
+};
+
+function systemPromptFor(outputType) {
+  const rules = OUTPUT_TYPE_RULES[outputType] || OUTPUT_TYPE_RULES.design;
+  return `You are an expert prompt engineer for AI image generation focused on printable merchandise.
+
+Convert the user's idea into a professional image-generation prompt.
+
+Rules:
+
+${rules}
+${SHARED_RULES}`;
+}
 
 const ORIENTATION_BY_PRODUCT = {
   bottle: 'horizontal wrap layout',
@@ -34,7 +46,7 @@ function orientationFor(product) {
   return ORIENTATION_BY_PRODUCT[key] || 'centered layout';
 }
 
-async function generateOptimizedPrompt({ product, prompt, style, styleOther, colors }) {
+async function generateOptimizedPrompt({ product, prompt, style, styleOther, colors, outputType }) {
   const resolvedStyle = style === 'Other' && styleOther ? styleOther : style;
   const userMessage = [
     `Product: ${product || 'Unknown'}`,
@@ -53,7 +65,7 @@ async function generateOptimizedPrompt({ product, prompt, style, styleOther, col
     body: JSON.stringify({
       model: 'llama-3.1-8b-instant',
       messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'system', content: systemPromptFor(outputType) },
         { role: 'user', content: userMessage },
       ],
       temperature: 0.7,
